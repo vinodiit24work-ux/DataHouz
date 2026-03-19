@@ -22,425 +22,534 @@
   --red:#ef4444;--red-bg:rgba(239,68,68,0.12);--red-border:rgba(239,68,68,0.3);
   --purple:#8b5cf6;--purple-bg:rgba(139,92,246,0.12);--purple-border:rgba(139,92,246,0.3);
   --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
-  --r:8px;--r2:12px;--r3:16px;
+  --r:6px;--r2:10px;--r3:14px;
+  --topbar:48px;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden;font-size:14px}
+html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px}
 
-/* SIDEBAR */
-#sidebar{width:240px;min-width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0}
-.logo{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;flex-shrink:0}
-.logo-name{font-size:16px;font-weight:700;letter-spacing:-0.4px}
-.logo-tag{font-size:10px;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase}
-.back-link{margin:10px 10px 0;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;transition:all .15s;text-decoration:none}
-.back-link:hover{border-color:var(--border2);color:var(--text)}
-.user-pill{margin:8px 10px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);display:none;align-items:center;gap:9px}
-.u-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
-.u-name{font-size:13px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.u-logout{font-size:11px;color:var(--text3);cursor:pointer;padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:transparent;font-family:var(--font);transition:all .15s}
-.u-logout:hover{color:var(--red);border-color:var(--red-border)}
-.nav-group{padding:12px 14px 3px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 14px;margin:1px 6px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13px;transition:all .15s;border-left:3px solid transparent}
-.nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
-.nav-item:hover{background:var(--bg3);color:var(--text)}
-.nav-item.active{background:var(--green-bg);color:var(--green);border-left-color:var(--green);font-weight:500}
-.nav-item.active svg{opacity:1}
+/* ══ TOPBAR ══ */
+#topbar{height:var(--topbar);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;z-index:200}
+.t-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
+.t-mark{width:26px;height:26px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff}
+.t-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.t-sep{width:1px;height:18px;background:var(--border);margin:0 4px}
+.t-nav{display:flex;gap:1px}
+.t-btn{padding:5px 10px;border-radius:var(--r);font-size:12px;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:var(--font);transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.t-btn svg{width:13px;height:13px;opacity:.7;flex-shrink:0}
+.t-btn:hover{background:var(--bg3);color:var(--text)}
+.t-btn.active{background:var(--green-bg);color:var(--green);font-weight:500}
+.t-btn.active svg{opacity:1}
+.t-right{margin-left:auto;display:flex;align-items:center;gap:7px}
+.t-pill{padding:3px 9px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2)}
+.t-login{padding:5px 12px;background:var(--green);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s}
+.t-login:hover{opacity:.85}
+.t-user{display:none;align-items:center;gap:7px}
+.t-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+.t-uname{font-size:12px;font-weight:500}
+.t-out{padding:3px 8px;border-radius:5px;font-size:11px;color:var(--text3);border:1px solid var(--border);cursor:pointer;background:transparent;font-family:var(--font)}
+.t-out:hover{color:var(--red);border-color:var(--red-border)}
+.t-home{padding:4px 9px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:11px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:4px}
+.t-home:hover{color:var(--text)}
 
-/* SQL FILTERS in sidebar */
-.filter-wrap{padding:12px 10px 8px;border-top:1px solid var(--border);margin-top:auto}
-.filter-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;padding:0 4px}
-.filter-group{margin-bottom:14px}
-.f-btn{display:flex;align-items:center;gap:7px;width:100%;padding:7px 10px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:12px;transition:all .15s;border-left:3px solid transparent;background:transparent;border-top:none;border-right:none;border-bottom:none;text-align:left;font-family:var(--font)}
-.f-btn:hover{background:var(--bg3);color:var(--text)}
-.f-btn.on{color:var(--text);background:var(--bg4);border-left:3px solid var(--green)}
-.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.de{background:var(--green)}.dm{background:var(--amber)}.dh{background:var(--red)}.da{background:var(--text3)}
+/* ══ APP BODY ══ */
+#app{display:flex;flex-direction:column;height:calc(100vh - var(--topbar))}
 
-/* MAIN */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden;height:100vh}
-.topbar{padding:11px 22px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.page-title{font-size:16px;font-weight:600;letter-spacing:-0.3px}
-.topbar-r{display:flex;align-items:center;gap:9px}
-.pill{padding:4px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2)}
-.btn-login-top{padding:7px 14px;background:var(--green);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s}
-.btn-login-top:hover{opacity:.85}
-.content{flex:1;overflow-y:auto;padding:20px}
+/* ══ PAGES ══ */
+.page{display:none;flex:1;overflow:hidden}.page.on{display:flex;flex-direction:column}
 
-/* SECTIONS */
-.sec{display:none}.sec.on{display:block}
-
-/* DASHBOARD */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:20px}
-.s-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;transition:border-color .2s}
-.s-card:hover{border-color:var(--border2)}
-.s-lbl{font-size:10px;color:var(--text3);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
-.s-val{font-size:28px;font-weight:700;letter-spacing:-1px}
-.s-sub{font-size:11px;color:var(--text3);margin-top:4px}
-.sg .s-val{color:var(--green)}.sb .s-val{color:var(--blue)}.sa .s-val{color:var(--amber)}.sp .s-val{color:var(--purple)}
-.sec-h{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.6px}
-.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-bottom:20px}
-.qa-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;gap:11px;align-items:flex-start}
-.qa-card:hover{border-color:var(--green-border);background:var(--bg3);transform:translateY(-1px)}
-.qa-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+/* ══ DASHBOARD / EXCEL / AI / ACHIEVEMENTS pages ══ */
+.scroll-page{flex:1;overflow-y:auto;padding:20px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
+.sc-lbl{font-size:10px;color:var(--text3);margin-bottom:4px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.sc-val{font-size:26px;font-weight:700;letter-spacing:-1px}
+.sc-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.cg .sc-val{color:var(--green)}.cb .sc-val{color:var(--blue)}.ca .sc-val{color:var(--amber)}.cp .sc-val{color:var(--purple)}
+.sec-h{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px}
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:18px}
+.qa{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 14px;cursor:pointer;transition:all .18s;display:flex;gap:10px}
+.qa:hover{border-color:var(--green-border);transform:translateY(-1px)}
+.qa-ico{font-size:17px;flex-shrink:0;margin-top:1px}
 .qa-title{font-size:13px;font-weight:500;margin-bottom:2px}
-.qa-desc{font-size:11px;color:var(--text3);line-height:1.5}
+.qa-desc{font-size:11px;color:var(--text3);line-height:1.4}
 .recent-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.r-item{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--border)}
-.r-item:last-child{border-bottom:none}
-.r-title{font-size:12px;flex:1}
-.r-time{font-size:11px;color:var(--text3)}
-.empty-msg{padding:20px;text-align:center;color:var(--text3);font-size:13px}
+.ri{display:flex;align-items:center;gap:8px;padding:8px 13px;border-bottom:1px solid var(--border);font-size:12px}
+.ri:last-child{border-bottom:none}
+.ri-title{flex:1}
+.ri-date{font-size:10px;color:var(--text3)}
+.empty{padding:20px;text-align:center;color:var(--text3);font-size:12px}
 
-/* TAGS */
-.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap}
+/* ══ TAGS ══ */
+.tag{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap;line-height:1.6}
 .te{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .tm{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
 .th{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .tt{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
-.ts2{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 
-/* ══════════════════════════════
-   SQL PRACTICE — TABLE LAYOUT
-   (matches the screenshot exactly)
-══════════════════════════════ */
-.sql-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;height:calc(100vh - 108px)}
+/* ══════════════════════════════════
+   SQL PAGE — LEETCODE STYLE LAYOUT
+══════════════════════════════════ */
+#sql-page{flex-direction:row;overflow:hidden}
 
-/* LEFT PANEL — question table */
-.q-table-panel{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.q-table-top{padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
-.q-search{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s;width:200px}
-.q-search:focus{border-color:var(--green)}
-.q-filter-sel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:6px 10px;color:var(--text);font-size:12px;outline:none;font-family:var(--font)}
-.q-shown{font-size:11px;color:var(--text3);margin-left:auto}
+/* FILTER SIDEBAR */
+#filter-sidebar{width:200px;min-width:200px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s}
+#filter-sidebar.collapsed{width:0;min-width:0;border-right:none}
+.fs-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.fs-title{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.7px}
+.fs-toggle{width:20px;height:20px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text3);border:none;background:transparent}
+.fs-toggle:hover{background:var(--bg3);color:var(--text)}
+.fs-body{flex:1;overflow-y:auto;padding:10px 8px}
+.fg{margin-bottom:14px}
+.fg-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;padding:0 4px}
+.fg-btn{display:flex;align-items:center;gap:6px;width:100%;padding:6px 8px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:11.5px;transition:all .12s;background:transparent;border:none;text-align:left;font-family:var(--font)}
+.fg-btn:hover{background:var(--bg3);color:var(--text)}
+.fg-btn.on{background:var(--green-bg);color:var(--green);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.de{background:var(--green)}.dm{background:var(--amber)}.dh{background:var(--red)}.da{background:var(--text3)}
+.fg-btn .check{margin-left:auto;font-size:10px;opacity:0}
+.fg-btn.on .check{opacity:1;color:var(--green)}
 
-/* the actual table */
-.q-tbl-wrap{overflow-y:auto;flex:1}
-.q-tbl{width:100%;border-collapse:collapse}
-.q-tbl thead{position:sticky;top:0;z-index:2}
-.q-tbl th{background:var(--bg3);padding:9px 14px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;letter-spacing:.6px;cursor:pointer;user-select:none;transition:color .15s}
-.q-tbl th:hover{color:var(--text2)}
-.q-tbl th .sort-icon{margin-left:4px;opacity:.4;font-size:9px}
-.q-tbl th.sorted .sort-icon{opacity:1;color:var(--green)}
-.q-tbl td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;transition:background .1s}
-.q-tbl tr:last-child td{border-bottom:none}
-.q-tbl tbody tr{cursor:pointer;transition:background .1s}
-.q-tbl tbody tr:hover td{background:var(--bg3)}
-.q-tbl tbody tr.selected td{background:var(--green-bg)}
-.q-tbl tbody tr.selected td:first-child{border-left:3px solid var(--green)}
-.td-num{color:var(--text3);font-family:var(--mono);font-size:11px;width:32px}
-.td-title{font-weight:400;max-width:220px;line-height:1.4}
-.td-title.solved-title{color:var(--green)}
-.solved-tick{color:var(--green);font-size:10px;margin-left:4px}
-.td-exp{font-family:var(--mono);font-size:11px;text-align:center;color:var(--text2)}
-.td-action{text-align:center}
-.act-btn{padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s}
-.act-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
-.q-tbl-empty td{text-align:center;color:var(--text3);padding:40px;font-size:13px}
+/* RESIZABLE SPLIT — 3 panels: list | drag | editor */
+#sql-split{flex:1;display:flex;overflow:hidden;position:relative}
 
-/* RIGHT PANEL — editor */
-.ed-panel{background:var(--bg2);display:flex;flex-direction:column;overflow:hidden}
-.q-detail{padding:16px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
-.q-detail-placeholder{color:var(--text3);font-size:13px;padding:20px 0;text-align:center}
-.q-dtitle{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35;letter-spacing:-0.2px}
-.q-dmeta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.q-ddesc{font-size:12px;color:var(--text2);line-height:1.65}
-.schema-box{margin-top:10px;padding:9px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7}
-.ed-body{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
-.ed-bar{padding:8px 14px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ed-bar-lbl{font-size:10px;color:var(--text3);font-family:var(--mono)}
-.kbd{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:2px 5px;font-size:9px;font-family:var(--mono);color:var(--text3);margin-left:auto}
-#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:140px}
-.ed-actions{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2)}
-.btn{padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:5px}
+/* LEFT: question list panel */
+#ql-panel{display:flex;flex-direction:column;overflow:hidden;min-width:120px;background:var(--bg2)}
+
+/* drag handle */
+#drag-handle{width:5px;background:var(--border);cursor:col-resize;flex-shrink:0;position:relative;transition:background .15s;z-index:10;display:flex;align-items:center;justify-content:center}
+#drag-handle::before{content:'';position:absolute;top:50%;transform:translateY(-50%);width:3px;height:32px;background:var(--border2);border-radius:2px;transition:all .15s}
+#drag-handle:hover,#drag-handle.dragging{background:var(--green-bg)}
+#drag-handle:hover::before,#drag-handle.dragging::before{background:var(--green);width:3px;height:48px}
+/* collapse icons on drag handle */
+.dh-arrow{position:absolute;top:50%;transform:translateY(-50%);width:18px;height:18px;background:var(--bg3);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3);cursor:pointer;transition:all .15s;opacity:0}
+#drag-handle:hover .dh-arrow{opacity:1}
+.dh-arrow:hover{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.dh-left{left:-9px}.dh-right{right:-9px}
+
+/* RIGHT: editor panel */
+#ed-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:200px;background:var(--bg2)}
+
+/* ── QUESTION LIST ── */
+.ql-top{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:8px;flex-shrink:0;background:var(--bg2)}
+.ql-search-row{display:flex;align-items:center;gap:6px}
+.ql-search{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:6px 10px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
+.ql-search:focus{border-color:var(--green)}
+.ql-count{font-size:10px;color:var(--text3);white-space:nowrap}
+/* active filter chips row */
+.filter-chips{display:flex;gap:5px;flex-wrap:wrap;min-height:0}
+.filter-chips:empty{display:none}
+.chip{display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid var(--green-border);background:var(--green-bg);color:var(--green)}
+.chip-x{font-size:11px;line-height:1;opacity:.7;transition:opacity .15s}
+.chip:hover .chip-x{opacity:1}
+.chip:hover{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+.clear-all{padding:2px 8px;border-radius:20px;font-size:10px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-family:var(--font);transition:all .15s}
+.clear-all:hover{border-color:var(--red-border);color:var(--red)}
+
+/* question table */
+.ql-table-wrap{flex:1;overflow-y:auto}
+.ql-table{width:100%;border-collapse:collapse}
+.ql-table thead{position:sticky;top:0;z-index:5}
+.ql-table th{background:var(--bg3);padding:7px 10px;font-size:9px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;cursor:pointer;user-select:none}
+.ql-table th:hover{color:var(--text2)}
+.ql-table th .si{margin-left:3px;font-size:8px;opacity:.4}
+.ql-table th.sorted .si{opacity:1;color:var(--green)}
+.ql-table td{padding:8px 10px;font-size:11.5px;border-bottom:1px solid var(--border);vertical-align:middle}
+.ql-table tr:last-child td{border-bottom:none}
+.ql-table tbody tr{cursor:pointer;transition:background .1s}
+.ql-table tbody tr:hover td{background:var(--bg3)}
+.ql-table tbody tr.sel td{background:var(--green-bg)}
+.ql-table tbody tr.sel td:first-child{border-left:3px solid var(--green)}
+.td-n{color:var(--text3);font-family:var(--mono);font-size:10px;width:28px}
+.td-title{max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.4}
+.td-title.sv{color:var(--green)}
+.sv-tick{color:var(--green);font-size:9px;margin-left:3px}
+.td-exp{font-family:var(--mono);font-size:10px;text-align:center;color:var(--text2)}
+.td-act{text-align:center}
+.solve-btn{padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .12s}
+.solve-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ql-empty td{text-align:center;color:var(--text3);padding:36px;font-size:12px}
+
+/* minimized state */
+#ql-panel.mini{min-width:36px}
+#ql-panel.mini .ql-top,#ql-panel.mini .ql-table-wrap{display:none}
+#ql-panel.mini .mini-tab{display:flex}
+.mini-tab{display:none;flex-direction:column;align-items:center;padding:12px 0;gap:10px;background:var(--bg2);border-right:1px solid var(--border);height:100%;cursor:pointer}
+.mini-tab-label{writing-mode:vertical-rl;font-size:10px;font-weight:600;color:var(--text2);letter-spacing:.5px;transform:rotate(180deg);white-space:nowrap}
+.mini-tab-count{font-size:9px;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);border-radius:20px;padding:1px 5px;font-weight:600}
+.mini-expand-btn{margin-top:auto;padding:6px;border-radius:var(--r);border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text3);font-size:12px;margin-bottom:8px;font-family:var(--font)}
+.mini-expand-btn:hover{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+
+/* ── EDITOR PANEL ── */
+.ep-tabs{display:flex;align-items:center;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;padding:0 4px}
+.ep-tab{padding:10px 14px;font-size:12px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.ep-tab:hover{color:var(--text2)}
+.ep-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
+.ep-tab-content{display:none;flex:1;flex-direction:column;overflow:hidden}
+.ep-tab-content.on{display:flex}
+
+/* question detail */
+.q-detail{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-y:auto;max-height:220px}
+.q-detail-ph{color:var(--text3);font-size:12px;padding:20px 0;text-align:center}
+.q-dtitle{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35;letter-spacing:-.2px}
+.q-dmeta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.q-ddesc{font-size:12px;color:var(--text2);line-height:1.6}
+.schema-box{margin-top:9px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:10.5px;color:var(--text3);line-height:1.7}
+
+/* editor */
+.ed-bar{padding:7px 12px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ed-lbl{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.kbd{background:var(--bg4);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:9px;font-family:var(--mono);color:var(--text3);margin-left:auto}
+#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:100px}
+.ed-actions{padding:9px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2)}
+
+/* result */
+.res-panel{background:var(--bg3);border-top:1px solid var(--border);flex-shrink:0}
+.res-panel-head{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.res-panel-head:hover{background:var(--bg4)}
+.res-lbl{font-size:10px;color:var(--text3)}
+.res-ok{font-size:11px;color:var(--green);font-weight:500}
+.res-err{font-size:11px;color:var(--red)}
+.res-toggle{margin-left:auto;font-size:11px;color:var(--text3);transition:transform .2s}
+.res-body-wrap{max-height:200px;overflow:auto;transition:max-height .2s}
+.res-body-wrap.closed{max-height:0;overflow:hidden}
+.res-table{width:100%;border-collapse:collapse}
+.res-table th{background:var(--bg4);padding:6px 11px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;white-space:nowrap}
+.res-table td{padding:6px 11px;font-size:11px;font-family:var(--mono);border-bottom:1px solid var(--border)}
+.res-table tr:last-child td{border-bottom:none}
+.res-table tr:hover td{background:var(--bg4)}
+.res-empty{padding:18px;text-align:center;color:var(--text3);font-size:12px}
+
+/* ── BUTTONS ── */
+.btn{padding:6px 13px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:5px}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
-.res-panel{background:var(--bg3);border-top:1px solid var(--border);max-height:220px;overflow:auto;flex-shrink:0}
-.res-head{padding:8px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;position:sticky;top:0;background:var(--bg3);z-index:1}
-.res-lbl{font-size:11px;color:var(--text3)}
-.res-ok{font-size:11px;color:var(--green);font-weight:500}
-.res-err{font-size:11px;color:var(--red)}
-.res-table{width:100%;border-collapse:collapse}
-.res-table th{background:var(--bg4);padding:6px 12px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:36px;white-space:nowrap}
-.res-table td{padding:6px 12px;font-size:11px;font-family:var(--mono);border-bottom:1px solid var(--border)}
-.res-table tr:last-child td{border-bottom:none}
-.res-table tr:hover td{background:var(--bg4)}
-.null-val{color:var(--text3)}
-.res-empty{padding:20px;text-align:center;color:var(--text3);font-size:12px}
 
-/* EXCEL */
-.xl-wrap{display:flex;flex-direction:column;gap:12px}
-.xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+/* ── EXCEL ── */
+.xl-wrap{display:flex;flex-direction:column;gap:11px}
+.xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .xl-info h2{font-size:14px;font-weight:600;margin-bottom:2px}
 .xl-info p{font-size:11px;color:var(--text3)}
 .xl-grid-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-#excel-grid{width:100%;height:440px}
-.xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px}
-.task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:7px;margin-top:9px}
-.task{padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
-.task-n{width:18px;height:18px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
+#excel-grid{width:100%;height:420px}
+.xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 16px}
+.task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:7px;margin-top:8px}
+.task{padding:9px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;display:flex;gap:8px;line-height:1.5}
+.task-n{width:17px;height:17px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
 
-/* AI */
-.ai-wrap{max-width:700px;margin:0 auto}
-.chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;height:calc(100vh - 185px)}
-.chat-top{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px;flex-shrink:0}
-.ai-av{width:34px;height:34px;border-radius:var(--r);background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+/* ── AI ── */
+.ai-wrap{max-width:680px;margin:0 auto;height:100%;display:flex;flex-direction:column}
+.chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;flex:1}
+.chat-top{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-av{width:30px;height:30px;border-radius:var(--r);background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .ai-nm{font-size:13px;font-weight:600}
-.ai-st{font-size:11px;color:var(--green)}
-.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-.msg{display:flex;gap:8px;align-items:flex-start}
+.ai-st{font-size:10px;color:var(--green)}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px}
+.msg{display:flex;gap:8px}
 .msg-u{flex-direction:row-reverse}
-.bubble{max-width:78%;padding:10px 13px;border-radius:var(--r2);font-size:13px;line-height:1.65}
+.bubble{max-width:80%;padding:9px 12px;border-radius:var(--r2);font-size:13px;line-height:1.6}
 .msg-ai .bubble{background:var(--bg3);border:1px solid var(--border)}
 .msg-u .bubble{background:var(--green);color:#fff}
-.av-sm{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.av-sm{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
 .msg-ai .av-sm{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}
 .msg-u .av-sm{background:var(--green2);color:#fff}
-.quick-row{display:flex;gap:6px;flex-wrap:wrap;padding:7px 16px;border-top:1px solid var(--border);flex-shrink:0}
-.q-chip{padding:5px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
-.q-chip:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
-.chat-inp-row{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
-.chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;transition:border-color .15s}
+.quick-row{display:flex;gap:5px;flex-wrap:wrap;padding:6px 14px;border-top:1px solid var(--border);flex-shrink:0}
+.qchip{padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qchip:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
+.chat-inp-row{padding:11px 14px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0}
+.chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;color:var(--text);font-size:13px;font-family:var(--font);outline:none}
 .chat-inp:focus{border-color:var(--border2)}
 
-/* ACHIEVEMENTS */
-.ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.ach-col{display:flex;flex-direction:column;gap:12px}
-.ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px}
-.ach-box-title{font-size:13px;font-weight:600;margin-bottom:12px}
-.bdg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:12px 8px;text-align:center;transition:all .2s}
+/* ── ACHIEVEMENTS ── */
+.ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.ach-col{display:flex;flex-direction:column;gap:11px}
+.ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:15px 16px}
+.ach-ttl{font-size:13px;font-weight:600;margin-bottom:11px}
+.bdg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 7px;text-align:center;transition:all .2s}
 .bdg.on{border-color:var(--amber-border);background:var(--amber-bg)}
-.bdg-ico{font-size:22px;display:block;margin-bottom:4px;opacity:.2;transition:opacity .2s}
+.bdg-ico{font-size:20px;display:block;margin-bottom:4px;opacity:.2;transition:opacity .2s}
 .bdg.on .bdg-ico{opacity:1}
-.bdg-nm{font-size:10px;font-weight:500;color:var(--text3)}
-.bdg.on .bdg-nm{color:var(--amber)}
-.sl-list{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto}
-.sl-item{padding:8px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:8px;font-size:12px}
+.bdg-nm{font-size:10px;color:var(--text3)}
+.bdg.on .bdg-nm{color:var(--amber);font-weight:500}
+.sl-list{display:flex;flex-direction:column;gap:5px;max-height:220px;overflow-y:auto}
+.sl-item{padding:7px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:7px;font-size:11.5px}
 .sl-title{flex:1}
 .sl-date{font-size:10px;color:var(--text3)}
-.resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:26px}
-.res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:14px;margin-bottom:14px}
-.res-nm{font-size:20px;font-weight:700;color:#111;margin-bottom:3px}
+.resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:24px}
+.res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:13px;margin-bottom:13px}
+.res-nm{font-size:19px;font-weight:700;color:#111;margin-bottom:2px}
 .res-tg{font-size:12px;color:#555}
-.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.rs-cell{text-align:center;padding:10px;background:#f8fafc;border-radius:var(--r)}
-.rs-val{font-size:20px;font-weight:700;color:#10b981;display:block}
-.rs-lbl{font-size:11px;color:#666}
-.res-sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:6px}
-.res-ql{list-style:none;font-size:12px;color:#333}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}
+.rs-cell{text-align:center;padding:9px;background:#f8fafc;border-radius:6px}
+.rs-val{font-size:19px;font-weight:700;color:#10b981;display:block}
+.rs-lbl{font-size:10px;color:#666}
+.res-sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:5px}
+.res-ql{list-style:none;font-size:11.5px;color:#333}
 .res-ql li{padding:3px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between}
 .res-ql li:last-child{border-bottom:none}
-.res-wm{text-align:center;margin-top:14px;font-size:10px;color:#bbb}
+.res-wm{text-align:center;margin-top:12px;font-size:9px;color:#bbb}
 
-/* LOGIN MODAL */
+/* ── MODAL ── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(3px)}
 .overlay.show{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:26px;width:100%;max-width:390px;animation:mIn .2s ease}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:24px;width:100%;max-width:380px;animation:mIn .18s ease}
 @keyframes mIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-.m-tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--bg3);border-radius:var(--r);padding:3px}
+.m-tabs{display:flex;gap:3px;margin-bottom:15px;background:var(--bg3);border-radius:var(--r);padding:3px}
 .m-tab{flex:1;padding:6px;text-align:center;border-radius:calc(var(--r) - 2px);font-size:12px;cursor:pointer;color:var(--text3);transition:all .15s}
 .m-tab.on{background:var(--bg2);color:var(--text);font-weight:500}
-.m-title{font-size:17px;font-weight:700;margin-bottom:3px}
-.m-sub{font-size:11px;color:var(--text3);margin-bottom:18px}
-.m-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;display:block}
-.m-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;margin-bottom:10px;transition:border-color .15s}
+.m-title{font-size:16px;font-weight:700;margin-bottom:3px}
+.m-sub{font-size:11px;color:var(--text3);margin-bottom:16px}
+.m-lbl{font-size:10px;color:var(--text3);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:.5px}
+.m-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;margin-bottom:10px;transition:border-color .15s}
 .m-inp:focus{border-color:var(--green)}
-.m-foot{text-align:center;font-size:11px;color:var(--text3);margin-top:9px}
+.m-foot{text-align:center;font-size:10px;color:var(--text3);margin-top:8px}
 
-/* HOT overrides */
+/* ── MOBILE ── */
+@media(max-width:768px){
+  #filter-sidebar{display:none}
+  .ach-wrap{grid-template-columns:1fr}
+  .t-btn span{display:none}
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+
+/* HANDSONTABLE */
 .handsontable{font-family:var(--mono)!important;font-size:12px!important}
 .handsontable th,.handsontable td{background:var(--bg3)!important;border-color:var(--border)!important;color:var(--text)!important}
 .handsontable thead th{background:var(--bg4)!important;color:var(--text2)!important}
 .wtHolder,.ht_master{background:var(--bg3)!important}
 
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
-@media(max-width:860px){#sidebar{display:none}.sql-layout{grid-template-columns:1fr;height:auto}.ach-wrap{grid-template-columns:1fr}}
+/* no-select during drag */
+.no-select{user-select:none;-webkit-user-select:none}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div id="sidebar">
-  <div class="logo">
-    <div class="logo-mark">P</div>
-    <div><div class="logo-name">PracticeHub</div><div class="logo-tag">SQL · Excel · AI</div></div>
-  </div>
-  <a class="back-link" href="index.html">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back to Home
+<!-- ══════════ TOPBAR ══════════ -->
+<div id="topbar">
+  <a class="t-logo" href="index.html">
+    <div class="t-mark">P</div>
+    <div class="t-name">PracticeHub</div>
   </a>
-  <div class="user-pill" id="user-pill">
-    <div class="u-av" id="u-av">V</div>
-    <div class="u-name" id="u-name">User</div>
-    <button class="u-logout" onclick="doLogout()">↩</button>
-  </div>
-
-  <div class="nav-group">Practice</div>
-  <div class="nav-item active" id="nav-dashboard" onclick="goTo('dashboard',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard
-  </div>
-  <div class="nav-item" id="nav-sql" onclick="goTo('sql',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>SQL Practice
-  </div>
-  <div class="nav-item" id="nav-excel" onclick="goTo('excel',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>Excel Practice
-  </div>
-  <div class="nav-item" id="nav-ai" onclick="goTo('ai',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI Helper
-  </div>
-  <div class="nav-item" id="nav-achievements" onclick="goTo('achievements',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Achievements
-  </div>
-
-  <!-- SQL filters (only visible on SQL page) -->
-  <div class="filter-wrap" id="sql-filters" style="display:none">
-    <div class="filter-group">
-      <div class="filter-lbl">Difficulty</div>
-      <button class="f-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All</button>
-      <button class="f-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy</button>
-      <button class="f-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium</button>
-      <button class="f-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard</button>
-    </div>
-    <div class="filter-group">
-      <div class="filter-lbl">Topic</div>
-      <button class="f-btn on" onclick="setF('topic','all',this)">All topics</button>
-      <button class="f-btn" onclick="setF('topic','JOIN',this)">JOIN</button>
-      <button class="f-btn" onclick="setF('topic','Window',this)">Window Functions</button>
-      <button class="f-btn" onclick="setF('topic','Aggregate',this)">Aggregate</button>
-      <button class="f-btn" onclick="setF('topic','Subquery',this)">Subquery</button>
-      <button class="f-btn" onclick="setF('topic','CTE',this)">CTE</button>
-    </div>
-    <div class="filter-group">
-      <div class="filter-lbl">Company</div>
-      <button class="f-btn on" onclick="setF('co','all',this)">All companies</button>
-      <button class="f-btn" onclick="setF('co','Google',this)">Google</button>
-      <button class="f-btn" onclick="setF('co','Amazon',this)">Amazon</button>
-      <button class="f-btn" onclick="setF('co','Meta',this)">Meta</button>
-      <button class="f-btn" onclick="setF('co','Netflix',this)">Netflix</button>
-      <button class="f-btn" onclick="setF('co','Microsoft',this)">Microsoft</button>
-      <button class="f-btn" onclick="setF('co','Flipkart',this)">Flipkart</button>
-    </div>
-    <div class="filter-group">
-      <div class="filter-lbl">Status</div>
-      <button class="f-btn on" onclick="setF('status','all',this)">All</button>
-      <button class="f-btn" onclick="setF('status','solved',this)">Solved ✓</button>
-      <button class="f-btn" onclick="setF('status','unsolved',this)">Unsolved</button>
+  <div class="t-sep"></div>
+  <nav class="t-nav">
+    <button class="t-btn active" id="tb-dashboard" onclick="showPage('dashboard',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="t-btn" id="tb-sql" onclick="showPage('sql',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      <span>SQL Practice</span>
+    </button>
+    <button class="t-btn" id="tb-excel" onclick="showPage('excel',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+      <span>Excel</span>
+    </button>
+    <button class="t-btn" id="tb-ai" onclick="showPage('ai',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <span>AI Helper</span>
+    </button>
+    <button class="t-btn" id="tb-ach" onclick="showPage('achievements',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      <span>Achievements</span>
+    </button>
+  </nav>
+  <div class="t-right">
+    <div class="t-pill" id="t-pill">0 solved</div>
+    <button class="t-login" id="t-login-btn" onclick="openModal()">Login / Sign Up</button>
+    <div class="t-user" id="t-user">
+      <div class="t-av" id="t-av">V</div>
+      <span class="t-uname" id="t-uname">User</span>
+      <button class="t-out" onclick="doLogout()">↩</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div id="main">
-  <div class="topbar">
-    <div class="page-title" id="page-title">Dashboard</div>
-    <div class="topbar-r">
-      <div class="pill" id="top-pill">0 solved</div>
-      <button class="btn-login-top" id="btn-login-top" onclick="openModal()">Login / Sign Up</button>
-    </div>
-  </div>
+<!-- ══════════ APP ══════════ -->
+<div id="app">
 
-  <div class="content">
-
-    <!-- DASHBOARD -->
-    <div class="sec on" id="sec-dashboard">
+  <!-- DASHBOARD -->
+  <div class="page on" id="page-dashboard">
+    <div class="scroll-page">
       <div class="stats-row">
-        <div class="s-card sg"><div class="s-lbl">SQL Solved</div><div class="s-val" id="d-sql">0</div><div class="s-sub">questions done</div></div>
-        <div class="s-card sb"><div class="s-lbl">Excel Tasks</div><div class="s-val" id="d-excel">0</div><div class="s-sub">challenges done</div></div>
-        <div class="s-card sa"><div class="s-lbl">AI Sessions</div><div class="s-val" id="d-ai">0</div><div class="s-sub">questions asked</div></div>
-        <div class="s-card sp"><div class="s-lbl">Streak</div><div class="s-val" id="d-streak">0</div><div class="s-sub">🔥 days</div></div>
+        <div class="sc cg"><div class="sc-lbl">SQL Solved</div><div class="sc-val" id="d-sql">0</div><div class="sc-sub">questions</div></div>
+        <div class="sc cb"><div class="sc-lbl">Excel Tasks</div><div class="sc-val" id="d-excel">0</div><div class="sc-sub">challenges</div></div>
+        <div class="sc ca"><div class="sc-lbl">AI Sessions</div><div class="sc-val" id="d-ai">0</div><div class="sc-sub">queries asked</div></div>
+        <div class="sc cp"><div class="sc-lbl">Streak</div><div class="sc-val" id="d-streak">0</div><div class="sc-sub">🔥 days</div></div>
       </div>
       <div class="sec-h">Quick Start</div>
       <div class="qa-grid">
-        <div class="qa-card" onclick="goTo('sql',document.getElementById('nav-sql'))">
-          <div class="qa-icon">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · LeetCode style</div></div>
+        <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))">
+          <div class="qa-ico">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · LeetCode style</div></div>
         </div>
-        <div class="qa-card" onclick="goTo('excel',document.getElementById('nav-excel'))">
-          <div class="qa-icon">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div>
+        <div class="qa" onclick="showPage('excel',document.getElementById('tb-excel'))">
+          <div class="qa-ico">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div>
         </div>
-        <div class="qa-card" onclick="goTo('ai',document.getElementById('nav-ai'))">
-          <div class="qa-icon">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Get hints</div></div>
+        <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))">
+          <div class="qa-ico">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Hints</div></div>
         </div>
-        <div class="qa-card" onclick="goTo('achievements',document.getElementById('nav-achievements'))">
-          <div class="qa-icon">🏆</div><div><div class="qa-title">Achievements</div><div class="qa-desc">Badges · Resume PDF · Share</div></div>
+        <div class="qa" onclick="showPage('achievements',document.getElementById('tb-ach'))">
+          <div class="qa-ico">🏆</div><div><div class="qa-title">Achievements</div><div class="qa-desc">Badges · Resume PDF · Share</div></div>
         </div>
       </div>
       <div class="sec-h">Recently Solved</div>
-      <div class="recent-box"><div id="recent-body"><div class="empty-msg">No questions solved yet — start practicing! 🚀</div></div></div>
+      <div class="recent-box" id="recent-box"><div class="empty">No questions solved yet — start practicing! 🚀</div></div>
     </div>
+  </div>
 
-    <!-- SQL PRACTICE — TABLE LAYOUT -->
-    <div class="sec" id="sec-sql" style="padding:0;margin:-20px">
-      <div class="sql-layout">
+  <!-- SQL PRACTICE — LEETCODE LAYOUT -->
+  <div class="page" id="page-sql" style="flex-direction:row">
 
-        <!-- LEFT: Question Table (matches screenshot) -->
-        <div class="q-table-panel">
-          <div class="q-table-top">
-            <input class="q-search" id="q-search" placeholder="Search questions..." oninput="renderQTable()"/>
-            <select class="q-filter-sel" id="qf-diff" onchange="renderQTable()">
-              <option value="">All Difficulty</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-            <select class="q-filter-sel" id="qf-topic" onchange="renderQTable()">
-              <option value="">All Topics</option>
-              <option>JOIN</option><option>Window</option><option>Aggregate</option>
-              <option>Subquery</option><option>CTE</option>
-            </select>
-            <span class="q-shown" id="q-shown">0 questions</span>
-          </div>
-          <div class="q-tbl-wrap">
-            <table class="q-tbl">
-              <thead>
-                <tr>
-                  <th class="td-num" onclick="sortBy('#')"># <span class="sort-icon">▲</span></th>
-                  <th onclick="sortBy('title')">TITLE <span class="sort-icon">▲</span></th>
-                  <th onclick="sortBy('diff')">DIFFICULTY <span class="sort-icon">▲</span></th>
-                  <th onclick="sortBy('topic')">TOPIC <span class="sort-icon">▲</span></th>
-                  <th onclick="sortBy('co')">COMPANY <span class="sort-icon">▲</span></th>
-                  <th style="text-align:center">EXP. ROWS <span class="sort-icon">▲</span></th>
-                  <th style="text-align:center">ACTIONS</th>
-                </tr>
-              </thead>
-              <tbody id="q-tbl-body"></tbody>
-            </table>
-          </div>
+    <!-- FILTER SIDEBAR -->
+    <div id="filter-sidebar">
+      <div class="fs-head">
+        <span class="fs-title">Filters</span>
+        <button class="fs-toggle" onclick="toggleSidebar()" title="Hide filters">◀</button>
+      </div>
+      <div class="fs-body">
+        <div class="fg">
+          <div class="fg-label">Difficulty</div>
+          <button class="fg-btn on" onclick="setFilter('diff','all',this)"><span class="dot da"></span>All<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('diff','easy',this)"><span class="dot de"></span>Easy<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('diff','medium',this)"><span class="dot dm"></span>Medium<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('diff','hard',this)"><span class="dot dh"></span>Hard<span class="check">✓</span></button>
         </div>
-
-        <!-- RIGHT: Editor Panel -->
-        <div class="ed-panel">
-          <div class="q-detail" id="q-detail">
-            <div class="q-detail-placeholder">← Click any question to open it here</div>
-          </div>
-          <div class="ed-body">
-            <div class="ed-bar">
-              <span class="ed-bar-lbl">SQL Editor</span>
-              <span class="kbd" style="margin-left:auto">Ctrl+Enter to run</span>
-            </div>
-            <textarea id="sql-editor" spellcheck="false" placeholder="-- Click a question on the left, then write your SQL here&#10;SELECT * FROM employees;"></textarea>
-            <div class="ed-actions">
-              <button class="btn btn-blue" onclick="runSQL()">▶ Run Query</button>
-              <button class="btn btn-green" onclick="submitSQL()">✓ Submit</button>
-              <button class="btn btn-ghost" onclick="getHint()">💡 Hint</button>
-            </div>
-          </div>
-          <div class="res-panel">
-            <div class="res-head"><span class="res-lbl">Output</span><span id="res-meta"></span></div>
-            <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
-          </div>
+        <div class="fg">
+          <div class="fg-label">Topic</div>
+          <button class="fg-btn on" onclick="setFilter('topic','all',this)">All Topics<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('topic','Aggregate',this)">Aggregate<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('topic','JOIN',this)">JOIN<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('topic','Window',this)">Window Functions<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('topic','Subquery',this)">Subquery<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('topic','CTE',this)">CTE<span class="check">✓</span></button>
+        </div>
+        <div class="fg">
+          <div class="fg-label">Company</div>
+          <button class="fg-btn on" onclick="setFilter('co','all',this)">All Companies<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Google',this)">Google<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Amazon',this)">Amazon<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Meta',this)">Meta<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Netflix',this)">Netflix<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Microsoft',this)">Microsoft<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('co','Flipkart',this)">Flipkart<span class="check">✓</span></button>
+        </div>
+        <div class="fg">
+          <div class="fg-label">Status</div>
+          <button class="fg-btn on" onclick="setFilter('status','all',this)">All<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('status','solved',this)">Solved ✓<span class="check">✓</span></button>
+          <button class="fg-btn" onclick="setFilter('status','unsolved',this)">Unsolved<span class="check">✓</span></button>
         </div>
       </div>
     </div>
 
-    <!-- EXCEL -->
-    <div class="sec" id="sec-excel">
+    <!-- RESIZABLE SPLIT -->
+    <div id="sql-split">
+
+      <!-- LEFT: Question List -->
+      <div id="ql-panel" style="width:42%">
+        <!-- minimized tab (shown when collapsed) -->
+        <div class="mini-tab" onclick="expandQL()">
+          <div class="mini-tab-label">QUESTIONS</div>
+          <div class="mini-tab-count" id="mini-count">15</div>
+          <button class="mini-expand-btn">▶</button>
+        </div>
+
+        <!-- normal view -->
+        <div class="ql-top">
+          <div class="ql-search-row">
+            <!-- sidebar toggle button (visible when sidebar is hidden) -->
+            <button id="sidebar-show-btn" class="btn btn-ghost" style="display:none;padding:5px 8px;font-size:11px" onclick="toggleSidebar()" title="Show filters">☰</button>
+            <input class="ql-search" id="ql-search" placeholder="Search questions..." oninput="renderTable()"/>
+            <span class="ql-count" id="ql-count">0</span>
+          </div>
+          <!-- Active filter chips -->
+          <div class="filter-chips" id="filter-chips"></div>
+        </div>
+
+        <div class="ql-table-wrap">
+          <table class="ql-table">
+            <thead>
+              <tr>
+                <th class="td-n">#</th>
+                <th onclick="sortTable('title')" style="width:100%">TITLE <span class="si" id="si-title">▲</span></th>
+                <th onclick="sortTable('diff')">DIFFICULTY <span class="si" id="si-diff">▲</span></th>
+                <th onclick="sortTable('topic')">TOPIC <span class="si" id="si-topic">▲</span></th>
+                <th onclick="sortTable('co')">COMPANY <span class="si" id="si-co">▲</span></th>
+                <th style="text-align:center">ROWS</th>
+                <th style="text-align:center">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="ql-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DRAG HANDLE -->
+      <div id="drag-handle">
+        <button class="dh-arrow dh-left" onclick="collapseQL()" title="Collapse questions">◀</button>
+        <button class="dh-arrow dh-right" onclick="expandQL()" title="Expand questions">▶</button>
+      </div>
+
+      <!-- RIGHT: Editor -->
+      <div id="ed-panel">
+        <div class="ep-tabs">
+          <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
+          <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
+          <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
+        </div>
+
+        <!-- Description tab -->
+        <div class="ep-tab-content on" id="ept-desc" style="flex-direction:column">
+          <div class="q-detail" id="q-detail">
+            <div class="q-detail-ph">← Select a question from the list to begin</div>
+          </div>
+          <div class="ed-bar">
+            <span class="ed-lbl">SQL Editor</span>
+            <span class="kbd" style="margin-left:auto">Ctrl+Enter = Run</span>
+          </div>
+          <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;SELECT * FROM employees;"></textarea>
+          <div class="ed-actions">
+            <button class="btn btn-blue" onclick="runSQL()">▶ Run</button>
+            <button class="btn btn-green" onclick="submitSQL()">✓ Submit</button>
+            <button class="btn btn-ghost" onclick="getHint()">💡 Hint</button>
+          </div>
+          <div class="res-panel">
+            <div class="res-panel-head" onclick="toggleResult()">
+              <span class="res-lbl">Output</span>
+              <span id="res-meta"></span>
+              <span class="res-toggle" id="res-toggle">▼</span>
+            </div>
+            <div class="res-body-wrap" id="res-body-wrap">
+              <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solution tab -->
+        <div class="ep-tab-content" id="ept-solution" style="flex-direction:column;overflow-y:auto;padding:16px">
+          <div id="solution-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first to see solution hints.</div>
+        </div>
+
+        <!-- Hints tab -->
+        <div class="ep-tab-content" id="ept-hints" style="flex-direction:column;overflow-y:auto;padding:16px">
+          <div id="hints-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first to see hints.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXCEL -->
+  <div class="page" id="page-excel">
+    <div class="scroll-page">
       <div class="xl-wrap">
         <div class="xl-top">
-          <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · Use =SUM(), =AVERAGE(), =VLOOKUP() · Drag to fill · Sort & filter</p></div>
+          <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · =SUM() · =AVERAGE() · =VLOOKUP() · Drag to fill · Sort & filter</p></div>
           <div style="display:flex;gap:7px">
             <button class="btn btn-ghost" onclick="resetXL()">Reset</button>
             <button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button>
@@ -452,17 +561,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
           <div class="task-grid">
             <div class="task"><div class="task-n">1</div>Calculate Q1 Total in column E using =SUM(B2:D2)</div>
             <div class="task"><div class="task-n">2</div>Find average monthly sales per product in column F</div>
-            <div class="task"><div class="task-n">3</div>Sort products by Total Sales descending</div>
-            <div class="task"><div class="task-n">4</div>Add a new row for "Tablet" with your own data</div>
+            <div class="task"><div class="task-n">3</div>Sort by Total Sales descending</div>
+            <div class="task"><div class="task-n">4</div>Add a new "Tablet" row with your data</div>
             <div class="task"><div class="task-n">5</div>Use =MAX() and =MIN() to find best and worst month</div>
             <div class="task"><div class="task-n">6</div>Create a running cumulative total using SUM</div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- AI -->
-    <div class="sec" id="sec-ai">
+  <!-- AI HELPER -->
+  <div class="page" id="page-ai">
+    <div class="scroll-page" style="display:flex;flex-direction:column">
       <div class="ai-wrap">
         <div class="chat-card">
           <div class="chat-top">
@@ -470,17 +581,16 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
             <div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online · Claude AI</div></div>
           </div>
           <div class="chat-msgs" id="chat-msgs">
-            <div class="msg msg-ai">
-              <div class="av-sm">🤖</div>
-              <div class="bubble">Hi! 👋 Ask me about SQL errors, JOIN types, window functions, Excel formulas — I'm here to help you ace interviews!</div>
+            <div class="msg msg-ai"><div class="av-sm">🤖</div>
+              <div class="bubble">Hi! 👋 I'm your SQL & Excel coach. Ask me about query errors, JOINs, window functions, Excel formulas — anything!</div>
             </div>
           </div>
           <div class="quick-row">
-            <div class="q-chip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with example')">JOIN types</div>
-            <div class="q-chip" onclick="quickAsk('How do RANK() and DENSE_RANK() window functions work?')">Window functions</div>
-            <div class="q-chip" onclick="quickAsk('How to use VLOOKUP in Excel?')">VLOOKUP</div>
-            <div class="q-chip" onclick="quickAsk('What is a CTE and when to use it?')">CTE explained</div>
-            <div class="q-chip" onclick="quickAsk('How to find second highest salary in SQL?')">2nd highest salary</div>
+            <div class="qchip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with example')">JOIN types</div>
+            <div class="qchip" onclick="quickAsk('How do RANK() and DENSE_RANK() work?')">Window functions</div>
+            <div class="qchip" onclick="quickAsk('How to use VLOOKUP in Excel?')">VLOOKUP</div>
+            <div class="qchip" onclick="quickAsk('What is a CTE and when to use it?')">CTE</div>
+            <div class="qchip" onclick="quickAsk('How to find second highest salary in SQL?')">2nd highest</div>
           </div>
           <div class="chat-inp-row">
             <input class="chat-inp" id="chat-inp" placeholder="Ask about SQL, Excel, or interview tips..." onkeydown="if(event.key==='Enter')sendMsg()"/>
@@ -489,13 +599,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ACHIEVEMENTS -->
-    <div class="sec" id="sec-achievements">
+  <!-- ACHIEVEMENTS -->
+  <div class="page" id="page-achievements">
+    <div class="scroll-page">
       <div class="ach-wrap">
         <div class="ach-col">
           <div class="ach-box">
-            <div class="ach-box-title">Your Badges</div>
+            <div class="ach-ttl">Your Badges</div>
             <div class="bdg-grid">
               <div class="bdg" id="b-beginner"><span class="bdg-ico">🌱</span><div class="bdg-nm">SQL Beginner</div></div>
               <div class="bdg" id="b-joiner"><span class="bdg-ico">🔗</span><div class="bdg-nm">JOIN Master</div></div>
@@ -506,8 +618,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
             </div>
           </div>
           <div class="ach-box">
-            <div class="ach-box-title">Solved Questions</div>
-            <div class="sl-list" id="sl-list"><div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div></div>
+            <div class="ach-ttl">Solved Questions</div>
+            <div class="sl-list" id="sl-list"><div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div></div>
           </div>
         </div>
         <div class="ach-col">
@@ -522,21 +634,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
                 <div class="rs-cell"><span class="rs-val" id="r-excel">0</span><span class="rs-lbl">Excel Tasks</span></div>
                 <div class="rs-cell"><span class="rs-val" id="r-streak">0</span><span class="rs-lbl">Day Streak</span></div>
               </div>
-              <div class="res-sec-lbl">Completed Questions</div>
-              <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:3px 0">No questions completed yet</li></ul>
+              <div class="res-sl">Completed Questions</div>
+              <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:3px 0">No questions yet</li></ul>
               <div class="res-wm">Verified by PracticeHub · <span id="r-date"></span></div>
             </div>
           </div>
-          <div style="display:flex;gap:9px">
+          <div style="display:flex;gap:8px">
             <button class="btn btn-green" style="flex:1;padding:11px;justify-content:center" onclick="dlPDF()">📄 Download PDF</button>
             <button class="btn btn-blue" style="flex:1;padding:11px;justify-content:center" onclick="shareIt()">🔗 Share</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
+</div><!-- /app -->
 
 <!-- LOGIN MODAL -->
 <div class="overlay" id="overlay">
@@ -571,52 +683,56 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 </div>
 
 <script>
+/* ════════════════ DATA ════════════════ */
+var QS=[
+  {id:0,title:"Show all employees",diff:"easy",co:"Google",topic:"Aggregate",desc:"Display every record from the employees table.",hint:"SELECT * FROM employees;",schema:"employees(id, name, salary, dept_id, manager_id)\ndepartments(id, dept_name)",exp:6,solution:"SELECT * FROM employees;\n\n-- Returns all 6 rows from the employees table."},
+  {id:1,title:"Employees earning more than ₹80,000",diff:"easy",co:"Amazon",topic:"Aggregate",desc:"Find all employees with salary greater than 80,000 using WHERE clause.",hint:"Use WHERE salary > 80000",schema:"employees(id, name, salary, dept_id)",exp:2,solution:"SELECT * FROM employees\nWHERE salary > 80000;"},
+  {id:2,title:"Average salary by department",diff:"medium",co:"Meta",topic:"Aggregate",desc:"Calculate average salary for each department using GROUP BY and AVG().",hint:"SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id;",schema:"employees(id, name, salary, dept_id)",exp:3,solution:"SELECT dept_id, AVG(salary) as avg_salary\nFROM employees\nGROUP BY dept_id;"},
+  {id:3,title:"Employee + Department name (JOIN)",diff:"medium",co:"Google",topic:"JOIN",desc:"Show each employee's name along with their department name. You need to JOIN two tables.",hint:"INNER JOIN departments d ON e.dept_id = d.id",schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",exp:6,solution:"SELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;"},
+  {id:4,title:"Second highest salary",diff:"medium",co:"Microsoft",topic:"Subquery",desc:"Find the second highest salary using a subquery or LIMIT with OFFSET.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",schema:"employees(id, name, salary, dept_id)",exp:1,solution:"SELECT MAX(salary) as second_highest\nFROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);"},
+  {id:5,title:"Departments with more than 2 employees",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"List department IDs that contain more than 2 employees using GROUP BY and HAVING.",hint:"GROUP BY dept_id HAVING COUNT(*) > 2",schema:"employees(id, name, salary, dept_id)",exp:1,solution:"SELECT dept_id, COUNT(*) as emp_count\nFROM employees\nGROUP BY dept_id\nHAVING COUNT(*) > 2;"},
+  {id:6,title:"Find duplicate employee names",diff:"medium",co:"Amazon",topic:"Aggregate",desc:"Find names that appear more than once in the employees table.",hint:"GROUP BY name HAVING COUNT(*) > 1",schema:"employees(id, name, salary, dept_id)",exp:1,solution:"SELECT name, COUNT(*) as count\nFROM employees\nGROUP BY name\nHAVING COUNT(*) > 1;"},
+  {id:7,title:"Employee and manager (Self JOIN)",diff:"medium",co:"Meta",topic:"JOIN",desc:"Use a self-join to display each employee's name alongside their manager's name.",hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",schema:"employees(id, name, salary, dept_id, manager_id)",exp:4,solution:"SELECT e1.name as employee, e2.name as manager\nFROM employees e1\nJOIN employees e2 ON e1.manager_id = e2.id;"},
+  {id:8,title:"Running salary total per dept (Window)",diff:"hard",co:"Netflix",topic:"Window",desc:"Show a cumulative running total of salary within each department using window functions.",hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",schema:"employees(id, name, salary, dept_id)",exp:6,solution:"SELECT name, dept_id, salary,\n  SUM(salary) OVER (PARTITION BY dept_id ORDER BY id) as running_total\nFROM employees;"},
+  {id:9,title:"Rank employees by salary — DENSE_RANK()",diff:"hard",co:"Netflix",topic:"Window",desc:"Rank each employee within their department by salary (highest first) using DENSE_RANK().",hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",schema:"employees(id, name, salary, dept_id)",exp:6,solution:"SELECT name, dept_id, salary,\n  DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rnk\nFROM employees;"},
+  {id:10,title:"Top 3 salaries per department",diff:"hard",co:"Google",topic:"Window",desc:"Show top 3 highest-paid employees in each department using window functions.",hint:"Use ROW_NUMBER() in a subquery, then filter WHERE rn <= 3",schema:"employees(id, name, salary, dept_id)",exp:5,solution:"SELECT name, dept_id, salary FROM (\n  SELECT name, dept_id, salary,\n    ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rn\n  FROM employees\n) t WHERE rn <= 3;"},
+  {id:11,title:"Employees earning above dept average",diff:"hard",co:"Meta",topic:"Subquery",desc:"Find employees whose salary is higher than their own department's average salary.",hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",schema:"employees(id, name, salary, dept_id)",exp:3,solution:"SELECT name, salary, dept_id\nFROM employees e1\nWHERE salary > (\n  SELECT AVG(salary) FROM employees e2\n  WHERE e2.dept_id = e1.dept_id\n);"},
+  {id:12,title:"Count employees per department",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"Show each department name and how many employees are in it.",hint:"COUNT(*) with GROUP BY, JOIN departments table for names",schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",exp:3,solution:"SELECT d.dept_name, COUNT(e.id) as emp_count\nFROM departments d\nLEFT JOIN employees e ON e.dept_id = d.id\nGROUP BY d.dept_name;"},
+  {id:13,title:"CTE: Max salary per department",diff:"hard",co:"Microsoft",topic:"CTE",desc:"Use a Common Table Expression (WITH clause) to find the maximum salary in each department.",hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id)",schema:"employees(id, name, salary, dept_id)",exp:3,solution:"WITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary, d.mx as dept_max\nFROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id\nWHERE e.salary = d.mx;"},
+  {id:14,title:"Employees earning more than manager",diff:"hard",co:"Amazon",topic:"JOIN",desc:"Find employees whose salary is higher than their direct manager's salary.",hint:"Self-join: e1.salary > e2.salary AND e1.manager_id = e2.id",schema:"employees(id, name, salary, manager_id)",exp:2,solution:"SELECT e1.name as employee, e1.salary,\n  e2.name as manager, e2.salary as manager_salary\nFROM employees e1\nJOIN employees e2 ON e1.manager_id = e2.id\nWHERE e1.salary > e2.salary;"},
+];
+
+/* ════════════════ STATE ════════════════ */
 var user=null,db=null,curQ=null,hot=null;
 var solved=[],recent=[],aiCnt=0,xlCnt=0,streak=0;
 var F={diff:'all',topic:'all',co:'all',status:'all'};
 var sortCol='',sortAsc=true;
+var sidebarOpen=true;
+var qlWidth=42; // percent
+var isDragging=false;
+var resultOpen=true;
 
-var QS=[
-  {id:0,title:"Show all employees",diff:"easy",co:"Google",topic:"Aggregate",desc:"Display every record from the employees table.",hint:"SELECT * FROM employees;",exp:6,schema:"employees(id, name, salary, dept_id, manager_id)\ndepartments(id, dept_name)"},
-  {id:1,title:"Employees earning more than \u20b980,000",diff:"easy",co:"Amazon",topic:"Aggregate",desc:"Find employees with salary greater than 80,000.",hint:"Use WHERE salary > 80000",exp:2,schema:"employees(id, name, salary, dept_id)"},
-  {id:2,title:"Average salary by department",diff:"medium",co:"Meta",topic:"Aggregate",desc:"Calculate average salary per department using GROUP BY and AVG().",hint:"SELECT dept_id, AVG(salary) as avg_sal FROM employees GROUP BY dept_id;",exp:3,schema:"employees(id, name, salary, dept_id)"},
-  {id:3,title:"Employee + Department name (JOIN)",diff:"medium",co:"Google",topic:"JOIN",desc:"Show each employee's name and their department name by joining tables.",hint:"INNER JOIN departments d ON e.dept_id = d.id",exp:6,schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
-  {id:4,title:"Second highest salary",diff:"medium",co:"Microsoft",topic:"Subquery",desc:"Find the second highest salary using a subquery or OFFSET.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",exp:1,schema:"employees(id, name, salary, dept_id)"},
-  {id:5,title:"Departments with more than 2 employees",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"List departments with more than 2 employees using HAVING.",hint:"GROUP BY dept_id HAVING COUNT(*) > 2",exp:1,schema:"employees(id, name, salary, dept_id)"},
-  {id:6,title:"Find duplicate employee names",diff:"medium",co:"Amazon",topic:"Aggregate",desc:"Find names that appear more than once in the table.",hint:"GROUP BY name HAVING COUNT(*) > 1",exp:1,schema:"employees(id, name, salary, dept_id)"},
-  {id:7,title:"Employee and manager name (Self JOIN)",diff:"medium",co:"Meta",topic:"JOIN",desc:"Use a self-join to show each employee with their manager's name.",hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",exp:4,schema:"employees(id, name, salary, dept_id, manager_id)"},
-  {id:8,title:"Running salary total per dept (Window)",diff:"hard",co:"Netflix",topic:"Window",desc:"Show cumulative running total of salary within each department.",hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",exp:6,schema:"employees(id, name, salary, dept_id)"},
-  {id:9,title:"Rank employees by salary — DENSE_RANK()",diff:"hard",co:"Netflix",topic:"Window",desc:"Rank employees within each department by salary using DENSE_RANK().",hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",exp:6,schema:"employees(id, name, salary, dept_id)"},
-  {id:10,title:"Top 3 salaries per department",diff:"hard",co:"Google",topic:"Window",desc:"Show top 3 highest-paid employees in each department.",hint:"Use ROW_NUMBER() in subquery then filter WHERE rn <= 3",exp:5,schema:"employees(id, name, salary, dept_id)"},
-  {id:11,title:"Employees earning above dept average",diff:"hard",co:"Meta",topic:"Subquery",desc:"Find employees earning more than their own department's average salary.",hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",exp:3,schema:"employees(id, name, salary, dept_id)"},
-  {id:12,title:"Count employees per department",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"Show each department name and the count of employees in it.",hint:"COUNT(*) with GROUP BY dept_id, JOIN departments for names",exp:3,schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
-  {id:13,title:"CTE: Max salary per department",diff:"hard",co:"Microsoft",topic:"CTE",desc:"Use a CTE (WITH clause) to find the highest salary per department.",hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT ...",exp:3,schema:"employees(id, name, salary, dept_id)"},
-  {id:14,title:"Employees earning more than their manager",diff:"hard",co:"Amazon",topic:"JOIN",desc:"Find employees whose salary is higher than their direct manager.",hint:"Self-join: e1.salary > e2.salary AND e1.manager_id = e2.id",exp:2,schema:"employees(id, name, salary, manager_id)"},
-];
-
-/* ── SQL ENGINE ── */
+/* ════════════════ SQL ENGINE ════════════════ */
 async function initSQL(){
   var SQL=await initSqlJs({locateFile:function(f){return'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}});
   db=new SQL.Database();
-  db.run("CREATE TABLE departments(id INTEGER PRIMARY KEY, dept_name TEXT);"+
-    "CREATE TABLE employees(id INTEGER PRIMARY KEY, name TEXT, salary INTEGER, dept_id INTEGER, manager_id INTEGER);"+
+  db.run(
+    "CREATE TABLE departments(id INTEGER PRIMARY KEY,dept_name TEXT);"+
+    "CREATE TABLE employees(id INTEGER PRIMARY KEY,name TEXT,salary INTEGER,dept_id INTEGER,manager_id INTEGER);"+
     "INSERT INTO departments VALUES(1,'Engineering'),(2,'Marketing'),(3,'Sales');"+
     "INSERT INTO employees VALUES"+
     "(1,'Rahul Sharma',75000,1,NULL),(2,'Priya Patel',92000,1,1),(3,'Amit Kumar',45000,2,NULL),"+
-    "(4,'Sneha Gupta',68000,3,NULL),(5,'Vikram Singh',110000,1,2),(6,'Rahul Sharma',55000,2,3);");
-  renderQTable();
+    "(4,'Sneha Gupta',68000,3,NULL),(5,'Vikram Singh',110000,1,2),(6,'Rahul Sharma',55000,2,3);"
+  );
+  renderTable();
   document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runSQL();});
 }
 
-/* ── RENDER TABLE (matches screenshot) ── */
+/* ════════════════ TABLE RENDER ════════════════ */
 function getFiltered(){
-  var search=(document.getElementById('q-search').value||'').toLowerCase();
-  var diffF=document.getElementById('qf-diff').value;
-  var topicF=document.getElementById('qf-topic').value;
+  var s=(document.getElementById('ql-search').value||'').toLowerCase();
   return QS.filter(function(q){
-    if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.desc||'').toLowerCase().indexOf(search)===-1)return false;
-    if(diffF&&q.diff!==diffF)return false;
-    if(topicF&&q.topic!==topicF)return false;
+    if(s&&q.title.toLowerCase().indexOf(s)===-1&&(q.desc||'').toLowerCase().indexOf(s)===-1)return false;
     if(F.diff!=='all'&&q.diff!==F.diff)return false;
     if(F.topic!=='all'&&q.topic!==F.topic)return false;
     if(F.co!=='all'&&q.co!==F.co)return false;
@@ -626,86 +742,140 @@ function getFiltered(){
   });
 }
 
-function renderQTable(){
+function renderTable(){
   var qs=getFiltered();
-  document.getElementById('q-shown').textContent=qs.length+' question'+(qs.length!==1?'s':'');
-  var tbody=document.getElementById('q-tbl-body');
-  if(!qs.length){
-    tbody.innerHTML='<tr class="q-tbl-empty"><td colspan="7">No questions match your filters</td></tr>';
-    return;
+  if(sortCol){
+    qs.sort(function(a,b){
+      var va=a[sortCol]||'',vb=b[sortCol]||'';
+      return sortAsc?(va>vb?1:-1):(va<vb?1:-1);
+    });
   }
+  document.getElementById('ql-count').textContent=qs.length+' of '+QS.length;
+  document.getElementById('mini-count').textContent=qs.length;
+  renderChips();
+  var tbody=document.getElementById('ql-tbody');
+  if(!qs.length){tbody.innerHTML='<tr class="ql-empty"><td colspan="7">No questions match your filters</td></tr>';return;}
   tbody.innerHTML=qs.map(function(q,i){
     var isSolved=solved.indexOf(q.id)!==-1;
-    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
     var isActive=curQ&&curQ.id===q.id;
-    return '<tr class="'+(isActive?'selected':'')+'" onclick="loadQ(QS['+QS.indexOf(q)+'])">'+
-      '<td class="td-num">'+(i+1)+'</td>'+
-      '<td class="td-title '+(isSolved?'solved-title':'')+'">'+q.title+(isSolved?'<span class="solved-tick">✓</span>':'')+'</td>'+
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    return '<tr class="'+(isActive?'sel':'')+'" onclick="loadQ('+q.id+')">'+
+      '<td class="td-n">'+(i+1)+'</td>'+
+      '<td class="td-title '+(isSolved?'sv':'')+'">'+q.title+(isSolved?'<span class="sv-tick">✓</span>':'')+'</td>'+
       '<td><span class="tag '+dc+'">'+q.diff+'</span></td>'+
-      '<td><span class="tag tt">'+q.topic+'</span></td>'+
-      '<td><span class="tag tc">'+(q.co||'—')+'</span></td>'+
+      '<td><span class="tag tt" style="font-size:9px">'+q.topic+'</span></td>'+
+      '<td><span class="tag tc" style="font-size:9px">'+q.co+'</span></td>'+
       '<td class="td-exp">'+q.exp+'</td>'+
-      '<td class="td-action"><button class="act-btn" onclick="event.stopPropagation();loadQ(QS['+QS.indexOf(q)+'])">Solve →</button></td>'+
+      '<td class="td-act"><button class="solve-btn" onclick="event.stopPropagation();loadQ('+q.id+')">Solve</button></td>'+
       '</tr>';
   }).join('');
 }
 
-function setF(k,v,el){
-  F[k]=v;
-  var grp=el.closest('.filter-group');
-  grp.querySelectorAll('.f-btn').forEach(function(b){b.classList.remove('on');});
-  el.classList.add('on');
-  renderQTable();
+/* ── filter chips (active filters shown as removable pills) ── */
+function renderChips(){
+  var chips=document.getElementById('filter-chips');
+  var html='';
+  if(F.diff!=='all')html+='<div class="chip" onclick="removeFilter(\'diff\')"><span>Difficulty: '+F.diff+'</span><span class="chip-x">✕</span></div>';
+  if(F.topic!=='all')html+='<div class="chip" onclick="removeFilter(\'topic\')"><span>Topic: '+F.topic+'</span><span class="chip-x">✕</span></div>';
+  if(F.co!=='all')html+='<div class="chip" onclick="removeFilter(\'co\')"><span>Company: '+F.co+'</span><span class="chip-x">✕</span></div>';
+  if(F.status!=='all')html+='<div class="chip" onclick="removeFilter(\'status\')"><span>'+F.status+'</span><span class="chip-x">✕</span></div>';
+  if(html)html+='<button class="clear-all" onclick="clearAllFilters()">Clear all</button>';
+  chips.innerHTML=html;
 }
 
-function sortBy(col){renderQTable();}
+function removeFilter(key){
+  F[key]='all';
+  // reset sidebar button
+  var groupMap={diff:0,topic:1,co:2,status:3};
+  var groups=document.querySelectorAll('.fg');
+  if(groups[groupMap[key]]){
+    groups[groupMap[key]].querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});
+    groups[groupMap[key]].querySelector('.fg-btn').classList.add('on');
+  }
+  renderTable();
+}
 
-function loadQ(q){
-  curQ=q;
-  var isSolved=solved.indexOf(q.id)!==-1;
-  var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+function clearAllFilters(){
+  F={diff:'all',topic:'all',co:'all',status:'all'};
+  document.querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.fg .fg-btn:first-child').forEach(function(b){b.classList.add('on');});
+  renderTable();
+}
+
+function setFilter(key,val,el){
+  F[key]=val;
+  var grp=el.closest('.fg');
+  grp.querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  renderTable();
+}
+
+function sortTable(col){
+  if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=true;}
+  document.querySelectorAll('.si').forEach(function(s){s.textContent='▲';s.parentElement.classList.remove('sorted');});
+  var si=document.getElementById('si-'+col);
+  if(si){si.textContent=sortAsc?'▲':'▼';si.parentElement.classList.add('sorted');}
+  renderTable();
+}
+
+/* ════════════════ LOAD QUESTION ════════════════ */
+function loadQ(id){
+  curQ=QS.find(function(q){return q.id===id;});
+  if(!curQ)return;
+  var isSolved=solved.indexOf(curQ.id)!==-1;
+  var dc=curQ.diff==='easy'?'te':curQ.diff==='medium'?'tm':'th';
   document.getElementById('q-detail').innerHTML=
-    '<div class="q-dtitle">'+q.title+'</div>'+
+    '<div class="q-dtitle">'+curQ.title+'</div>'+
     '<div class="q-dmeta">'+
-      '<span class="tag '+dc+'">'+q.diff.toUpperCase()+'</span>'+
-      '<span class="tag tc">'+q.co+'</span>'+
-      '<span class="tag tt">'+q.topic+'</span>'+
-      (isSolved?'<span class="tag ts2">Solved \u2713</span>':'')+
+      '<span class="tag '+dc+'">'+curQ.diff.toUpperCase()+'</span>'+
+      '<span class="tag tc">'+curQ.co+'</span>'+
+      '<span class="tag tt">'+curQ.topic+'</span>'+
+      (isSolved?'<span class="tag tg">Solved ✓</span>':'')+
     '</div>'+
-    '<div class="q-ddesc">'+q.desc+'</div>'+
-    (q.schema?'<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+q.schema.replace(/\n/g,'<br>')+'</div>':'');
+    '<div class="q-ddesc">'+curQ.desc+'</div>'+
+    (curQ.schema?'<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+curQ.schema.replace(/\n/g,'<br>')+'</div>':'');
+  document.getElementById('solution-body').innerHTML=
+    '<div style="margin-bottom:10px;font-size:12px;color:var(--text3)">Try solving it yourself first! Here is the solution:</div>'+
+    '<pre style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow-x:auto;color:var(--green)">'+curQ.solution+'</pre>';
+  document.getElementById('hints-body').innerHTML=
+    '<div style="padding:12px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);color:var(--amber)">'+
+    '💡 <strong>Hint:</strong> '+curQ.hint+'</div>'+
+    '<div style="margin-top:12px;font-size:12px;color:var(--text2)">Expected result: <strong>'+curQ.exp+' rows</strong></div>';
   document.getElementById('sql-editor').value='';
   document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
   document.getElementById('res-meta').innerHTML='';
-  renderQTable();
+  renderTable();
+  // auto-switch to description tab
+  epTab('desc',document.querySelector('.ep-tab'));
 }
 
+/* ════════════════ SQL RUN / SUBMIT ════════════════ */
 function runSQL(){
   var q=document.getElementById('sql-editor').value.trim();
   if(!q){alert('Write a SQL query first!');return;}
   if(!db){alert('Database loading...');return;}
+  if(!resultOpen){toggleResult();}
   try{
     var res=db.exec(q);
     var meta=document.getElementById('res-meta');
     var body=document.getElementById('res-body');
     if(!res.length){
-      meta.innerHTML='<span class="res-ok">Query OK · 0 rows</span>';
+      meta.innerHTML='<span class="res-ok">OK · 0 rows</span>';
       body.innerHTML='<div class="res-empty">Query ran (no rows returned)</div>';return;
     }
     var cols=res[0].columns,vals=res[0].values;
     meta.innerHTML='<span class="res-ok">'+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
     var html='<table class="res-table"><thead><tr>';
-    cols.forEach(function(c){html+='<th>'+c+'</th>';});
-    html+='</tr></thead><tbody>';
+    cols.forEach(function(c){html+='<th>'+c+'</th>';});html+='</tr></thead><tbody>';
     vals.forEach(function(row){
       html+='<tr>';
-      row.forEach(function(cell){html+='<td>'+(cell===null?'<span class="null-val">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';});
+      row.forEach(function(cell){html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';});
       html+='</tr>';
     });
     body.innerHTML=html+'</tbody></table>';
   }catch(e){
     document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
-    document.getElementById('res-body').innerHTML='<div style="padding:12px;color:var(--red);font-family:var(--mono);font-size:11px">\u274c '+e.message+'</div>';
+    document.getElementById('res-body').innerHTML='<div style="padding:12px;color:var(--red);font-family:var(--mono);font-size:11px">❌ '+e.message+'</div>';
   }
 }
 
@@ -720,18 +890,115 @@ function submitSQL(){
       solved.push(curQ.id);streak=Math.min(streak+1,30);
       recent.unshift({title:curQ.title,diff:curQ.diff,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
       if(recent.length>10)recent.pop();
-      save();updateDash();renderQTable();loadQ(curQ);checkBadges();
+      save();updateDash();renderTable();loadQ(curQ.id);checkBadges();
     }
-    alert('\u2705 "'+curQ.title+'" marked as solved!');
+    alert('✅ "'+curQ.title+'" marked as solved!');
   }catch(e){alert('Fix your query first:\n'+e.message);}
 }
 
 function getHint(){
   if(!curQ){alert('Select a question first!');return;}
-  alert('\ud83d\udca1 Hint:\n\n'+curQ.hint);
+  epTab('hints',document.querySelectorAll('.ep-tab')[2]);
 }
 
-/* ── EXCEL ── */
+/* ════════════════ DRAG RESIZE ════════════════ */
+(function(){
+  var handle=document.getElementById('drag-handle');
+  var qlPanel=document.getElementById('ql-panel');
+  var split=document.getElementById('sql-split');
+  var startX,startW;
+
+  handle.addEventListener('mousedown',function(e){
+    if(qlPanel.classList.contains('mini'))return;
+    isDragging=true;
+    startX=e.clientX;
+    startW=qlPanel.getBoundingClientRect().width;
+    handle.classList.add('dragging');
+    document.body.classList.add('no-select');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove',function(e){
+    if(!isDragging)return;
+    var splitW=split.getBoundingClientRect().width;
+    var delta=e.clientX-startX;
+    var newW=Math.max(180,Math.min(startW+delta,splitW-220));
+    qlPanel.style.width=newW+'px';
+    qlPanel.style.flex='none';
+  });
+
+  document.addEventListener('mouseup',function(){
+    if(isDragging){isDragging=false;handle.classList.remove('dragging');document.body.classList.remove('no-select');}
+  });
+
+  // Touch support
+  handle.addEventListener('touchstart',function(e){
+    if(qlPanel.classList.contains('mini'))return;
+    startX=e.touches[0].clientX;
+    startW=qlPanel.getBoundingClientRect().width;
+    document.body.classList.add('no-select');
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(!startX)return;
+    var splitW=split.getBoundingClientRect().width;
+    var delta=e.touches[0].clientX-startX;
+    var newW=Math.max(180,Math.min(startW+delta,splitW-220));
+    qlPanel.style.width=newW+'px';
+    qlPanel.style.flex='none';
+  },{passive:true});
+  document.addEventListener('touchend',function(){startX=null;document.body.classList.remove('no-select');});
+})();
+
+function collapseQL(){
+  var qlPanel=document.getElementById('ql-panel');
+  qlPanel.classList.add('mini');
+  qlPanel.style.width='36px';
+  qlPanel.style.flex='none';
+}
+
+function expandQL(){
+  var qlPanel=document.getElementById('ql-panel');
+  qlPanel.classList.remove('mini');
+  qlPanel.style.width='42%';
+  qlPanel.style.flex='none';
+}
+
+/* ════════════════ FILTER SIDEBAR TOGGLE ════════════════ */
+function toggleSidebar(){
+  var sb=document.getElementById('filter-sidebar');
+  var showBtn=document.getElementById('sidebar-show-btn');
+  sidebarOpen=!sidebarOpen;
+  sb.classList.toggle('collapsed',!sidebarOpen);
+  showBtn.style.display=sidebarOpen?'none':'flex';
+}
+
+/* ════════════════ RESULT PANEL TOGGLE ════════════════ */
+function toggleResult(){
+  resultOpen=!resultOpen;
+  document.getElementById('res-body-wrap').classList.toggle('closed',!resultOpen);
+  document.getElementById('res-toggle').style.transform=resultOpen?'':'rotate(-90deg)';
+}
+
+/* ════════════════ EDITOR TABS ════════════════ */
+function epTab(id,el){
+  document.querySelectorAll('.ep-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.ep-tab-content').forEach(function(c){c.classList.remove('on');});
+  if(el)el.classList.add('active');
+  else document.querySelectorAll('.ep-tab')[0].classList.add('active');
+  document.getElementById('ept-'+id).classList.add('on');
+}
+
+/* ════════════════ PAGE NAV ════════════════ */
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.t-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('page-'+id).classList.add('on');
+  if(btn)btn.classList.add('active');
+  if(id==='excel')initXL();
+  if(id==='achievements')updateAch();
+}
+
+/* ════════════════ EXCEL ════════════════ */
 function initXL(){
   if(hot)return;
   hot=new Handsontable(document.getElementById('excel-grid'),{
@@ -744,46 +1011,45 @@ function initXL(){
       ['Tablet','','','','=SUM(B6:D6)','=AVERAGE(B6:D6)'],
     ],
     rowHeaders:true,colHeaders:true,contextMenu:true,formulas:true,
-    width:'100%',height:440,stretchH:'all',licenseKey:'non-commercial-and-evaluation'
+    width:'100%',height:420,stretchH:'all',licenseKey:'non-commercial-and-evaluation'
   });
 }
 function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
 function markXLDone(){
   if(!user){openModal();return;}
-  xlCnt++;save();updateDash();checkBadges();alert('\u2705 Excel challenge complete!');
+  xlCnt++;save();updateDash();checkBadges();alert('✅ Excel challenge complete!');
 }
 
-/* ── AI ── */
-var AI_R={
-  join:"JOIN types:\n\n\u2022 INNER JOIN \u2014 only matching rows from both tables\n\u2022 LEFT JOIN \u2014 all rows from left + NULLs if no match\n\u2022 RIGHT JOIN \u2014 all rows from right + NULLs if no match\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
-  window:"Window Functions calculate across rows without collapsing them.\n\nSyntax: FUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n\u2022 ROW_NUMBER() \u2014 unique number per group\n\u2022 RANK() \u2014 rank with gaps for ties\n\u2022 DENSE_RANK() \u2014 rank without gaps\n\u2022 SUM(salary) OVER (PARTITION BY dept_id) \u2014 running total",
-  vlookup:"VLOOKUP Syntax:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\nExample: =VLOOKUP(A2, $D$2:$F$100, 2, FALSE)\n\n\u2022 lookup_value \u2014 what you search for\n\u2022 col_index \u2014 column number to return\n\u2022 FALSE \u2014 exact match (always use this)\n\nTip: Use XLOOKUP() in Excel 365 \u2014 more flexible!",
-  cte:"CTE (Common Table Expression):\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary\nFROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;\n\nUse CTEs to break complex queries into readable steps.",
-  second:"Second Highest Salary:\n\nMethod 1 (Subquery):\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nMethod 2 (OFFSET):\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;\n\nMethod 3 (Window):\nSELECT salary FROM (\n  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rn\n  FROM employees) t WHERE rn=2;"
+/* ════════════════ AI ════════════════ */
+var AIR={
+  join:"JOIN types:\n\n• INNER JOIN — only matching rows from both tables\n• LEFT JOIN — all rows from left + NULLs if no match\n• RIGHT JOIN — opposite of LEFT JOIN\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
+  window:"Window Functions calculate across rows without collapsing:\n\nSyntax: FUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n• ROW_NUMBER() — unique row per group\n• RANK() — rank with gaps\n• DENSE_RANK() — rank without gaps\n• SUM(salary) OVER (PARTITION BY dept_id) — running total",
+  vlookup:"VLOOKUP:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\nExample: =VLOOKUP(A2, $D$2:$F$100, 2, FALSE)\n\n• FALSE = exact match (always recommended)\n\nModern: Use XLOOKUP() in Excel 365!",
+  cte:"CTE:\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees GROUP BY dept_id\n)\nSELECT e.name FROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;\n\nUse CTEs to break complex queries into readable steps.",
+  second:"Second Highest Salary:\n\nMethod 1:\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nMethod 2 (OFFSET):\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;"
 };
-
-function addMsg(role,txt){
-  var el=document.createElement('div');el.className='msg msg-'+role;
-  el.innerHTML='<div class="av-sm">'+(role==='ai'?'\ud83e\udd16':'U')+'</div><div class="bubble">'+txt.replace(/\n/g,'<br>')+'</div>';
-  var msgs=document.getElementById('chat-msgs');msgs.appendChild(el);msgs.scrollTop=99999;
+function addMsg(r,t){
+  var el=document.createElement('div');el.className='msg msg-'+r;
+  el.innerHTML='<div class="av-sm">'+(r==='ai'?'🤖':'U')+'</div><div class="bubble">'+t.replace(/\n/g,'<br>')+'</div>';
+  var m=document.getElementById('chat-msgs');m.appendChild(el);m.scrollTop=99999;
 }
 function sendMsg(){
   var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;
   addMsg('user',txt);inp.value='';aiCnt++;if(user)save();updateDash();
   setTimeout(function(){
     var lo=txt.toLowerCase();var rep;
-    if(lo.indexOf('join')!==-1)rep=AI_R.join;
-    else if(lo.indexOf('window')!==-1||lo.indexOf('rank')!==-1||lo.indexOf('partition')!==-1)rep=AI_R.window;
-    else if(lo.indexOf('vlookup')!==-1||lo.indexOf('excel')!==-1)rep=AI_R.vlookup;
-    else if(lo.indexOf('cte')!==-1||lo.indexOf('common table')!==-1)rep=AI_R.cte;
-    else if(lo.indexOf('second')!==-1||lo.indexOf('2nd')!==-1)rep=AI_R.second;
-    else rep='Good question!\n\nFor "'+txt+'":\n1. Identify which tables have the data\n2. Choose the right clause (WHERE, GROUP BY, JOIN)\n3. Start simple then add complexity\n\nPaste your query or error and I\'ll debug it! \ud83d\ude80';
+    if(lo.indexOf('join')!==-1)rep=AIR.join;
+    else if(lo.indexOf('window')!==-1||lo.indexOf('rank')!==-1||lo.indexOf('partition')!==-1)rep=AIR.window;
+    else if(lo.indexOf('vlookup')!==-1||lo.indexOf('excel')!==-1)rep=AIR.vlookup;
+    else if(lo.indexOf('cte')!==-1)rep=AIR.cte;
+    else if(lo.indexOf('second')!==-1||lo.indexOf('2nd')!==-1)rep=AIR.second;
+    else rep='Good question about "'+txt+'"!\n\nTip: Start with SELECT *, identify tables, then add WHERE/JOIN/GROUP BY step by step.\n\nPaste your query or error and I\'ll debug it! 🚀';
     addMsg('ai',rep);
-  },600);
+  },550);
 }
 function quickAsk(q){document.getElementById('chat-inp').value=q;sendMsg();}
 
-/* ── AUTH ── */
+/* ════════════════ AUTH ════════════════ */
 function openModal(){document.getElementById('overlay').classList.add('show');}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
 document.getElementById('overlay').addEventListener('click',function(e){if(e.target.id==='overlay')closeModal();});
@@ -799,50 +1065,51 @@ function finishAuth(name){
   localStorage.setItem('ph_user',JSON.stringify(user));
   closeModal();showUser();load();updateDash();
   document.getElementById('r-name').textContent=name;
-  document.getElementById('btn-login-top').style.display='none';
+  document.getElementById('t-login-btn').style.display='none';
 }
 function showUser(){
   if(!user)return;
-  var pill=document.getElementById('user-pill');pill.style.display='flex';
-  document.getElementById('u-name').textContent=user.name;
-  document.getElementById('u-av').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('t-user').style.display='flex';
+  document.getElementById('t-uname').textContent=user.name;
+  document.getElementById('t-av').textContent=user.name.charAt(0).toUpperCase();
   document.getElementById('r-name').textContent=user.name;
+  document.getElementById('t-login-btn').style.display='none';
 }
 function doLogout(){
   if(!confirm('Log out?'))return;
   user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
   localStorage.removeItem('ph_user');localStorage.removeItem('ph_prog');
-  document.getElementById('user-pill').style.display='none';
-  document.getElementById('btn-login-top').style.display='';
-  updateDash();renderQTable();
+  document.getElementById('t-user').style.display='none';
+  document.getElementById('t-login-btn').style.display='';
+  updateDash();renderTable();
 }
 
-/* ── PERSIST ── */
-function save(){if(!user)return;localStorage.setItem('ph_prog',JSON.stringify({solved:solved,recent:recent,aiCnt:aiCnt,xlCnt:xlCnt,streak:streak}));}
+/* ════════════════ PERSIST ════════════════ */
+function save(){if(!user)return;localStorage.setItem('ph_prog',JSON.stringify({solved,recent,aiCnt,xlCnt,streak}));}
 function load(){var r=localStorage.getItem('ph_prog');if(!r)return;var p=JSON.parse(r);solved=p.solved||[];recent=p.recent||[];aiCnt=p.aiCnt||0;xlCnt=p.xlCnt||0;streak=p.streak||0;}
 
-/* ── DASHBOARD ── */
+/* ════════════════ DASHBOARD ════════════════ */
 function updateDash(){
   document.getElementById('d-sql').textContent=solved.length;
   document.getElementById('d-excel').textContent=xlCnt;
   document.getElementById('d-ai').textContent=aiCnt;
   document.getElementById('d-streak').textContent=streak;
-  document.getElementById('top-pill').textContent=solved.length+' solved';
-  var rb=document.getElementById('recent-body');
-  if(!recent.length){rb.innerHTML='<div class="empty-msg">No questions solved yet \u2014 start practicing! \ud83d\ude80</div>';return;}
-  rb.innerHTML=recent.slice(0,5).map(function(q){
+  document.getElementById('t-pill').textContent=solved.length+' solved';
+  var rb=document.getElementById('recent-box');
+  if(!recent.length){rb.innerHTML='<div class="empty">No questions solved yet — start practicing! 🚀</div>';return;}
+  rb.innerHTML=recent.slice(0,6).map(function(q){
     var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
-    return '<div class="r-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="r-title">'+q.title+'</span><span class="r-time">'+q.date+'</span></div>';
+    return '<div class="ri"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="ri-title">'+q.title+'</span><span class="ri-date">'+q.date+'</span></div>';
   }).join('');
 }
 
-/* ── ACHIEVEMENTS ── */
+/* ════════════════ ACHIEVEMENTS ════════════════ */
 function updateAch(){
   var sl=document.getElementById('sl-list');
   sl.innerHTML=recent.length?recent.map(function(q){
     var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
     return '<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';
-  }).join(''):'<div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div>';
+  }).join(''):'<div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div>';
   document.getElementById('r-sql').textContent=solved.length;
   document.getElementById('r-excel').textContent=xlCnt;
   document.getElementById('r-streak').textContent=streak;
@@ -860,33 +1127,18 @@ function checkBadges(){
   if(aiCnt>=3)document.getElementById('b-ai').classList.add('on');
 }
 
-/* ── PDF / SHARE ── */
+/* ════════════════ PDF / SHARE ════════════════ */
 function dlPDF(){html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
 function shareIt(){
-  var txt='\ud83d\ude80 My PracticeHub Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nAI Sessions: '+aiCnt+'\nStreak: '+streak+' days \ud83d\udd25\n\nRecently solved:\n'+recent.slice(0,3).map(function(q){return'\u2022 '+q.title;}).join('\n');
-  navigator.clipboard.writeText(txt).then(function(){alert('\u2705 Copied! Paste on LinkedIn or WhatsApp \ud83d\udd17');});
+  var txt='🚀 My PracticeHub Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nAI Sessions: '+aiCnt+'\nStreak: '+streak+' days 🔥\n\nRecently solved:\n'+recent.slice(0,3).map(function(q){return'• '+q.title;}).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){alert('✅ Copied! Paste on LinkedIn or WhatsApp 🔗');});
 }
 
-/* ── NAV ── */
-function goTo(id,el){
-  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
-  document.getElementById('sec-'+id).classList.add('on');
-  if(el)el.classList.add('active');
-  var titles={dashboard:'Dashboard',sql:'SQL Practice',excel:'Excel Practice',ai:'AI Helper',achievements:'Achievements'};
-  document.getElementById('page-title').textContent=titles[id]||'Dashboard';
-  document.getElementById('sql-filters').style.display=id==='sql'?'block':'none';
-  // Reset content padding for SQL (full bleed) vs others
-  document.querySelector('.content').style.padding=id==='sql'?'0':'20px';
-  if(id==='excel')initXL();
-  if(id==='achievements')updateAch();
-}
-
-/* ── BOOT ── */
+/* ════════════════ BOOT ════════════════ */
 window.addEventListener('load',async function(){
   await initSQL();
   var su=localStorage.getItem('ph_user');
-  if(su){user=JSON.parse(su);load();showUser();document.getElementById('btn-login-top').style.display='none';}
+  if(su){user=JSON.parse(su);load();showUser();}
   updateDash();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
 });
