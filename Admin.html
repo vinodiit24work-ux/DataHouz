@@ -3,1050 +3,644 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PracticeHub — Admin Panel</title>
+<title>PracticeHub Admin Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0f172a;--bg2:#1e293b;--bg3:#263148;--bg4:#2d3a52;
   --border:#2e3f5c;--border2:#3a4f6e;
   --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
-  --green:#10b981;--green2:#059669;--green-bg:rgba(16,185,129,0.12);--green-border:rgba(16,185,129,0.3);
+  --green:#10b981;--green2:#059669;
+  --green-bg:rgba(16,185,129,0.12);--green-border:rgba(16,185,129,0.3);
   --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.12);--blue-border:rgba(59,130,246,0.3);
   --amber:#f59e0b;--amber-bg:rgba(245,158,11,0.12);--amber-border:rgba(245,158,11,0.3);
   --red:#ef4444;--red-bg:rgba(239,68,68,0.12);--red-border:rgba(239,68,68,0.3);
-  --purple:#8b5cf6;--purple-bg:rgba(139,92,246,0.12);--purple-border:rgba(139,92,246,0.3);
+  --purple:#8b5cf6;
   --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
-  --r:8px;--r2:12px;--r3:16px;
+  --r:6px;--r2:10px;--r3:14px;--topbar:52px;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-
-/* ── LOGIN SCREEN ── */
-#login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
-.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:40px;width:100%;max-width:380px;text-align:center}
-.login-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),#06b6d4);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#fff;margin:0 auto 16px}
-.login-title{font-size:20px;font-weight:700;margin-bottom:4px}
-.login-sub{font-size:12px;color:var(--text3);margin-bottom:28px}
-.login-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;color:var(--text);font-size:14px;font-family:var(--font);outline:none;margin-bottom:12px;transition:border-color .15s;text-align:left}
-.login-inp:focus{border-color:var(--green)}
-.login-err{font-size:12px;color:var(--red);margin-bottom:10px;min-height:18px}
-
-/* ── LAYOUT ── */
-#app{display:none;height:100vh;overflow:hidden;flex-direction:column}
-#app.show{display:flex}
-
-/* topbar */
-.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.tb-left{display:flex;align-items:center;gap:14px}
-.tb-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--green),#06b6d4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
-.tb-title{font-size:15px;font-weight:700}
-.tb-badge{padding:3px 10px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:20px;font-size:10px;font-weight:600;color:var(--red);letter-spacing:.5px}
-.tb-right{display:flex;align-items:center;gap:10px}
-.tb-link{font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);transition:all .15s}
-.tb-link:hover{color:var(--text);border-color:var(--border2)}
-.tb-logout{font-size:12px;color:var(--red);padding:6px 12px;border:1px solid var(--red-border);border-radius:var(--r);cursor:pointer;background:transparent;font-family:var(--font);transition:all .15s}
-.tb-logout:hover{background:var(--red-bg)}
-
-/* sidebar */
-.body-wrap{flex:1;display:flex;overflow:hidden}
-.sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);padding:16px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
-.sidebar-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:10px 8px 4px}
-.s-btn{display:flex;align-items:center;gap:9px;width:100%;padding:9px 12px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13px;background:transparent;border:none;font-family:var(--font);text-align:left;transition:all .15s}
-.s-btn svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px}
+#topbar{height:var(--topbar);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.t-mark{width:28px;height:28px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.t-name{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.t-badge{padding:3px 8px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;font-size:10px;color:var(--amber);font-weight:600}
+.t-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.t-status{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
+.cdot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.cdot.ok{background:var(--green);animation:cp 2s infinite}
+.cdot.err{background:var(--red)}
+@keyframes cp{0%,100%{opacity:1}50%{opacity:.3}}
+.t-home{padding:6px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:5px}
+.t-home:hover{color:var(--text)}
+#layout{display:flex;height:calc(100vh - var(--topbar))}
+#sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:14px 10px;gap:3px}
+.s-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:8px 8px 4px;margin-top:6px}
+.s-btn{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13px;border:none;background:transparent;text-align:left;font-family:var(--font);width:100%;transition:all .15s}
+.s-btn svg{width:15px;height:15px;opacity:.6;flex-shrink:0}
 .s-btn:hover{background:var(--bg3);color:var(--text)}
-.s-btn.on{background:var(--green-bg);color:var(--green);font-weight:500}
-.s-btn.on svg{opacity:1}
-.s-count{margin-left:auto;background:var(--bg4);border-radius:20px;padding:1px 7px;font-size:10px;color:var(--text3)}
-
-/* main */
-.main{flex:1;overflow-y:auto;padding:24px}
-.sec{display:none}.sec.on{display:block}
-.page-head{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.page-title{font-size:18px;font-weight:700;letter-spacing:-0.3px}
-.page-sub{font-size:12px;color:var(--text3);margin-top:3px}
-
-/* cards / stats */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
-.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px}
-.stat-lbl{font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.4px}
-.stat-val{font-size:26px;font-weight:700;letter-spacing:-1px}
-.sg .stat-val{color:var(--green)}.sb .stat-val{color:var(--blue)}.sa .stat-val{color:var(--amber)}.sp .stat-val{color:var(--purple)}.sr .stat-val{color:var(--red)}
-
-/* buttons */
-.btn{padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
-.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
-.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
-.btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}.btn-red:hover{background:var(--red);color:#fff}
-.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
-.btn-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}.btn-amber:hover{background:var(--amber);color:#fff}
-.btn-sm{padding:5px 11px;font-size:12px}
-
-/* form */
-.form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:22px;margin-bottom:18px}
-.form-title{font-size:14px;font-weight:600;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-grid.cols3{grid-template-columns:1fr 1fr 1fr}
-.form-grid.cols1{grid-template-columns:1fr}
-.field{display:flex;flex-direction:column;gap:5px}
-.field.span2{grid-column:span 2}
-.field.span3{grid-column:span 3}
-.field label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
-.field input,.field select,.field textarea{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;transition:border-color .15s;width:100%}
-.field textarea{font-family:var(--mono);font-size:12px;resize:vertical;min-height:90px;line-height:1.7}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
-.field select option{background:var(--bg3)}
-.field-hint{font-size:11px;color:var(--text3);margin-top:2px}
-.form-actions{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
-
-/* table */
-.tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.tbl-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
-.tbl-search{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;width:240px;transition:border-color .15s}
-.tbl-search:focus{border-color:var(--green)}
-table{width:100%;border-collapse:collapse}
-th{background:var(--bg3);padding:10px 16px;font-size:11px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
-td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--bg3)}
-.td-title{font-weight:500;max-width:280px}
-.td-desc{color:var(--text3);font-size:12px;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.td-actions{display:flex;gap:6px;white-space:nowrap}
-.empty-row td{text-align:center;color:var(--text3);padding:36px}
-
-/* tags / badges */
-.tag{padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:500;display:inline-flex;align-items:center}
+.s-btn.active{background:var(--green-bg);color:var(--green);font-weight:500}
+.s-btn.active svg{opacity:1}
+.s-count{margin-left:auto;background:var(--bg4);border-radius:20px;padding:1px 7px;font-size:10px;font-weight:600}
+.s-btn.active .s-count{background:var(--green-bg);color:var(--green)}
+#main{flex:1;overflow-y:auto;padding:24px}
+.page{display:none}.page.on{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center}
+.stat-val{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:4px}
+.stat-lbl{font-size:11px;color:var(--text3);font-weight:500}
+.sv-green{color:var(--green)}.sv-blue{color:var(--blue)}.sv-amber{color:var(--amber)}.sv-red{color:var(--red)}.sv-purple{color:var(--purple)}
+.pg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.pg-title{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.pg-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.filter-bar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.f-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
+.f-input:focus{border-color:var(--green)}
+.f-input.wide{flex:1;min-width:200px}
+.f-sel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 10px;color:var(--text);font-size:12px;font-family:var(--font);outline:none}
+.q-table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.q-table{width:100%;border-collapse:collapse}
+.q-table thead{position:sticky;top:0;z-index:2}
+.q-table th{background:var(--bg3);padding:9px 14px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+.q-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.q-table tr:last-child td{border-bottom:none}
+.q-table tbody tr:hover td{background:var(--bg3)}
+.td-title{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.td-num{font-family:var(--mono);font-size:11px;color:var(--text3);width:36px}
+.td-actions{display:flex;gap:6px;justify-content:flex-end}
+.empty-row td{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap;line-height:1.6}
 .te{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .tm{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
-.th2{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.th{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .tt{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
-
-/* schema builder */
-.schema-table{width:100%;border-collapse:collapse;margin-top:8px}
-.schema-table th{background:var(--bg4);padding:8px 12px;font-size:11px;font-weight:600;color:var(--text3);text-align:left;border:1px solid var(--border)}
-.schema-table td{padding:6px 8px;border:1px solid var(--border);vertical-align:middle}
-.schema-table input,.schema-table select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px;font-family:var(--mono);width:100%;outline:none}
-.schema-table input:focus,.schema-table select:focus{border-color:var(--green)}
-.col-del{background:transparent;border:none;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:6px;font-size:14px;transition:color .15s}
-.col-del:hover{color:var(--red)}
-.schema-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;margin-bottom:14px}
-.schema-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.schema-card-name{font-size:14px;font-weight:600;font-family:var(--mono)}
-.insert-rows{margin-top:12px;border-top:1px solid var(--border);padding-top:12px}
-
-/* preview */
-.preview-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.preview-q{padding:20px;border-bottom:1px solid var(--border)}
-.preview-title{font-size:15px;font-weight:600;margin-bottom:10px;line-height:1.4}
-.preview-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
-.preview-desc{font-size:13px;color:var(--text2);line-height:1.65}
-.preview-schema{margin-top:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7}
-.preview-editor{padding:14px;border-bottom:1px solid var(--border)}
-.preview-editor-label{font-size:11px;color:var(--text3);font-family:var(--mono);margin-bottom:6px}
-.preview-textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;font-family:var(--mono);font-size:12px;color:var(--text);resize:none;outline:none;min-height:100px}
-.preview-actions{padding:12px 14px;display:flex;gap:8px}
-
-/* notice */
-.notice{padding:12px 16px;border-radius:var(--r);font-size:13px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
-.notice-info{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
-.notice-warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
-.notice-success{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
-
-/* toast */
-#toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:var(--r2);font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none}
+.btn{padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
+.btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}.btn-red:hover{background:var(--red);color:#fff}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-xs{padding:3px 8px;font-size:10px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;z-index:999;backdrop-filter:blur(3px);overflow-y:auto;padding:30px 16px}
+.overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:0;width:100%;max-width:640px;animation:mIn .18s ease;margin:auto}
+@keyframes mIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:700}
+.modal-close{width:28px;height:28px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text3);border:none;background:transparent}
+.modal-close:hover{background:var(--bg3);color:var(--text)}
+.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.f-lbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.f-inp{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;transition:border-color .15s;width:100%}
+.f-inp:focus{border-color:var(--green)}
+.f-inp.mono{font-family:var(--mono);font-size:12px}
+textarea.f-inp{resize:vertical;min-height:80px;line-height:1.6}
+select.f-inp{cursor:pointer}
+.f-hint{font-size:10px;color:var(--text3);margin-top:2px}
+.f-required::after{content:' *';color:var(--red)}
+#toast{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:var(--r2);font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none;max-width:320px}
 #toast.show{opacity:1}
 #toast.ok{background:var(--green);color:#fff}
 #toast.err{background:var(--red);color:#fff}
-
-/* modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:998;backdrop-filter:blur(2px)}
-.modal-overlay.show{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:26px;width:100%;max-width:520px;animation:mIn .18s ease}
-@keyframes mIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
-
-/* export code */
-.code-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-family:var(--mono);font-size:11.5px;color:var(--text2);line-height:1.8;overflow-x:auto;white-space:pre;max-height:320px;overflow-y:auto}
-
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+#toast.info{background:var(--blue);color:#fff}
+#toast.warn{background:var(--amber);color:#111}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.u-table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.u-table{width:100%;border-collapse:collapse}
+.u-table th{background:var(--bg3);padding:9px 14px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.6px}
+.u-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border)}
+.u-table tr:last-child td{border-bottom:none}
+.u-table tbody tr:hover td{background:var(--bg3)}
+.u-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.u-row-head{display:flex;align-items:center;gap:9px}
+.u-name{font-size:12px;font-weight:500}
+.u-email{font-size:11px;color:var(--text3)}
+.confirm-box{background:var(--bg2);border:1px solid var(--red-border);border-radius:var(--r3);padding:22px;width:100%;max-width:380px;margin:auto;text-align:center}
+.confirm-icon{font-size:32px;margin-bottom:10px}
+.confirm-title{font-size:15px;font-weight:600;margin-bottom:6px}
+.confirm-sub{font-size:12px;color:var(--text3);margin-bottom:18px;line-height:1.5}
+.confirm-btns{display:flex;gap:9px;justify-content:center}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-logo">A</div>
-    <div class="login-title">Admin Panel</div>
-    <div class="login-sub">PracticeHub · Restricted Access</div>
-    <input class="login-inp" id="l-pass" type="password" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')tryLogin()"/>
-    <div class="login-err" id="l-err"></div>
-    <button class="btn btn-green" style="width:100%;padding:11px;justify-content:center" onclick="tryLogin()">Login to Admin →</button>
-    <div style="margin-top:16px;font-size:11px;color:var(--text3)">Default password: <span style="font-family:var(--mono);color:var(--text2)">admin123</span> &nbsp;·&nbsp; Change it in Settings</div>
+<div id="topbar">
+  <div class="t-mark">P</div>
+  <div class="t-name">PracticeHub</div>
+  <div class="t-badge">ADMIN PANEL</div>
+  <div class="t-right">
+    <div class="t-status"><div class="cdot" id="cdot"></div><span id="clbl">Connecting...</span></div>
+    <a class="t-home" href="practicehub.html">← Back to Site</a>
   </div>
 </div>
 
-<!-- APP -->
-<div id="app">
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="tb-left">
-      <div class="tb-logo">P</div>
-      <div class="tb-title">PracticeHub Admin</div>
-      <div class="tb-badge">ADMIN</div>
-    </div>
-    <div class="tb-right">
-      <a class="tb-link" href="practicehub.html" target="_blank">View Site ↗</a>
-      <button class="tb-logout" onclick="doLogout()">Logout</button>
-    </div>
+<div id="layout">
+  <div id="sidebar">
+    <div class="s-label">Dashboard</div>
+    <button class="s-btn active" id="sb-overview" onclick="goPage('overview',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Overview
+    </button>
+    <div class="s-label">Content</div>
+    <button class="s-btn" id="sb-questions" onclick="goPage('questions',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Questions
+      <span class="s-count" id="sc-q">0</span>
+    </button>
+    <div class="s-label">Users</div>
+    <button class="s-btn" id="sb-users" onclick="goPage('users',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Users
+      <span class="s-count" id="sc-u">0</span>
+    </button>
+    <button class="s-btn" id="sb-leaderboard" onclick="goPage('leaderboard',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Leaderboard
+    </button>
   </div>
 
-  <div class="body-wrap">
+  <div id="main">
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sidebar-lbl">Dashboard</div>
-      <button class="s-btn on" onclick="goTo('dashboard',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Overview
-      </button>
-
-      <div class="sidebar-lbl">Database</div>
-      <button class="s-btn" onclick="goTo('schema',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        Table Schema
-        <span class="s-count" id="cnt-schema">0</span>
-      </button>
-      <button class="s-btn" onclick="goTo('data',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
-        Sample Data
-      </button>
-
-      <div class="sidebar-lbl">Questions</div>
-      <button class="s-btn" onclick="goTo('questions',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        All Questions
-        <span class="s-count" id="cnt-q">0</span>
-      </button>
-      <button class="s-btn" onclick="goTo('add-question',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        Add Question
-      </button>
-      <button class="s-btn" onclick="goTo('preview',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        Preview Question
-      </button>
-
-      <div class="sidebar-lbl">Export</div>
-      <button class="s-btn" onclick="goTo('export',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Export Code
-      </button>
-
-      <div class="sidebar-lbl">Settings</div>
-      <button class="s-btn" onclick="goTo('settings',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-        Settings
-      </button>
-    </div>
-
-    <!-- MAIN -->
-    <div class="main">
-
-      <!-- DASHBOARD -->
-      <div class="sec on" id="sec-dashboard">
-        <div class="page-head">
-          <div><div class="page-title">Overview</div><div class="page-sub">Manage your PracticeHub content</div></div>
-        </div>
-        <div class="stats-row">
-          <div class="stat sg"><div class="stat-lbl">Tables</div><div class="stat-val" id="ov-tables">0</div></div>
-          <div class="stat sb"><div class="stat-lbl">Questions</div><div class="stat-val" id="ov-q">0</div></div>
-          <div class="stat sa"><div class="stat-lbl">Easy</div><div class="stat-val" id="ov-easy">0</div></div>
-          <div class="stat sp"><div class="stat-lbl">Medium</div><div class="stat-val" id="ov-med">0</div></div>
-          <div class="stat sr"><div class="stat-lbl">Hard</div><div class="stat-val" id="ov-hard">0</div></div>
-        </div>
-        <div class="notice notice-info">
-          <span>ℹ️</span>
-          <span>Start by building your <strong>Table Schema</strong>, then add <strong>Sample Data</strong>, then create <strong>Questions</strong>. Use <strong>Export Code</strong> to copy everything into your practicehub.html file.</span>
-        </div>
-        <div class="tbl-wrap" style="margin-top:16px">
-          <div class="tbl-head"><span style="font-size:13px;font-weight:600">Recent Questions</span></div>
-          <table><thead><tr><th>Title</th><th>Difficulty</th><th>Topic</th><th>Company</th><th>Actions</th></tr></thead>
-          <tbody id="dash-q-list"><tr class="empty-row"><td colspan="5">No questions yet — add your first one!</td></tr></tbody></table>
-        </div>
+    <!-- OVERVIEW -->
+    <div class="page on" id="page-overview">
+      <div class="pg-head">
+        <div><div class="pg-title">Admin Overview</div><div class="pg-sub">Your PracticeHub database at a glance</div></div>
+        <button class="btn btn-ghost" onclick="loadAll()">🔄 Refresh</button>
       </div>
-
-      <!-- TABLE SCHEMA -->
-      <div class="sec" id="sec-schema">
-        <div class="page-head">
-          <div><div class="page-title">Table Schema Builder</div><div class="page-sub">Define your database tables and columns</div></div>
-          <button class="btn btn-green" onclick="openAddTable()">+ Add Table</button>
-        </div>
-        <div class="notice notice-warn">
-          <span>⚠️</span>
-          <span>These tables are used to generate the SQL database in your practice site. After creating tables, go to <strong>Sample Data</strong> to add rows, then <strong>Export Code</strong> to update practicehub.html.</span>
-        </div>
-        <div id="schema-list"></div>
-        <div id="schema-empty" style="display:none;text-align:center;padding:40px;color:var(--text3)">No tables yet. Click "+ Add Table" to start building your database schema.</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-val sv-blue" id="ov-total">—</div><div class="stat-lbl">Total Questions</div></div>
+        <div class="stat-card"><div class="stat-val sv-green" id="ov-easy">—</div><div class="stat-lbl">Easy</div></div>
+        <div class="stat-card"><div class="stat-val sv-amber" id="ov-medium">—</div><div class="stat-lbl">Medium</div></div>
+        <div class="stat-card"><div class="stat-val sv-red" id="ov-hard">—</div><div class="stat-lbl">Hard</div></div>
+        <div class="stat-card"><div class="stat-val sv-purple" id="ov-users">—</div><div class="stat-lbl">Total Users</div></div>
+        <div class="stat-card"><div class="stat-val sv-green" id="ov-solved">—</div><div class="stat-lbl">Total Solves</div></div>
       </div>
-
-      <!-- SAMPLE DATA -->
-      <div class="sec" id="sec-data">
-        <div class="page-head">
-          <div><div class="page-title">Sample Data</div><div class="page-sub">Add INSERT rows for each table</div></div>
+      <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r2);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:3px">➕ Add a new question</div>
+          <div style="font-size:12px;color:var(--text3)">Questions you add appear on your site immediately — no coding needed</div>
         </div>
-        <div class="notice notice-info"><span>ℹ️</span><span>Add sample data rows that will be inserted into your database when the practice site loads. Use realistic Indian names and data.</span></div>
-        <div id="data-list"><div style="text-align:center;padding:40px;color:var(--text3)">Create tables first in the Table Schema section.</div></div>
-      </div>
-
-      <!-- ALL QUESTIONS -->
-      <div class="sec" id="sec-questions">
-        <div class="page-head">
-          <div><div class="page-title">All Questions</div><div class="page-sub">Manage your SQL practice questions</div></div>
-          <button class="btn btn-green" onclick="goTo('add-question',document.querySelector('[onclick*=add-question]'))">+ Add Question</button>
-        </div>
-        <div class="tbl-wrap">
-          <div class="tbl-head">
-            <input class="tbl-search" id="q-search" placeholder="Search questions..." oninput="renderQTable()"/>
-            <div style="display:flex;gap:8px">
-              <select id="q-filter-diff" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 10px;color:var(--text);font-size:12px;outline:none" onchange="renderQTable()">
-                <option value="">All Difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-              <select id="q-filter-topic" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 10px;color:var(--text);font-size:12px;outline:none" onchange="renderQTable()">
-                <option value="">All Topics</option>
-                <option>JOIN</option><option>Window</option><option>Aggregate</option>
-                <option>Subquery</option><option>CTE</option><option>Other</option>
-              </select>
-            </div>
-          </div>
-          <table><thead><tr><th>#</th><th>Title</th><th>Difficulty</th><th>Topic</th><th>Company</th><th>Exp. Rows</th><th>Actions</th></tr></thead>
-          <tbody id="q-table-body"></tbody></table>
-        </div>
-      </div>
-
-      <!-- ADD QUESTION -->
-      <div class="sec" id="sec-add-question">
-        <div class="page-head">
-          <div><div class="page-title" id="add-q-title">Add New Question</div><div class="page-sub">Create a new SQL practice question</div></div>
-        </div>
-        <div class="form-card">
-          <div class="form-title">Question Details</div>
-          <div class="form-grid">
-            <div class="field span2">
-              <label>Question Title *</label>
-              <input id="q-title" placeholder="e.g. Find employees earning more than ₹80,000"/>
-            </div>
-            <div class="field span2">
-              <label>Description *</label>
-              <textarea id="q-desc" rows="3" placeholder="Explain what the user needs to do. Be clear and specific."></textarea>
-            </div>
-            <div class="field">
-              <label>Difficulty *</label>
-              <select id="q-diff">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Topic / Category *</label>
-              <select id="q-topic">
-                <option>Aggregate</option><option>JOIN</option><option>Window</option>
-                <option>Subquery</option><option>CTE</option><option>Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Company Tag</label>
-              <input id="q-company" placeholder="e.g. Google, Amazon, Flipkart"/>
-            </div>
-            <div class="field">
-              <label>Expected Result Rows *</label>
-              <input id="q-exp" type="number" placeholder="e.g. 5" min="0"/>
-              <span class="field-hint">How many rows should the correct query return?</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-title">Hint & Schema Reference</div>
-          <div class="form-grid cols1">
-            <div class="field">
-              <label>Hint (shown when user clicks 💡 Hint)</label>
-              <textarea id="q-hint" rows="2" placeholder="e.g. Use WHERE salary > 80000"></textarea>
-            </div>
-            <div class="field">
-              <label>Schema Reference (shown to user below question)</label>
-              <textarea id="q-schema" rows="3" placeholder="e.g. employees(id, name, salary, dept_id)&#10;departments(id, dept_name)"></textarea>
-              <span class="field-hint">List the tables and columns the user needs for this question</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-title">Answer Verification</div>
-          <div class="form-grid cols1">
-            <div class="field">
-              <label>Sample Correct SQL Answer (for your reference only)</label>
-              <textarea id="q-answer" rows="4" placeholder="-- Write the correct SQL answer here&#10;SELECT name, salary FROM employees WHERE salary > 80000;"></textarea>
-              <span class="field-hint">This is only stored locally in your admin panel — not shown to users</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button class="btn btn-green" onclick="saveQuestion()">Save Question</button>
-          <button class="btn btn-ghost" onclick="clearQForm()">Clear Form</button>
-          <button class="btn btn-ghost" onclick="goTo('questions',document.querySelector('[onclick*=sec-questions]'))">Cancel</button>
-        </div>
-        <input type="hidden" id="q-edit-id" value=""/>
-      </div>
-
-      <!-- PREVIEW -->
-      <div class="sec" id="sec-preview">
-        <div class="page-head">
-          <div><div class="page-title">Preview Question</div><div class="page-sub">See exactly how questions look to users</div></div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <label style="font-size:12px;color:var(--text3)">Select question:</label>
-            <select id="preview-select" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);font-size:13px;outline:none;min-width:260px" onchange="loadPreview()">
-              <option value="">-- Choose a question --</option>
-            </select>
-          </div>
-        </div>
-        <div id="preview-area">
-          <div style="text-align:center;padding:60px;color:var(--text3)">Select a question above to preview how it will look to users on the practice site.</div>
-        </div>
-      </div>
-
-      <!-- EXPORT -->
-      <div class="sec" id="sec-export">
-        <div class="page-head">
-          <div><div class="page-title">Export Code</div><div class="page-sub">Copy generated code into your practicehub.html file</div></div>
-          <button class="btn btn-green" onclick="generateExport()">Generate Code</button>
-        </div>
-        <div class="notice notice-info"><span>ℹ️</span><span>Click <strong>Generate Code</strong>, then copy the output and paste it into the corresponding section of your <code style="font-family:var(--mono);background:var(--bg4);padding:1px 6px;border-radius:4px">practicehub.html</code> file to replace the default questions and database.</span></div>
-
-        <div class="form-card">
-          <div class="form-title" style="display:flex;align-items:center;justify-content:space-between">
-            <span>SQL Database Setup (paste into <code style="font-family:var(--mono);font-size:11px">initSQL()</code>)</span>
-            <button class="btn btn-ghost btn-sm" onclick="copyCode('export-sql')">Copy</button>
-          </div>
-          <div class="code-box" id="export-sql">Click "Generate Code" to see output...</div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-title" style="display:flex;align-items:center;justify-content:space-between">
-            <span>Questions Array (paste as <code style="font-family:var(--mono);font-size:11px">const QS=[...]</code>)</span>
-            <button class="btn btn-ghost btn-sm" onclick="copyCode('export-qs')">Copy</button>
-          </div>
-          <div class="code-box" id="export-qs">Click "Generate Code" to see output...</div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-title" style="display:flex;align-items:center;justify-content:space-between">
-            <span>Full replacement block (everything together)</span>
-            <button class="btn btn-ghost btn-sm" onclick="copyCode('export-full')">Copy All</button>
-          </div>
-          <div class="code-box" id="export-full">Click "Generate Code" to see output...</div>
-        </div>
-      </div>
-
-      <!-- SETTINGS -->
-      <div class="sec" id="sec-settings">
-        <div class="page-head">
-          <div><div class="page-title">Settings</div><div class="page-sub">Manage admin preferences</div></div>
-        </div>
-        <div class="form-card">
-          <div class="form-title">Change Admin Password</div>
-          <div class="form-grid">
-            <div class="field">
-              <label>Current Password</label>
-              <input id="pw-current" type="password" placeholder="••••••••"/>
-            </div>
-            <div class="field">
-              <label>New Password</label>
-              <input id="pw-new" type="password" placeholder="••••••••"/>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button class="btn btn-green" onclick="changePassword()">Update Password</button>
-          </div>
-        </div>
-        <div class="form-card">
-          <div class="form-title">Data Management</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-blue" onclick="exportJSON()">📥 Export All Data (JSON)</button>
-            <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">📤 Import Data (JSON)</button>
-            <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(this)"/>
-            <button class="btn btn-red" onclick="resetAll()">🗑️ Reset All Data</button>
-          </div>
-          <div style="margin-top:12px;font-size:12px;color:var(--text3)">Export your questions and schema as JSON backup. Import to restore or move to another device.</div>
-        </div>
-        <div class="form-card">
-          <div class="form-title">About</div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.8">
-            PracticeHub Admin Panel v1.0<br>
-            All data is stored locally in your browser (localStorage).<br>
-            Use Export to back up your work regularly.
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /main -->
-  </div><!-- /body-wrap -->
-</div><!-- /app -->
-
-<!-- ADD TABLE MODAL -->
-<div class="modal-overlay" id="table-modal">
-  <div class="modal" style="max-width:640px">
-    <div class="modal-title" id="table-modal-title">Create New Table</div>
-    <div class="form-grid cols1" style="margin-bottom:14px">
-      <div class="field">
-        <label>Table Name *</label>
-        <input id="tbl-name" placeholder="e.g. employees" style="font-family:var(--mono)"/>
-        <span class="field-hint">Use lowercase, no spaces (use underscores)</span>
+        <button class="btn btn-green" onclick="goPage('questions',document.getElementById('sb-questions'));setTimeout(openAddModal,200)">Add Question Now →</button>
       </div>
     </div>
-    <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Columns</div>
-    <table class="schema-table">
-      <thead><tr><th>Column Name</th><th>Data Type</th><th>Primary Key</th><th>Nullable</th><th></th></tr></thead>
-      <tbody id="col-body"></tbody>
-    </table>
-    <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="addColRow()">+ Add Column</button>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeTableModal()">Cancel</button>
-      <button class="btn btn-green" onclick="saveTable()">Save Table</button>
+
+    <!-- QUESTIONS -->
+    <div class="page" id="page-questions">
+      <div class="pg-head">
+        <div><div class="pg-title">Questions Manager</div><div class="pg-sub">Add, edit, or delete SQL practice questions</div></div>
+        <button class="btn btn-green" onclick="openAddModal()">➕ Add New Question</button>
+      </div>
+      <div class="filter-bar">
+        <input class="f-input wide" id="q-search" placeholder="🔍 Search questions..." oninput="renderQTable()"/>
+        <select class="f-sel" id="qf-diff" onchange="renderQTable()">
+          <option value="">All Difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select class="f-sel" id="qf-topic" onchange="renderQTable()">
+          <option value="">All Topics</option>
+          <option>Aggregate</option><option>JOIN</option><option>Window</option>
+          <option>Subquery</option><option>CTE</option>
+        </select>
+        <select class="f-sel" id="qf-status" onchange="renderQTable()">
+          <option value="">All Status</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+      </div>
+      <div class="q-table-wrap">
+        <table class="q-table">
+          <thead><tr>
+            <th class="td-num">#</th>
+            <th style="width:100%">TITLE</th>
+            <th>DIFFICULTY</th>
+            <th>TOPIC</th>
+            <th>COMPANY</th>
+            <th style="text-align:center">STATUS</th>
+            <th style="text-align:right">ACTIONS</th>
+          </tr></thead>
+          <tbody id="q-tbody"><tr class="empty-row"><td colspan="7">Loading questions...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="page" id="page-users">
+      <div class="pg-head">
+        <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who has signed up on your platform</div></div>
+        <button class="btn btn-ghost" onclick="loadUsers()">🔄 Refresh</button>
+      </div>
+      <div class="u-table-wrap">
+        <table class="u-table">
+          <thead><tr><th>USER</th><th>JOINED</th><th>STREAK</th><th>PLAN</th><th style="text-align:center">ACTIONS</th></tr></thead>
+          <tbody id="u-tbody"><tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading users...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="page" id="page-leaderboard">
+      <div class="pg-head">
+        <div><div class="pg-title">Live Leaderboard</div><div class="pg-sub">Top users ranked by questions solved</div></div>
+        <button class="btn btn-ghost" onclick="loadLeaderboard()">🔄 Refresh</button>
+      </div>
+      <div class="q-table-wrap">
+        <table class="q-table">
+          <thead><tr><th style="width:48px">RANK</th><th>USER</th><th>SOLVED</th><th>STREAK</th><th>LAST ACTIVE</th></tr></thead>
+          <tbody id="lb-tbody"><tr class="empty-row"><td colspan="5">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD/EDIT QUESTION MODAL -->
+<div class="overlay" id="q-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Add New Question</div>
+      <button class="modal-close" onclick="closeQModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-field">
+        <label class="f-lbl f-required">Question Title</label>
+        <input class="f-inp" id="f-title" placeholder="e.g. Find second highest salary"/>
+        <span class="f-hint">Short and clear — shown in the question list</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="f-lbl f-required">Difficulty</label>
+          <select class="f-inp" id="f-diff">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="f-lbl f-required">Topic</label>
+          <select class="f-inp" id="f-topic">
+            <option>Aggregate</option><option>JOIN</option><option>Window</option>
+            <option>Subquery</option><option>CTE</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="f-lbl">Company</label>
+          <select class="f-inp" id="f-company">
+            <option value="">— None —</option>
+            <option>Google</option><option>Amazon</option><option>Meta</option>
+            <option>Netflix</option><option>Microsoft</option><option>Flipkart</option>
+            <option>Apple</option><option>Uber</option><option>Swiggy</option>
+            <option>Zomato</option><option>Paytm</option><option>Infosys</option>
+            <option>TCS</option><option>Wipro</option><option>Accenture</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="f-lbl">Expected Result Rows</label>
+          <input class="f-inp" id="f-exp" type="number" min="0" value="1"/>
+          <span class="f-hint">How many rows should the correct answer return?</span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="f-lbl f-required">Description</label>
+        <textarea class="f-inp" id="f-desc" placeholder="Describe what the user needs to write SQL for..." rows="3"></textarea>
+      </div>
+      <div class="form-field">
+        <label class="f-lbl">Table Schema</label>
+        <textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)&#10;departments(id, dept_name)" rows="2"></textarea>
+        <span class="f-hint">Which tables/columns users need — shown below description</span>
+      </div>
+      <div class="form-field">
+        <label class="f-lbl">Hint</label>
+        <input class="f-inp" id="f-hint" placeholder="e.g. Use WHERE salary > 80000"/>
+        <span class="f-hint">Shown when user clicks the 💡 Hint button</span>
+      </div>
+      <div class="form-field">
+        <label class="f-lbl f-required">Correct SQL Solution</label>
+        <textarea class="f-inp mono" id="f-solution" placeholder="SELECT * FROM employees WHERE salary > 80000;" rows="4"></textarea>
+        <span class="f-hint">The correct SQL answer — shown in the Solution tab</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)">
+        <input type="checkbox" id="f-active" checked style="width:16px;height:16px;accent-color:var(--green)"/>
+        <div>
+          <div style="font-size:12px;font-weight:500">Active (visible to users)</div>
+          <div style="font-size:11px;color:var(--text3)">Uncheck to hide without deleting</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeQModal()">Cancel</button>
+      <button class="btn btn-green" id="save-btn" onclick="saveQuestion()">💾 Save Question</button>
     </div>
   </div>
 </div>
 
-<!-- DELETE CONFIRM MODAL -->
-<div class="modal-overlay" id="del-modal">
-  <div class="modal" style="max-width:400px">
-    <div class="modal-title">Confirm Delete</div>
-    <div id="del-msg" style="font-size:13px;color:var(--text2)"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeDelModal()">Cancel</button>
-      <button class="btn btn-red" id="del-confirm-btn">Delete</button>
+<!-- CONFIRM DELETE -->
+<div class="overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-title">Delete this question?</div>
+    <div class="confirm-sub" id="confirm-sub">This cannot be undone.</div>
+    <div class="confirm-btns">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-red" id="confirm-ok-btn" onclick="confirmDelete()">Yes, Delete</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
 <script>
-// ── STATE ──
-var ADMIN_PW_KEY='ph_admin_pw';
-var TABLES_KEY='ph_admin_tables';
-var DATA_KEY='ph_admin_data';
-var QS_KEY='ph_admin_questions';
+/* ════ SUPABASE ════ */
+var SB_URL  = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
+var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTAzMjIsImV4cCI6MjA4OTQ4NjMyMn0._sLzz4A5Krbf518Yw6TJTvwo1TOEUE5WM9EAaOUFP4A';
+var sb = supabase.createClient(SB_URL, SB_ANON);
 
-var tables=[];
-var tableData={};
-var questions=[];
-var editingQId=null;
-var editingTableIdx=null;
+var allQuestions=[], editingId=null, deleteId=null;
 
-// ── LOGIN ──
-function tryLogin(){
-  var pw=document.getElementById('l-pass').value;
-  var stored=localStorage.getItem(ADMIN_PW_KEY)||'admin123';
-  if(pw===stored){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app').classList.add('show');
-    loadAll();
-    renderAll();
-  }else{
-    document.getElementById('l-err').textContent='Incorrect password. Try: admin123';
-    document.getElementById('l-pass').value='';
-  }
-}
-document.getElementById('l-pass').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
-
-function doLogout(){
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('app').classList.remove('show');
-  document.getElementById('l-pass').value='';
-  document.getElementById('l-err').textContent='';
+/* ════ STATUS ════ */
+function setCloud(s){
+  document.getElementById('cdot').className='cdot'+(s==='ok'?' ok':s==='err'?' err':'');
+  document.getElementById('clbl').textContent=s==='ok'?'Connected ✓':s==='err'?'Connection Error':'Connecting...';
 }
 
-// ── PERSIST ──
-function loadAll(){
-  tables=JSON.parse(localStorage.getItem(TABLES_KEY)||'[]');
-  tableData=JSON.parse(localStorage.getItem(DATA_KEY)||'{}');
-  questions=JSON.parse(localStorage.getItem(QS_KEY)||'[]');
-}
-function saveAll(){
-  localStorage.setItem(TABLES_KEY,JSON.stringify(tables));
-  localStorage.setItem(DATA_KEY,JSON.stringify(tableData));
-  localStorage.setItem(QS_KEY,JSON.stringify(questions));
+/* ════ LOAD ALL ════ */
+async function loadAll(){
+  await loadQuestions();
+  await loadOverviewStats();
 }
 
-// ── NAVIGATION ──
-function goTo(id,el){
-  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});
-  document.querySelectorAll('.s-btn').forEach(function(b){b.classList.remove('on');});
-  document.getElementById('sec-'+id).classList.add('on');
-  if(el)el.classList.add('on');
-  if(id==='schema')renderSchema();
-  if(id==='data')renderData();
-  if(id==='questions')renderQTable();
-  if(id==='preview')renderPreviewSelect();
-  if(id==='dashboard')renderDash();
-  if(id==='add-question'){
-    if(!editingQId){clearQForm();document.getElementById('add-q-title').textContent='Add New Question';}
+/* ════ LOAD QUESTIONS ════ */
+async function loadQuestions(){
+  try{
+    // Simple select — no count tricks, just get all rows
+    var r = await sb.from('questions').select('*').order('sort_order', {ascending:true});
+    if(r.error) throw r.error;
+    allQuestions = r.data || [];
+    document.getElementById('sc-q').textContent = allQuestions.length;
+    renderQTable();
+    setCloud('ok');
+  }catch(e){
+    setCloud('err');
+    toast('Error loading questions: '+e.message,'err');
+    console.error('loadQuestions error:', e);
   }
 }
 
-// ── STATS ──
-function renderDash(){
-  document.getElementById('ov-tables').textContent=tables.length;
-  document.getElementById('ov-q').textContent=questions.length;
-  document.getElementById('ov-easy').textContent=questions.filter(function(q){return q.diff==='easy';}).length;
-  document.getElementById('ov-med').textContent=questions.filter(function(q){return q.diff==='medium';}).length;
-  document.getElementById('ov-hard').textContent=questions.filter(function(q){return q.diff==='hard';}).length;
-  document.getElementById('cnt-schema').textContent=tables.length;
-  document.getElementById('cnt-q').textContent=questions.length;
-
-  var tbody=document.getElementById('dash-q-list');
-  if(!questions.length){
-    tbody.innerHTML='<tr class="empty-row"><td colspan="5">No questions yet — add your first one!</td></tr>';
-    return;
-  }
-  tbody.innerHTML=questions.slice(-5).reverse().map(function(q){
-    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th2';
-    return '<tr>'+
-      '<td class="td-title">'+q.title+'</td>'+
-      '<td><span class="tag '+dc+'">'+q.diff+'</span></td>'+
-      '<td><span class="tag tt">'+q.topic+'</span></td>'+
-      '<td><span class="tag tc">'+(q.company||'—')+'</span></td>'+
-      '<td class="td-actions">'+
-        '<button class="btn btn-ghost btn-sm" onclick="editQ('+q.id+')">Edit</button>'+
-        '<button class="btn btn-red btn-sm" onclick="confirmDelQ('+q.id+')">Del</button>'+
-      '</td></tr>';
-  }).join('');
-}
-
-function renderAll(){renderDash();renderSchema();renderQTable();}
-
-// ── TABLE SCHEMA ──
-function openAddTable(){
-  editingTableIdx=null;
-  document.getElementById('tbl-name').value='';
-  document.getElementById('col-body').innerHTML='';
-  document.getElementById('table-modal-title').textContent='Create New Table';
-  addColRow('id','INTEGER',true,false);
-  addColRow('name','TEXT',false,false);
-  addColRow('','TEXT',false,true);
-  document.getElementById('table-modal').classList.add('show');
-}
-
-function addColRow(name,type,pk,nullable){
-  var tr=document.createElement('tr');
-  tr.innerHTML=
-    '<td><input value="'+(name||'')+'" placeholder="column_name" style="font-family:var(--mono)"/></td>'+
-    '<td><select>'+
-      ['INTEGER','TEXT','REAL','BLOB','DATE'].map(function(t){
-        return '<option'+(type===t?' selected':'')+'>'+t+'</option>';
-      }).join('')+
-    '</select></td>'+
-    '<td style="text-align:center"><input type="checkbox" '+(pk?'checked':'')+'/></td>'+
-    '<td style="text-align:center"><input type="checkbox" '+(nullable?'checked':'')+'/></td>'+
-    '<td><button class="col-del" onclick="this.closest(\'tr\').remove()">✕</button></td>';
-  document.getElementById('col-body').appendChild(tr);
-}
-
-function saveTable(){
-  var name=document.getElementById('tbl-name').value.trim().toLowerCase().replace(/\s+/g,'_');
-  if(!name){toast('Table name required','err');return;}
-  var rows=document.getElementById('col-body').querySelectorAll('tr');
-  var cols=[];
-  rows.forEach(function(r){
-    var inputs=r.querySelectorAll('input,select');
-    var colName=inputs[0].value.trim();
-    if(!colName)return;
-    cols.push({name:colName,type:inputs[1].value,pk:inputs[2].checked,nullable:inputs[3].checked});
-  });
-  if(!cols.length){toast('Add at least one column','err');return;}
-  if(editingTableIdx!==null){
-    tables[editingTableIdx]={name:name,cols:cols};
-  }else{
-    if(tables.find(function(t){return t.name===name;})){toast('Table name already exists','err');return;}
-    tables.push({name:name,cols:cols});
-    if(!tableData[name])tableData[name]=[];
-  }
-  saveAll();closeTableModal();renderSchema();renderData();renderDash();
-  toast('Table "'+name+'" saved!','ok');
-}
-
-function editTable(idx){
-  editingTableIdx=idx;
-  var t=tables[idx];
-  document.getElementById('tbl-name').value=t.name;
-  document.getElementById('col-body').innerHTML='';
-  document.getElementById('table-modal-title').textContent='Edit Table: '+t.name;
-  t.cols.forEach(function(c){addColRow(c.name,c.type,c.pk,c.nullable);});
-  document.getElementById('table-modal').classList.add('show');
-}
-
-function deleteTable(idx){
-  var name=tables[idx].name;
-  showDelModal('Delete table "'+name+'" and all its sample data?',function(){
-    delete tableData[name];
-    tables.splice(idx,1);
-    saveAll();renderSchema();renderData();renderDash();
-    toast('Table "'+name+'" deleted','ok');
-  });
-}
-
-function closeTableModal(){document.getElementById('table-modal').classList.remove('show');}
-
-function renderSchema(){
-  var el=document.getElementById('schema-list');
-  var em=document.getElementById('schema-empty');
-  if(!tables.length){el.innerHTML='';em.style.display='block';return;}
-  em.style.display='none';
-  el.innerHTML=tables.map(function(t,i){
-    return '<div class="schema-card">'+
-      '<div class="schema-card-head">'+
-        '<div class="schema-card-name">'+t.name+'</div>'+
-        '<div style="display:flex;gap:8px">'+
-          '<button class="btn btn-ghost btn-sm" onclick="editTable('+i+')">Edit</button>'+
-          '<button class="btn btn-red btn-sm" onclick="deleteTable('+i+')">Delete</button>'+
-        '</div>'+
-      '</div>'+
-      '<table class="schema-table">'+
-        '<thead><tr><th>Column</th><th>Type</th><th>PK</th><th>Nullable</th></tr></thead>'+
-        '<tbody>'+t.cols.map(function(c){
-          return '<tr>'+
-            '<td style="font-family:var(--mono);font-weight:500">'+c.name+'</td>'+
-            '<td><span class="tag tc">'+c.type+'</span></td>'+
-            '<td>'+(c.pk?'<span class="tag te">PK</span>':'')+'</td>'+
-            '<td>'+(c.nullable?'<span class="tag tm">NULL</span>':'<span class="tag" style="background:var(--bg4);color:var(--text3);border:1px solid var(--border)">NOT NULL</span>')+'</td>'+
-          '</tr>';
-        }).join('')+'</tbody>'+
-      '</table>'+
-    '</div>';
-  }).join('');
-}
-
-// ── SAMPLE DATA ──
-function renderData(){
-  var el=document.getElementById('data-list');
-  if(!tables.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3)">Create tables first in the Table Schema section.</div>';return;}
-  el.innerHTML=tables.map(function(t){
-    var rows=tableData[t.name]||[];
-    return '<div class="schema-card">'+
-      '<div class="schema-card-head">'+
-        '<div class="schema-card-name">'+t.name+' <span style="font-weight:400;color:var(--text3);font-size:12px">('+rows.length+' rows)</span></div>'+
-        '<button class="btn btn-ghost btn-sm" onclick="addDataRow(\''+t.name+'\')">+ Add Row</button>'+
-      '</div>'+
-      (rows.length?
-        '<div style="overflow-x:auto"><table class="schema-table"><thead><tr>'+
-          t.cols.map(function(c){return '<th>'+c.name+'</th>';}).join('')+'<th></th>'+
-        '</tr></thead><tbody>'+
-          rows.map(function(row,ri){
-            return '<tr>'+t.cols.map(function(c){
-              return '<td><input value="'+(row[c.name]!==undefined?String(row[c.name]).replace(/"/g,'&quot;'):'')+
-                '" onchange="updateDataCell(\''+t.name+'\','+ri+',\''+c.name+'\',this.value)" style="min-width:80px"/></td>';
-            }).join('')+
-            '<td><button class="col-del" onclick="deleteDataRow(\''+t.name+'\','+ri+')">✕</button></td>'+
-            '</tr>';
-          }).join('')+
-        '</tbody></table></div>'
-      :'<div style="color:var(--text3);font-size:12px;padding:8px 0">No rows yet. Click "+ Add Row".</div>')+
-    '</div>';
-  }).join('');
-}
-
-function addDataRow(tableName){
-  var t=tables.find(function(x){return x.name===tableName;});
-  if(!t)return;
-  var row={};
-  t.cols.forEach(function(c){row[c.name]='';});
-  if(!tableData[tableName])tableData[tableName]=[];
-  tableData[tableName].push(row);
-  saveAll();renderData();
-}
-
-function updateDataCell(tableName,rowIdx,colName,val){
-  if(!tableData[tableName])return;
-  tableData[tableName][rowIdx][colName]=val;
-  saveAll();
-}
-
-function deleteDataRow(tableName,rowIdx){
-  tableData[tableName].splice(rowIdx,1);
-  saveAll();renderData();toast('Row deleted','ok');
-}
-
-// ── QUESTIONS ──
+/* ════ RENDER TABLE ════ */
 function renderQTable(){
   var search=(document.getElementById('q-search').value||'').toLowerCase();
-  var diffF=document.getElementById('q-filter-diff').value;
-  var topicF=document.getElementById('q-filter-topic').value;
-  var filtered=questions.filter(function(q){
-    if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.desc||'').toLowerCase().indexOf(search)===-1)return false;
-    if(diffF&&q.diff!==diffF)return false;
-    if(topicF&&q.topic!==topicF)return false;
+  var diff=document.getElementById('qf-diff').value;
+  var topic=document.getElementById('qf-topic').value;
+  var status=document.getElementById('qf-status').value;
+
+  var qs=allQuestions.filter(q=>{
+    if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.description||'').toLowerCase().indexOf(search)===-1)return false;
+    if(diff&&q.difficulty!==diff)return false;
+    if(topic&&q.topic!==topic)return false;
+    if(status!==''&&String(q.is_active)!==status)return false;
     return true;
   });
-  document.getElementById('cnt-q').textContent=questions.length;
-  var tbody=document.getElementById('q-table-body');
-  if(!filtered.length){
-    tbody.innerHTML='<tr class="empty-row"><td colspan="7">'+(questions.length?'No questions match filters':'No questions yet — add your first one!')+'</td></tr>';
+
+  var tbody=document.getElementById('q-tbody');
+  if(!qs.length){
+    tbody.innerHTML='<tr class="empty-row"><td colspan="7">No questions found — <a href="#" onclick="openAddModal()" style="color:var(--green)">add your first one!</a></td></tr>';
     return;
   }
-  tbody.innerHTML=filtered.map(function(q,i){
-    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th2';
+  tbody.innerHTML=qs.map((q,i)=>{
+    var dc=q.difficulty==='easy'?'te':q.difficulty==='medium'?'tm':'th';
+    var act=q.is_active?'<span class="tag te">Active</span>':'<span class="tag tc">Hidden</span>';
     return '<tr>'+
-      '<td style="color:var(--text3)">'+(i+1)+'</td>'+
-      '<td><div class="td-title">'+q.title+'</div><div class="td-desc">'+(q.desc||'')+'</div></td>'+
-      '<td><span class="tag '+dc+'">'+q.diff+'</span></td>'+
-      '<td><span class="tag tt">'+q.topic+'</span></td>'+
-      '<td><span class="tag tc">'+(q.company||'—')+'</span></td>'+
-      '<td style="font-family:var(--mono);text-align:center">'+q.exp+'</td>'+
-      '<td class="td-actions">'+
-        '<button class="btn btn-amber btn-sm" onclick="editQ('+q.id+')">Edit</button>'+
-        '<button class="btn btn-red btn-sm" onclick="confirmDelQ('+q.id+')">Delete</button>'+
-      '</td></tr>';
+      '<td class="td-num">'+(i+1)+'</td>'+
+      '<td class="td-title" title="'+q.title+'">'+q.title+'</td>'+
+      '<td><span class="tag '+dc+'">'+q.difficulty+'</span></td>'+
+      '<td><span class="tag tt" style="font-size:10px">'+q.topic+'</span></td>'+
+      '<td><span class="tag tc" style="font-size:10px">'+(q.company||'—')+'</span></td>'+
+      '<td style="text-align:center">'+act+'</td>'+
+      '<td><div class="td-actions">'+
+        '<button class="btn btn-ghost btn-xs" onclick="editQ('+q.id+')">✏️ Edit</button>'+
+        '<button class="btn btn-red btn-xs" onclick="askDelete('+q.id+',\''+q.title.replace(/'/g,"\\'")+'\')" >🗑 Delete</button>'+
+      '</div></td></tr>';
   }).join('');
 }
 
-function saveQuestion(){
-  var title=(document.getElementById('q-title').value||'').trim();
-  var desc=(document.getElementById('q-desc').value||'').trim();
-  var diff=document.getElementById('q-diff').value;
-  var topic=document.getElementById('q-topic').value;
-  var company=(document.getElementById('q-company').value||'').trim();
-  var exp=parseInt(document.getElementById('q-exp').value)||0;
-  var hint=(document.getElementById('q-hint').value||'').trim();
-  var schema=(document.getElementById('q-schema').value||'').trim();
-  var answer=(document.getElementById('q-answer').value||'').trim();
-  var eid=document.getElementById('q-edit-id').value;
-
-  if(!title||!desc){toast('Title and Description are required','err');return;}
-
-  if(eid){
-    var idx=questions.findIndex(function(q){return String(q.id)===String(eid);});
-    if(idx!==-1){
-      questions[idx]={id:parseInt(eid),title:title,desc:desc,diff:diff,topic:topic,company:company,exp:exp,hint:hint,schema:schema,answer:answer};
-      toast('Question updated!','ok');
-    }
-    editingQId=null;
-  }else{
-    var newId=Date.now();
-    questions.push({id:newId,title:title,desc:desc,diff:diff,topic:topic,company:company,exp:exp,hint:hint,schema:schema,answer:answer});
-    toast('Question added!','ok');
-  }
-  saveAll();clearQForm();renderDash();
-  goTo('questions',document.querySelector('[onclick*="\'questions\'"]'));
+/* ════ ADD / EDIT ════ */
+function openAddModal(){
+  editingId=null;clearForm();
+  document.getElementById('modal-title').textContent='Add New Question';
+  document.getElementById('q-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('f-title').focus(),100);
 }
-
-function clearQForm(){
-  ['q-title','q-desc','q-company','q-exp','q-hint','q-schema','q-answer'].forEach(function(id){
-    document.getElementById(id).value='';
-  });
-  document.getElementById('q-diff').value='easy';
-  document.getElementById('q-topic').value='Aggregate';
-  document.getElementById('q-edit-id').value='';
-  editingQId=null;
-}
-
 function editQ(id){
-  var q=questions.find(function(x){return x.id===id;});
-  if(!q)return;
-  editingQId=id;
-  document.getElementById('q-title').value=q.title||'';
-  document.getElementById('q-desc').value=q.desc||'';
-  document.getElementById('q-diff').value=q.diff||'easy';
-  document.getElementById('q-topic').value=q.topic||'Aggregate';
-  document.getElementById('q-company').value=q.company||'';
-  document.getElementById('q-exp').value=q.exp||0;
-  document.getElementById('q-hint').value=q.hint||'';
-  document.getElementById('q-schema').value=q.schema||'';
-  document.getElementById('q-answer').value=q.answer||'';
-  document.getElementById('q-edit-id').value=id;
-  document.getElementById('add-q-title').textContent='Edit Question';
-  goTo('add-question',document.querySelector('[onclick*="\'add-question\'"]'));
+  var q=allQuestions.find(x=>x.id===id);if(!q)return;
+  editingId=id;
+  document.getElementById('modal-title').textContent='Edit Question';
+  document.getElementById('f-title').value=q.title||'';
+  document.getElementById('f-diff').value=q.difficulty||'easy';
+  document.getElementById('f-topic').value=q.topic||'Aggregate';
+  document.getElementById('f-company').value=q.company||'';
+  document.getElementById('f-exp').value=q.expected_rows||1;
+  document.getElementById('f-desc').value=q.description||'';
+  document.getElementById('f-schema').value=q.schema_ref||'';
+  document.getElementById('f-hint').value=q.hint||'';
+  document.getElementById('f-solution').value=q.solution||'';
+  document.getElementById('f-active').checked=q.is_active!==false;
+  document.getElementById('q-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('f-title').focus(),100);
 }
-
-function confirmDelQ(id){
-  var q=questions.find(function(x){return x.id===id;});
-  if(!q)return;
-  showDelModal('Delete question: "'+q.title+'"?',function(){
-    questions=questions.filter(function(x){return x.id!==id;});
-    saveAll();renderQTable();renderDash();
-    toast('Question deleted','ok');
-  });
+function clearForm(){
+  ['f-title','f-desc','f-schema','f-hint','f-solution'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-diff').value='easy';
+  document.getElementById('f-topic').value='Aggregate';
+  document.getElementById('f-company').value='';
+  document.getElementById('f-exp').value='1';
+  document.getElementById('f-active').checked=true;
 }
+function closeQModal(){document.getElementById('q-overlay').classList.remove('show');editingId=null;}
+document.getElementById('q-overlay').addEventListener('click',e=>{if(e.target.id==='q-overlay')closeQModal();});
 
-// ── PREVIEW ──
-function renderPreviewSelect(){
-  var sel=document.getElementById('preview-select');
-  sel.innerHTML='<option value="">-- Choose a question --</option>'+
-    questions.map(function(q){return '<option value="'+q.id+'">'+q.title+'</option>';}).join('');
-}
+async function saveQuestion(){
+  var title=document.getElementById('f-title').value.trim();
+  var desc=document.getElementById('f-desc').value.trim();
+  var solution=document.getElementById('f-solution').value.trim();
+  if(!title){toast('Title is required!','warn');document.getElementById('f-title').focus();return;}
+  if(!desc){toast('Description is required!','warn');document.getElementById('f-desc').focus();return;}
+  if(!solution){toast('Solution SQL is required!','warn');document.getElementById('f-solution').focus();return;}
 
-function loadPreview(){
-  var id=parseInt(document.getElementById('preview-select').value);
-  var area=document.getElementById('preview-area');
-  if(!id){area.innerHTML='<div style="text-align:center;padding:60px;color:var(--text3)">Select a question above to preview.</div>';return;}
-  var q=questions.find(function(x){return x.id===id;});
-  if(!q){return;}
-  var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th2';
-  area.innerHTML='<div class="preview-wrap">'+
-    '<div class="preview-q">'+
-      '<div class="preview-title">'+q.title+'</div>'+
-      '<div class="preview-meta">'+
-        '<span class="tag '+dc+'">'+q.diff.toUpperCase()+'</span>'+
-        (q.company?'<span class="tag tc">'+q.company+'</span>':'')+
-        '<span class="tag tt">'+q.topic+'</span>'+
-      '</div>'+
-      '<div class="preview-desc">'+q.desc+'</div>'+
-      (q.schema?'<div class="preview-schema"><strong style="color:var(--text2)">Schema:</strong><br>'+q.schema.replace(/\n/g,'<br>')+'</div>':'')+
-    '</div>'+
-    '<div class="preview-editor">'+
-      '<div class="preview-editor-label">SQL Editor</div>'+
-      '<textarea class="preview-textarea" placeholder="-- User types their SQL query here..."></textarea>'+
-    '</div>'+
-    '<div class="preview-actions">'+
-      '<button class="btn btn-blue">▶ Run Query</button>'+
-      '<button class="btn btn-green">✓ Submit Answer</button>'+
-      '<button class="btn btn-ghost">💡 Hint: '+q.hint+'</button>'+
-    '</div>'+
-    '</div>'+
-    '<div class="notice notice-info" style="margin-top:12px"><span>ℹ️</span><span>Expected rows: <strong>'+q.exp+'</strong>. This is exactly how this question will look to users on the practice page.</span></div>';
-}
+  var btn=document.getElementById('save-btn');
+  btn.innerHTML='<span class="spinner"></span> Saving...';btn.disabled=true;
 
-// ── EXPORT ──
-function generateExport(){
-  // SQL
-  var sqlLines=[];
-  tables.forEach(function(t){
-    var colDefs=t.cols.map(function(c){
-      return c.name+' '+c.type+(c.pk?' PRIMARY KEY':'')+(c.nullable?'':' NOT NULL'?false:'');
-    }).join(', ');
-    sqlLines.push('CREATE TABLE '+t.name+'('+colDefs+');');
-    var rows=tableData[t.name]||[];
-    if(rows.length){
-      rows.forEach(function(row){
-        var colNames=t.cols.map(function(c){return c.name;}).join(',');
-        var vals=t.cols.map(function(c){
-          var v=row[c.name];
-          if(v===''||v===undefined)return 'NULL';
-          if(!isNaN(v)&&v!=='')return v;
-          return "'"+String(v).replace(/'/g,"''")+"'";
-        }).join(',');
-        sqlLines.push('INSERT INTO '+t.name+'('+colNames+') VALUES('+vals+');');
-      });
-    }
-  });
-  document.getElementById('export-sql').textContent=sqlLines.join('\n');
-
-  // Questions array
-  var qArr='const QS=[\n'+questions.map(function(q,i){
-    return '  {id:'+i+',title:'+JSON.stringify(q.title)+',diff:'+JSON.stringify(q.diff)+
-      ',co:'+JSON.stringify(q.company||'')+',topic:'+JSON.stringify(q.topic)+
-      ',\n   desc:'+JSON.stringify(q.desc)+
-      ',\n   hint:'+JSON.stringify(q.hint||'')+
-      ',exp:'+q.exp+
-      ',\n   schema:'+JSON.stringify(q.schema||'')+'}';
-  }).join(',\n')+'\n];';
-  document.getElementById('export-qs').textContent=qArr;
-
-  // Full block
-  var full='// ── PASTE THIS INTO YOUR practicehub.html ──\n\n'+
-    '// 1. Replace initSQL() db.run() contents with:\n'+
-    'db.run(`\n'+sqlLines.join('\n')+'\n`);\n\n'+
-    '// 2. Replace the QS array with:\n'+
-    qArr;
-  document.getElementById('export-full').textContent=full;
-  toast('Code generated! Copy and paste into practicehub.html','ok');
-}
-
-function copyCode(id){
-  var text=document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(function(){toast('Copied to clipboard!','ok');});
-}
-
-// ── SETTINGS ──
-function changePassword(){
-  var cur=document.getElementById('pw-current').value;
-  var nw=document.getElementById('pw-new').value;
-  var stored=localStorage.getItem(ADMIN_PW_KEY)||'admin123';
-  if(cur!==stored){toast('Current password incorrect','err');return;}
-  if(nw.length<4){toast('New password must be at least 4 characters','err');return;}
-  localStorage.setItem(ADMIN_PW_KEY,nw);
-  document.getElementById('pw-current').value='';
-  document.getElementById('pw-new').value='';
-  toast('Password updated!','ok');
-}
-
-function exportJSON(){
-  var data={tables:tables,tableData:tableData,questions:questions};
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='practicehub-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
-  toast('Backup downloaded!','ok');
-}
-
-function importJSON(input){
-  var file=input.files[0];
-  if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      var data=JSON.parse(e.target.result);
-      if(data.tables)tables=data.tables;
-      if(data.tableData)tableData=data.tableData;
-      if(data.questions)questions=data.questions;
-      saveAll();renderAll();
-      toast('Data imported successfully!','ok');
-    }catch(err){toast('Invalid JSON file','err');}
+  var payload={
+    title,
+    description:desc,
+    difficulty:document.getElementById('f-diff').value,
+    topic:document.getElementById('f-topic').value,
+    company:document.getElementById('f-company').value||null,
+    expected_rows:parseInt(document.getElementById('f-exp').value)||1,
+    schema_ref:document.getElementById('f-schema').value.trim()||null,
+    hint:document.getElementById('f-hint').value.trim()||null,
+    solution,
+    is_active:document.getElementById('f-active').checked,
   };
-  reader.readAsText(file);
-  input.value='';
+  if(!editingId) payload.sort_order = allQuestions.length+1;
+
+  try{
+    var r = editingId
+      ? await sb.from('questions').update(payload).eq('id',editingId)
+      : await sb.from('questions').insert(payload);
+    if(r.error) throw r.error;
+    closeQModal();
+    await loadQuestions();
+    await loadOverviewStats();
+    toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
+  }catch(e){
+    toast('Save failed: '+e.message,'err');
+    console.error('saveQuestion error:', e);
+  }finally{
+    btn.innerHTML='💾 Save Question';btn.disabled=false;
+  }
 }
 
-function resetAll(){
-  if(!confirm('This will delete ALL tables, data, and questions. Are you sure?'))return;
-  tables=[];tableData={};questions=[];
-  saveAll();renderAll();
-  toast('All data reset','ok');
+/* ════ DELETE ════ */
+function askDelete(id,title){
+  deleteId=id;
+  document.getElementById('confirm-sub').textContent='"'+title+'" will be permanently deleted.';
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('show');deleteId=null;}
+document.getElementById('confirm-overlay').addEventListener('click',e=>{if(e.target.id==='confirm-overlay')closeConfirm();});
+async function confirmDelete(){
+  if(!deleteId)return;
+  var btn=document.getElementById('confirm-ok-btn');
+  btn.innerHTML='<span class="spinner"></span>';btn.disabled=true;
+  try{
+    var r=await sb.from('questions').delete().eq('id',deleteId);
+    if(r.error)throw r.error;
+    closeConfirm();
+    await loadQuestions();
+    await loadOverviewStats();
+    toast('🗑 Question deleted','info');
+  }catch(e){toast('Delete failed: '+e.message,'err');}
+  finally{btn.innerHTML='Yes, Delete';btn.disabled=false;}
 }
 
-// ── DELETE MODAL ──
-var delCallback=null;
-function showDelModal(msg,cb){
-  document.getElementById('del-msg').textContent=msg;
-  delCallback=cb;
-  document.getElementById('del-modal').classList.add('show');
-  document.getElementById('del-confirm-btn').onclick=function(){closeDelModal();if(delCallback)delCallback();};
-}
-function closeDelModal(){document.getElementById('del-modal').classList.remove('show');delCallback=null;}
+/* ════ OVERVIEW STATS ════
+   FIX: Use simple .select('*') instead of count syntax
+   which was causing the connection error
+════ */
+async function loadOverviewStats(){
+  try{
+    var qs=allQuestions;
+    document.getElementById('ov-total').textContent=qs.length;
+    document.getElementById('ov-easy').textContent=qs.filter(q=>q.difficulty==='easy').length;
+    document.getElementById('ov-medium').textContent=qs.filter(q=>q.difficulty==='medium').length;
+    document.getElementById('ov-hard').textContent=qs.filter(q=>q.difficulty==='hard').length;
 
-// ── TOAST ──
-function toast(msg,type){
-  var t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='show '+(type||'ok');
-  clearTimeout(t._timer);
-  t._timer=setTimeout(function(){t.classList.remove('show');},2800);
+    // FIX: Get user count with simple select instead of {count:'exact',head:true}
+    var ur=await sb.from('profiles').select('id');
+    var userCount=ur.data?ur.data.length:0;
+    document.getElementById('ov-users').textContent=userCount;
+    document.getElementById('sc-u').textContent=userCount;
+
+    // FIX: Get solved count with simple select
+    var sr=await sb.from('user_progress').select('id').eq('status','solved');
+    document.getElementById('ov-solved').textContent=sr.data?sr.data.length:0;
+
+  }catch(e){
+    // Stats failed but don't show connection error — questions loaded fine
+    console.error('Stats error (non-critical):', e);
+    document.getElementById('ov-users').textContent='—';
+    document.getElementById('ov-solved').textContent='—';
+  }
 }
 
-// ── CLOSE MODALS ON OVERLAY CLICK ──
-document.getElementById('table-modal').addEventListener('click',function(e){if(e.target===this)closeTableModal();});
-document.getElementById('del-modal').addEventListener('click',function(e){if(e.target===this)closeDelModal();});
+/* ════ USERS ════ */
+async function loadUsers(){
+  var tbody=document.getElementById('u-tbody');
+  tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading...</td></tr>';
+  try{
+    var r=await sb.from('profiles').select('*').order('created_at',{ascending:false});
+    if(r.error)throw r.error;
+    var users=r.data||[];
+    document.getElementById('sc-u').textContent=users.length;
+    document.getElementById('ov-users').textContent=users.length;
+    if(!users.length){
+      tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';
+      return;
+    }
+    tbody.innerHTML=users.map(u=>{
+      var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
+      var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
+      return '<tr>'+
+        '<td><div class="u-row-head">'+
+          '<div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
+          '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
+          '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
+        '<td>'+joined+'</td>'+
+        '<td><span style="color:var(--amber);font-weight:600">'+(u.streak||0)+'</span> 🔥</td>'+
+        '<td>'+plan+'</td>'+
+        '<td style="text-align:center"><button class="btn btn-ghost btn-xs" onclick="toast(\'Coming soon!\',\'info\')">Manage</button></td>'+
+        '</tr>';
+    }).join('');
+  }catch(e){
+    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</td></tr>';
+  }
+}
+
+/* ════ LEADERBOARD ════ */
+async function loadLeaderboard(){
+  var tbody=document.getElementById('lb-tbody');
+  tbody.innerHTML='<tr class="empty-row"><td colspan="5">Loading...</td></tr>';
+  try{
+    var r=await sb.from('leaderboard').select('*').limit(50);
+    if(r.error)throw r.error;
+    var rows=r.data||[];
+    if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="5">No users yet</td></tr>';return;}
+    tbody.innerHTML=rows.map((u,i)=>{
+      var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
+      var last=u.last_solved?new Date(u.last_solved).toLocaleDateString('en-IN'):'—';
+      return '<tr>'+
+        '<td style="font-size:16px;text-align:center">'+medal+'</td>'+
+        '<td><div class="u-row-head"><div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
+        '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
+        '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
+        '<td><span style="color:var(--green);font-weight:700;font-size:15px">'+(u.solved_count||0)+'</span></td>'+
+        '<td><span style="color:var(--amber);font-weight:600">'+(u.streak||0)+'</span> 🔥</td>'+
+        '<td>'+last+'</td></tr>';
+    }).join('');
+  }catch(e){tbody.innerHTML='<tr class="empty-row"><td colspan="5">Error: '+e.message+'</td></tr>';}
+}
+
+/* ════ PAGE NAV ════ */
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('on');
+  if(btn)btn.classList.add('active');
+  if(id==='users')loadUsers();
+  if(id==='leaderboard')loadLeaderboard();
+}
+
+/* ════ TOAST ════ */
+function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
+
+/* ════ BOOT ════ */
+window.addEventListener('load',async()=>{
+  setCloud('');
+  try{
+    await loadAll();
+  }catch(e){
+    setCloud('err');
+    toast('Database connection failed: '+e.message,'err');
+    console.error('Boot error:',e);
+  }
+});
 </script>
 </body>
 </html>
