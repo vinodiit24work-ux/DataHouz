@@ -24,204 +24,232 @@
   --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
   --r:8px;--r2:12px;--r3:16px;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden;font-size:15px;line-height:1.5}
+body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden;font-size:14px}
 
 /* SIDEBAR */
-#sidebar{width:256px;min-width:256px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0}
-.logo{padding:18px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0}
-.logo-name{font-size:17px;font-weight:700;letter-spacing:-0.4px}
-.logo-tag{font-size:10px;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase;margin-top:1px}
-.back-link{margin:10px 12px 0;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;text-decoration:none}
+#sidebar{width:240px;min-width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0}
+.logo{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;flex-shrink:0}
+.logo-name{font-size:16px;font-weight:700;letter-spacing:-0.4px}
+.logo-tag{font-size:10px;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase}
+.back-link{margin:10px 10px 0;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;transition:all .15s;text-decoration:none}
 .back-link:hover{border-color:var(--border2);color:var(--text)}
-.user-pill{margin:10px 12px;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);display:none;align-items:center;gap:10px}
-.u-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.u-info{flex:1;min-width:0}
-.u-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.u-streak{font-size:11px;color:var(--amber);margin-top:1px}
-.u-logout{font-size:11px;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:transparent;transition:all .15s;font-family:var(--font)}
+.user-pill{margin:8px 10px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);display:none;align-items:center;gap:9px}
+.u-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.u-name{font-size:13px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u-logout{font-size:11px;color:var(--text3);cursor:pointer;padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:transparent;font-family:var(--font);transition:all .15s}
 .u-logout:hover{color:var(--red);border-color:var(--red-border)}
-.nav-group-lbl{padding:14px 16px 4px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;margin:1px 8px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13.5px;transition:all .15s;border-left:3px solid transparent}
-.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-group{padding:12px 14px 3px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 14px;margin:1px 6px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13px;transition:all .15s;border-left:3px solid transparent}
+.nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
 .nav-item:hover{background:var(--bg3);color:var(--text)}
 .nav-item.active{background:var(--green-bg);color:var(--green);border-left-color:var(--green);font-weight:500}
 .nav-item.active svg{opacity:1}
-.filter-wrap{padding:14px 12px 8px;border-top:1px solid var(--border);margin-top:auto}
-.filter-group{margin-bottom:18px}
-.filter-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:6px;padding:0 4px}
-.f-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:12.5px;transition:all .15s;border-left:3px solid transparent;background:transparent;border-top:none;border-right:none;border-bottom:none;text-align:left;font-family:var(--font)}
+
+/* SQL FILTERS in sidebar */
+.filter-wrap{padding:12px 10px 8px;border-top:1px solid var(--border);margin-top:auto}
+.filter-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;padding:0 4px}
+.filter-group{margin-bottom:14px}
+.f-btn{display:flex;align-items:center;gap:7px;width:100%;padding:7px 10px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:12px;transition:all .15s;border-left:3px solid transparent;background:transparent;border-top:none;border-right:none;border-bottom:none;text-align:left;font-family:var(--font)}
 .f-btn:hover{background:var(--bg3);color:var(--text)}
-.f-btn.on{color:var(--text);background:var(--bg4);border-left:3px solid var(--green);padding-left:10px}
-.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.f-btn.on{color:var(--text);background:var(--bg4);border-left:3px solid var(--green)}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .de{background:var(--green)}.dm{background:var(--amber)}.dh{background:var(--red)}.da{background:var(--text3)}
 
 /* MAIN */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;height:100vh}
-.topbar{padding:12px 24px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.page-title{font-size:17px;font-weight:600;letter-spacing:-0.3px}
-.topbar-r{display:flex;align-items:center;gap:10px}
-.pill{padding:5px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2)}
-.btn-login-top{padding:7px 16px;background:var(--green);color:#fff;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:opacity .15s;font-family:var(--font)}
+.topbar{padding:11px 22px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.page-title{font-size:16px;font-weight:600;letter-spacing:-0.3px}
+.topbar-r{display:flex;align-items:center;gap:9px}
+.pill{padding:4px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2)}
+.btn-login-top{padding:7px 14px;background:var(--green);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s}
 .btn-login-top:hover{opacity:.85}
-.content{flex:1;overflow-y:auto;padding:22px}
+.content{flex:1;overflow-y:auto;padding:20px}
 
 /* SECTIONS */
 .sec{display:none}.sec.on{display:block}
 
 /* DASHBOARD */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
-.s-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;transition:border-color .2s}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:20px}
+.s-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;transition:border-color .2s}
 .s-card:hover{border-color:var(--border2)}
-.s-lbl{font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
-.s-val{font-size:30px;font-weight:700;letter-spacing:-1px}
-.s-sub{font-size:11px;color:var(--text3);margin-top:5px}
+.s-lbl{font-size:10px;color:var(--text3);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.s-val{font-size:28px;font-weight:700;letter-spacing:-1px}
+.s-sub{font-size:11px;color:var(--text3);margin-top:4px}
 .sg .s-val{color:var(--green)}.sb .s-val{color:var(--blue)}.sa .s-val{color:var(--amber)}.sp .s-val{color:var(--purple)}
-.sec-h{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:.6px}
-.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:24px}
-.qa-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px;cursor:pointer;transition:all .2s;display:flex;gap:12px;align-items:flex-start}
+.sec-h{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.6px}
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-bottom:20px}
+.qa-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;gap:11px;align-items:flex-start}
 .qa-card:hover{border-color:var(--green-border);background:var(--bg3);transform:translateY(-1px)}
-.qa-icon{font-size:20px;flex-shrink:0;margin-top:1px}
-.qa-title{font-size:13.5px;font-weight:500;margin-bottom:3px}
-.qa-desc{font-size:12px;color:var(--text3);line-height:1.5}
-.recent-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
-.r-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.qa-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.qa-title{font-size:13px;font-weight:500;margin-bottom:2px}
+.qa-desc{font-size:11px;color:var(--text3);line-height:1.5}
+.recent-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.r-item{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--border)}
 .r-item:last-child{border-bottom:none}
-.r-title{font-size:13px;flex:1}
+.r-title{font-size:12px;flex:1}
 .r-time{font-size:11px;color:var(--text3)}
-.empty-msg{padding:24px;text-align:center;color:var(--text3);font-size:13px}
-.tag{padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap}
+.empty-msg{padding:20px;text-align:center;color:var(--text3);font-size:13px}
+
+/* TAGS */
+.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap}
 .te{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .tm{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
 .th{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .tt{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
-.ts{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.ts2{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 
-/* SQL */
-.sql-wrap{display:grid;grid-template-columns:288px 1fr;gap:16px;height:calc(100vh - 108px)}
-.ql-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column}
-.ql-head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.ql-title{font-size:13.5px;font-weight:600}
-.ql-count{font-size:11px;color:var(--text3)}
-.ql-body{overflow-y:auto;flex:1}
-.q-card{padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;border-left:3px solid transparent}
-.q-card:hover{background:var(--bg3)}
-.q-card.on{background:var(--green-bg);border-left-color:var(--green)}
-.q-card-title{font-size:12.5px;font-weight:400;margin-bottom:7px;line-height:1.4;color:var(--text)}
-.q-card.on .q-card-title{font-weight:500;color:var(--green)}
-.q-tags{display:flex;gap:5px;flex-wrap:wrap}
-.solved-mark{color:var(--green);font-size:11px;margin-left:4px;font-weight:600}
-.ed-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column}
-.q-detail{padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
-.q-dtitle{font-size:16px;font-weight:600;margin-bottom:8px;letter-spacing:-0.3px;line-height:1.35}
-.q-dmeta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
-.q-ddesc{font-size:13px;color:var(--text2);line-height:1.65}
-.schema-box{margin-top:11px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7}
+/* ══════════════════════════════
+   SQL PRACTICE — TABLE LAYOUT
+   (matches the screenshot exactly)
+══════════════════════════════ */
+.sql-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;height:calc(100vh - 108px)}
+
+/* LEFT PANEL — question table */
+.q-table-panel{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.q-table-top{padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.q-search{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s;width:200px}
+.q-search:focus{border-color:var(--green)}
+.q-filter-sel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:6px 10px;color:var(--text);font-size:12px;outline:none;font-family:var(--font)}
+.q-shown{font-size:11px;color:var(--text3);margin-left:auto}
+
+/* the actual table */
+.q-tbl-wrap{overflow-y:auto;flex:1}
+.q-tbl{width:100%;border-collapse:collapse}
+.q-tbl thead{position:sticky;top:0;z-index:2}
+.q-tbl th{background:var(--bg3);padding:9px 14px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;letter-spacing:.6px;cursor:pointer;user-select:none;transition:color .15s}
+.q-tbl th:hover{color:var(--text2)}
+.q-tbl th .sort-icon{margin-left:4px;opacity:.4;font-size:9px}
+.q-tbl th.sorted .sort-icon{opacity:1;color:var(--green)}
+.q-tbl td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;transition:background .1s}
+.q-tbl tr:last-child td{border-bottom:none}
+.q-tbl tbody tr{cursor:pointer;transition:background .1s}
+.q-tbl tbody tr:hover td{background:var(--bg3)}
+.q-tbl tbody tr.selected td{background:var(--green-bg)}
+.q-tbl tbody tr.selected td:first-child{border-left:3px solid var(--green)}
+.td-num{color:var(--text3);font-family:var(--mono);font-size:11px;width:32px}
+.td-title{font-weight:400;max-width:220px;line-height:1.4}
+.td-title.solved-title{color:var(--green)}
+.solved-tick{color:var(--green);font-size:10px;margin-left:4px}
+.td-exp{font-family:var(--mono);font-size:11px;text-align:center;color:var(--text2)}
+.td-action{text-align:center}
+.act-btn{padding:3px 10px;border-radius:5px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s}
+.act-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.q-tbl-empty td{text-align:center;color:var(--text3);padding:40px;font-size:13px}
+
+/* RIGHT PANEL — editor */
+.ed-panel{background:var(--bg2);display:flex;flex-direction:column;overflow:hidden}
+.q-detail{padding:16px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.q-detail-placeholder{color:var(--text3);font-size:13px;padding:20px 0;text-align:center}
+.q-dtitle{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35;letter-spacing:-0.2px}
+.q-dmeta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.q-ddesc{font-size:12px;color:var(--text2);line-height:1.65}
+.schema-box{margin-top:10px;padding:9px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7}
 .ed-body{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
-.ed-bar{padding:9px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ed-bar-lbl{font-size:11px;color:var(--text3);font-family:var(--mono)}
-.kbd{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:10px;font-family:var(--mono);color:var(--text3);margin-left:auto}
-#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12.5px;padding:14px 16px;resize:none;outline:none;line-height:1.8;min-height:160px}
-.ed-actions{padding:11px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;background:var(--bg2)}
-.btn{padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
+.ed-bar{padding:8px 14px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ed-bar-lbl{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.kbd{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:2px 5px;font-size:9px;font-family:var(--mono);color:var(--text3);margin-left:auto}
+#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:140px}
+.ed-actions{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2)}
+.btn{padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:5px}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
-.res-panel{background:var(--bg3);border-top:1px solid var(--border);max-height:240px;overflow:auto;flex-shrink:0}
-.res-head{padding:9px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg3);z-index:1}
-.res-lbl{font-size:11.5px;color:var(--text3)}
-.res-ok{font-size:12px;color:var(--green);font-weight:500}
-.res-err{font-size:12px;color:var(--red)}
+.res-panel{background:var(--bg3);border-top:1px solid var(--border);max-height:220px;overflow:auto;flex-shrink:0}
+.res-head{padding:8px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;position:sticky;top:0;background:var(--bg3);z-index:1}
+.res-lbl{font-size:11px;color:var(--text3)}
+.res-ok{font-size:11px;color:var(--green);font-weight:500}
+.res-err{font-size:11px;color:var(--red)}
 .res-table{width:100%;border-collapse:collapse}
-.res-table th{background:var(--bg4);padding:7px 13px;font-size:11px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:38px;white-space:nowrap}
-.res-table td{padding:7px 13px;font-size:11.5px;font-family:var(--mono);border-bottom:1px solid var(--border)}
+.res-table th{background:var(--bg4);padding:6px 12px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:36px;white-space:nowrap}
+.res-table td{padding:6px 12px;font-size:11px;font-family:var(--mono);border-bottom:1px solid var(--border)}
 .res-table tr:last-child td{border-bottom:none}
 .res-table tr:hover td{background:var(--bg4)}
 .null-val{color:var(--text3)}
-.res-empty{padding:24px;text-align:center;color:var(--text3);font-size:13px}
+.res-empty{padding:20px;text-align:center;color:var(--text3);font-size:12px}
 
 /* EXCEL */
-.xl-wrap{display:flex;flex-direction:column;gap:14px}
-.xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.xl-info h2{font-size:15px;font-weight:600;margin-bottom:3px}
-.xl-info p{font-size:12px;color:var(--text3)}
+.xl-wrap{display:flex;flex-direction:column;gap:12px}
+.xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.xl-info h2{font-size:14px;font-weight:600;margin-bottom:2px}
+.xl-info p{font-size:11px;color:var(--text3)}
 .xl-grid-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-#excel-grid{width:100%;height:460px}
-.xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px}
-.task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:10px}
-.task{padding:11px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;display:flex;align-items:flex-start;gap:9px;line-height:1.5}
-.task-n{width:20px;height:20px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+#excel-grid{width:100%;height:440px}
+.xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px}
+.task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:7px;margin-top:9px}
+.task{padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.task-n{width:18px;height:18px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
 
 /* AI */
-.ai-wrap{max-width:740px;margin:0 auto}
-.chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;height:calc(100vh - 190px)}
-.chat-top{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
-.ai-av{width:36px;height:36px;border-radius:var(--r);background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.ai-nm{font-size:14px;font-weight:600}
-.ai-st{font-size:11px;color:var(--green);margin-top:1px}
-.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
-.msg{display:flex;gap:10px;align-items:flex-start}
+.ai-wrap{max-width:700px;margin:0 auto}
+.chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;height:calc(100vh - 185px)}
+.chat-top{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px;flex-shrink:0}
+.ai-av{width:34px;height:34px;border-radius:var(--r);background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.ai-nm{font-size:13px;font-weight:600}
+.ai-st{font-size:11px;color:var(--green)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:8px;align-items:flex-start}
 .msg-u{flex-direction:row-reverse}
-.bubble{max-width:78%;padding:11px 14px;border-radius:var(--r2);font-size:13.5px;line-height:1.65}
+.bubble{max-width:78%;padding:10px 13px;border-radius:var(--r2);font-size:13px;line-height:1.65}
 .msg-ai .bubble{background:var(--bg3);border:1px solid var(--border)}
 .msg-u .bubble{background:var(--green);color:#fff}
-.av-sm{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.av-sm{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .msg-ai .av-sm{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}
 .msg-u .av-sm{background:var(--green2);color:#fff}
-.quick-row{display:flex;gap:7px;flex-wrap:wrap;padding:8px 18px;border-top:1px solid var(--border);flex-shrink:0}
-.q-chip{padding:6px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11.5px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.quick-row{display:flex;gap:6px;flex-wrap:wrap;padding:7px 16px;border-top:1px solid var(--border);flex-shrink:0}
+.q-chip{padding:5px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
 .q-chip:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
-.chat-inp-row{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:9px;flex-shrink:0;background:var(--bg2)}
-.chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;color:var(--text);font-size:13.5px;font-family:var(--font);outline:none;transition:border-color .15s}
+.chat-inp-row{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;transition:border-color .15s}
 .chat-inp:focus{border-color:var(--border2)}
 
 /* ACHIEVEMENTS */
-.ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ach-col{display:flex;flex-direction:column;gap:14px}
-.ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px 20px}
-.ach-box-title{font-size:13.5px;font-weight:600;margin-bottom:14px}
-.bdg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:13px 9px;text-align:center;transition:all .2s}
+.ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ach-col{display:flex;flex-direction:column;gap:12px}
+.ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px}
+.ach-box-title{font-size:13px;font-weight:600;margin-bottom:12px}
+.bdg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:12px 8px;text-align:center;transition:all .2s}
 .bdg.on{border-color:var(--amber-border);background:var(--amber-bg)}
-.bdg-ico{font-size:24px;display:block;margin-bottom:5px;opacity:.22;transition:opacity .2s}
+.bdg-ico{font-size:22px;display:block;margin-bottom:4px;opacity:.2;transition:opacity .2s}
 .bdg.on .bdg-ico{opacity:1}
 .bdg-nm{font-size:10px;font-weight:500;color:var(--text3)}
 .bdg.on .bdg-nm{color:var(--amber)}
-.sl-list{display:flex;flex-direction:column;gap:7px;max-height:250px;overflow-y:auto}
-.sl-item{padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:9px;font-size:12.5px}
+.sl-list{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto}
+.sl-item{padding:8px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:8px;font-size:12px}
 .sl-title{flex:1}
-.sl-date{font-size:10.5px;color:var(--text3)}
-.resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:28px;font-family:var(--font)}
-.res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:16px;margin-bottom:16px}
-.res-nm{font-size:22px;font-weight:700;color:#111;margin-bottom:3px}
-.res-tg{font-size:13px;color:#555}
-.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.rs-cell{text-align:center;padding:12px;background:#f8fafc;border-radius:var(--r)}
-.rs-val{font-size:22px;font-weight:700;color:#10b981;display:block}
+.sl-date{font-size:10px;color:var(--text3)}
+.resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:26px}
+.res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:14px;margin-bottom:14px}
+.res-nm{font-size:20px;font-weight:700;color:#111;margin-bottom:3px}
+.res-tg{font-size:12px;color:#555}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.rs-cell{text-align:center;padding:10px;background:#f8fafc;border-radius:var(--r)}
+.rs-val{font-size:20px;font-weight:700;color:#10b981;display:block}
 .rs-lbl{font-size:11px;color:#666}
-.res-sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:8px}
-.res-ql{list-style:none;font-size:12.5px;color:#333}
-.res-ql li{padding:4px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between}
+.res-sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:6px}
+.res-ql{list-style:none;font-size:12px;color:#333}
+.res-ql li{padding:3px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between}
 .res-ql li:last-child{border-bottom:none}
-.res-wm{text-align:center;margin-top:16px;font-size:10px;color:#bbb}
+.res-wm{text-align:center;margin-top:14px;font-size:10px;color:#bbb}
 
-/* MODAL */
+/* LOGIN MODAL */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(3px)}
 .overlay.show{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:28px;width:100%;max-width:400px;animation:mIn .2s ease}
-@keyframes mIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-.m-tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--bg3);border-radius:var(--r);padding:4px}
-.m-tab{flex:1;padding:7px;text-align:center;border-radius:calc(var(--r) - 2px);font-size:13px;cursor:pointer;color:var(--text3);transition:all .15s}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:26px;width:100%;max-width:390px;animation:mIn .2s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.m-tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--bg3);border-radius:var(--r);padding:3px}
+.m-tab{flex:1;padding:6px;text-align:center;border-radius:calc(var(--r) - 2px);font-size:12px;cursor:pointer;color:var(--text3);transition:all .15s}
 .m-tab.on{background:var(--bg2);color:var(--text);font-weight:500}
-.m-title{font-size:18px;font-weight:700;margin-bottom:4px}
-.m-sub{font-size:12px;color:var(--text3);margin-bottom:20px}
-.m-lbl{font-size:11.5px;color:var(--text3);margin-bottom:5px;display:block}
-.m-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;color:var(--text);font-size:13.5px;font-family:var(--font);outline:none;margin-bottom:12px;transition:border-color .15s}
+.m-title{font-size:17px;font-weight:700;margin-bottom:3px}
+.m-sub{font-size:11px;color:var(--text3);margin-bottom:18px}
+.m-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;display:block}
+.m-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;margin-bottom:10px;transition:border-color .15s}
 .m-inp:focus{border-color:var(--green)}
-.m-foot{text-align:center;font-size:11px;color:var(--text3);margin-top:10px}
+.m-foot{text-align:center;font-size:11px;color:var(--text3);margin-top:9px}
 
-/* Handsontable overrides */
+/* HOT overrides */
 .handsontable{font-family:var(--mono)!important;font-size:12px!important}
 .handsontable th,.handsontable td{background:var(--bg3)!important;border-color:var(--border)!important;color:var(--text)!important}
 .handsontable thead th{background:var(--bg4)!important;color:var(--text2)!important}
@@ -230,12 +258,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
-
-@media(max-width:860px){
-  #sidebar{display:none}
-  .sql-wrap{grid-template-columns:1fr;height:auto}
-  .ach-wrap{grid-template-columns:1fr}
-}
+@media(max-width:860px){#sidebar{display:none}.sql-layout{grid-template-columns:1fr;height:auto}.ach-wrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -246,48 +269,38 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
     <div class="logo-mark">P</div>
     <div><div class="logo-name">PracticeHub</div><div class="logo-tag">SQL · Excel · AI</div></div>
   </div>
-
   <a class="back-link" href="index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Back to Home
   </a>
-
   <div class="user-pill" id="user-pill">
     <div class="u-av" id="u-av">V</div>
-    <div class="u-info">
-      <div class="u-name" id="u-name">User</div>
-      <div class="u-streak">🔥 Keep your streak!</div>
-    </div>
+    <div class="u-name" id="u-name">User</div>
     <button class="u-logout" onclick="doLogout()">↩</button>
   </div>
 
-  <div class="nav-group-lbl">Practice</div>
+  <div class="nav-group">Practice</div>
   <div class="nav-item active" id="nav-dashboard" onclick="goTo('dashboard',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    Dashboard
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard
   </div>
   <div class="nav-item" id="nav-sql" onclick="goTo('sql',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-    SQL Practice
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>SQL Practice
   </div>
   <div class="nav-item" id="nav-excel" onclick="goTo('excel',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
-    Excel Practice
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>Excel Practice
   </div>
   <div class="nav-item" id="nav-ai" onclick="goTo('ai',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-    AI Helper
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI Helper
   </div>
   <div class="nav-item" id="nav-achievements" onclick="goTo('achievements',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-    Achievements
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Achievements
   </div>
 
-  <!-- SQL filters (shown only on SQL page) -->
+  <!-- SQL filters (only visible on SQL page) -->
   <div class="filter-wrap" id="sql-filters" style="display:none">
     <div class="filter-group">
       <div class="filter-lbl">Difficulty</div>
-      <button class="f-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All levels</button>
+      <button class="f-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All</button>
       <button class="f-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy</button>
       <button class="f-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium</button>
       <button class="f-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard</button>
@@ -335,54 +348,89 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
     <!-- DASHBOARD -->
     <div class="sec on" id="sec-dashboard">
       <div class="stats-row">
-        <div class="s-card sg"><div class="s-lbl">SQL Solved</div><div class="s-val" id="d-sql">0</div><div class="s-sub">questions completed</div></div>
+        <div class="s-card sg"><div class="s-lbl">SQL Solved</div><div class="s-val" id="d-sql">0</div><div class="s-sub">questions done</div></div>
         <div class="s-card sb"><div class="s-lbl">Excel Tasks</div><div class="s-val" id="d-excel">0</div><div class="s-sub">challenges done</div></div>
         <div class="s-card sa"><div class="s-lbl">AI Sessions</div><div class="s-val" id="d-ai">0</div><div class="s-sub">questions asked</div></div>
-        <div class="s-card sp"><div class="s-lbl">Day Streak</div><div class="s-val" id="d-streak">0</div><div class="s-sub">🔥 keep it going</div></div>
+        <div class="s-card sp"><div class="s-lbl">Streak</div><div class="s-val" id="d-streak">0</div><div class="s-sub">🔥 days</div></div>
       </div>
       <div class="sec-h">Quick Start</div>
       <div class="qa-grid">
         <div class="qa-card" onclick="goTo('sql',document.getElementById('nav-sql'))">
-          <div class="qa-icon">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · LeetCode + StrataScratch style</div></div>
+          <div class="qa-icon">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · LeetCode style</div></div>
         </div>
         <div class="qa-card" onclick="goTo('excel',document.getElementById('nav-excel'))">
-          <div class="qa-icon">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Pivot & VLOOKUP tasks</div></div>
+          <div class="qa-icon">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div>
         </div>
         <div class="qa-card" onclick="goTo('ai',document.getElementById('nav-ai'))">
-          <div class="qa-icon">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Get hints instantly</div></div>
+          <div class="qa-icon">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Get hints</div></div>
         </div>
         <div class="qa-card" onclick="goTo('achievements',document.getElementById('nav-achievements'))">
-          <div class="qa-icon">🏆</div><div><div class="qa-title">Achievements</div><div class="qa-desc">Badges · Resume PDF · Share on LinkedIn</div></div>
+          <div class="qa-icon">🏆</div><div><div class="qa-title">Achievements</div><div class="qa-desc">Badges · Resume PDF · Share</div></div>
         </div>
       </div>
       <div class="sec-h">Recently Solved</div>
       <div class="recent-box"><div id="recent-body"><div class="empty-msg">No questions solved yet — start practicing! 🚀</div></div></div>
     </div>
 
-    <!-- SQL PRACTICE -->
-    <div class="sec" id="sec-sql">
-      <div class="sql-wrap">
-        <div class="ql-panel">
-          <div class="ql-head"><span class="ql-title">Questions</span><span class="ql-count" id="ql-count">0 shown</span></div>
-          <div class="ql-body" id="ql-body"></div>
+    <!-- SQL PRACTICE — TABLE LAYOUT -->
+    <div class="sec" id="sec-sql" style="padding:0;margin:-20px">
+      <div class="sql-layout">
+
+        <!-- LEFT: Question Table (matches screenshot) -->
+        <div class="q-table-panel">
+          <div class="q-table-top">
+            <input class="q-search" id="q-search" placeholder="Search questions..." oninput="renderQTable()"/>
+            <select class="q-filter-sel" id="qf-diff" onchange="renderQTable()">
+              <option value="">All Difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <select class="q-filter-sel" id="qf-topic" onchange="renderQTable()">
+              <option value="">All Topics</option>
+              <option>JOIN</option><option>Window</option><option>Aggregate</option>
+              <option>Subquery</option><option>CTE</option>
+            </select>
+            <span class="q-shown" id="q-shown">0 questions</span>
+          </div>
+          <div class="q-tbl-wrap">
+            <table class="q-tbl">
+              <thead>
+                <tr>
+                  <th class="td-num" onclick="sortBy('#')"># <span class="sort-icon">▲</span></th>
+                  <th onclick="sortBy('title')">TITLE <span class="sort-icon">▲</span></th>
+                  <th onclick="sortBy('diff')">DIFFICULTY <span class="sort-icon">▲</span></th>
+                  <th onclick="sortBy('topic')">TOPIC <span class="sort-icon">▲</span></th>
+                  <th onclick="sortBy('co')">COMPANY <span class="sort-icon">▲</span></th>
+                  <th style="text-align:center">EXP. ROWS <span class="sort-icon">▲</span></th>
+                  <th style="text-align:center">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody id="q-tbl-body"></tbody>
+            </table>
+          </div>
         </div>
+
+        <!-- RIGHT: Editor Panel -->
         <div class="ed-panel">
-          <div class="q-detail" id="q-detail"><div class="empty-msg" style="padding:28px 0">← Select a question to begin</div></div>
+          <div class="q-detail" id="q-detail">
+            <div class="q-detail-placeholder">← Click any question to open it here</div>
+          </div>
           <div class="ed-body">
             <div class="ed-bar">
               <span class="ed-bar-lbl">SQL Editor</span>
               <span class="kbd" style="margin-left:auto">Ctrl+Enter to run</span>
             </div>
-            <textarea id="sql-editor" spellcheck="false" placeholder="-- Write your SQL query here&#10;SELECT * FROM employees;"></textarea>
+            <textarea id="sql-editor" spellcheck="false" placeholder="-- Click a question on the left, then write your SQL here&#10;SELECT * FROM employees;"></textarea>
             <div class="ed-actions">
               <button class="btn btn-blue" onclick="runSQL()">▶ Run Query</button>
-              <button class="btn btn-green" onclick="submitSQL()">✓ Submit Answer</button>
+              <button class="btn btn-green" onclick="submitSQL()">✓ Submit</button>
               <button class="btn btn-ghost" onclick="getHint()">💡 Hint</button>
             </div>
           </div>
           <div class="res-panel">
             <div class="res-head"><span class="res-lbl">Output</span><span id="res-meta"></span></div>
-            <div id="res-body"><div class="res-empty">Run a query to see results here</div></div>
+            <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
           </div>
         </div>
       </div>
@@ -393,14 +441,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
       <div class="xl-wrap">
         <div class="xl-top">
           <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · Use =SUM(), =AVERAGE(), =VLOOKUP() · Drag to fill · Sort & filter</p></div>
-          <div style="display:flex;gap:8px">
-            <button class="btn btn-ghost" onclick="resetXL()">Reset Grid</button>
+          <div style="display:flex;gap:7px">
+            <button class="btn btn-ghost" onclick="resetXL()">Reset</button>
             <button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button>
           </div>
         </div>
         <div class="xl-grid-box"><div id="excel-grid"></div></div>
         <div class="xl-tasks">
-          <div class="sec-h" style="margin-bottom:10px">Practice Tasks</div>
+          <div class="sec-h" style="margin-bottom:8px">Practice Tasks</div>
           <div class="task-grid">
             <div class="task"><div class="task-n">1</div>Calculate Q1 Total in column E using =SUM(B2:D2)</div>
             <div class="task"><div class="task-n">2</div>Find average monthly sales per product in column F</div>
@@ -413,26 +461,26 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
       </div>
     </div>
 
-    <!-- AI HELPER -->
+    <!-- AI -->
     <div class="sec" id="sec-ai">
       <div class="ai-wrap">
         <div class="chat-card">
           <div class="chat-top">
             <div class="ai-av">🤖</div>
-            <div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online · Powered by Claude AI</div></div>
+            <div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online · Claude AI</div></div>
           </div>
           <div class="chat-msgs" id="chat-msgs">
             <div class="msg msg-ai">
               <div class="av-sm">🤖</div>
-              <div class="bubble">Hi there! 👋 I'm your SQL & Excel coach. Ask me about query errors, JOIN types, window functions, Excel formulas — anything! I'm here to help you ace your interviews.</div>
+              <div class="bubble">Hi! 👋 Ask me about SQL errors, JOIN types, window functions, Excel formulas — I'm here to help you ace interviews!</div>
             </div>
           </div>
           <div class="quick-row">
-            <div class="q-chip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with an example')">JOIN types</div>
-            <div class="q-chip" onclick="quickAsk('How do window functions like RANK() and DENSE_RANK() work?')">Window functions</div>
-            <div class="q-chip" onclick="quickAsk('How to use VLOOKUP in Excel with example?')">VLOOKUP</div>
-            <div class="q-chip" onclick="quickAsk('What is a CTE and when should I use it?')">CTE explained</div>
-            <div class="q-chip" onclick="quickAsk('How to find second highest salary in SQL?')">Second highest salary</div>
+            <div class="q-chip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with example')">JOIN types</div>
+            <div class="q-chip" onclick="quickAsk('How do RANK() and DENSE_RANK() window functions work?')">Window functions</div>
+            <div class="q-chip" onclick="quickAsk('How to use VLOOKUP in Excel?')">VLOOKUP</div>
+            <div class="q-chip" onclick="quickAsk('What is a CTE and when to use it?')">CTE explained</div>
+            <div class="q-chip" onclick="quickAsk('How to find second highest salary in SQL?')">2nd highest salary</div>
           </div>
           <div class="chat-inp-row">
             <input class="chat-inp" id="chat-inp" placeholder="Ask about SQL, Excel, or interview tips..." onkeydown="if(event.key==='Enter')sendMsg()"/>
@@ -475,20 +523,20 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
                 <div class="rs-cell"><span class="rs-val" id="r-streak">0</span><span class="rs-lbl">Day Streak</span></div>
               </div>
               <div class="res-sec-lbl">Completed Questions</div>
-              <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:4px 0">No questions completed yet</li></ul>
+              <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:3px 0">No questions completed yet</li></ul>
               <div class="res-wm">Verified by PracticeHub · <span id="r-date"></span></div>
             </div>
           </div>
-          <div style="display:flex;gap:10px">
-            <button class="btn btn-green" style="flex:1;padding:12px;justify-content:center" onclick="dlPDF()">📄 Download PDF</button>
-            <button class="btn btn-blue" style="flex:1;padding:12px;justify-content:center" onclick="shareIt()">🔗 Share Progress</button>
+          <div style="display:flex;gap:9px">
+            <button class="btn btn-green" style="flex:1;padding:11px;justify-content:center" onclick="dlPDF()">📄 Download PDF</button>
+            <button class="btn btn-blue" style="flex:1;padding:11px;justify-content:center" onclick="shareIt()">🔗 Share</button>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /content -->
+</div><!-- /main -->
 
 <!-- LOGIN MODAL -->
 <div class="overlay" id="overlay">
@@ -504,20 +552,20 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
       <input class="m-inp" id="m-user" placeholder="vinod@example.com" type="text"/>
       <label class="m-lbl">Password</label>
       <input class="m-inp" id="m-pass" placeholder="••••••••" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
-      <button class="btn btn-green" style="width:100%;padding:11px;justify-content:center" onclick="doLogin()">Login &amp; Continue →</button>
-      <div class="m-foot">Demo mode · Any name works · Data saved locally in browser</div>
+      <button class="btn btn-green" style="width:100%;padding:10px;justify-content:center" onclick="doLogin()">Login &amp; Continue →</button>
+      <div class="m-foot">Demo mode · Any name works · Saved in browser</div>
     </div>
     <div id="m-signup" style="display:none">
       <div class="m-title">Create account</div>
-      <div class="m-sub">Free forever · Start practicing immediately</div>
+      <div class="m-sub">Free forever · Start practicing now</div>
       <label class="m-lbl">Full Name</label>
       <input class="m-inp" id="m-sname" placeholder="Vinod Kumar" type="text"/>
       <label class="m-lbl">Email</label>
       <input class="m-inp" id="m-semail" placeholder="vinod@example.com" type="email"/>
       <label class="m-lbl">Password</label>
       <input class="m-inp" id="m-spass" placeholder="Create a password" type="password" onkeydown="if(event.key==='Enter')doSignup()"/>
-      <button class="btn btn-green" style="width:100%;padding:11px;justify-content:center" onclick="doSignup()">Create Account →</button>
-      <div class="m-foot">No credit card required · Cancel anytime</div>
+      <button class="btn btn-green" style="width:100%;padding:10px;justify-content:center" onclick="doSignup()">Create Account →</button>
+      <div class="m-foot">No credit card · Cancel anytime</div>
     </div>
   </div>
 </div>
@@ -526,70 +574,27 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex
 var user=null,db=null,curQ=null,hot=null;
 var solved=[],recent=[],aiCnt=0,xlCnt=0,streak=0;
 var F={diff:'all',topic:'all',co:'all',status:'all'};
+var sortCol='',sortAsc=true;
 
 var QS=[
-  {id:0,title:"Show all employees",diff:"easy",co:"Google",topic:"Aggregate",
-   desc:"Display every record from the employees table.",
-   hint:"Try: SELECT * FROM employees;",exp:6,
-   schema:"employees(id, name, salary, dept_id, manager_id)\ndepartments(id, dept_name)"},
-  {id:1,title:"Employees earning more than \u20b980,000",diff:"easy",co:"Amazon",topic:"Aggregate",
-   desc:"Find employees with salary greater than 80,000 using a WHERE clause.",
-   hint:"Use WHERE salary > 80000",exp:2,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:2,title:"Average salary by department",diff:"medium",co:"Meta",topic:"Aggregate",
-   desc:"Calculate the average salary for each department using GROUP BY and AVG().",
-   hint:"SELECT dept_id, AVG(salary) as avg_sal FROM employees GROUP BY dept_id;",exp:3,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:3,title:"Employee name + Department name (JOIN)",diff:"medium",co:"Google",topic:"JOIN",
-   desc:"Show each employee's name and their department name by joining the two tables.",
-   hint:"Use INNER JOIN departments d ON e.dept_id = d.id",exp:6,
-   schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
-  {id:4,title:"Second highest salary",diff:"medium",co:"Microsoft",topic:"Subquery",
-   desc:"Find the second highest salary in the company using a subquery or OFFSET.",
-   hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",exp:1,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:5,title:"Departments with more than 2 employees",diff:"easy",co:"Flipkart",topic:"Aggregate",
-   desc:"List departments that have more than 2 employees using GROUP BY and HAVING.",
-   hint:"GROUP BY dept_id HAVING COUNT(*) > 2",exp:1,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:6,title:"Find duplicate employee names",diff:"medium",co:"Amazon",topic:"Aggregate",
-   desc:"Find employee names that appear more than once in the table.",
-   hint:"GROUP BY name HAVING COUNT(*) > 1",exp:1,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:7,title:"Employee and their manager name (Self JOIN)",diff:"medium",co:"Meta",topic:"JOIN",
-   desc:"Use a self-join to show each employee alongside their manager's name.",
-   hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",exp:4,
-   schema:"employees(id, name, salary, dept_id, manager_id)"},
-  {id:8,title:"Running total salary per department (Window)",diff:"hard",co:"Netflix",topic:"Window",
-   desc:"Show cumulative running total of salary within each department.",
-   hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",exp:6,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:9,title:"Rank employees by salary — DENSE_RANK()",diff:"hard",co:"Netflix",topic:"Window",
-   desc:"Rank employees within each department by salary using DENSE_RANK() window function.",
-   hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",exp:6,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:10,title:"Top 3 salaries per department",diff:"hard",co:"Google",topic:"Window",
-   desc:"Show the top 3 highest-paid employees in each department.",
-   hint:"Use ROW_NUMBER() in a subquery, then filter WHERE rn <= 3",exp:5,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:11,title:"Employees earning above department average",diff:"hard",co:"Meta",topic:"Subquery",
-   desc:"Find employees whose salary is higher than the average salary of their own department.",
-   hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",exp:3,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:12,title:"Count employees per department",diff:"easy",co:"Flipkart",topic:"Aggregate",
-   desc:"Show each department name and the count of employees in it.",
-   hint:"COUNT(*) with GROUP BY dept_id, JOIN departments for names",exp:3,
-   schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
-  {id:13,title:"CTE: Max salary per department",diff:"hard",co:"Microsoft",topic:"CTE",
-   desc:"Use a Common Table Expression (WITH clause) to find the max salary per department.",
-   hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT ...",exp:3,
-   schema:"employees(id, name, salary, dept_id)"},
-  {id:14,title:"Employees earning more than their manager",diff:"hard",co:"Amazon",topic:"JOIN",
-   desc:"Find employees whose salary is higher than their direct manager's salary.",
-   hint:"Self-join: e1.salary > e2.salary AND e1.manager_id = e2.id",exp:2,
-   schema:"employees(id, name, salary, manager_id)"},
+  {id:0,title:"Show all employees",diff:"easy",co:"Google",topic:"Aggregate",desc:"Display every record from the employees table.",hint:"SELECT * FROM employees;",exp:6,schema:"employees(id, name, salary, dept_id, manager_id)\ndepartments(id, dept_name)"},
+  {id:1,title:"Employees earning more than \u20b980,000",diff:"easy",co:"Amazon",topic:"Aggregate",desc:"Find employees with salary greater than 80,000.",hint:"Use WHERE salary > 80000",exp:2,schema:"employees(id, name, salary, dept_id)"},
+  {id:2,title:"Average salary by department",diff:"medium",co:"Meta",topic:"Aggregate",desc:"Calculate average salary per department using GROUP BY and AVG().",hint:"SELECT dept_id, AVG(salary) as avg_sal FROM employees GROUP BY dept_id;",exp:3,schema:"employees(id, name, salary, dept_id)"},
+  {id:3,title:"Employee + Department name (JOIN)",diff:"medium",co:"Google",topic:"JOIN",desc:"Show each employee's name and their department name by joining tables.",hint:"INNER JOIN departments d ON e.dept_id = d.id",exp:6,schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
+  {id:4,title:"Second highest salary",diff:"medium",co:"Microsoft",topic:"Subquery",desc:"Find the second highest salary using a subquery or OFFSET.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",exp:1,schema:"employees(id, name, salary, dept_id)"},
+  {id:5,title:"Departments with more than 2 employees",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"List departments with more than 2 employees using HAVING.",hint:"GROUP BY dept_id HAVING COUNT(*) > 2",exp:1,schema:"employees(id, name, salary, dept_id)"},
+  {id:6,title:"Find duplicate employee names",diff:"medium",co:"Amazon",topic:"Aggregate",desc:"Find names that appear more than once in the table.",hint:"GROUP BY name HAVING COUNT(*) > 1",exp:1,schema:"employees(id, name, salary, dept_id)"},
+  {id:7,title:"Employee and manager name (Self JOIN)",diff:"medium",co:"Meta",topic:"JOIN",desc:"Use a self-join to show each employee with their manager's name.",hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",exp:4,schema:"employees(id, name, salary, dept_id, manager_id)"},
+  {id:8,title:"Running salary total per dept (Window)",diff:"hard",co:"Netflix",topic:"Window",desc:"Show cumulative running total of salary within each department.",hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",exp:6,schema:"employees(id, name, salary, dept_id)"},
+  {id:9,title:"Rank employees by salary — DENSE_RANK()",diff:"hard",co:"Netflix",topic:"Window",desc:"Rank employees within each department by salary using DENSE_RANK().",hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",exp:6,schema:"employees(id, name, salary, dept_id)"},
+  {id:10,title:"Top 3 salaries per department",diff:"hard",co:"Google",topic:"Window",desc:"Show top 3 highest-paid employees in each department.",hint:"Use ROW_NUMBER() in subquery then filter WHERE rn <= 3",exp:5,schema:"employees(id, name, salary, dept_id)"},
+  {id:11,title:"Employees earning above dept average",diff:"hard",co:"Meta",topic:"Subquery",desc:"Find employees earning more than their own department's average salary.",hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",exp:3,schema:"employees(id, name, salary, dept_id)"},
+  {id:12,title:"Count employees per department",diff:"easy",co:"Flipkart",topic:"Aggregate",desc:"Show each department name and the count of employees in it.",hint:"COUNT(*) with GROUP BY dept_id, JOIN departments for names",exp:3,schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
+  {id:13,title:"CTE: Max salary per department",diff:"hard",co:"Microsoft",topic:"CTE",desc:"Use a CTE (WITH clause) to find the highest salary per department.",hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT ...",exp:3,schema:"employees(id, name, salary, dept_id)"},
+  {id:14,title:"Employees earning more than their manager",diff:"hard",co:"Amazon",topic:"JOIN",desc:"Find employees whose salary is higher than their direct manager.",hint:"Self-join: e1.salary > e2.salary AND e1.manager_id = e2.id",exp:2,schema:"employees(id, name, salary, manager_id)"},
 ];
 
+/* ── SQL ENGINE ── */
 async function initSQL(){
   var SQL=await initSqlJs({locateFile:function(f){return'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}});
   db=new SQL.Database();
@@ -597,21 +602,21 @@ async function initSQL(){
     "CREATE TABLE employees(id INTEGER PRIMARY KEY, name TEXT, salary INTEGER, dept_id INTEGER, manager_id INTEGER);"+
     "INSERT INTO departments VALUES(1,'Engineering'),(2,'Marketing'),(3,'Sales');"+
     "INSERT INTO employees VALUES"+
-    "(1,'Rahul Sharma',75000,1,NULL),"+
-    "(2,'Priya Patel',92000,1,1),"+
-    "(3,'Amit Kumar',45000,2,NULL),"+
-    "(4,'Sneha Gupta',68000,3,NULL),"+
-    "(5,'Vikram Singh',110000,1,2),"+
-    "(6,'Rahul Sharma',55000,2,3);");
-  renderQL();
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){runSQL();}
-  });
+    "(1,'Rahul Sharma',75000,1,NULL),(2,'Priya Patel',92000,1,1),(3,'Amit Kumar',45000,2,NULL),"+
+    "(4,'Sneha Gupta',68000,3,NULL),(5,'Vikram Singh',110000,1,2),(6,'Rahul Sharma',55000,2,3);");
+  renderQTable();
+  document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runSQL();});
 }
 
-function renderQL(){
-  var body=document.getElementById('ql-body');
-  var qs=QS.filter(function(q){
+/* ── RENDER TABLE (matches screenshot) ── */
+function getFiltered(){
+  var search=(document.getElementById('q-search').value||'').toLowerCase();
+  var diffF=document.getElementById('qf-diff').value;
+  var topicF=document.getElementById('qf-topic').value;
+  return QS.filter(function(q){
+    if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.desc||'').toLowerCase().indexOf(search)===-1)return false;
+    if(diffF&&q.diff!==diffF)return false;
+    if(topicF&&q.topic!==topicF)return false;
     if(F.diff!=='all'&&q.diff!==F.diff)return false;
     if(F.topic!=='all'&&q.topic!==F.topic)return false;
     if(F.co!=='all'&&q.co!==F.co)return false;
@@ -619,21 +624,30 @@ function renderQL(){
     if(F.status==='unsolved'&&solved.indexOf(q.id)!==-1)return false;
     return true;
   });
-  document.getElementById('ql-count').textContent=qs.length+' shown';
-  body.innerHTML='';
-  if(!qs.length){body.innerHTML='<div class="res-empty">No questions match filters</div>';return;}
-  qs.forEach(function(q){
+}
+
+function renderQTable(){
+  var qs=getFiltered();
+  document.getElementById('q-shown').textContent=qs.length+' question'+(qs.length!==1?'s':'');
+  var tbody=document.getElementById('q-tbl-body');
+  if(!qs.length){
+    tbody.innerHTML='<tr class="q-tbl-empty"><td colspan="7">No questions match your filters</td></tr>';
+    return;
+  }
+  tbody.innerHTML=qs.map(function(q,i){
     var isSolved=solved.indexOf(q.id)!==-1;
-    var el=document.createElement('div');
-    el.className='q-card'+(curQ&&curQ.id===q.id?' on':'');
     var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
-    el.innerHTML='<div class="q-card-title">'+q.title+(isSolved?'<span class="solved-mark"> \u2713</span>':'')+'</div>'+
-      '<div class="q-tags"><span class="tag '+dc+'">'+q.diff+'</span>'+
-      '<span class="tag tc">'+q.co+'</span>'+
-      '<span class="tag tt">'+q.topic+'</span></div>';
-    el.onclick=function(){loadQ(q);};
-    body.appendChild(el);
-  });
+    var isActive=curQ&&curQ.id===q.id;
+    return '<tr class="'+(isActive?'selected':'')+'" onclick="loadQ(QS['+QS.indexOf(q)+'])">'+
+      '<td class="td-num">'+(i+1)+'</td>'+
+      '<td class="td-title '+(isSolved?'solved-title':'')+'">'+q.title+(isSolved?'<span class="solved-tick">✓</span>':'')+'</td>'+
+      '<td><span class="tag '+dc+'">'+q.diff+'</span></td>'+
+      '<td><span class="tag tt">'+q.topic+'</span></td>'+
+      '<td><span class="tag tc">'+(q.co||'—')+'</span></td>'+
+      '<td class="td-exp">'+q.exp+'</td>'+
+      '<td class="td-action"><button class="act-btn" onclick="event.stopPropagation();loadQ(QS['+QS.indexOf(q)+'])">Solve →</button></td>'+
+      '</tr>';
+  }).join('');
 }
 
 function setF(k,v,el){
@@ -641,39 +655,42 @@ function setF(k,v,el){
   var grp=el.closest('.filter-group');
   grp.querySelectorAll('.f-btn').forEach(function(b){b.classList.remove('on');});
   el.classList.add('on');
-  renderQL();
+  renderQTable();
 }
+
+function sortBy(col){renderQTable();}
 
 function loadQ(q){
   curQ=q;
-  document.getElementById('sql-editor').value='';
-  document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
-  document.getElementById('res-meta').innerHTML='';
   var isSolved=solved.indexOf(q.id)!==-1;
   var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
   document.getElementById('q-detail').innerHTML=
     '<div class="q-dtitle">'+q.title+'</div>'+
-    '<div class="q-dmeta"><span class="tag '+dc+'">'+q.diff.toUpperCase()+'</span>'+
-    '<span class="tag tc">'+q.co+'</span>'+
-    '<span class="tag tt">'+q.topic+'</span>'+
-    (isSolved?'<span class="tag ts">Solved \u2713</span>':'')+'</div>'+
+    '<div class="q-dmeta">'+
+      '<span class="tag '+dc+'">'+q.diff.toUpperCase()+'</span>'+
+      '<span class="tag tc">'+q.co+'</span>'+
+      '<span class="tag tt">'+q.topic+'</span>'+
+      (isSolved?'<span class="tag ts2">Solved \u2713</span>':'')+
+    '</div>'+
     '<div class="q-ddesc">'+q.desc+'</div>'+
-    '<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+q.schema.replace(/\n/g,'<br>')+'</div>';
-  renderQL();
+    (q.schema?'<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+q.schema.replace(/\n/g,'<br>')+'</div>':'');
+  document.getElementById('sql-editor').value='';
+  document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
+  document.getElementById('res-meta').innerHTML='';
+  renderQTable();
 }
 
 function runSQL(){
   var q=document.getElementById('sql-editor').value.trim();
   if(!q){alert('Write a SQL query first!');return;}
-  if(!db){alert('Database loading, please wait...');return;}
+  if(!db){alert('Database loading...');return;}
   try{
     var res=db.exec(q);
     var meta=document.getElementById('res-meta');
     var body=document.getElementById('res-body');
     if(!res.length){
-      meta.innerHTML='<span class="res-ok">Query OK \u00b7 0 rows</span>';
-      body.innerHTML='<div class="res-empty">Query ran successfully (no rows returned)</div>';
-      return;
+      meta.innerHTML='<span class="res-ok">Query OK · 0 rows</span>';
+      body.innerHTML='<div class="res-empty">Query ran (no rows returned)</div>';return;
     }
     var cols=res[0].columns,vals=res[0].values;
     meta.innerHTML='<span class="res-ok">'+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
@@ -682,15 +699,13 @@ function runSQL(){
     html+='</tr></thead><tbody>';
     vals.forEach(function(row){
       html+='<tr>';
-      row.forEach(function(cell){
-        html+='<td>'+(cell===null?'<span class="null-val">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';
-      });
+      row.forEach(function(cell){html+='<td>'+(cell===null?'<span class="null-val">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';});
       html+='</tr>';
     });
     body.innerHTML=html+'</tbody></table>';
   }catch(e){
     document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
-    document.getElementById('res-body').innerHTML='<div style="padding:14px;color:var(--red);font-family:var(--mono);font-size:12px">\u274c '+e.message+'</div>';
+    document.getElementById('res-body').innerHTML='<div style="padding:12px;color:var(--red);font-family:var(--mono);font-size:11px">\u274c '+e.message+'</div>';
   }
 }
 
@@ -702,11 +717,10 @@ function submitSQL(){
   try{
     db.exec(q);
     if(solved.indexOf(curQ.id)===-1){
-      solved.push(curQ.id);
-      streak=Math.min(streak+1,30);
+      solved.push(curQ.id);streak=Math.min(streak+1,30);
       recent.unshift({title:curQ.title,diff:curQ.diff,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
       if(recent.length>10)recent.pop();
-      save();updateDash();renderQL();loadQ(curQ);checkBadges();
+      save();updateDash();renderQTable();loadQ(curQ);checkBadges();
     }
     alert('\u2705 "'+curQ.title+'" marked as solved!');
   }catch(e){alert('Fix your query first:\n'+e.message);}
@@ -717,6 +731,7 @@ function getHint(){
   alert('\ud83d\udca1 Hint:\n\n'+curQ.hint);
 }
 
+/* ── EXCEL ── */
 function initXL(){
   if(hot)return;
   hot=new Handsontable(document.getElementById('excel-grid'),{
@@ -728,62 +743,52 @@ function initXL(){
       ['USB Charger',8000,12000,9000,'=SUM(B5:D5)','=AVERAGE(B5:D5)'],
       ['Tablet','','','','=SUM(B6:D6)','=AVERAGE(B6:D6)'],
     ],
-    rowHeaders:true,colHeaders:true,contextMenu:true,
-    formulas:true,width:'100%',height:460,
-    stretchH:'all',licenseKey:'non-commercial-and-evaluation'
+    rowHeaders:true,colHeaders:true,contextMenu:true,formulas:true,
+    width:'100%',height:440,stretchH:'all',licenseKey:'non-commercial-and-evaluation'
   });
 }
 function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
 function markXLDone(){
   if(!user){openModal();return;}
-  xlCnt++;save();updateDash();checkBadges();
-  alert('\u2705 Excel challenge marked as complete!');
+  xlCnt++;save();updateDash();checkBadges();alert('\u2705 Excel challenge complete!');
 }
 
-var AI_REPLIES={
-  join:"JOIN types in SQL:\n\n\u2022 INNER JOIN \u2014 only matching rows from both tables\n\u2022 LEFT JOIN \u2014 all rows from left + matching from right (NULL if no match)\n\u2022 RIGHT JOIN \u2014 all rows from right + matching from left\n\u2022 FULL OUTER JOIN \u2014 all rows from both tables\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
-  window:"Window Functions run across a set of rows without collapsing them.\n\nSyntax: FUNCTION() OVER (PARTITION BY col ORDER BY col)\n\nExamples:\n\u2022 ROW_NUMBER() \u2014 unique row number per group\n\u2022 RANK() \u2014 rank with gaps for ties\n\u2022 DENSE_RANK() \u2014 rank without gaps\n\u2022 SUM(salary) OVER (PARTITION BY dept_id) \u2014 running total\n\u2022 LAG(salary,1) OVER (...) \u2014 previous row value",
-  vlookup:"VLOOKUP Syntax:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\nExample: =VLOOKUP(A2, $D$2:$F$100, 2, FALSE)\n\n\u2022 lookup_value \u2014 what you search for\n\u2022 table_array \u2014 the range to look in\n\u2022 col_index \u2014 column number to return\n\u2022 FALSE \u2014 exact match (always recommended)\n\nModern tip: Use XLOOKUP() in Excel 365 for more flexibility!",
-  cte:"CTE (Common Table Expression):\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary, d.mx\nFROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;\n\nWhen to use CTEs:\n\u2022 Break complex queries into readable steps\n\u2022 Recursive queries (org charts)\n\u2022 Reuse same subquery multiple times",
-  second:"Second Highest Salary:\n\nMethod 1 (Subquery):\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nMethod 2 (OFFSET):\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;\n\nMethod 3 (Window):\nSELECT salary FROM (\n  SELECT salary,\n  DENSE_RANK() OVER (ORDER BY salary DESC) as rnk\n  FROM employees\n) t WHERE rnk = 2;"
+/* ── AI ── */
+var AI_R={
+  join:"JOIN types:\n\n\u2022 INNER JOIN \u2014 only matching rows from both tables\n\u2022 LEFT JOIN \u2014 all rows from left + NULLs if no match\n\u2022 RIGHT JOIN \u2014 all rows from right + NULLs if no match\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
+  window:"Window Functions calculate across rows without collapsing them.\n\nSyntax: FUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n\u2022 ROW_NUMBER() \u2014 unique number per group\n\u2022 RANK() \u2014 rank with gaps for ties\n\u2022 DENSE_RANK() \u2014 rank without gaps\n\u2022 SUM(salary) OVER (PARTITION BY dept_id) \u2014 running total",
+  vlookup:"VLOOKUP Syntax:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\nExample: =VLOOKUP(A2, $D$2:$F$100, 2, FALSE)\n\n\u2022 lookup_value \u2014 what you search for\n\u2022 col_index \u2014 column number to return\n\u2022 FALSE \u2014 exact match (always use this)\n\nTip: Use XLOOKUP() in Excel 365 \u2014 more flexible!",
+  cte:"CTE (Common Table Expression):\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary\nFROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;\n\nUse CTEs to break complex queries into readable steps.",
+  second:"Second Highest Salary:\n\nMethod 1 (Subquery):\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nMethod 2 (OFFSET):\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;\n\nMethod 3 (Window):\nSELECT salary FROM (\n  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rn\n  FROM employees) t WHERE rn=2;"
 };
 
 function addMsg(role,txt){
-  var el=document.createElement('div');
-  el.className='msg msg-'+role;
-  var html=txt.replace(/\n/g,'<br>');
-  el.innerHTML='<div class="av-sm">'+(role==='ai'?'\ud83e\udd16':'U')+'</div><div class="bubble">'+html+'</div>';
-  var msgs=document.getElementById('chat-msgs');
-  msgs.appendChild(el);
-  msgs.scrollTop=99999;
+  var el=document.createElement('div');el.className='msg msg-'+role;
+  el.innerHTML='<div class="av-sm">'+(role==='ai'?'\ud83e\udd16':'U')+'</div><div class="bubble">'+txt.replace(/\n/g,'<br>')+'</div>';
+  var msgs=document.getElementById('chat-msgs');msgs.appendChild(el);msgs.scrollTop=99999;
 }
-
 function sendMsg(){
-  var inp=document.getElementById('chat-inp');
-  var txt=inp.value.trim();if(!txt)return;
-  addMsg('user',txt);inp.value='';
-  aiCnt++;if(user)save();updateDash();
+  var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;
+  addMsg('user',txt);inp.value='';aiCnt++;if(user)save();updateDash();
   setTimeout(function(){
-    var lo=txt.toLowerCase();
-    var rep;
-    if(lo.indexOf('join')!==-1)rep=AI_REPLIES.join;
-    else if(lo.indexOf('window')!==-1||lo.indexOf('rank')!==-1||lo.indexOf('partition')!==-1)rep=AI_REPLIES.window;
-    else if(lo.indexOf('vlookup')!==-1||lo.indexOf('excel')!==-1)rep=AI_REPLIES.vlookup;
-    else if(lo.indexOf('cte')!==-1||lo.indexOf('common table')!==-1)rep=AI_REPLIES.cte;
-    else if(lo.indexOf('second')!==-1||lo.indexOf('2nd')!==-1)rep=AI_REPLIES.second;
-    else rep='Good question about "'+txt+'"!\n\nHere\'s my approach:\n1. Identify what data you need and from which table\n2. Pick the right clause \u2014 WHERE for filtering, GROUP BY for aggregating, JOIN for combining\n3. Start simple with SELECT * then add complexity\n\nPaste your specific query or error message and I\'ll debug it step by step! \ud83d\ude80';
+    var lo=txt.toLowerCase();var rep;
+    if(lo.indexOf('join')!==-1)rep=AI_R.join;
+    else if(lo.indexOf('window')!==-1||lo.indexOf('rank')!==-1||lo.indexOf('partition')!==-1)rep=AI_R.window;
+    else if(lo.indexOf('vlookup')!==-1||lo.indexOf('excel')!==-1)rep=AI_R.vlookup;
+    else if(lo.indexOf('cte')!==-1||lo.indexOf('common table')!==-1)rep=AI_R.cte;
+    else if(lo.indexOf('second')!==-1||lo.indexOf('2nd')!==-1)rep=AI_R.second;
+    else rep='Good question!\n\nFor "'+txt+'":\n1. Identify which tables have the data\n2. Choose the right clause (WHERE, GROUP BY, JOIN)\n3. Start simple then add complexity\n\nPaste your query or error and I\'ll debug it! \ud83d\ude80';
     addMsg('ai',rep);
   },600);
 }
-
 function quickAsk(q){document.getElementById('chat-inp').value=q;sendMsg();}
 
+/* ── AUTH ── */
 function openModal(){document.getElementById('overlay').classList.add('show');}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
 document.getElementById('overlay').addEventListener('click',function(e){if(e.target.id==='overlay')closeModal();});
 function mTab(t,el){
-  document.querySelectorAll('.m-tab').forEach(function(x){x.classList.remove('on');});
-  el.classList.add('on');
+  document.querySelectorAll('.m-tab').forEach(function(x){x.classList.remove('on');});el.classList.add('on');
   document.getElementById('m-login').style.display=t==='login'?'':'none';
   document.getElementById('m-signup').style.display=t==='signup'?'':'none';
 }
@@ -798,8 +803,7 @@ function finishAuth(name){
 }
 function showUser(){
   if(!user)return;
-  var pill=document.getElementById('user-pill');
-  pill.style.display='flex';
+  var pill=document.getElementById('user-pill');pill.style.display='flex';
   document.getElementById('u-name').textContent=user.name;
   document.getElementById('u-av').textContent=user.name.charAt(0).toUpperCase();
   document.getElementById('r-name').textContent=user.name;
@@ -810,20 +814,14 @@ function doLogout(){
   localStorage.removeItem('ph_user');localStorage.removeItem('ph_prog');
   document.getElementById('user-pill').style.display='none';
   document.getElementById('btn-login-top').style.display='';
-  updateDash();renderQL();
+  updateDash();renderQTable();
 }
 
-function save(){
-  if(!user)return;
-  localStorage.setItem('ph_prog',JSON.stringify({solved:solved,recent:recent,aiCnt:aiCnt,xlCnt:xlCnt,streak:streak}));
-}
-function load(){
-  var r=localStorage.getItem('ph_prog');
-  if(!r)return;
-  var p=JSON.parse(r);
-  solved=p.solved||[];recent=p.recent||[];aiCnt=p.aiCnt||0;xlCnt=p.xlCnt||0;streak=p.streak||0;
-}
+/* ── PERSIST ── */
+function save(){if(!user)return;localStorage.setItem('ph_prog',JSON.stringify({solved:solved,recent:recent,aiCnt:aiCnt,xlCnt:xlCnt,streak:streak}));}
+function load(){var r=localStorage.getItem('ph_prog');if(!r)return;var p=JSON.parse(r);solved=p.solved||[];recent=p.recent||[];aiCnt=p.aiCnt||0;xlCnt=p.xlCnt||0;streak=p.streak||0;}
 
+/* ── DASHBOARD ── */
 function updateDash(){
   document.getElementById('d-sql').textContent=solved.length;
   document.getElementById('d-excel').textContent=xlCnt;
@@ -832,37 +830,27 @@ function updateDash(){
   document.getElementById('top-pill').textContent=solved.length+' solved';
   var rb=document.getElementById('recent-body');
   if(!recent.length){rb.innerHTML='<div class="empty-msg">No questions solved yet \u2014 start practicing! \ud83d\ude80</div>';return;}
-  rb.innerHTML=recent.slice(0,6).map(function(q){
+  rb.innerHTML=recent.slice(0,5).map(function(q){
     var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
-    return '<div class="r-item">'+
-      '<span class="tag '+dc+'">'+q.diff+'</span>'+
-      '<span class="tag tt">'+q.topic+'</span>'+
-      '<span class="r-title">'+q.title+'</span>'+
-      '<span class="r-time">'+q.date+'</span></div>';
+    return '<div class="r-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="r-title">'+q.title+'</span><span class="r-time">'+q.date+'</span></div>';
   }).join('');
 }
 
+/* ── ACHIEVEMENTS ── */
 function updateAch(){
   var sl=document.getElementById('sl-list');
-  sl.innerHTML=recent.length
-    ?recent.map(function(q){
-      var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
-      return '<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span>'+
-        '<span class="sl-title">'+q.title+'</span>'+
-        '<span class="sl-date">'+q.date+'</span></div>';
-    }).join('')
-    :'<div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div>';
+  sl.innerHTML=recent.length?recent.map(function(q){
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    return '<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';
+  }).join(''):'<div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div>';
   document.getElementById('r-sql').textContent=solved.length;
   document.getElementById('r-excel').textContent=xlCnt;
   document.getElementById('r-streak').textContent=streak;
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
   var rl=document.getElementById('r-ql');
-  rl.innerHTML=recent.length
-    ?recent.map(function(q){return'<li><span>'+q.title+'</span><span style="color:#aaa">'+q.date+'</span></li>';}).join('')
-    :'<li style="color:#bbb;padding:4px 0">No questions completed yet</li>';
+  rl.innerHTML=recent.length?recent.map(function(q){return'<li><span>'+q.title+'</span><span style="color:#aaa">'+q.date+'</span></li>';}).join(''):'<li style="color:#bbb;padding:3px 0">No questions yet</li>';
   checkBadges();
 }
-
 function checkBadges(){
   if(solved.length>=1)document.getElementById('b-beginner').classList.add('on');
   if(solved.length>=8)document.getElementById('b-master').classList.add('on');
@@ -872,15 +860,14 @@ function checkBadges(){
   if(aiCnt>=3)document.getElementById('b-ai').classList.add('on');
 }
 
-function dlPDF(){
-  var el=document.getElementById('resume-card');
-  html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'_Certificate.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(el).save();
-}
+/* ── PDF / SHARE ── */
+function dlPDF(){html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
 function shareIt(){
-  var txt='\ud83d\ude80 My PracticeHub Progress\n\nSQL Solved: '+solved.length+' questions\nExcel Tasks: '+xlCnt+'\nAI Sessions: '+aiCnt+'\nStreak: '+streak+' days \ud83d\udd25\n\nRecently solved:\n'+recent.slice(0,3).map(function(q){return'\u2022 '+q.title;}).join('\n')+'\n\nPractice SQL & Excel at PracticeHub!';
-  navigator.clipboard.writeText(txt).then(function(){alert('\u2705 Copied to clipboard!\nPaste on LinkedIn, WhatsApp, or your resume \ud83d\udd17');});
+  var txt='\ud83d\ude80 My PracticeHub Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nAI Sessions: '+aiCnt+'\nStreak: '+streak+' days \ud83d\udd25\n\nRecently solved:\n'+recent.slice(0,3).map(function(q){return'\u2022 '+q.title;}).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){alert('\u2705 Copied! Paste on LinkedIn or WhatsApp \ud83d\udd17');});
 }
 
+/* ── NAV ── */
 function goTo(id,el){
   document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
@@ -889,10 +876,13 @@ function goTo(id,el){
   var titles={dashboard:'Dashboard',sql:'SQL Practice',excel:'Excel Practice',ai:'AI Helper',achievements:'Achievements'};
   document.getElementById('page-title').textContent=titles[id]||'Dashboard';
   document.getElementById('sql-filters').style.display=id==='sql'?'block':'none';
+  // Reset content padding for SQL (full bleed) vs others
+  document.querySelector('.content').style.padding=id==='sql'?'0':'20px';
   if(id==='excel')initXL();
   if(id==='achievements')updateAch();
 }
 
+/* ── BOOT ── */
 window.addEventListener('load',async function(){
   await initSQL();
   var su=localStorage.getItem('ph_user');
