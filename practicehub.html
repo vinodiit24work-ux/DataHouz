@@ -27,7 +27,7 @@
 }
 html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px}
 
-/* ══ TOPBAR ══ */
+/* TOPBAR */
 #topbar{height:var(--topbar);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;z-index:200}
 .t-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
 .t-mark{width:26px;height:26px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff}
@@ -38,33 +38,27 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .t-btn svg{width:13px;height:13px;opacity:.7;flex-shrink:0}
 .t-btn:hover{background:var(--bg3);color:var(--text)}
 .t-btn.active{background:var(--green-bg);color:var(--green);font-weight:500}
-.t-btn.active svg{opacity:1}
 .t-right{margin-left:auto;display:flex;align-items:center;gap:7px}
 .t-pill{padding:3px 9px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2)}
-.t-login{padding:5px 12px;background:var(--green);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s}
+.t-login{padding:5px 12px;background:var(--green);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font)}
 .t-login:hover{opacity:.85}
 .t-user{display:none;align-items:center;gap:7px}
-.t-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+.t-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;overflow:hidden;flex-shrink:0}
 .t-av img{width:100%;height:100%;object-fit:cover}
-.t-av.initials{background:linear-gradient(135deg,var(--purple),var(--blue))}
 .t-uname{font-size:12px;font-weight:500;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.t-out{padding:3px 8px;border-radius:5px;font-size:11px;color:var(--text3);border:1px solid var(--border);cursor:pointer;background:transparent;font-family:var(--font);transition:all .15s}
+.t-out{padding:3px 8px;border-radius:5px;font-size:11px;color:var(--text3);border:1px solid var(--border);cursor:pointer;background:transparent;font-family:var(--font)}
 .t-out:hover{color:var(--red);border-color:var(--red-border)}
-.cloud-wrap{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3)}
-.cdot{width:6px;height:6px;border-radius:50%;background:var(--amber);transition:background .3s}
+.cdot{width:6px;height:6px;border-radius:50%;background:var(--amber)}
 .cdot.ok{background:var(--green);animation:cp 2s infinite}
 .cdot.err{background:var(--red)}
 @keyframes cp{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ══ APP ══ */
+/* APP */
 #app{display:flex;flex-direction:column;height:calc(100vh - var(--topbar))}
 .page{display:none;flex:1;overflow:hidden}.page.on{display:flex;flex-direction:column}
 .scroll-page{flex:1;overflow-y:auto;padding:20px}
-
-/* ══ STATS ══ */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
-.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;transition:border-color .2s}
-.sc:hover{border-color:var(--border2)}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
 .sc-lbl{font-size:10px;color:var(--text3);margin-bottom:4px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
 .sc-val{font-size:26px;font-weight:700;letter-spacing:-1px}
 .sc-sub{font-size:10px;color:var(--text3);margin-top:3px}
@@ -73,17 +67,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:18px}
 .qa{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 14px;cursor:pointer;transition:all .18s;display:flex;gap:10px}
 .qa:hover{border-color:var(--green-border);transform:translateY(-1px)}
-.qa-ico{font-size:17px;flex-shrink:0;margin-top:1px}
-.qa-title{font-size:13px;font-weight:500;margin-bottom:2px}
-.qa-desc{font-size:11px;color:var(--text3);line-height:1.4}
+.qa-ico{font-size:17px;flex-shrink:0;margin-top:1px}.qa-title{font-size:13px;font-weight:500;margin-bottom:2px}.qa-desc{font-size:11px;color:var(--text3);line-height:1.4}
 .recent-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
 .ri{display:flex;align-items:center;gap:8px;padding:8px 13px;border-bottom:1px solid var(--border);font-size:12px}
-.ri:last-child{border-bottom:none}
-.ri-title{flex:1}
-.ri-date{font-size:10px;color:var(--text3)}
+.ri:last-child{border-bottom:none}.ri-title{flex:1}.ri-date{font-size:10px;color:var(--text3)}
 .empty{padding:20px;text-align:center;color:var(--text3);font-size:12px}
-
-/* ══ TAGS ══ */
 .tag{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap;line-height:1.6}
 .te{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .tm{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
@@ -92,13 +80,13 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
 .tg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 
-/* ══ SQL PAGE ══ */
+/* SQL PAGE */
 #sql-page{flex-direction:row;overflow:hidden}
 #filter-sidebar{width:196px;min-width:196px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s}
 #filter-sidebar.collapsed{width:0;min-width:0;border-right:none}
 .fs-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .fs-title{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.7px}
-.fs-toggle{width:20px;height:20px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text3);border:none;background:transparent}
+.fs-toggle{width:20px;height:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text3);border:none;background:transparent;border-radius:4px}
 .fs-toggle:hover{background:var(--bg3);color:var(--text)}
 .fs-body{flex:1;overflow-y:auto;padding:10px 8px}
 .fg{margin-bottom:14px}
@@ -108,11 +96,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .fg-btn.on{background:var(--green-bg);color:var(--green);font-weight:500}
 .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .de{background:var(--green)}.dm{background:var(--amber)}.dh{background:var(--red)}.da{background:var(--text3)}
-.fg-btn .chk{margin-left:auto;font-size:10px;opacity:0}
-.fg-btn.on .chk{opacity:1;color:var(--green)}
+.fg-btn .chk{margin-left:auto;font-size:10px;opacity:0}.fg-btn.on .chk{opacity:1;color:var(--green)}
 
-/* split */
-#sql-split{flex:1;display:flex;overflow:hidden;position:relative}
+/* SPLIT */
+#sql-split{flex:1;display:flex;overflow:hidden}
 #ql-panel{display:flex;flex-direction:column;overflow:hidden;min-width:120px;background:var(--bg2);width:42%}
 #drag-handle{width:5px;background:var(--border);cursor:col-resize;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;transition:background .15s;z-index:10}
 #drag-handle::before{content:'';position:absolute;top:50%;transform:translateY(-50%);width:3px;height:32px;background:var(--border2);border-radius:2px;transition:all .15s}
@@ -124,10 +111,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .dh-l{left:-9px}.dh-r{right:-9px}
 #ed-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:200px;background:var(--bg2)}
 
-/* question list */
+/* Q LIST */
 .ql-top{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:7px;flex-shrink:0}
 .ql-sr{display:flex;align-items:center;gap:6px}
-.ql-search{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:6px 10px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
+.ql-search{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:6px 10px;color:var(--text);font-size:12px;font-family:var(--font);outline:none}
 .ql-search:focus{border-color:var(--green)}
 .ql-cnt{font-size:10px;color:var(--text3);white-space:nowrap}
 .chips{display:flex;gap:5px;flex-wrap:wrap}.chips:empty{display:none}
@@ -150,8 +137,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .ql-tbl tbody tr.sel td:first-child{border-left:3px solid var(--green)}
 .td-n{color:var(--text3);font-family:var(--mono);font-size:10px;width:28px}
 .td-title{max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
-.td-title.sv{color:var(--green)}
-.sv-tick{color:var(--green);font-size:9px;margin-left:3px}
+.td-title.sv{color:var(--green)}.sv-tick{color:var(--green);font-size:9px;margin-left:3px}
 .td-exp{font-family:var(--mono);font-size:10px;text-align:center;color:var(--text2)}
 .solve-btn{padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);transition:all .12s}
 .solve-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
@@ -165,34 +151,65 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .mini-exp{margin-top:auto;margin-bottom:8px;padding:5px;border-radius:var(--r);border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text3);font-size:12px}
 .mini-exp:hover{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
 
-/* editor */
-.ep-tabs{display:flex;align-items:center;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;padding:0 4px}
+/* EDITOR */
+.ep-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;padding:0 4px}
 .ep-tab{padding:10px 13px;font-size:12px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .ep-tab:hover{color:var(--text2)}
 .ep-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
 .ep-tc{display:none;flex:1;flex-direction:column;overflow:hidden}
 .ep-tc.on{display:flex}
-.q-detail{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-y:auto;max-height:220px}
-.q-ph{color:var(--text3);font-size:12px;padding:20px 0;text-align:center}
-.q-dtitle{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35;letter-spacing:-.2px}
+.q-detail{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-y:auto;max-height:210px}
+.q-ph{color:var(--text3);font-size:12px;padding:18px 0;text-align:center}
+.q-dtitle{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35}
 .q-dmeta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
 .q-ddesc{font-size:12px;color:var(--text2);line-height:1.6}
 .schema-box{margin-top:9px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:10.5px;color:var(--text3);line-height:1.7}
-.ed-bar{padding:7px 12px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ed-bar{padding:7px 12px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;flex-shrink:0}
 .ed-lbl{font-size:10px;color:var(--text3);font-family:var(--mono)}
 .kbd{background:var(--bg4);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:9px;font-family:var(--mono);color:var(--text3);margin-left:auto}
+#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:80px}
+.ed-actions{padding:9px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2);align-items:center}
 
-/* ── LOGIN GATE OVERLAY on editor ── */
-.gate-overlay{position:absolute;inset:0;background:rgba(10,15,30,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;gap:14px;backdrop-filter:blur(4px)}
-.gate-overlay.hidden{display:none}
-.gate-icon{font-size:36px}
-.gate-title{font-size:16px;font-weight:600;color:var(--text)}
-.gate-sub{font-size:12px;color:var(--text3);text-align:center;max-width:280px;line-height:1.6}
-.gate-btns{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
-#ed-panel{position:relative}
+/* ═══════════════════════════════════
+   GUEST BANNER — shown after run
+═══════════════════════════════════ */
+#guest-banner{display:none;padding:9px 14px;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border-top:1px solid var(--amber-border);flex-shrink:0;align-items:center;gap:10px;animation:slideUp .25s ease}
+#guest-banner.show{display:flex}
+@keyframes slideUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.gb-icon{font-size:16px;flex-shrink:0}
+.gb-text{flex:1;font-size:11.5px;color:var(--amber);line-height:1.4}
+.gb-text strong{font-weight:600}
+.gb-btns{display:flex;gap:6px;flex-shrink:0}
+.gb-google{display:flex;align-items:center;gap:6px;padding:5px 11px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .15s}
+.gb-google:hover{background:var(--bg4)}
+.gb-google svg{width:14px;height:14px;flex-shrink:0}
+.gb-signup{padding:5px 11px;border-radius:var(--r);background:var(--amber);color:#fff;font-size:11px;font-weight:500;cursor:pointer;border:none;font-family:var(--font)}
+.gb-signup:hover{opacity:.85}
+.gb-close{padding:5px 8px;border-radius:var(--r);background:transparent;color:var(--text3);font-size:12px;cursor:pointer;border:none}
+.gb-close:hover{color:var(--text)}
 
-#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:100px}
-.ed-actions{padding:9px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2)}
+/* ═══════════════════════════════════
+   SUBMIT LOGIN CARD — inline in editor
+   shown when user clicks Submit without login
+═══════════════════════════════════ */
+#submit-card{display:none;flex-direction:column;align-items:center;padding:24px 20px;gap:14px;background:var(--bg2);border-top:2px solid var(--green-border);flex-shrink:0;animation:fadeUp .25s ease}
+#submit-card.show{display:flex}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sc2-emoji{font-size:30px}
+.sc2-title{font-size:15px;font-weight:700;color:var(--text);text-align:center}
+.sc2-sub{font-size:12px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6}
+.sc2-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%}
+.sc2-google{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .15s;flex:1;max-width:220px}
+.sc2-google:hover{background:var(--bg4);border-color:var(--green-border)}
+.sc2-google svg{width:17px;height:17px;flex-shrink:0}
+.sc2-email{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--r);background:var(--green);color:#fff;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s;flex:1;max-width:200px}
+.sc2-email:hover{opacity:.88}
+.sc2-login{padding:8px 16px;border-radius:var(--r);background:transparent;border:1px solid var(--border);color:var(--text2);font-size:12px;cursor:pointer;font-family:var(--font);transition:all .15s}
+.sc2-login:hover{background:var(--bg3);color:var(--text)}
+.sc2-dismiss{background:transparent;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--font);text-decoration:underline;text-underline-offset:2px}
+.sc2-dismiss:hover{color:var(--text2)}
+
+/* RESULT */
 .res-panel{background:var(--bg3);border-top:1px solid var(--border);flex-shrink:0}
 .res-ph{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
 .res-ph:hover{background:var(--bg4)}
@@ -200,7 +217,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .res-ok{font-size:11px;color:var(--green);font-weight:500}
 .res-err{font-size:11px;color:var(--red)}
 .res-tog{margin-left:auto;font-size:11px;color:var(--text3);transition:transform .2s}
-.res-bw{max-height:200px;overflow:auto;transition:max-height .2s}
+.res-bw{max-height:200px;overflow:auto}
 .res-bw.closed{max-height:0;overflow:hidden}
 .res-table{width:100%;border-collapse:collapse}
 .res-table th{background:var(--bg4);padding:6px 11px;font-size:10px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;white-space:nowrap}
@@ -209,34 +226,30 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .res-table tr:hover td{background:var(--bg4)}
 .res-empty{padding:18px;text-align:center;color:var(--text3);font-size:12px}
 
-/* ══ BUTTONS ══ */
+/* BUTTONS */
 .btn{padding:6px 13px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:5px}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
-.btn-lg{padding:10px 20px;font-size:13px}
 
-/* ══ AUTH MODAL ══ */
+/* shake */
+@keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-5px)}30%{transform:translateX(5px)}45%{transform:translateX(-4px)}60%{transform:translateX(4px)}75%{transform:translateX(-2px)}90%{transform:translateX(2px)}}
+.shake{animation:shake .4s ease}
+
+/* AUTH MODAL */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(4px)}
 .overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:28px;width:100%;max-width:400px;animation:mIn .18s ease}
 @keyframes mIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-
-/* tabs */
 .m-tabs{display:flex;gap:3px;margin-bottom:20px;background:var(--bg3);border-radius:var(--r);padding:3px}
 .m-tab{flex:1;padding:7px;text-align:center;border-radius:calc(var(--r) - 2px);font-size:12px;cursor:pointer;color:var(--text3);transition:all .15s}
 .m-tab.on{background:var(--bg2);color:var(--text);font-weight:500}
-
-/* Google button */
-.google-btn{width:100%;padding:10px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:9px;transition:all .15s;margin-bottom:14px}
-.google-btn:hover{border-color:var(--border2);background:var(--bg4)}
+.google-btn{width:100%;padding:11px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:9px;transition:all .15s;margin-bottom:14px}
+.google-btn:hover{background:var(--bg4)}
 .google-btn svg{width:18px;height:18px;flex-shrink:0}
-
-/* divider */
 .m-divider{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .m-divider::before,.m-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .m-divider span{font-size:11px;color:var(--text3);white-space:nowrap}
-
 .m-title{font-size:16px;font-weight:700;margin-bottom:2px}
 .m-sub{font-size:11px;color:var(--text3);margin-bottom:16px}
 .m-lbl{font-size:10px;color:var(--text3);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:.5px}
@@ -250,34 +263,25 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ══ LEADERBOARD ══ */
+/* OTHER PAGES */
 .lb-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
 .lb-row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);transition:background .12s}
-.lb-row:last-child{border-bottom:none}
-.lb-row:hover{background:var(--bg3)}
+.lb-row:last-child{border-bottom:none}.lb-row:hover{background:var(--bg3)}
 .lb-rank{width:28px;font-size:12px;font-weight:700;color:var(--text3);text-align:center;flex-shrink:0}
 .lb-rank.gold{color:var(--amber)}.lb-rank.silver{color:#94a3b8}.lb-rank.bronze{color:#cd7c2a}
 .lb-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;overflow:hidden}
 .lb-av img{width:100%;height:100%;object-fit:cover}
-.lb-info{flex:1}
-.lb-name{font-size:13px;font-weight:500}
-.lb-meta{font-size:10px;color:var(--text3)}
-.lb-solved{font-size:14px;font-weight:700;color:var(--green)}
-.lb-streak{font-size:11px;color:var(--amber);margin-left:6px}
-
-/* ══ EXCEL ══ */
+.lb-info{flex:1}.lb-name{font-size:13px;font-weight:500}.lb-meta{font-size:10px;color:var(--text3)}
+.lb-solved{font-size:14px;font-weight:700;color:var(--green)}.lb-streak{font-size:11px;color:var(--amber);margin-left:6px}
 .xl-wrap{display:flex;flex-direction:column;gap:11px}
 .xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.xl-info h2{font-size:14px;font-weight:600;margin-bottom:2px}
-.xl-info p{font-size:11px;color:var(--text3)}
+.xl-info h2{font-size:14px;font-weight:600;margin-bottom:2px}.xl-info p{font-size:11px;color:var(--text3)}
 .xl-grid-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
 #excel-grid{width:100%;height:420px}
 .xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:13px 16px}
 .task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:7px;margin-top:8px}
 .task{padding:9px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;display:flex;gap:8px;line-height:1.5}
 .task-n{width:17px;height:17px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
-
-/* ══ AI ══ */
 .ai-wrap{max-width:680px;margin:0 auto;height:100%;display:flex;flex-direction:column}
 .chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;flex:1}
 .chat-top{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -286,19 +290,14 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px}
 .msg{display:flex;gap:8px}.msg-u{flex-direction:row-reverse}
 .bubble{max-width:80%;padding:9px 12px;border-radius:var(--r2);font-size:13px;line-height:1.6}
-.msg-ai .bubble{background:var(--bg3);border:1px solid var(--border)}
-.msg-u .bubble{background:var(--green);color:#fff}
+.msg-ai .bubble{background:var(--bg3);border:1px solid var(--border)}.msg-u .bubble{background:var(--green);color:#fff}
 .av-sm{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
-.msg-ai .av-sm{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}
-.msg-u .av-sm{background:var(--green2);color:#fff}
+.msg-ai .av-sm{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}.msg-u .av-sm{background:var(--green2);color:#fff}
 .qchips{display:flex;gap:5px;flex-wrap:wrap;padding:6px 14px;border-top:1px solid var(--border);flex-shrink:0}
 .qchip{padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
 .qchip:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
 .chat-inp-row{padding:11px 14px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0}
 .chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;color:var(--text);font-size:13px;font-family:var(--font);outline:none}
-.chat-inp:focus{border-color:var(--border2)}
-
-/* ══ ACHIEVEMENTS ══ */
 .ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .ach-col{display:flex;flex-direction:column;gap:11px}
 .ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:15px 16px}
@@ -307,38 +306,29 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 7px;text-align:center;transition:all .2s}
 .bdg.on{border-color:var(--amber-border);background:var(--amber-bg)}
 .bdg-ico{font-size:20px;display:block;margin-bottom:4px;opacity:.2;transition:opacity .2s}
-.bdg.on .bdg-ico{opacity:1}
-.bdg-nm{font-size:10px;color:var(--text3)}
-.bdg.on .bdg-nm{color:var(--amber);font-weight:500}
+.bdg.on .bdg-ico{opacity:1}.bdg-nm{font-size:10px;color:var(--text3)}.bdg.on .bdg-nm{color:var(--amber);font-weight:500}
 .sl-list{display:flex;flex-direction:column;gap:5px;max-height:220px;overflow-y:auto}
 .sl-item{padding:7px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:7px;font-size:11.5px}
 .sl-title{flex:1}.sl-date{font-size:10px;color:var(--text3)}
 .resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:24px}
 .res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:13px;margin-bottom:13px}
-.res-nm{font-size:19px;font-weight:700;color:#111;margin-bottom:2px}
-.res-tg{font-size:12px;color:#555}
+.res-nm{font-size:19px;font-weight:700;color:#111;margin-bottom:2px}.res-tg{font-size:12px;color:#555}
 .res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}
 .rs-cell{text-align:center;padding:9px;background:#f8fafc;border-radius:6px}
-.rs-val{font-size:19px;font-weight:700;color:#10b981;display:block}
-.rs-lbl{font-size:10px;color:#666}
+.rs-val{font-size:19px;font-weight:700;color:#10b981;display:block}.rs-lbl{font-size:10px;color:#666}
 .res-sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:5px}
 .res-ql{list-style:none;font-size:11.5px;color:#333}
 .res-ql li{padding:3px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between}
 .res-ql li:last-child{border-bottom:none}
 .res-wm{text-align:center;margin-top:12px;font-size:9px;color:#bbb}
-
-/* TOAST */
 #toast{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:var(--r2);font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none;max-width:320px}
 #toast.show{opacity:1}
 #toast.ok{background:var(--green);color:#fff}
 #toast.err{background:var(--red);color:#fff}
 #toast.info{background:var(--blue);color:#fff}
-#toast.warn{background:var(--amber);color:#fff}
-
+#toast.warn{background:var(--amber);color:#111}
 .no-select{user-select:none;-webkit-user-select:none}
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 .handsontable{font-family:var(--mono)!important;font-size:12px!important}
 .handsontable th,.handsontable td{background:var(--bg3)!important;border-color:var(--border)!important;color:var(--text)!important}
 .handsontable thead th{background:var(--bg4)!important;color:var(--text2)!important}
@@ -350,10 +340,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 
 <!-- TOPBAR -->
 <div id="topbar">
-  <a class="t-logo" href="index.html">
-    <div class="t-mark">P</div>
-    <div class="t-name">PracticeHub</div>
-  </a>
+  <a class="t-logo" href="index.html"><div class="t-mark">P</div><div class="t-name">PracticeHub</div></a>
   <div class="t-sep"></div>
   <nav class="t-nav">
     <button class="t-btn active" id="tb-dash" onclick="showPage('dashboard',this)">
@@ -376,14 +363,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
     </button>
   </nav>
   <div class="t-right">
-    <div class="cloud-wrap">
-      <div class="cdot" id="cdot"></div>
-      <span id="clbl" style="font-size:10px;color:var(--text3)">Connecting...</span>
-    </div>
+    <div style="display:flex;align-items:center;gap:4px"><div class="cdot" id="cdot"></div><span id="clbl" style="font-size:10px;color:var(--text3)">Connecting...</span></div>
     <div class="t-pill" id="t-pill">0 solved</div>
     <button class="t-login" id="t-login-btn" onclick="openModal('login')">Login / Sign Up</button>
     <div class="t-user" id="t-user">
-      <div class="t-av initials" id="t-av">V</div>
+      <div class="t-av" id="t-av">V</div>
       <span class="t-uname" id="t-uname">User</span>
       <button class="t-out" onclick="doLogout()">↩ Logout</button>
     </div>
@@ -403,9 +387,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       </div>
       <div class="sec-h">Quick Start</div>
       <div class="qa-grid">
-        <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))"><div class="qa-ico">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · Cloud progress sync</div></div></div>
+        <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))"><div class="qa-ico">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · Cloud sync</div></div></div>
         <div class="qa" onclick="showPage('excel',document.getElementById('tb-excel'))"><div class="qa-ico">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div></div>
-        <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Get hints</div></div></div>
+        <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Hints</div></div></div>
         <div class="qa" onclick="showPage('leaderboard',document.getElementById('tb-lb'))"><div class="qa-ico">🏆</div><div><div class="qa-title">Leaderboard</div><div class="qa-desc">See top users worldwide</div></div></div>
       </div>
       <div class="sec-h">Recently Solved</div>
@@ -416,20 +400,15 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   <!-- SQL PAGE -->
   <div class="page" id="page-sql" style="flex-direction:row">
     <div id="filter-sidebar">
-      <div class="fs-head">
-        <span class="fs-title">Filters</span>
-        <button class="fs-toggle" onclick="toggleSidebar()">◀</button>
-      </div>
+      <div class="fs-head"><span class="fs-title">Filters</span><button class="fs-toggle" onclick="toggleSidebar()">◀</button></div>
       <div class="fs-body">
-        <div class="fg">
-          <div class="fg-label">Difficulty</div>
+        <div class="fg"><div class="fg-label">Difficulty</div>
           <button class="fg-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard<span class="chk">✓</span></button>
         </div>
-        <div class="fg">
-          <div class="fg-label">Topic</div>
+        <div class="fg"><div class="fg-label">Topic</div>
           <button class="fg-btn on" onclick="setF('topic','all',this)">All Topics<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('topic','Aggregate',this)">Aggregate<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('topic','JOIN',this)">JOIN<span class="chk">✓</span></button>
@@ -437,8 +416,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           <button class="fg-btn" onclick="setF('topic','Subquery',this)">Subquery<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('topic','CTE',this)">CTE<span class="chk">✓</span></button>
         </div>
-        <div class="fg">
-          <div class="fg-label">Company</div>
+        <div class="fg"><div class="fg-label">Company</div>
           <button class="fg-btn on" onclick="setF('co','all',this)">All<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('co','Google',this)">Google<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('co','Amazon',this)">Amazon<span class="chk">✓</span></button>
@@ -447,8 +425,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           <button class="fg-btn" onclick="setF('co','Microsoft',this)">Microsoft<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('co','Flipkart',this)">Flipkart<span class="chk">✓</span></button>
         </div>
-        <div class="fg">
-          <div class="fg-label">Status</div>
+        <div class="fg"><div class="fg-label">Status</div>
           <button class="fg-btn on" onclick="setF('status','all',this)">All<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('status','solved',this)">Solved ✓<span class="chk">✓</span></button>
           <button class="fg-btn" onclick="setF('status','unsolved',this)">Unsolved<span class="chk">✓</span></button>
@@ -492,49 +469,75 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <button class="dh-arr dh-r" onclick="expandQL()">▶</button>
       </div>
 
-      <!-- EDITOR PANEL with LOGIN GATE -->
+      <!-- EDITOR PANEL -->
       <div id="ed-panel">
-
-        <!-- ── LOGIN GATE (shown when not logged in) ── -->
-        <div class="gate-overlay" id="gate-overlay">
-          <div class="gate-icon">🔐</div>
-          <div class="gate-title">Login to Start Practicing</div>
-          <div class="gate-sub">Create a free account or sign in to run queries, submit answers, and track your progress across all devices.</div>
-          <div class="gate-btns">
-            <button class="btn btn-green btn-lg" onclick="openModal('signup')">Sign Up Free</button>
-            <button class="btn btn-ghost btn-lg" onclick="openModal('login')">Login</button>
-          </div>
-          <div style="font-size:11px;color:var(--text3);margin-top:4px">Or continue as guest — but progress won't be saved</div>
-          <button onclick="dismissGate()" style="background:transparent;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--font);margin-top:2px;text-decoration:underline">Continue as guest →</button>
-        </div>
-
         <div class="ep-tabs">
           <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
           <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
           <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
         </div>
+
         <div class="ep-tc on" id="ept-desc" style="flex-direction:column">
           <div class="q-detail" id="q-detail"><div class="q-ph">← Select a question to begin</div></div>
+
           <div class="ed-bar">
             <span class="ed-lbl">SQL Editor</span>
-            <span id="ed-login-hint" style="font-size:10px;color:var(--amber);margin-left:6px;display:none">⚠ Login to run & submit</span>
-            <span class="kbd" style="margin-left:auto">Ctrl+Enter = Run</span>
+            <span class="kbd">Ctrl+Enter = Run</span>
           </div>
-          <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;SELECT * FROM employees;"></textarea>
+          <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;&#10;SELECT * FROM employees;"></textarea>
+
+          <!-- ACTION BUTTONS -->
           <div class="ed-actions">
-            <button class="btn btn-blue" onclick="runSQL()">▶ Run</button>
-            <button class="btn btn-green" onclick="submitSQL()">✓ Submit</button>
+            <button class="btn btn-blue" id="run-btn" onclick="runSQL()">▶ Run Query</button>
+            <button class="btn btn-green" id="submit-btn" onclick="submitSQL()">✓ Submit</button>
             <button class="btn btn-ghost" onclick="epTab('hints',document.querySelectorAll('.ep-tab')[2])">💡 Hint</button>
           </div>
-          <div class="res-panel">
+
+          <!-- ① GUEST BANNER — slides up after Run when not logged in -->
+          <div id="guest-banner">
+            <span class="gb-icon">⚡</span>
+            <div class="gb-text">
+              <strong>Query ran!</strong> Login to save progress, earn badges, and appear on the leaderboard.
+            </div>
+            <div class="gb-btns">
+              <button class="gb-google" onclick="signInGoogle()">
+                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google
+              </button>
+              <button class="gb-signup" onclick="openModal('signup')">Sign Up Free</button>
+              <button class="gb-close" onclick="this.closest('#guest-banner').classList.remove('show')">✕</button>
+            </div>
+          </div>
+
+          <!-- ② SUBMIT LOGIN CARD — shown when Submit clicked without login -->
+          <div id="submit-card">
+            <div class="sc2-emoji">🔐</div>
+            <div class="sc2-title">Login to submit your answer</div>
+            <div class="sc2-sub">Create a free account to submit, track your progress, earn badges, and appear on the leaderboard.</div>
+            <div class="sc2-btns">
+              <button class="sc2-google" onclick="signInGoogle()">
+                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Continue with Google
+              </button>
+              <button class="sc2-email" onclick="openModal('signup')">✉ Sign Up Free</button>
+            </div>
+            <button class="sc2-login" onclick="openModal('login')">Already have an account? Login →</button>
+            <button class="sc2-dismiss" onclick="hideSubmitCard()">Maybe later, I'll just browse</button>
+          </div>
+
+          <!-- RESULT PANEL -->
+          <div class="res-panel" id="res-panel">
             <div class="res-ph" onclick="toggleResult()">
               <span class="res-lbl">Output</span>
               <span id="res-meta"></span>
               <span class="res-tog" id="res-tog">▼</span>
             </div>
-            <div class="res-bw" id="res-bw"><div id="res-body"><div class="res-empty">Run a query to see results</div></div></div>
+            <div class="res-bw" id="res-bw">
+              <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
+            </div>
           </div>
         </div>
+
         <div class="ep-tc" id="ept-solution" style="flex-direction:column;overflow-y:auto;padding:16px">
           <div id="sol-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first.</div>
         </div>
@@ -551,20 +554,17 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="xl-wrap">
         <div class="xl-top">
           <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · =SUM() · =AVERAGE() · =VLOOKUP() · Drag · Sort</p></div>
-          <div style="display:flex;gap:7px">
-            <button class="btn btn-ghost" onclick="resetXL()">Reset</button>
-            <button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button>
-          </div>
+          <div style="display:flex;gap:7px"><button class="btn btn-ghost" onclick="resetXL()">Reset</button><button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button></div>
         </div>
         <div class="xl-grid-box"><div id="excel-grid"></div></div>
         <div class="xl-tasks">
           <div class="sec-h" style="margin-bottom:8px">Practice Tasks</div>
           <div class="task-grid">
-            <div class="task"><div class="task-n">1</div>Calculate Q1 Total in column E using =SUM(B2:D2)</div>
-            <div class="task"><div class="task-n">2</div>Find average monthly sales per product in column F</div>
+            <div class="task"><div class="task-n">1</div>Calculate Q1 Total using =SUM(B2:D2)</div>
+            <div class="task"><div class="task-n">2</div>Find average monthly sales using =AVERAGE()</div>
             <div class="task"><div class="task-n">3</div>Sort by Total Sales descending</div>
-            <div class="task"><div class="task-n">4</div>Add a new "Tablet" row with your own data</div>
-            <div class="task"><div class="task-n">5</div>Use =MAX() and =MIN() to find best and worst month</div>
+            <div class="task"><div class="task-n">4</div>Add a new "Tablet" row with your data</div>
+            <div class="task"><div class="task-n">5</div>Use =MAX() and =MIN() for best/worst month</div>
             <div class="task"><div class="task-n">6</div>Create a running cumulative total using SUM</div>
           </div>
         </div>
@@ -572,26 +572,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
     </div>
   </div>
 
-  <!-- AI HELPER -->
+  <!-- AI -->
   <div class="page" id="page-ai">
     <div class="scroll-page" style="display:flex;flex-direction:column">
       <div class="ai-wrap">
         <div class="chat-card">
-          <div class="chat-top">
-            <div class="ai-av">🤖</div>
-            <div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online · Claude AI</div></div>
-          </div>
+          <div class="chat-top"><div class="ai-av">🤖</div><div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online</div></div></div>
           <div class="chat-msgs" id="chat-msgs">
-            <div class="msg msg-ai"><div class="av-sm">🤖</div>
-              <div class="bubble">Hi! 👋 I'm your SQL & Excel coach. Ask me about JOINs, window functions, Excel formulas, or paste your query error!</div>
-            </div>
+            <div class="msg msg-ai"><div class="av-sm">🤖</div><div class="bubble">Hi! 👋 Ask me about JOINs, window functions, Excel formulas, or paste your query error and I'll fix it!</div></div>
           </div>
           <div class="qchips">
-            <div class="qchip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with example')">JOIN types</div>
+            <div class="qchip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN')">JOIN types</div>
             <div class="qchip" onclick="quickAsk('How do RANK() and DENSE_RANK() work?')">Window functions</div>
             <div class="qchip" onclick="quickAsk('How to use VLOOKUP in Excel?')">VLOOKUP</div>
             <div class="qchip" onclick="quickAsk('What is a CTE?')">CTE</div>
-            <div class="qchip" onclick="quickAsk('How to find second highest salary in SQL?')">2nd highest</div>
+            <div class="qchip" onclick="quickAsk('How to find second highest salary?')">2nd highest</div>
           </div>
           <div class="chat-inp-row">
             <input class="chat-inp" id="chat-inp" placeholder="Ask about SQL, Excel, or interview tips..." onkeydown="if(event.key==='Enter')sendMsg()"/>
@@ -634,10 +629,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <div class="ach-col">
           <div class="ach-box">
             <div class="resume-card" id="resume-card">
-              <div class="res-hdr">
-                <div class="res-nm" id="r-name">Your Name</div>
-                <div class="res-tg">SQL & Excel Practitioner · PracticeHub Certified</div>
-              </div>
+              <div class="res-hdr"><div class="res-nm" id="r-name">Your Name</div><div class="res-tg">SQL & Excel Practitioner · PracticeHub Certified</div></div>
               <div class="res-stats">
                 <div class="rs-cell"><span class="rs-val" id="r-sql">0</span><span class="rs-lbl">SQL Solved</span></div>
                 <div class="rs-cell"><span class="rs-val" id="r-excel">0</span><span class="rs-lbl">Excel Tasks</span></div>
@@ -659,31 +651,22 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 
 </div><!-- /app -->
 
-<!-- ══════════════════════════════
-     AUTH MODAL — Email + Google
-══════════════════════════════ -->
+<!-- AUTH MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-
-    <!-- TABS -->
     <div class="m-tabs">
       <div class="m-tab on" id="mt-login" onclick="mTab('login',this)">Login</div>
       <div class="m-tab" id="mt-signup" onclick="mTab('signup',this)">Sign Up</div>
     </div>
-
-    <!-- ── LOGIN FORM ── -->
+    <!-- LOGIN -->
     <div id="m-login">
       <div class="m-title">Welcome back 👋</div>
       <div class="m-sub">Login to sync your progress to the cloud</div>
-
-      <!-- Google Login -->
       <button class="google-btn" onclick="signInGoogle()">
         <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Continue with Google
       </button>
-
       <div class="m-divider"><span>or continue with email</span></div>
-
       <div class="m-err" id="l-err"></div>
       <label class="m-lbl">Email</label>
       <input class="m-inp" id="m-email" placeholder="vinod@example.com" type="email" onkeydown="if(event.key==='Enter')doLogin()"/>
@@ -692,20 +675,15 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <button class="btn btn-green" id="l-btn" style="width:100%;padding:10px;justify-content:center" onclick="doLogin()">Login →</button>
       <div class="m-foot">Progress syncs to cloud · Works on any device</div>
     </div>
-
-    <!-- ── SIGNUP FORM ── -->
+    <!-- SIGNUP -->
     <div id="m-signup" style="display:none">
       <div class="m-title">Create free account 🚀</div>
-      <div class="m-sub">Free forever · Cloud sync · Start practicing now</div>
-
-      <!-- Google Signup -->
+      <div class="m-sub">Free forever · Cloud sync · No credit card</div>
       <button class="google-btn" onclick="signInGoogle()">
         <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Sign up with Google
       </button>
-
       <div class="m-divider"><span>or sign up with email</span></div>
-
       <div class="m-err" id="s-err"></div>
       <div class="m-ok" id="s-ok"></div>
       <label class="m-lbl">Full Name</label>
@@ -715,61 +693,128 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <label class="m-lbl">Password (min 6 characters)</label>
       <input class="m-inp" id="m-spass" placeholder="Create a password" type="password" onkeydown="if(event.key==='Enter')doSignup()"/>
       <button class="btn btn-green" id="s-btn" style="width:100%;padding:10px;justify-content:center" onclick="doSignup()">Create Account →</button>
-      <div class="m-foot">No credit card · Secure · Cancel anytime</div>
+      <div class="m-foot">Secure · Cancel anytime</div>
     </div>
-
-    <button class="m-skip" onclick="closeModal()">Skip for now (progress won't be saved)</button>
+    <button class="m-skip" onclick="closeModal()">Skip for now</button>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-/* ════ SUPABASE KEYS ════ */
+/* ═══ SUPABASE ═══ */
 var SB_URL  = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
 var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTAzMjIsImV4cCI6MjA4OTQ4NjMyMn0._sLzz4A5Krbf518Yw6TJTvwo1TOEUE5WM9EAaOUFP4A';
 var sb = supabase.createClient(SB_URL, SB_ANON);
 
-/* ════ STATE ════ */
-var user=null, db=null, curQ=null, hot=null;
-var QS=[], solved=[], recent=[], aiCnt=0, xlCnt=0, streak=0;
+/* ═══ STATE ═══ */
+var user=null,db=null,curQ=null,hot=null;
+var QS=[],solved=[],recent=[],aiCnt=0,xlCnt=0,streak=0;
 var F={diff:'all',topic:'all',co:'all',status:'all'};
-var sortCol='', sortAsc=true, sidebarOpen=true, resultOpen=true;
-var guestMode=false; // user dismissed gate without logging in
+var sortCol='',sortAsc=true,sidebarOpen=true,resultOpen=true;
 
-/* ════ CLOUD STATUS ════ */
+/* ═══ CLOUD STATUS ═══ */
 function setCloud(s){
-  var d=document.getElementById('cdot'),l=document.getElementById('clbl');
-  d.className='cdot'+(s==='ok'?' ok':s==='err'?' err':'');
-  l.textContent=s==='ok'?'Cloud ✓':s==='err'?'Offline':'Connecting...';
+  document.getElementById('cdot').className='cdot'+(s==='ok'?' ok':s==='err'?' err':'');
+  document.getElementById('clbl').textContent=s==='ok'?'Cloud ✓':s==='err'?'Offline':'Connecting...';
 }
 
-/* ════ GATE (login wall on editor) ════ */
-function updateGate(){
-  var gate=document.getElementById('gate-overlay');
-  var hint=document.getElementById('ed-login-hint');
-  if(user||guestMode){
-    gate.classList.add('hidden');
-    hint.style.display='none';
-  }else{
-    gate.classList.remove('hidden');
-    hint.style.display='';
+/* ═══════════════════════════════════
+   RUN SQL
+   - Anyone can run (guest or logged in)
+   - Guest sees a banner after running: "Login to save progress"
+   - Banner has Google button + Sign Up Free button
+═══════════════════════════════════ */
+function runSQL(){
+  var q=document.getElementById('sql-editor').value.trim();
+  if(!q){shakeBtn('run-btn');toast('Write a SQL query first!','warn');return;}
+  if(!db){toast('Database loading, please wait...','info');return;}
+  if(!resultOpen)toggleResult();
+  hideSubmitCard(); // hide submit card if open
+  try{
+    var res=db.exec(q);
+    var meta=document.getElementById('res-meta');
+    var body=document.getElementById('res-body');
+    if(!res.length){
+      meta.innerHTML='<span class="res-ok">OK · 0 rows</span>';
+      body.innerHTML='<div class="res-empty">Query ran successfully (no rows returned)</div>';
+    }else{
+      var cols=res[0].columns,vals=res[0].values;
+      meta.innerHTML='<span class="res-ok">✓ '+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
+      var html='<table class="res-table"><thead><tr>';
+      cols.forEach(c=>html+='<th>'+c+'</th>');
+      html+='</tr></thead><tbody>';
+      vals.forEach(row=>{html+='<tr>';row.forEach(cell=>html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>');html+='</tr>';});
+      body.innerHTML=html+'</tbody></table>';
+    }
+    // show guest banner only if not logged in
+    if(!user){
+      document.getElementById('guest-banner').classList.add('show');
+    }
+  }catch(e){
+    document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
+    document.getElementById('res-body').innerHTML='<div style="padding:12px 14px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6">❌ '+e.message+'</div>';
   }
 }
-function dismissGate(){guestMode=true;updateGate();toast('Guest mode — progress will not be saved to cloud','warn');}
 
-/* ════ AUTH ════ */
+/* ═══════════════════════════════════
+   SUBMIT SQL
+   - NOT logged in → shake button + show inline submit card with Google & Sign Up
+   - Logged in → save to cloud
+═══════════════════════════════════ */
+async function submitSQL(){
+  if(!curQ){shakeBtn('submit-btn');toast('Select a question first!','warn');return;}
+  if(!user){
+    // shake the button so user feels the block
+    shakeBtn('submit-btn');
+    // show the inline login card
+    showSubmitCard();
+    return;
+  }
+  var q=document.getElementById('sql-editor').value.trim();
+  if(!q){shakeBtn('submit-btn');toast('Write your SQL query first!','warn');return;}
+  try{
+    db.exec(q);
+    if(!solved.map(String).includes(String(curQ.id))){
+      solved.push(curQ.id);
+      streak=Math.min(streak+1,30);
+      recent.unshift({title:curQ.title,diff:curQ.difficulty,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
+      if(recent.length>10)recent.pop();
+      await saveProgress(curQ.id);
+      updateDash();renderTable();loadQ(curQ.id);checkBadges();
+      toast('✅ "'+curQ.title+'" solved & saved to cloud!','ok');
+    }else{
+      toast('Already solved! Great job — try the next one.','info');
+    }
+  }catch(e){toast('Fix your query first: '+e.message,'err');}
+}
+
+/* submit card show/hide */
+function showSubmitCard(){
+  document.getElementById('submit-card').classList.add('show');
+  document.getElementById('res-panel').style.display='none';
+  document.getElementById('guest-banner').classList.remove('show');
+}
+function hideSubmitCard(){
+  document.getElementById('submit-card').classList.remove('show');
+  document.getElementById('res-panel').style.display='';
+}
+
+/* shake animation */
+function shakeBtn(id){
+  var b=document.getElementById(id);
+  b.classList.remove('shake');
+  void b.offsetWidth;
+  b.classList.add('shake');
+  b.addEventListener('animationend',()=>b.classList.remove('shake'),{once:true});
+}
+
+/* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
-    var r=await sb.auth.signInWithOAuth({
-      provider:'google',
-      options:{redirectTo:window.location.href}
-    });
+    var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.href}});
     if(r.error)throw r.error;
-    // will redirect to Google then back
-  }catch(e){
-    toast('Google sign-in failed: '+e.message,'err');
-  }
+  }catch(e){toast('Google sign-in: '+e.message,'err');}
 }
 
 async function doLogin(){
@@ -783,9 +828,11 @@ async function doLogin(){
     var r=await sb.auth.signInWithPassword({email,password:pass});
     if(r.error)throw r.error;
     await onSession(r.data.session);
-    closeModal();toast('Welcome back! 🎉','ok');
+    closeModal();hideSubmitCard();
+    document.getElementById('guest-banner').classList.remove('show');
+    toast('Welcome back! 🎉','ok');
   }catch(e){
-    document.getElementById('l-err').textContent=e.message==='Invalid login credentials'?'Wrong email or password. Try again.':e.message;
+    document.getElementById('l-err').textContent=e.message==='Invalid login credentials'?'Wrong email or password.':e.message;
   }finally{btn.innerHTML='Login →';btn.disabled=false;}
 }
 
@@ -803,31 +850,22 @@ async function doSignup(){
     var r=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name,username:name.toLowerCase().replace(/\s+/g,'_')}}});
     if(r.error)throw r.error;
     if(r.data.session){
-      await onSession(r.data.session);
-      closeModal();toast('Account created! Welcome to PracticeHub 🎉','ok');
+      await onSession(r.data.session);closeModal();hideSubmitCard();
+      document.getElementById('guest-banner').classList.remove('show');
+      toast('Welcome to PracticeHub! 🎉','ok');
     }else{
-      document.getElementById('s-ok').textContent='✅ Account created! Check your email to confirm, then log in.';
-      btn.innerHTML='Check your email ✉️';
+      document.getElementById('s-ok').textContent='✅ Check your email to confirm, then log in.';
       setTimeout(()=>{btn.innerHTML='Create Account →';btn.disabled=false;},6000);
+      btn.innerHTML='Check your email ✉️';
     }
-  }catch(e){
-    document.getElementById('s-err').textContent=e.message||'Signup failed. Try again.';
-    btn.innerHTML='Create Account →';btn.disabled=false;
-  }
+  }catch(e){document.getElementById('s-err').textContent=e.message||'Signup failed';btn.innerHTML='Create Account →';btn.disabled=false;}
 }
 
 async function onSession(session){
   if(!session)return;
-  var meta=session.user.user_metadata||{};
-  user={
-    id:session.user.id,
-    email:session.user.email,
-    name:meta.full_name||meta.name||session.user.email.split('@')[0],
-    avatar:meta.avatar_url||meta.picture||null
-  };
-  guestMode=false;
+  var m=session.user.user_metadata||{};
+  user={id:session.user.id,email:session.user.email,name:m.full_name||m.name||session.user.email.split('@')[0],avatar:m.avatar_url||m.picture||null};
   showUserUI();
-  updateGate();
   await loadCloudProgress();
   try{await sb.rpc('update_streak',{p_user_id:user.id});}catch(e){}
   setCloud('ok');
@@ -840,27 +878,21 @@ function showUserUI(){
   document.getElementById('t-uname').textContent=user.name;
   document.getElementById('r-name').textContent=user.name;
   var av=document.getElementById('t-av');
-  if(user.avatar){
-    av.innerHTML='<img src="'+user.avatar+'" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
-    av.classList.remove('initials');
-  }else{
-    av.textContent=user.name.charAt(0).toUpperCase();
-    av.classList.add('initials');
-  }
+  if(user.avatar)av.innerHTML='<img src="'+user.avatar+'" alt="av"/>';
+  else av.textContent=user.name.charAt(0).toUpperCase();
 }
 
 async function doLogout(){
   if(!confirm('Log out?'))return;
   await sb.auth.signOut().catch(()=>{});
-  user=null;guestMode=false;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
+  user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
   document.getElementById('t-user').style.display='none';
   document.getElementById('t-login-btn').style.display='';
   document.getElementById('r-name').textContent='Your Name';
-  setCloud('err');updateGate();updateDash();renderTable();
-  toast('Logged out','info');
+  setCloud('err');updateDash();renderTable();toast('Logged out','info');
 }
 
-/* ════ CLOUD PROGRESS ════ */
+/* ═══ CLOUD ═══ */
 async function loadCloudProgress(){
   if(!user)return;
   try{
@@ -874,72 +906,56 @@ async function loadCloudProgress(){
     var prof=await sb.from('profiles').select('streak').eq('id',user.id).single();
     if(prof.data)streak=prof.data.streak||0;
     updateDash();renderTable();checkBadges();
-  }catch(e){console.error('Load progress:',e);}
+  }catch(e){console.error(e);}
 }
-
 async function saveProgress(qid){
-  if(!user)return;
-  try{
-    await sb.from('user_progress').upsert(
-      {user_id:user.id,question_id:qid,status:'solved',solved_at:new Date().toISOString()},
-      {onConflict:'user_id,question_id'}
-    );
-    setCloud('ok');
-  }catch(e){console.error('Save:',e);setCloud('err');}
+  try{await sb.from('user_progress').upsert({user_id:user.id,question_id:qid,status:'solved',solved_at:new Date().toISOString()},{onConflict:'user_id,question_id'});setCloud('ok');}
+  catch(e){setCloud('err');}
 }
-
-/* ════ LOAD QUESTIONS ════ */
 async function loadQuestions(){
   try{
     var r=await sb.from('questions').select('*').eq('is_active',true).order('sort_order');
     if(r.error)throw r.error;
     if(r.data&&r.data.length){QS=r.data;renderTable();return;}
-  }catch(e){console.error('Load Q:',e);}
+  }catch(e){}
   QS=FALLBACK;renderTable();
 }
-
-/* ════ LEADERBOARD ════ */
 async function loadLeaderboard(){
-  var el=document.getElementById('lb-card');
-  el.innerHTML='<div class="empty">Loading...</div>';
+  var el=document.getElementById('lb-card');el.innerHTML='<div class="empty">Loading...</div>';
   try{
-    var r=await sb.from('leaderboard').select('*').limit(20);
-    if(r.error)throw r.error;
+    var r=await sb.from('leaderboard').select('*').limit(20);if(r.error)throw r.error;
     if(!r.data||!r.data.length){el.innerHTML='<div class="empty">No users yet — be the first! 🚀</div>';return;}
     el.innerHTML=r.data.map((u,i)=>{
       var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
       var medal=i<3?['🥇','🥈','🥉'][i]:(i+1);
-      return '<div class="lb-row">'+
-        '<div class="lb-rank '+rc+'">'+medal+'</div>'+
-        '<div class="lb-av">'+(u.avatar_url?'<img src="'+u.avatar_url+'" alt="av"/>':( (u.username||'U').charAt(0).toUpperCase()))+'</div>'+
-        '<div class="lb-info"><div class="lb-name">'+(u.full_name||u.username||'User')+'</div>'+
-        '<div class="lb-meta">@'+(u.username||'user')+'</div></div>'+
-        '<div class="lb-solved">'+(u.solved_count||0)+' solved</div>'+
-        '<div class="lb-streak">'+(u.streak||0)+' 🔥</div></div>';
+      return '<div class="lb-row"><div class="lb-rank '+rc+'">'+medal+'</div>'+
+        '<div class="lb-av">'+(u.avatar_url?'<img src="'+u.avatar_url+'"/>':( (u.username||'U').charAt(0).toUpperCase()))+'</div>'+
+        '<div class="lb-info"><div class="lb-name">'+(u.full_name||u.username||'User')+'</div><div class="lb-meta">@'+(u.username||'user')+'</div></div>'+
+        '<div class="lb-solved">'+(u.solved_count||0)+' solved</div><div class="lb-streak">'+(u.streak||0)+' 🔥</div></div>';
     }).join('');
   }catch(e){el.innerHTML='<div class="empty">Could not load leaderboard</div>';}
 }
 
-/* ════ FALLBACK QUESTIONS ════ */
+/* ═══ FALLBACK QUESTIONS ═══ */
 var FALLBACK=[
   {id:0,title:"Show all employees",difficulty:"easy",company:"Google",topic:"Aggregate",description:"Display every record from the employees table.",hint:"SELECT * FROM employees;",schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",expected_rows:6,solution:"SELECT * FROM employees;"},
-  {id:1,title:"Employees earning > ₹80,000",difficulty:"easy",company:"Amazon",topic:"Aggregate",description:"Find employees with salary > 80,000.",hint:"WHERE salary > 80000",schema_ref:"employees(id, name, salary)",expected_rows:2,solution:"SELECT * FROM employees WHERE salary > 80000;"},
-  {id:2,title:"Average salary by department",difficulty:"medium",company:"Meta",topic:"Aggregate",description:"Average salary per department using GROUP BY and AVG().",hint:"SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id;",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"SELECT dept_id, AVG(salary) as avg_salary FROM employees GROUP BY dept_id;"},
+  {id:1,title:"Employees earning > ₹80,000",difficulty:"easy",company:"Amazon",topic:"Aggregate",description:"Find employees with salary greater than 80,000.",hint:"Use WHERE salary > 80000",schema_ref:"employees(id, name, salary)",expected_rows:2,solution:"SELECT * FROM employees WHERE salary > 80000;"},
+  {id:2,title:"Average salary by department",difficulty:"medium",company:"Meta",topic:"Aggregate",description:"Calculate average salary per department.",hint:"SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id;",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"SELECT dept_id, AVG(salary) as avg_salary FROM employees GROUP BY dept_id;"},
   {id:3,title:"Employee + Department name (JOIN)",difficulty:"medium",company:"Google",topic:"JOIN",description:"Show each employee's name with their department name.",hint:"INNER JOIN departments d ON e.dept_id = d.id",schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",expected_rows:6,solution:"SELECT e.name, d.dept_name FROM employees e INNER JOIN departments d ON e.dept_id = d.id;"},
-  {id:4,title:"Second highest salary",difficulty:"medium",company:"Microsoft",topic:"Subquery",description:"Find second highest salary.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",schema_ref:"employees(id, name, salary)",expected_rows:1,solution:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"},
+  {id:4,title:"Second highest salary",difficulty:"medium",company:"Microsoft",topic:"Subquery",description:"Find the second highest salary.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",schema_ref:"employees(id, name, salary)",expected_rows:1,solution:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"},
   {id:5,title:"Departments with > 2 employees",difficulty:"easy",company:"Flipkart",topic:"Aggregate",description:"Departments with more than 2 employees.",hint:"GROUP BY dept_id HAVING COUNT(*) > 2",schema_ref:"employees(id, name, dept_id)",expected_rows:1,solution:"SELECT dept_id, COUNT(*) FROM employees GROUP BY dept_id HAVING COUNT(*) > 2;"},
-  {id:6,title:"Find duplicate names",difficulty:"medium",company:"Amazon",topic:"Aggregate",description:"Names that appear more than once.",hint:"GROUP BY name HAVING COUNT(*) > 1",schema_ref:"employees(id, name)",expected_rows:1,solution:"SELECT name, COUNT(*) FROM employees GROUP BY name HAVING COUNT(*) > 1;"},
+  {id:6,title:"Find duplicate names",difficulty:"medium",company:"Amazon",topic:"Aggregate",description:"Names appearing more than once.",hint:"GROUP BY name HAVING COUNT(*) > 1",schema_ref:"employees(id, name)",expected_rows:1,solution:"SELECT name, COUNT(*) FROM employees GROUP BY name HAVING COUNT(*) > 1;"},
   {id:7,title:"Employee + manager (Self JOIN)",difficulty:"medium",company:"Meta",topic:"JOIN",description:"Show each employee with their manager's name.",hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",schema_ref:"employees(id, name, salary, manager_id)",expected_rows:4,solution:"SELECT e1.name as employee, e2.name as manager FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id;"},
   {id:8,title:"Running salary total (Window)",difficulty:"hard",company:"Netflix",topic:"Window",description:"Cumulative running total per department.",hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:6,solution:"SELECT name, dept_id, salary, SUM(salary) OVER (PARTITION BY dept_id ORDER BY id) as running_total FROM employees;"},
   {id:9,title:"Rank by salary — DENSE_RANK()",difficulty:"hard",company:"Netflix",topic:"Window",description:"Rank employees per department by salary.",hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:6,solution:"SELECT name, dept_id, salary, DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rnk FROM employees;"},
-  {id:10,title:"Top 3 salaries per department",difficulty:"hard",company:"Google",topic:"Window",description:"Top 3 highest-paid per department.",hint:"ROW_NUMBER() in subquery, WHERE rn <= 3",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:5,solution:"SELECT name, dept_id, salary FROM (SELECT name, dept_id, salary, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rn FROM employees) t WHERE rn <= 3;"},
+  {id:10,title:"Top 3 salaries per department",difficulty:"hard",company:"Google",topic:"Window",description:"Top 3 highest paid per department.",hint:"ROW_NUMBER() in subquery WHERE rn <= 3",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:5,solution:"SELECT name, dept_id, salary FROM (SELECT name, dept_id, salary, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rn FROM employees) t WHERE rn <= 3;"},
   {id:11,title:"Employees above dept average",difficulty:"hard",company:"Meta",topic:"Subquery",description:"Employees earning above their dept average.",hint:"Correlated subquery on dept_id",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"SELECT name, salary FROM employees e1 WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id);"},
-  {id:12,title:"Count per department",difficulty:"easy",company:"Flipkart",topic:"Aggregate",description:"Department name and employee count.",hint:"COUNT(*) + GROUP BY + JOIN",schema_ref:"employees(id, name, dept_id)\ndepartments(id, dept_name)",expected_rows:3,solution:"SELECT d.dept_name, COUNT(e.id) FROM departments d LEFT JOIN employees e ON e.dept_id = d.id GROUP BY d.dept_name;"},
+  {id:12,title:"Count per department",difficulty:"easy",company:"Flipkart",topic:"Aggregate",description:"Department name and employee count.",hint:"COUNT(*) + GROUP BY + JOIN departments",schema_ref:"employees(id, name, dept_id)\ndepartments(id, dept_name)",expected_rows:3,solution:"SELECT d.dept_name, COUNT(e.id) FROM departments d LEFT JOIN employees e ON e.dept_id = d.id GROUP BY d.dept_name;"},
   {id:13,title:"CTE: Max salary per dept",difficulty:"hard",company:"Microsoft",topic:"CTE",description:"Use WITH clause to find max salary per dept.",hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT e.name, e.salary FROM employees e JOIN dept_max d ON e.dept_id = d.dept_id WHERE e.salary = d.mx;"},
   {id:14,title:"Employees earning > manager",difficulty:"hard",company:"Amazon",topic:"JOIN",description:"Employees with higher salary than their manager.",hint:"e1.salary > e2.salary AND e1.manager_id = e2.id",schema_ref:"employees(id, name, salary, manager_id)",expected_rows:2,solution:"SELECT e1.name, e1.salary FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id WHERE e1.salary > e2.salary;"},
 ];
 
-/* ════ SQL ENGINE ════ */
+/* ═══ SQL ENGINE ═══ */
 async function initSQL(){
   var SQL=await initSqlJs({locateFile:f=>'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f});
   db=new SQL.Database();
@@ -947,7 +963,7 @@ async function initSQL(){
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runSQL();});
 }
 
-/* ════ TABLE RENDER ════ */
+/* ═══ TABLE ═══ */
 function getFiltered(){
   var s=(document.getElementById('ql-search').value||'').toLowerCase();
   return QS.filter(q=>{
@@ -997,7 +1013,6 @@ function clrF(){F={diff:'all',topic:'all',co:'all',status:'all'};document.queryS
 function setF(k,v,el){F[k]=v;el.closest('.fg').querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderTable();}
 function sortTbl(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=true;}document.querySelectorAll('.si').forEach(s=>{s.textContent='▲';s.parentElement.classList.remove('sorted');});var si=document.getElementById('si-'+col);if(si){si.textContent=sortAsc?'▲':'▼';si.parentElement.classList.add('sorted');}renderTable();}
 
-/* ════ LOAD QUESTION ════ */
 function loadQ(id){
   curQ=QS.find(q=>String(q.id)===String(id));if(!curQ)return;
   var isSolved=solved.map(String).includes(String(curQ.id));
@@ -1005,77 +1020,24 @@ function loadQ(id){
   document.getElementById('q-detail').innerHTML=
     '<div class="q-dtitle">'+curQ.title+'</div>'+
     '<div class="q-dmeta"><span class="tag '+dc+'">'+curQ.difficulty.toUpperCase()+'</span>'+
-    '<span class="tag tc">'+(curQ.company||'—')+'</span>'+
-    '<span class="tag tt">'+curQ.topic+'</span>'+
+    '<span class="tag tc">'+(curQ.company||'—')+'</span><span class="tag tt">'+curQ.topic+'</span>'+
     (isSolved?'<span class="tag tg">Solved ✓</span>':'')+
     '</div><div class="q-ddesc">'+(curQ.description||'')+'</div>'+
     ((curQ.schema_ref||curQ.schema)?'<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+(curQ.schema_ref||curQ.schema||'').replace(/\n/g,'<br>')+'</div>':'');
-  document.getElementById('sol-body').innerHTML=
-    '<p style="font-size:12px;color:var(--text3);margin-bottom:10px">Try solving it yourself first!</p>'+
-    '<pre style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow-x:auto;color:var(--green)">'+(curQ.solution||'No solution yet')+'</pre>';
-  document.getElementById('hint-body').innerHTML=
-    '<div style="padding:12px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);color:var(--amber)">💡 <strong>Hint:</strong> '+(curQ.hint||'No hint yet')+'</div>'+
-    '<div style="margin-top:12px;font-size:12px;color:var(--text2)">Expected: <strong>'+(curQ.expected_rows||0)+' rows</strong></div>';
+  document.getElementById('sol-body').innerHTML='<p style="font-size:12px;color:var(--text3);margin-bottom:10px">Try it yourself first!</p><pre style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow-x:auto;color:var(--green)">'+(curQ.solution||'No solution yet')+'</pre>';
+  document.getElementById('hint-body').innerHTML='<div style="padding:12px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);color:var(--amber)">💡 <strong>Hint:</strong> '+(curQ.hint||'No hint yet')+'</div><div style="margin-top:12px;font-size:12px;color:var(--text2)">Expected: <strong>'+(curQ.expected_rows||0)+' rows</strong></div>';
   document.getElementById('sql-editor').value='';
   document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
   document.getElementById('res-meta').innerHTML='';
+  document.getElementById('guest-banner').classList.remove('show');
+  hideSubmitCard();
   epTab('desc',document.querySelector('.ep-tab'));
   renderTable();
 }
 
-/* ════ RUN SQL — requires login or guest mode ════ */
-function runSQL(){
-  // If gate is showing and user hasn't dismissed, open modal
-  if(!user&&!guestMode){openModal('login');toast('Please login or continue as guest to run queries','warn');return;}
-  var q=document.getElementById('sql-editor').value.trim();
-  if(!q){alert('Write a SQL query first!');return;}
-  if(!db){alert('Database loading...');return;}
-  if(!resultOpen)toggleResult();
-  try{
-    var res=db.exec(q);
-    var meta=document.getElementById('res-meta');
-    var body=document.getElementById('res-body');
-    if(!res.length){meta.innerHTML='<span class="res-ok">OK · 0 rows</span>';body.innerHTML='<div class="res-empty">Query ran (no rows)</div>';return;}
-    var cols=res[0].columns,vals=res[0].values;
-    meta.innerHTML='<span class="res-ok">'+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
-    var html='<table class="res-table"><thead><tr>';
-    cols.forEach(c=>html+='<th>'+c+'</th>');html+='</tr></thead><tbody>';
-    vals.forEach(row=>{html+='<tr>';row.forEach(cell=>html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>');html+='</tr>';});
-    body.innerHTML=html+'</tbody></table>';
-  }catch(e){
-    document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
-    document.getElementById('res-body').innerHTML='<div style="padding:12px;color:var(--red);font-family:var(--mono);font-size:11px">❌ '+e.message+'</div>';
-  }
-}
-
-/* ════ SUBMIT — requires login ════ */
-async function submitSQL(){
-  if(!curQ){alert('Select a question first!');return;}
-  // Submit always requires login (not guest)
-  if(!user){
-    openModal('login');
-    toast('Please login to submit answers and save progress','warn');
-    return;
-  }
-  var q=document.getElementById('sql-editor').value.trim();
-  if(!q){alert('Write your query first!');return;}
-  try{
-    db.exec(q);
-    if(!solved.map(String).includes(String(curQ.id))){
-      solved.push(curQ.id);streak=Math.min(streak+1,30);
-      recent.unshift({title:curQ.title,diff:curQ.difficulty,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
-      if(recent.length>10)recent.pop();
-      await saveProgress(curQ.id);
-      updateDash();renderTable();loadQ(curQ.id);checkBadges();
-      toast('✅ "'+curQ.title+'" solved & saved to cloud!','ok');
-    }else{toast('Already solved! Great job. Try the next one.','info');}
-  }catch(e){alert('Fix your query first:\n'+e.message);}
-}
-
-/* ════ DRAG RESIZE ════ */
+/* ═══ DRAG RESIZE ═══ */
 (function(){
-  var h=document.getElementById('drag-handle'),p=document.getElementById('ql-panel'),s=document.getElementById('sql-split');
-  var sx,sw;
+  var h=document.getElementById('drag-handle'),p=document.getElementById('ql-panel'),s=document.getElementById('sql-split');var sx,sw;
   h.addEventListener('mousedown',e=>{if(p.classList.contains('mini'))return;sx=e.clientX;sw=p.getBoundingClientRect().width;h.classList.add('drag');document.body.classList.add('no-select');e.preventDefault();});
   document.addEventListener('mousemove',e=>{if(!h.classList.contains('drag'))return;var nw=Math.max(180,Math.min(sw+(e.clientX-sx),s.getBoundingClientRect().width-220));p.style.width=nw+'px';p.style.flex='none';});
   document.addEventListener('mouseup',()=>{h.classList.remove('drag');document.body.classList.remove('no-select');});
@@ -1086,7 +1048,7 @@ function toggleSidebar(){sidebarOpen=!sidebarOpen;document.getElementById('filte
 function toggleResult(){resultOpen=!resultOpen;document.getElementById('res-bw').classList.toggle('closed',!resultOpen);document.getElementById('res-tog').style.transform=resultOpen?'':'rotate(-90deg)';}
 function epTab(id,el){document.querySelectorAll('.ep-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.ep-tc').forEach(c=>c.classList.remove('on'));if(el)el.classList.add('active');else document.querySelector('.ep-tab').classList.add('active');document.getElementById('ept-'+id).classList.add('on');}
 
-/* ════ PAGE NAV ════ */
+/* ═══ PAGE NAV ═══ */
 function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.t-btn').forEach(b=>b.classList.remove('active'));
@@ -1097,7 +1059,7 @@ function showPage(id,btn){
   if(id==='leaderboard')loadLeaderboard();
 }
 
-/* ════ EXCEL ════ */
+/* ═══ EXCEL ═══ */
 function initXL(){
   if(hot)return;
   hot=new Handsontable(document.getElementById('excel-grid'),{
@@ -1106,16 +1068,16 @@ function initXL(){
   });
 }
 function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
-function markXLDone(){if(!user){openModal('login');toast('Please login to save your progress','warn');return;}xlCnt++;updateDash();checkBadges();toast('Excel challenge complete!','ok');}
+function markXLDone(){if(!user){openModal('signup');toast('Login to save your progress','warn');return;}xlCnt++;updateDash();checkBadges();toast('Excel challenge complete! ✅','ok');}
 
-/* ════ AI ════ */
+/* ═══ AI ═══ */
 var AIR={join:"JOIN types:\n\n• INNER JOIN — only matching rows from both tables\n• LEFT JOIN — all from left + NULLs if no match\n• RIGHT JOIN — opposite\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",window:"Window Functions:\n\nFUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n• ROW_NUMBER() — unique row per group\n• RANK() — rank with gaps\n• DENSE_RANK() — no gaps\n• SUM(salary) OVER (PARTITION BY dept_id) — running total",vlookup:"VLOOKUP:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\n• FALSE = exact match\nTip: Use XLOOKUP() in Excel 365!",cte:"CTE:\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees GROUP BY dept_id\n)\nSELECT e.name FROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;",second:"Second Highest:\n\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nOR:\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;"};
 function addMsg(r,t){var el=document.createElement('div');el.className='msg msg-'+r;el.innerHTML='<div class="av-sm">'+(r==='ai'?'🤖':'U')+'</div><div class="bubble">'+t.replace(/\n/g,'<br>')+'</div>';var m=document.getElementById('chat-msgs');m.appendChild(el);m.scrollTop=99999;}
 function sendMsg(){var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;addMsg('user',txt);inp.value='';aiCnt++;updateDash();
-  setTimeout(()=>{var lo=txt.toLowerCase();var rep;if(lo.includes('join'))rep=AIR.join;else if(lo.includes('window')||lo.includes('rank')||lo.includes('partition'))rep=AIR.window;else if(lo.includes('vlookup')||lo.includes('excel'))rep=AIR.vlookup;else if(lo.includes('cte'))rep=AIR.cte;else if(lo.includes('second')||lo.includes('2nd'))rep=AIR.second;else rep='Good question!\n\nFor "'+txt+'":\n1. Identify tables with needed data\n2. Choose right clause — WHERE, GROUP BY, JOIN\n3. Start with SELECT * then add complexity\n\nPaste your query/error and I\'ll debug it! 🚀';addMsg('ai',rep);},550);}
+  setTimeout(()=>{var lo=txt.toLowerCase();var rep;if(lo.includes('join'))rep=AIR.join;else if(lo.includes('window')||lo.includes('rank')||lo.includes('partition'))rep=AIR.window;else if(lo.includes('vlookup')||lo.includes('excel'))rep=AIR.vlookup;else if(lo.includes('cte'))rep=AIR.cte;else if(lo.includes('second')||lo.includes('2nd'))rep=AIR.second;else rep='Good question!\n\nFor "'+txt+'":\n1. Identify which tables have the data\n2. Choose the right clause — WHERE, GROUP BY, JOIN\n3. Start simple then add complexity\n\nPaste your query/error and I\'ll debug it! 🚀';addMsg('ai',rep);},550);}
 function quickAsk(q){document.getElementById('chat-inp').value=q;sendMsg();}
 
-/* ════ DASHBOARD ════ */
+/* ═══ DASHBOARD ═══ */
 function updateDash(){
   document.getElementById('d-sql').textContent=solved.length;
   document.getElementById('d-excel').textContent=xlCnt;
@@ -1127,10 +1089,9 @@ function updateDash(){
   rb.innerHTML=recent.slice(0,6).map(q=>{var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';return'<div class="ri"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="ri-title">'+q.title+'</span><span class="ri-date">'+q.date+'</span></div>';}).join('');
 }
 
-/* ════ ACHIEVEMENTS ════ */
+/* ═══ ACHIEVEMENTS ═══ */
 function updateAch(){
-  var sl=document.getElementById('sl-list');
-  sl.innerHTML=recent.length?recent.map(q=>{var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';return'<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';}).join(''):'<div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div>';
+  document.getElementById('sl-list').innerHTML=recent.length?recent.map(q=>{var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';return'<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';}).join(''):'<div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div>';
   document.getElementById('r-sql').textContent=solved.length;
   document.getElementById('r-excel').textContent=xlCnt;
   document.getElementById('r-streak').textContent=streak;
@@ -1147,46 +1108,33 @@ function checkBadges(){
   if(aiCnt>=3)document.getElementById('b-ai').classList.add('on');
 }
 
-/* ════ PDF / SHARE ════ */
+/* ═══ PDF / SHARE ═══ */
 function dlPDF(){html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
 function shareIt(){var txt='🚀 My PracticeHub Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(q=>'• '+q.title).join('\n');navigator.clipboard.writeText(txt).then(()=>toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok'));}
 
-/* ════ MODAL ════ */
-function openModal(tab){
-  document.getElementById('overlay').classList.add('show');
-  if(tab==='signup')mTab('signup',document.getElementById('mt-signup'));
-  else mTab('login',document.getElementById('mt-login'));
-}
+/* ═══ MODAL ═══ */
+function openModal(tab){document.getElementById('overlay').classList.add('show');if(tab==='signup')mTab('signup',document.getElementById('mt-signup'));else mTab('login',document.getElementById('mt-login'));}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
 document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeModal();});
-function mTab(t,el){
-  document.querySelectorAll('.m-tab').forEach(x=>x.classList.remove('on'));el.classList.add('on');
-  document.getElementById('m-login').style.display=t==='login'?'':'none';
-  document.getElementById('m-signup').style.display=t==='signup'?'':'none';
-}
+function mTab(t,el){document.querySelectorAll('.m-tab').forEach(x=>x.classList.remove('on'));el.classList.add('on');document.getElementById('m-login').style.display=t==='login'?'':'none';document.getElementById('m-signup').style.display=t==='signup'?'':'none';}
 
-/* ════ TOAST ════ */
+/* ═══ TOAST ═══ */
 function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
 
-/* ════ BOOT ════ */
+/* ═══ BOOT ═══ */
 window.addEventListener('load',async()=>{
   setCloud('');
   await initSQL();
   await loadQuestions();
-  updateGate(); // show gate initially
-
-  // check existing Supabase session (handles Google OAuth redirect too)
   try{
     var sess=await sb.auth.getSession();
     if(sess.data?.session)await onSession(sess.data.session);
     else setCloud('err');
-
     sb.auth.onAuthStateChange(async(_,session)=>{
-      if(session)await onSession(session);
+      if(session){await onSession(session);hideSubmitCard();document.getElementById('guest-banner').classList.remove('show');}
       else setCloud('err');
     });
-  }catch(e){setCloud('err');console.error(e);}
-
+  }catch(e){setCloud('err');}
   updateDash();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
 });
