@@ -78,10 +78,8 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 .tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
 .btn{padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
-.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
 .btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}.btn-red:hover{background:var(--red);color:#fff}
-.btn-sm{padding:4px 10px;font-size:11px}
 .btn-xs{padding:3px 8px;font-size:10px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;z-index:999;backdrop-filter:blur(3px);overflow-y:auto;padding:30px 16px}
 .overlay.show{display:flex}
@@ -181,7 +179,7 @@ select.f-inp{cursor:pointer}
       <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r2);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:3px">➕ Add a new question</div>
-          <div style="font-size:12px;color:var(--text3)">Questions you add appear on your site immediately — no coding needed</div>
+          <div style="font-size:12px;color:var(--text3)">Questions appear on your site immediately — no coding needed</div>
         </div>
         <button class="btn btn-green" onclick="goPage('questions',document.getElementById('sb-questions'));setTimeout(openAddModal,200)">Add Question Now →</button>
       </div>
@@ -231,13 +229,13 @@ select.f-inp{cursor:pointer}
     <!-- USERS -->
     <div class="page" id="page-users">
       <div class="pg-head">
-        <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who has signed up on your platform</div></div>
+        <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who signed up on your platform</div></div>
         <button class="btn btn-ghost" onclick="loadUsers()">🔄 Refresh</button>
       </div>
       <div class="u-table-wrap">
         <table class="u-table">
           <thead><tr><th>USER</th><th>JOINED</th><th>STREAK</th><th>PLAN</th><th style="text-align:center">ACTIONS</th></tr></thead>
-          <tbody id="u-tbody"><tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading users...</td></tr></tbody>
+          <tbody id="u-tbody"><tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -259,7 +257,7 @@ select.f-inp{cursor:pointer}
   </div>
 </div>
 
-<!-- ADD/EDIT QUESTION MODAL -->
+<!-- ADD/EDIT MODAL -->
 <div class="overlay" id="q-overlay">
   <div class="modal">
     <div class="modal-head">
@@ -314,17 +312,16 @@ select.f-inp{cursor:pointer}
       <div class="form-field">
         <label class="f-lbl">Table Schema</label>
         <textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)&#10;departments(id, dept_name)" rows="2"></textarea>
-        <span class="f-hint">Which tables/columns users need — shown below description</span>
+        <span class="f-hint">Which tables/columns users need</span>
       </div>
       <div class="form-field">
         <label class="f-lbl">Hint</label>
         <input class="f-inp" id="f-hint" placeholder="e.g. Use WHERE salary > 80000"/>
-        <span class="f-hint">Shown when user clicks the 💡 Hint button</span>
       </div>
       <div class="form-field">
         <label class="f-lbl f-required">Correct SQL Solution</label>
         <textarea class="f-inp mono" id="f-solution" placeholder="SELECT * FROM employees WHERE salary > 80000;" rows="4"></textarea>
-        <span class="f-hint">The correct SQL answer — shown in the Solution tab</span>
+        <span class="f-hint">The correct answer — shown in Solution tab</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)">
         <input type="checkbox" id="f-active" checked style="width:16px;height:16px;accent-color:var(--green)"/>
@@ -357,10 +354,21 @@ select.f-inp{cursor:pointer}
 <div id="toast"></div>
 
 <script>
-/* ════ SUPABASE ════ */
-var SB_URL  = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
-var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTAzMjIsImV4cCI6MjA4OTQ4NjMyMn0._sLzz4A5Krbf518Yw6TJTvwo1TOEUE5WM9EAaOUFP4A';
-var sb = supabase.createClient(SB_URL, SB_ANON);
+/* ════════════════════════════════════════
+   SUPABASE — SERVICE ROLE KEY
+   This key bypasses RLS — full admin access
+   NEVER put this key in practicehub.html!
+════════════════════════════════════════ */
+var SB_URL     = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
+var SB_SERVICE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzkxMDMyMiwiZXhwIjoyMDg5NDg2MzIyfQ._BJ5OmwTCT7d2u-iAZuZ9_0jt6_-xdquIpGR9A6XKX0';
+
+/* Service role key — bypasses all RLS policies */
+var sb = supabase.createClient(SB_URL, SB_SERVICE, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+});
 
 var allQuestions=[], editingId=null, deleteId=null;
 
@@ -379,17 +387,17 @@ async function loadAll(){
 /* ════ LOAD QUESTIONS ════ */
 async function loadQuestions(){
   try{
-    // Simple select — no count tricks, just get all rows
-    var r = await sb.from('questions').select('*').order('sort_order', {ascending:true});
+    var r = await sb.from('questions').select('*').order('sort_order',{ascending:true});
     if(r.error) throw r.error;
     allQuestions = r.data || [];
     document.getElementById('sc-q').textContent = allQuestions.length;
     renderQTable();
     setCloud('ok');
+    console.log('✅ Loaded', allQuestions.length, 'questions');
   }catch(e){
     setCloud('err');
-    toast('Error loading questions: '+e.message,'err');
-    console.error('loadQuestions error:', e);
+    toast('Error: '+e.message,'err');
+    console.error('❌ loadQuestions:', e);
   }
 }
 
@@ -399,7 +407,6 @@ function renderQTable(){
   var diff=document.getElementById('qf-diff').value;
   var topic=document.getElementById('qf-topic').value;
   var status=document.getElementById('qf-status').value;
-
   var qs=allQuestions.filter(q=>{
     if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.description||'').toLowerCase().indexOf(search)===-1)return false;
     if(diff&&q.difficulty!==diff)return false;
@@ -407,10 +414,9 @@ function renderQTable(){
     if(status!==''&&String(q.is_active)!==status)return false;
     return true;
   });
-
   var tbody=document.getElementById('q-tbody');
   if(!qs.length){
-    tbody.innerHTML='<tr class="empty-row"><td colspan="7">No questions found — <a href="#" onclick="openAddModal()" style="color:var(--green)">add your first one!</a></td></tr>';
+    tbody.innerHTML='<tr class="empty-row"><td colspan="7">No questions — <a href="#" onclick="openAddModal()" style="color:var(--green)">add your first one!</a></td></tr>';
     return;
   }
   tbody.innerHTML=qs.map((q,i)=>{
@@ -472,13 +478,10 @@ async function saveQuestion(){
   if(!title){toast('Title is required!','warn');document.getElementById('f-title').focus();return;}
   if(!desc){toast('Description is required!','warn');document.getElementById('f-desc').focus();return;}
   if(!solution){toast('Solution SQL is required!','warn');document.getElementById('f-solution').focus();return;}
-
   var btn=document.getElementById('save-btn');
   btn.innerHTML='<span class="spinner"></span> Saving...';btn.disabled=true;
-
   var payload={
-    title,
-    description:desc,
+    title,description:desc,
     difficulty:document.getElementById('f-diff').value,
     topic:document.getElementById('f-topic').value,
     company:document.getElementById('f-company').value||null,
@@ -488,23 +491,20 @@ async function saveQuestion(){
     solution,
     is_active:document.getElementById('f-active').checked,
   };
-  if(!editingId) payload.sort_order = allQuestions.length+1;
-
+  if(!editingId) payload.sort_order=allQuestions.length+1;
   try{
-    var r = editingId
-      ? await sb.from('questions').update(payload).eq('id',editingId)
-      : await sb.from('questions').insert(payload);
-    if(r.error) throw r.error;
+    var r=editingId
+      ?await sb.from('questions').update(payload).eq('id',editingId)
+      :await sb.from('questions').insert(payload);
+    if(r.error)throw r.error;
     closeQModal();
     await loadQuestions();
     await loadOverviewStats();
     toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
   }catch(e){
     toast('Save failed: '+e.message,'err');
-    console.error('saveQuestion error:', e);
-  }finally{
-    btn.innerHTML='💾 Save Question';btn.disabled=false;
-  }
+    console.error('saveQuestion error:',e);
+  }finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
 }
 
 /* ════ DELETE ════ */
@@ -522,18 +522,13 @@ async function confirmDelete(){
   try{
     var r=await sb.from('questions').delete().eq('id',deleteId);
     if(r.error)throw r.error;
-    closeConfirm();
-    await loadQuestions();
-    await loadOverviewStats();
+    closeConfirm();await loadQuestions();await loadOverviewStats();
     toast('🗑 Question deleted','info');
   }catch(e){toast('Delete failed: '+e.message,'err');}
   finally{btn.innerHTML='Yes, Delete';btn.disabled=false;}
 }
 
-/* ════ OVERVIEW STATS ════
-   FIX: Use simple .select('*') instead of count syntax
-   which was causing the connection error
-════ */
+/* ════ OVERVIEW STATS ════ */
 async function loadOverviewStats(){
   try{
     var qs=allQuestions;
@@ -542,21 +537,17 @@ async function loadOverviewStats(){
     document.getElementById('ov-medium').textContent=qs.filter(q=>q.difficulty==='medium').length;
     document.getElementById('ov-hard').textContent=qs.filter(q=>q.difficulty==='hard').length;
 
-    // FIX: Get user count with simple select instead of {count:'exact',head:true}
     var ur=await sb.from('profiles').select('id');
-    var userCount=ur.data?ur.data.length:0;
-    document.getElementById('ov-users').textContent=userCount;
-    document.getElementById('sc-u').textContent=userCount;
+    var uCount=ur.data?ur.data.length:0;
+    document.getElementById('ov-users').textContent=uCount;
+    document.getElementById('sc-u').textContent=uCount;
 
-    // FIX: Get solved count with simple select
     var sr=await sb.from('user_progress').select('id').eq('status','solved');
     document.getElementById('ov-solved').textContent=sr.data?sr.data.length:0;
-
   }catch(e){
-    // Stats failed but don't show connection error — questions loaded fine
-    console.error('Stats error (non-critical):', e);
-    document.getElementById('ov-users').textContent='—';
-    document.getElementById('ov-solved').textContent='—';
+    console.error('Stats error:',e);
+    document.getElementById('ov-users').textContent='0';
+    document.getElementById('ov-solved').textContent='0';
   }
 }
 
@@ -570,27 +561,20 @@ async function loadUsers(){
     var users=r.data||[];
     document.getElementById('sc-u').textContent=users.length;
     document.getElementById('ov-users').textContent=users.length;
-    if(!users.length){
-      tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';
-      return;
-    }
+    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';return;}
     tbody.innerHTML=users.map(u=>{
       var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
       var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
       return '<tr>'+
-        '<td><div class="u-row-head">'+
-          '<div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
-          '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
-          '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
+        '<td><div class="u-row-head"><div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
+        '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
+        '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
         '<td>'+joined+'</td>'+
         '<td><span style="color:var(--amber);font-weight:600">'+(u.streak||0)+'</span> 🔥</td>'+
         '<td>'+plan+'</td>'+
-        '<td style="text-align:center"><button class="btn btn-ghost btn-xs" onclick="toast(\'Coming soon!\',\'info\')">Manage</button></td>'+
-        '</tr>';
+        '<td style="text-align:center"><button class="btn btn-ghost btn-xs" onclick="toast(\'Coming soon!\',\'info\')">Manage</button></td></tr>';
     }).join('');
-  }catch(e){
-    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</td></tr>';
-  }
+  }catch(e){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</td></tr>';}
 }
 
 /* ════ LEADERBOARD ════ */
@@ -633,12 +617,14 @@ function toast(msg,type){var t=document.getElementById('toast');t.textContent=ms
 /* ════ BOOT ════ */
 window.addEventListener('load',async()=>{
   setCloud('');
+  console.log('🚀 Admin panel loading...');
   try{
     await loadAll();
+    console.log('✅ Admin panel ready!');
   }catch(e){
     setCloud('err');
-    toast('Database connection failed: '+e.message,'err');
-    console.error('Boot error:',e);
+    toast('Connection failed: '+e.message,'err');
+    console.error('❌ Boot error:',e);
   }
 });
 </script>
