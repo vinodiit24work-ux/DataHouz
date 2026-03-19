@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PracticeHub – SQL & Excel Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#263148;--bg4:#2d3a52;
+  --border:#2e3f5c;--border2:#3a4f6e;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --green:#10b981;--green2:#059669;
+  --green-bg:rgba(16,185,129,0.12);--green-border:rgba(16,185,129,0.3);
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.12);--blue-border:rgba(59,130,246,0.3);
+  --amber:#f59e0b;--amber-bg:rgba(245,158,11,0.12);--amber-border:rgba(245,158,11,0.3);
+  --red:#ef4444;--red-bg:rgba(239,68,68,0.12);--red-border:rgba(239,68,68,0.3);
+  --purple:#8b5cf6;--purple-bg:rgba(139,92,246,0.12);--purple-border:rgba(139,92,246,0.3);
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --r:8px;--r2:12px;--r3:16px;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden;font-size:15px;line-height:1.5}
+
+/* SIDEBAR */
+#sidebar{width:256px;min-width:256px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0}
+.logo{padding:18px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0}
+.logo-name{font-size:17px;font-weight:700;letter-spacing:-0.4px}
+.logo-tag{font-size:10px;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase;margin-top:1px}
+.back-link{margin:10px 12px 0;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;text-decoration:none}
+.back-link:hover{border-color:var(--border2);color:var(--text)}
+.user-pill{margin:10px 12px;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);display:none;align-items:center;gap:10px}
+.u-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.u-info{flex:1;min-width:0}
+.u-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u-streak{font-size:11px;color:var(--amber);margin-top:1px}
+.u-logout{font-size:11px;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:transparent;transition:all .15s;font-family:var(--font)}
+.u-logout:hover{color:var(--red);border-color:var(--red-border)}
+.nav-group-lbl{padding:14px 16px 4px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;margin:1px 8px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:13.5px;transition:all .15s;border-left:3px solid transparent}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--green-bg);color:var(--green);border-left-color:var(--green);font-weight:500}
+.nav-item.active svg{opacity:1}
+.filter-wrap{padding:14px 12px 8px;border-top:1px solid var(--border);margin-top:auto}
+.filter-group{margin-bottom:18px}
+.filter-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:6px;padding:0 4px}
+.f-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:12.5px;transition:all .15s;border-left:3px solid transparent;background:transparent;border-top:none;border-right:none;border-bottom:none;text-align:left;font-family:var(--font)}
+.f-btn:hover{background:var(--bg3);color:var(--text)}
+.f-btn.on{color:var(--text);background:var(--bg4);border-left:3px solid var(--green);padding-left:10px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.de{background:var(--green)}.dm{background:var(--amber)}.dh{background:var(--red)}.da{background:var(--text3)}
+
+/* MAIN */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;height:100vh}
+.topbar{padding:12px 24px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.page-title{font-size:17px;font-weight:600;letter-spacing:-0.3px}
+.topbar-r{display:flex;align-items:center;gap:10px}
+.pill{padding:5px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text2)}
+.btn-login-top{padding:7px 16px;background:var(--green);color:#fff;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:opacity .15s;font-family:var(--font)}
+.btn-login-top:hover{opacity:.85}
+.content{flex:1;overflow-y:auto;padding:22px}
+
+/* SECTIONS */
+.sec{display:none}.sec.on{display:block}
+
+/* DASHBOARD */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.s-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;transition:border-color .2s}
+.s-card:hover{border-color:var(--border2)}
+.s-lbl{font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.s-val{font-size:30px;font-weight:700;letter-spacing:-1px}
+.s-sub{font-size:11px;color:var(--text3);margin-top:5px}
+.sg .s-val{color:var(--green)}.sb .s-val{color:var(--blue)}.sa .s-val{color:var(--amber)}.sp .s-val{color:var(--purple)}
+.sec-h{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:.6px}
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:24px}
+.qa-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px;cursor:pointer;transition:all .2s;display:flex;gap:12px;align-items:flex-start}
+.qa-card:hover{border-color:var(--green-border);background:var(--bg3);transform:translateY(-1px)}
+.qa-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.qa-title{font-size:13.5px;font-weight:500;margin-bottom:3px}
+.qa-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.recent-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.r-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.r-item:last-child{border-bottom:none}
+.r-title{font-size:13px;flex:1}
+.r-time{font-size:11px;color:var(--text3)}
+.empty-msg{padding:24px;text-align:center;color:var(--text3);font-size:13px}
+.tag{padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap}
+.te{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tm{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.th{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.tt{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.tc{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
+.ts{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+
+/* SQL */
+.sql-wrap{display:grid;grid-template-columns:288px 1fr;gap:16px;height:calc(100vh - 108px)}
+.ql-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column}
+.ql-head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.ql-title{font-size:13.5px;font-weight:600}
+.ql-count{font-size:11px;color:var(--text3)}
+.ql-body{overflow-y:auto;flex:1}
+.q-card{padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;border-left:3px solid transparent}
+.q-card:hover{background:var(--bg3)}
+.q-card.on{background:var(--green-bg);border-left-color:var(--green)}
+.q-card-title{font-size:12.5px;font-weight:400;margin-bottom:7px;line-height:1.4;color:var(--text)}
+.q-card.on .q-card-title{font-weight:500;color:var(--green)}
+.q-tags{display:flex;gap:5px;flex-wrap:wrap}
+.solved-mark{color:var(--green);font-size:11px;margin-left:4px;font-weight:600}
+.ed-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column}
+.q-detail{padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.q-dtitle{font-size:16px;font-weight:600;margin-bottom:8px;letter-spacing:-0.3px;line-height:1.35}
+.q-dmeta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.q-ddesc{font-size:13px;color:var(--text2);line-height:1.65}
+.schema-box{margin-top:11px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7}
+.ed-body{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.ed-bar{padding:9px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ed-bar-lbl{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.kbd{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:10px;font-family:var(--mono);color:var(--text3);margin-left:auto}
+#sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12.5px;padding:14px 16px;resize:none;outline:none;line-height:1.8;min-height:160px}
+.ed-actions{padding:11px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;background:var(--bg2)}
+.btn{padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
+.res-panel{background:var(--bg3);border-top:1px solid var(--border);max-height:240px;overflow:auto;flex-shrink:0}
+.res-head{padding:9px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg3);z-index:1}
+.res-lbl{font-size:11.5px;color:var(--text3)}
+.res-ok{font-size:12px;color:var(--green);font-weight:500}
+.res-err{font-size:12px;color:var(--red)}
+.res-table{width:100%;border-collapse:collapse}
+.res-table th{background:var(--bg4);padding:7px 13px;font-size:11px;font-weight:600;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);position:sticky;top:38px;white-space:nowrap}
+.res-table td{padding:7px 13px;font-size:11.5px;font-family:var(--mono);border-bottom:1px solid var(--border)}
+.res-table tr:last-child td{border-bottom:none}
+.res-table tr:hover td{background:var(--bg4)}
+.null-val{color:var(--text3)}
+.res-empty{padding:24px;text-align:center;color:var(--text3);font-size:13px}
+
+/* EXCEL */
+.xl-wrap{display:flex;flex-direction:column;gap:14px}
+.xl-top{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.xl-info h2{font-size:15px;font-weight:600;margin-bottom:3px}
+.xl-info p{font-size:12px;color:var(--text3)}
+.xl-grid-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+#excel-grid{width:100%;height:460px}
+.xl-tasks{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px}
+.task-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:10px}
+.task{padding:11px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.task-n{width:20px;height:20px;border-radius:50%;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* AI */
+.ai-wrap{max-width:740px;margin:0 auto}
+.chat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;height:calc(100vh - 190px)}
+.chat-top{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ai-av{width:36px;height:36px;border-radius:var(--r);background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ai-nm{font-size:14px;font-weight:600}
+.ai-st{font-size:11px;color:var(--green);margin-top:1px}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;align-items:flex-start}
+.msg-u{flex-direction:row-reverse}
+.bubble{max-width:78%;padding:11px 14px;border-radius:var(--r2);font-size:13.5px;line-height:1.65}
+.msg-ai .bubble{background:var(--bg3);border:1px solid var(--border)}
+.msg-u .bubble{background:var(--green);color:#fff}
+.av-sm{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.msg-ai .av-sm{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}
+.msg-u .av-sm{background:var(--green2);color:#fff}
+.quick-row{display:flex;gap:7px;flex-wrap:wrap;padding:8px 18px;border-top:1px solid var(--border);flex-shrink:0}
+.q-chip{padding:6px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11.5px;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.q-chip:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
+.chat-inp-row{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:9px;flex-shrink:0;background:var(--bg2)}
+.chat-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;color:var(--text);font-size:13.5px;font-family:var(--font);outline:none;transition:border-color .15s}
+.chat-inp:focus{border-color:var(--border2)}
+
+/* ACHIEVEMENTS */
+.ach-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ach-col{display:flex;flex-direction:column;gap:14px}
+.ach-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px 20px}
+.ach-box-title{font-size:13.5px;font-weight:600;margin-bottom:14px}
+.bdg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.bdg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:13px 9px;text-align:center;transition:all .2s}
+.bdg.on{border-color:var(--amber-border);background:var(--amber-bg)}
+.bdg-ico{font-size:24px;display:block;margin-bottom:5px;opacity:.22;transition:opacity .2s}
+.bdg.on .bdg-ico{opacity:1}
+.bdg-nm{font-size:10px;font-weight:500;color:var(--text3)}
+.bdg.on .bdg-nm{color:var(--amber)}
+.sl-list{display:flex;flex-direction:column;gap:7px;max-height:250px;overflow-y:auto}
+.sl-item{padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:9px;font-size:12.5px}
+.sl-title{flex:1}
+.sl-date{font-size:10.5px;color:var(--text3)}
+.resume-card{background:#fff;color:#111;border-radius:var(--r2);padding:28px;font-family:var(--font)}
+.res-hdr{text-align:center;border-bottom:2px solid #10b981;padding-bottom:16px;margin-bottom:16px}
+.res-nm{font-size:22px;font-weight:700;color:#111;margin-bottom:3px}
+.res-tg{font-size:13px;color:#555}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.rs-cell{text-align:center;padding:12px;background:#f8fafc;border-radius:var(--r)}
+.rs-val{font-size:22px;font-weight:700;color:#10b981;display:block}
+.rs-lbl{font-size:11px;color:#666}
+.res-sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:8px}
+.res-ql{list-style:none;font-size:12.5px;color:#333}
+.res-ql li{padding:4px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between}
+.res-ql li:last-child{border-bottom:none}
+.res-wm{text-align:center;margin-top:16px;font-size:10px;color:#bbb}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(3px)}
+.overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:28px;width:100%;max-width:400px;animation:mIn .2s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+.m-tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--bg3);border-radius:var(--r);padding:4px}
+.m-tab{flex:1;padding:7px;text-align:center;border-radius:calc(var(--r) - 2px);font-size:13px;cursor:pointer;color:var(--text3);transition:all .15s}
+.m-tab.on{background:var(--bg2);color:var(--text);font-weight:500}
+.m-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.m-sub{font-size:12px;color:var(--text3);margin-bottom:20px}
+.m-lbl{font-size:11.5px;color:var(--text3);margin-bottom:5px;display:block}
+.m-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;color:var(--text);font-size:13.5px;font-family:var(--font);outline:none;margin-bottom:12px;transition:border-color .15s}
+.m-inp:focus{border-color:var(--green)}
+.m-foot{text-align:center;font-size:11px;color:var(--text3);margin-top:10px}
+
+/* Handsontable overrides */
+.handsontable{font-family:var(--mono)!important;font-size:12px!important}
+.handsontable th,.handsontable td{background:var(--bg3)!important;border-color:var(--border)!important;color:var(--text)!important}
+.handsontable thead th{background:var(--bg4)!important;color:var(--text2)!important}
+.wtHolder,.ht_master{background:var(--bg3)!important}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+
+@media(max-width:860px){
+  #sidebar{display:none}
+  .sql-wrap{grid-template-columns:1fr;height:auto}
+  .ach-wrap{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="logo">
+    <div class="logo-mark">P</div>
+    <div><div class="logo-name">PracticeHub</div><div class="logo-tag">SQL · Excel · AI</div></div>
+  </div>
+
+  <a class="back-link" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Home
+  </a>
+
+  <div class="user-pill" id="user-pill">
+    <div class="u-av" id="u-av">V</div>
+    <div class="u-info">
+      <div class="u-name" id="u-name">User</div>
+      <div class="u-streak">🔥 Keep your streak!</div>
+    </div>
+    <button class="u-logout" onclick="doLogout()">↩</button>
+  </div>
+
+  <div class="nav-group-lbl">Practice</div>
+  <div class="nav-item active" id="nav-dashboard" onclick="goTo('dashboard',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </div>
+  <div class="nav-item" id="nav-sql" onclick="goTo('sql',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+    SQL Practice
+  </div>
+  <div class="nav-item" id="nav-excel" onclick="goTo('excel',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+    Excel Practice
+  </div>
+  <div class="nav-item" id="nav-ai" onclick="goTo('ai',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    AI Helper
+  </div>
+  <div class="nav-item" id="nav-achievements" onclick="goTo('achievements',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+    Achievements
+  </div>
+
+  <!-- SQL filters (shown only on SQL page) -->
+  <div class="filter-wrap" id="sql-filters" style="display:none">
+    <div class="filter-group">
+      <div class="filter-lbl">Difficulty</div>
+      <button class="f-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All levels</button>
+      <button class="f-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy</button>
+      <button class="f-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium</button>
+      <button class="f-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard</button>
+    </div>
+    <div class="filter-group">
+      <div class="filter-lbl">Topic</div>
+      <button class="f-btn on" onclick="setF('topic','all',this)">All topics</button>
+      <button class="f-btn" onclick="setF('topic','JOIN',this)">JOIN</button>
+      <button class="f-btn" onclick="setF('topic','Window',this)">Window Functions</button>
+      <button class="f-btn" onclick="setF('topic','Aggregate',this)">Aggregate</button>
+      <button class="f-btn" onclick="setF('topic','Subquery',this)">Subquery</button>
+      <button class="f-btn" onclick="setF('topic','CTE',this)">CTE</button>
+    </div>
+    <div class="filter-group">
+      <div class="filter-lbl">Company</div>
+      <button class="f-btn on" onclick="setF('co','all',this)">All companies</button>
+      <button class="f-btn" onclick="setF('co','Google',this)">Google</button>
+      <button class="f-btn" onclick="setF('co','Amazon',this)">Amazon</button>
+      <button class="f-btn" onclick="setF('co','Meta',this)">Meta</button>
+      <button class="f-btn" onclick="setF('co','Netflix',this)">Netflix</button>
+      <button class="f-btn" onclick="setF('co','Microsoft',this)">Microsoft</button>
+      <button class="f-btn" onclick="setF('co','Flipkart',this)">Flipkart</button>
+    </div>
+    <div class="filter-group">
+      <div class="filter-lbl">Status</div>
+      <button class="f-btn on" onclick="setF('status','all',this)">All</button>
+      <button class="f-btn" onclick="setF('status','solved',this)">Solved ✓</button>
+      <button class="f-btn" onclick="setF('status','unsolved',this)">Unsolved</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <div class="page-title" id="page-title">Dashboard</div>
+    <div class="topbar-r">
+      <div class="pill" id="top-pill">0 solved</div>
+      <button class="btn-login-top" id="btn-login-top" onclick="openModal()">Login / Sign Up</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="sec on" id="sec-dashboard">
+      <div class="stats-row">
+        <div class="s-card sg"><div class="s-lbl">SQL Solved</div><div class="s-val" id="d-sql">0</div><div class="s-sub">questions completed</div></div>
+        <div class="s-card sb"><div class="s-lbl">Excel Tasks</div><div class="s-val" id="d-excel">0</div><div class="s-sub">challenges done</div></div>
+        <div class="s-card sa"><div class="s-lbl">AI Sessions</div><div class="s-val" id="d-ai">0</div><div class="s-sub">questions asked</div></div>
+        <div class="s-card sp"><div class="s-lbl">Day Streak</div><div class="s-val" id="d-streak">0</div><div class="s-sub">🔥 keep it going</div></div>
+      </div>
+      <div class="sec-h">Quick Start</div>
+      <div class="qa-grid">
+        <div class="qa-card" onclick="goTo('sql',document.getElementById('nav-sql'))">
+          <div class="qa-icon">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · LeetCode + StrataScratch style</div></div>
+        </div>
+        <div class="qa-card" onclick="goTo('excel',document.getElementById('nav-excel'))">
+          <div class="qa-icon">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Pivot & VLOOKUP tasks</div></div>
+        </div>
+        <div class="qa-card" onclick="goTo('ai',document.getElementById('nav-ai'))">
+          <div class="qa-icon">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Get hints instantly</div></div>
+        </div>
+        <div class="qa-card" onclick="goTo('achievements',document.getElementById('nav-achievements'))">
+          <div class="qa-icon">🏆</div><div><div class="qa-title">Achievements</div><div class="qa-desc">Badges · Resume PDF · Share on LinkedIn</div></div>
+        </div>
+      </div>
+      <div class="sec-h">Recently Solved</div>
+      <div class="recent-box"><div id="recent-body"><div class="empty-msg">No questions solved yet — start practicing! 🚀</div></div></div>
+    </div>
+
+    <!-- SQL PRACTICE -->
+    <div class="sec" id="sec-sql">
+      <div class="sql-wrap">
+        <div class="ql-panel">
+          <div class="ql-head"><span class="ql-title">Questions</span><span class="ql-count" id="ql-count">0 shown</span></div>
+          <div class="ql-body" id="ql-body"></div>
+        </div>
+        <div class="ed-panel">
+          <div class="q-detail" id="q-detail"><div class="empty-msg" style="padding:28px 0">← Select a question to begin</div></div>
+          <div class="ed-body">
+            <div class="ed-bar">
+              <span class="ed-bar-lbl">SQL Editor</span>
+              <span class="kbd" style="margin-left:auto">Ctrl+Enter to run</span>
+            </div>
+            <textarea id="sql-editor" spellcheck="false" placeholder="-- Write your SQL query here&#10;SELECT * FROM employees;"></textarea>
+            <div class="ed-actions">
+              <button class="btn btn-blue" onclick="runSQL()">▶ Run Query</button>
+              <button class="btn btn-green" onclick="submitSQL()">✓ Submit Answer</button>
+              <button class="btn btn-ghost" onclick="getHint()">💡 Hint</button>
+            </div>
+          </div>
+          <div class="res-panel">
+            <div class="res-head"><span class="res-lbl">Output</span><span id="res-meta"></span></div>
+            <div id="res-body"><div class="res-empty">Run a query to see results here</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXCEL -->
+    <div class="sec" id="sec-excel">
+      <div class="xl-wrap">
+        <div class="xl-top">
+          <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · Use =SUM(), =AVERAGE(), =VLOOKUP() · Drag to fill · Sort & filter</p></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost" onclick="resetXL()">Reset Grid</button>
+            <button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button>
+          </div>
+        </div>
+        <div class="xl-grid-box"><div id="excel-grid"></div></div>
+        <div class="xl-tasks">
+          <div class="sec-h" style="margin-bottom:10px">Practice Tasks</div>
+          <div class="task-grid">
+            <div class="task"><div class="task-n">1</div>Calculate Q1 Total in column E using =SUM(B2:D2)</div>
+            <div class="task"><div class="task-n">2</div>Find average monthly sales per product in column F</div>
+            <div class="task"><div class="task-n">3</div>Sort products by Total Sales descending</div>
+            <div class="task"><div class="task-n">4</div>Add a new row for "Tablet" with your own data</div>
+            <div class="task"><div class="task-n">5</div>Use =MAX() and =MIN() to find best and worst month</div>
+            <div class="task"><div class="task-n">6</div>Create a running cumulative total using SUM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI HELPER -->
+    <div class="sec" id="sec-ai">
+      <div class="ai-wrap">
+        <div class="chat-card">
+          <div class="chat-top">
+            <div class="ai-av">🤖</div>
+            <div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online · Powered by Claude AI</div></div>
+          </div>
+          <div class="chat-msgs" id="chat-msgs">
+            <div class="msg msg-ai">
+              <div class="av-sm">🤖</div>
+              <div class="bubble">Hi there! 👋 I'm your SQL & Excel coach. Ask me about query errors, JOIN types, window functions, Excel formulas — anything! I'm here to help you ace your interviews.</div>
+            </div>
+          </div>
+          <div class="quick-row">
+            <div class="q-chip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN with an example')">JOIN types</div>
+            <div class="q-chip" onclick="quickAsk('How do window functions like RANK() and DENSE_RANK() work?')">Window functions</div>
+            <div class="q-chip" onclick="quickAsk('How to use VLOOKUP in Excel with example?')">VLOOKUP</div>
+            <div class="q-chip" onclick="quickAsk('What is a CTE and when should I use it?')">CTE explained</div>
+            <div class="q-chip" onclick="quickAsk('How to find second highest salary in SQL?')">Second highest salary</div>
+          </div>
+          <div class="chat-inp-row">
+            <input class="chat-inp" id="chat-inp" placeholder="Ask about SQL, Excel, or interview tips..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+            <button class="btn btn-green" onclick="sendMsg()">Send →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="sec" id="sec-achievements">
+      <div class="ach-wrap">
+        <div class="ach-col">
+          <div class="ach-box">
+            <div class="ach-box-title">Your Badges</div>
+            <div class="bdg-grid">
+              <div class="bdg" id="b-beginner"><span class="bdg-ico">🌱</span><div class="bdg-nm">SQL Beginner</div></div>
+              <div class="bdg" id="b-joiner"><span class="bdg-ico">🔗</span><div class="bdg-nm">JOIN Master</div></div>
+              <div class="bdg" id="b-window"><span class="bdg-ico">🪟</span><div class="bdg-nm">Window Pro</div></div>
+              <div class="bdg" id="b-excel"><span class="bdg-ico">📊</span><div class="bdg-nm">Excel Ninja</div></div>
+              <div class="bdg" id="b-master"><span class="bdg-ico">🏆</span><div class="bdg-nm">SQL Master</div></div>
+              <div class="bdg" id="b-ai"><span class="bdg-ico">🤖</span><div class="bdg-nm">AI Explorer</div></div>
+            </div>
+          </div>
+          <div class="ach-box">
+            <div class="ach-box-title">Solved Questions</div>
+            <div class="sl-list" id="sl-list"><div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div></div>
+          </div>
+        </div>
+        <div class="ach-col">
+          <div class="ach-box">
+            <div class="resume-card" id="resume-card">
+              <div class="res-hdr">
+                <div class="res-nm" id="r-name">Your Name</div>
+                <div class="res-tg">SQL & Excel Practitioner · PracticeHub Certified</div>
+              </div>
+              <div class="res-stats">
+                <div class="rs-cell"><span class="rs-val" id="r-sql">0</span><span class="rs-lbl">SQL Solved</span></div>
+                <div class="rs-cell"><span class="rs-val" id="r-excel">0</span><span class="rs-lbl">Excel Tasks</span></div>
+                <div class="rs-cell"><span class="rs-val" id="r-streak">0</span><span class="rs-lbl">Day Streak</span></div>
+              </div>
+              <div class="res-sec-lbl">Completed Questions</div>
+              <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:4px 0">No questions completed yet</li></ul>
+              <div class="res-wm">Verified by PracticeHub · <span id="r-date"></span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-green" style="flex:1;padding:12px;justify-content:center" onclick="dlPDF()">📄 Download PDF</button>
+            <button class="btn btn-blue" style="flex:1;padding:12px;justify-content:center" onclick="shareIt()">🔗 Share Progress</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="m-tabs">
+      <div class="m-tab on" onclick="mTab('login',this)">Login</div>
+      <div class="m-tab" onclick="mTab('signup',this)">Sign Up</div>
+    </div>
+    <div id="m-login">
+      <div class="m-title">Welcome back</div>
+      <div class="m-sub">Login to save and track your progress</div>
+      <label class="m-lbl">Username or Email</label>
+      <input class="m-inp" id="m-user" placeholder="vinod@example.com" type="text"/>
+      <label class="m-lbl">Password</label>
+      <input class="m-inp" id="m-pass" placeholder="••••••••" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="btn btn-green" style="width:100%;padding:11px;justify-content:center" onclick="doLogin()">Login &amp; Continue →</button>
+      <div class="m-foot">Demo mode · Any name works · Data saved locally in browser</div>
+    </div>
+    <div id="m-signup" style="display:none">
+      <div class="m-title">Create account</div>
+      <div class="m-sub">Free forever · Start practicing immediately</div>
+      <label class="m-lbl">Full Name</label>
+      <input class="m-inp" id="m-sname" placeholder="Vinod Kumar" type="text"/>
+      <label class="m-lbl">Email</label>
+      <input class="m-inp" id="m-semail" placeholder="vinod@example.com" type="email"/>
+      <label class="m-lbl">Password</label>
+      <input class="m-inp" id="m-spass" placeholder="Create a password" type="password" onkeydown="if(event.key==='Enter')doSignup()"/>
+      <button class="btn btn-green" style="width:100%;padding:11px;justify-content:center" onclick="doSignup()">Create Account →</button>
+      <div class="m-foot">No credit card required · Cancel anytime</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var user=null,db=null,curQ=null,hot=null;
+var solved=[],recent=[],aiCnt=0,xlCnt=0,streak=0;
+var F={diff:'all',topic:'all',co:'all',status:'all'};
+
+var QS=[
+  {id:0,title:"Show all employees",diff:"easy",co:"Google",topic:"Aggregate",
+   desc:"Display every record from the employees table.",
+   hint:"Try: SELECT * FROM employees;",exp:6,
+   schema:"employees(id, name, salary, dept_id, manager_id)\ndepartments(id, dept_name)"},
+  {id:1,title:"Employees earning more than \u20b980,000",diff:"easy",co:"Amazon",topic:"Aggregate",
+   desc:"Find employees with salary greater than 80,000 using a WHERE clause.",
+   hint:"Use WHERE salary > 80000",exp:2,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:2,title:"Average salary by department",diff:"medium",co:"Meta",topic:"Aggregate",
+   desc:"Calculate the average salary for each department using GROUP BY and AVG().",
+   hint:"SELECT dept_id, AVG(salary) as avg_sal FROM employees GROUP BY dept_id;",exp:3,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:3,title:"Employee name + Department name (JOIN)",diff:"medium",co:"Google",topic:"JOIN",
+   desc:"Show each employee's name and their department name by joining the two tables.",
+   hint:"Use INNER JOIN departments d ON e.dept_id = d.id",exp:6,
+   schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
+  {id:4,title:"Second highest salary",diff:"medium",co:"Microsoft",topic:"Subquery",
+   desc:"Find the second highest salary in the company using a subquery or OFFSET.",
+   hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",exp:1,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:5,title:"Departments with more than 2 employees",diff:"easy",co:"Flipkart",topic:"Aggregate",
+   desc:"List departments that have more than 2 employees using GROUP BY and HAVING.",
+   hint:"GROUP BY dept_id HAVING COUNT(*) > 2",exp:1,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:6,title:"Find duplicate employee names",diff:"medium",co:"Amazon",topic:"Aggregate",
+   desc:"Find employee names that appear more than once in the table.",
+   hint:"GROUP BY name HAVING COUNT(*) > 1",exp:1,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:7,title:"Employee and their manager name (Self JOIN)",diff:"medium",co:"Meta",topic:"JOIN",
+   desc:"Use a self-join to show each employee alongside their manager's name.",
+   hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",exp:4,
+   schema:"employees(id, name, salary, dept_id, manager_id)"},
+  {id:8,title:"Running total salary per department (Window)",diff:"hard",co:"Netflix",topic:"Window",
+   desc:"Show cumulative running total of salary within each department.",
+   hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",exp:6,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:9,title:"Rank employees by salary — DENSE_RANK()",diff:"hard",co:"Netflix",topic:"Window",
+   desc:"Rank employees within each department by salary using DENSE_RANK() window function.",
+   hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",exp:6,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:10,title:"Top 3 salaries per department",diff:"hard",co:"Google",topic:"Window",
+   desc:"Show the top 3 highest-paid employees in each department.",
+   hint:"Use ROW_NUMBER() in a subquery, then filter WHERE rn <= 3",exp:5,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:11,title:"Employees earning above department average",diff:"hard",co:"Meta",topic:"Subquery",
+   desc:"Find employees whose salary is higher than the average salary of their own department.",
+   hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",exp:3,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:12,title:"Count employees per department",diff:"easy",co:"Flipkart",topic:"Aggregate",
+   desc:"Show each department name and the count of employees in it.",
+   hint:"COUNT(*) with GROUP BY dept_id, JOIN departments for names",exp:3,
+   schema:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)"},
+  {id:13,title:"CTE: Max salary per department",diff:"hard",co:"Microsoft",topic:"CTE",
+   desc:"Use a Common Table Expression (WITH clause) to find the max salary per department.",
+   hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT ...",exp:3,
+   schema:"employees(id, name, salary, dept_id)"},
+  {id:14,title:"Employees earning more than their manager",diff:"hard",co:"Amazon",topic:"JOIN",
+   desc:"Find employees whose salary is higher than their direct manager's salary.",
+   hint:"Self-join: e1.salary > e2.salary AND e1.manager_id = e2.id",exp:2,
+   schema:"employees(id, name, salary, manager_id)"},
+];
+
+async function initSQL(){
+  var SQL=await initSqlJs({locateFile:function(f){return'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}});
+  db=new SQL.Database();
+  db.run("CREATE TABLE departments(id INTEGER PRIMARY KEY, dept_name TEXT);"+
+    "CREATE TABLE employees(id INTEGER PRIMARY KEY, name TEXT, salary INTEGER, dept_id INTEGER, manager_id INTEGER);"+
+    "INSERT INTO departments VALUES(1,'Engineering'),(2,'Marketing'),(3,'Sales');"+
+    "INSERT INTO employees VALUES"+
+    "(1,'Rahul Sharma',75000,1,NULL),"+
+    "(2,'Priya Patel',92000,1,1),"+
+    "(3,'Amit Kumar',45000,2,NULL),"+
+    "(4,'Sneha Gupta',68000,3,NULL),"+
+    "(5,'Vikram Singh',110000,1,2),"+
+    "(6,'Rahul Sharma',55000,2,3);");
+  renderQL();
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){runSQL();}
+  });
+}
+
+function renderQL(){
+  var body=document.getElementById('ql-body');
+  var qs=QS.filter(function(q){
+    if(F.diff!=='all'&&q.diff!==F.diff)return false;
+    if(F.topic!=='all'&&q.topic!==F.topic)return false;
+    if(F.co!=='all'&&q.co!==F.co)return false;
+    if(F.status==='solved'&&solved.indexOf(q.id)===-1)return false;
+    if(F.status==='unsolved'&&solved.indexOf(q.id)!==-1)return false;
+    return true;
+  });
+  document.getElementById('ql-count').textContent=qs.length+' shown';
+  body.innerHTML='';
+  if(!qs.length){body.innerHTML='<div class="res-empty">No questions match filters</div>';return;}
+  qs.forEach(function(q){
+    var isSolved=solved.indexOf(q.id)!==-1;
+    var el=document.createElement('div');
+    el.className='q-card'+(curQ&&curQ.id===q.id?' on':'');
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    el.innerHTML='<div class="q-card-title">'+q.title+(isSolved?'<span class="solved-mark"> \u2713</span>':'')+'</div>'+
+      '<div class="q-tags"><span class="tag '+dc+'">'+q.diff+'</span>'+
+      '<span class="tag tc">'+q.co+'</span>'+
+      '<span class="tag tt">'+q.topic+'</span></div>';
+    el.onclick=function(){loadQ(q);};
+    body.appendChild(el);
+  });
+}
+
+function setF(k,v,el){
+  F[k]=v;
+  var grp=el.closest('.filter-group');
+  grp.querySelectorAll('.f-btn').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  renderQL();
+}
+
+function loadQ(q){
+  curQ=q;
+  document.getElementById('sql-editor').value='';
+  document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
+  document.getElementById('res-meta').innerHTML='';
+  var isSolved=solved.indexOf(q.id)!==-1;
+  var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+  document.getElementById('q-detail').innerHTML=
+    '<div class="q-dtitle">'+q.title+'</div>'+
+    '<div class="q-dmeta"><span class="tag '+dc+'">'+q.diff.toUpperCase()+'</span>'+
+    '<span class="tag tc">'+q.co+'</span>'+
+    '<span class="tag tt">'+q.topic+'</span>'+
+    (isSolved?'<span class="tag ts">Solved \u2713</span>':'')+'</div>'+
+    '<div class="q-ddesc">'+q.desc+'</div>'+
+    '<div class="schema-box"><strong style="color:var(--text2)">Schema:</strong><br>'+q.schema.replace(/\n/g,'<br>')+'</div>';
+  renderQL();
+}
+
+function runSQL(){
+  var q=document.getElementById('sql-editor').value.trim();
+  if(!q){alert('Write a SQL query first!');return;}
+  if(!db){alert('Database loading, please wait...');return;}
+  try{
+    var res=db.exec(q);
+    var meta=document.getElementById('res-meta');
+    var body=document.getElementById('res-body');
+    if(!res.length){
+      meta.innerHTML='<span class="res-ok">Query OK \u00b7 0 rows</span>';
+      body.innerHTML='<div class="res-empty">Query ran successfully (no rows returned)</div>';
+      return;
+    }
+    var cols=res[0].columns,vals=res[0].values;
+    meta.innerHTML='<span class="res-ok">'+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
+    var html='<table class="res-table"><thead><tr>';
+    cols.forEach(function(c){html+='<th>'+c+'</th>';});
+    html+='</tr></thead><tbody>';
+    vals.forEach(function(row){
+      html+='<tr>';
+      row.forEach(function(cell){
+        html+='<td>'+(cell===null?'<span class="null-val">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';
+      });
+      html+='</tr>';
+    });
+    body.innerHTML=html+'</tbody></table>';
+  }catch(e){
+    document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
+    document.getElementById('res-body').innerHTML='<div style="padding:14px;color:var(--red);font-family:var(--mono);font-size:12px">\u274c '+e.message+'</div>';
+  }
+}
+
+function submitSQL(){
+  if(!curQ){alert('Select a question first!');return;}
+  if(!user){openModal();return;}
+  var q=document.getElementById('sql-editor').value.trim();
+  if(!q){alert('Write your query first!');return;}
+  try{
+    db.exec(q);
+    if(solved.indexOf(curQ.id)===-1){
+      solved.push(curQ.id);
+      streak=Math.min(streak+1,30);
+      recent.unshift({title:curQ.title,diff:curQ.diff,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
+      if(recent.length>10)recent.pop();
+      save();updateDash();renderQL();loadQ(curQ);checkBadges();
+    }
+    alert('\u2705 "'+curQ.title+'" marked as solved!');
+  }catch(e){alert('Fix your query first:\n'+e.message);}
+}
+
+function getHint(){
+  if(!curQ){alert('Select a question first!');return;}
+  alert('\ud83d\udca1 Hint:\n\n'+curQ.hint);
+}
+
+function initXL(){
+  if(hot)return;
+  hot=new Handsontable(document.getElementById('excel-grid'),{
+    data:[
+      ['Product','Jan Sales','Feb Sales','Mar Sales','Q1 Total','Monthly Avg'],
+      ['Laptop Pro',45000,52000,61000,'=SUM(B2:D2)','=AVERAGE(B2:D2)'],
+      ['Smartphone X',32000,38000,29000,'=SUM(B3:D3)','=AVERAGE(B3:D3)'],
+      ['Wireless Earbuds',15000,18000,22000,'=SUM(B4:D4)','=AVERAGE(B4:D4)'],
+      ['USB Charger',8000,12000,9000,'=SUM(B5:D5)','=AVERAGE(B5:D5)'],
+      ['Tablet','','','','=SUM(B6:D6)','=AVERAGE(B6:D6)'],
+    ],
+    rowHeaders:true,colHeaders:true,contextMenu:true,
+    formulas:true,width:'100%',height:460,
+    stretchH:'all',licenseKey:'non-commercial-and-evaluation'
+  });
+}
+function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
+function markXLDone(){
+  if(!user){openModal();return;}
+  xlCnt++;save();updateDash();checkBadges();
+  alert('\u2705 Excel challenge marked as complete!');
+}
+
+var AI_REPLIES={
+  join:"JOIN types in SQL:\n\n\u2022 INNER JOIN \u2014 only matching rows from both tables\n\u2022 LEFT JOIN \u2014 all rows from left + matching from right (NULL if no match)\n\u2022 RIGHT JOIN \u2014 all rows from right + matching from left\n\u2022 FULL OUTER JOIN \u2014 all rows from both tables\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
+  window:"Window Functions run across a set of rows without collapsing them.\n\nSyntax: FUNCTION() OVER (PARTITION BY col ORDER BY col)\n\nExamples:\n\u2022 ROW_NUMBER() \u2014 unique row number per group\n\u2022 RANK() \u2014 rank with gaps for ties\n\u2022 DENSE_RANK() \u2014 rank without gaps\n\u2022 SUM(salary) OVER (PARTITION BY dept_id) \u2014 running total\n\u2022 LAG(salary,1) OVER (...) \u2014 previous row value",
+  vlookup:"VLOOKUP Syntax:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\nExample: =VLOOKUP(A2, $D$2:$F$100, 2, FALSE)\n\n\u2022 lookup_value \u2014 what you search for\n\u2022 table_array \u2014 the range to look in\n\u2022 col_index \u2014 column number to return\n\u2022 FALSE \u2014 exact match (always recommended)\n\nModern tip: Use XLOOKUP() in Excel 365 for more flexibility!",
+  cte:"CTE (Common Table Expression):\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary, d.mx\nFROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;\n\nWhen to use CTEs:\n\u2022 Break complex queries into readable steps\n\u2022 Recursive queries (org charts)\n\u2022 Reuse same subquery multiple times",
+  second:"Second Highest Salary:\n\nMethod 1 (Subquery):\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nMethod 2 (OFFSET):\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;\n\nMethod 3 (Window):\nSELECT salary FROM (\n  SELECT salary,\n  DENSE_RANK() OVER (ORDER BY salary DESC) as rnk\n  FROM employees\n) t WHERE rnk = 2;"
+};
+
+function addMsg(role,txt){
+  var el=document.createElement('div');
+  el.className='msg msg-'+role;
+  var html=txt.replace(/\n/g,'<br>');
+  el.innerHTML='<div class="av-sm">'+(role==='ai'?'\ud83e\udd16':'U')+'</div><div class="bubble">'+html+'</div>';
+  var msgs=document.getElementById('chat-msgs');
+  msgs.appendChild(el);
+  msgs.scrollTop=99999;
+}
+
+function sendMsg(){
+  var inp=document.getElementById('chat-inp');
+  var txt=inp.value.trim();if(!txt)return;
+  addMsg('user',txt);inp.value='';
+  aiCnt++;if(user)save();updateDash();
+  setTimeout(function(){
+    var lo=txt.toLowerCase();
+    var rep;
+    if(lo.indexOf('join')!==-1)rep=AI_REPLIES.join;
+    else if(lo.indexOf('window')!==-1||lo.indexOf('rank')!==-1||lo.indexOf('partition')!==-1)rep=AI_REPLIES.window;
+    else if(lo.indexOf('vlookup')!==-1||lo.indexOf('excel')!==-1)rep=AI_REPLIES.vlookup;
+    else if(lo.indexOf('cte')!==-1||lo.indexOf('common table')!==-1)rep=AI_REPLIES.cte;
+    else if(lo.indexOf('second')!==-1||lo.indexOf('2nd')!==-1)rep=AI_REPLIES.second;
+    else rep='Good question about "'+txt+'"!\n\nHere\'s my approach:\n1. Identify what data you need and from which table\n2. Pick the right clause \u2014 WHERE for filtering, GROUP BY for aggregating, JOIN for combining\n3. Start simple with SELECT * then add complexity\n\nPaste your specific query or error message and I\'ll debug it step by step! \ud83d\ude80';
+    addMsg('ai',rep);
+  },600);
+}
+
+function quickAsk(q){document.getElementById('chat-inp').value=q;sendMsg();}
+
+function openModal(){document.getElementById('overlay').classList.add('show');}
+function closeModal(){document.getElementById('overlay').classList.remove('show');}
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target.id==='overlay')closeModal();});
+function mTab(t,el){
+  document.querySelectorAll('.m-tab').forEach(function(x){x.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('m-login').style.display=t==='login'?'':'none';
+  document.getElementById('m-signup').style.display=t==='signup'?'':'none';
+}
+function doLogin(){finishAuth(document.getElementById('m-user').value.trim()||'User');}
+function doSignup(){finishAuth(document.getElementById('m-sname').value.trim()||'User');}
+function finishAuth(name){
+  user={name:name,since:new Date().toLocaleDateString('en-IN')};
+  localStorage.setItem('ph_user',JSON.stringify(user));
+  closeModal();showUser();load();updateDash();
+  document.getElementById('r-name').textContent=name;
+  document.getElementById('btn-login-top').style.display='none';
+}
+function showUser(){
+  if(!user)return;
+  var pill=document.getElementById('user-pill');
+  pill.style.display='flex';
+  document.getElementById('u-name').textContent=user.name;
+  document.getElementById('u-av').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('r-name').textContent=user.name;
+}
+function doLogout(){
+  if(!confirm('Log out?'))return;
+  user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
+  localStorage.removeItem('ph_user');localStorage.removeItem('ph_prog');
+  document.getElementById('user-pill').style.display='none';
+  document.getElementById('btn-login-top').style.display='';
+  updateDash();renderQL();
+}
+
+function save(){
+  if(!user)return;
+  localStorage.setItem('ph_prog',JSON.stringify({solved:solved,recent:recent,aiCnt:aiCnt,xlCnt:xlCnt,streak:streak}));
+}
+function load(){
+  var r=localStorage.getItem('ph_prog');
+  if(!r)return;
+  var p=JSON.parse(r);
+  solved=p.solved||[];recent=p.recent||[];aiCnt=p.aiCnt||0;xlCnt=p.xlCnt||0;streak=p.streak||0;
+}
+
+function updateDash(){
+  document.getElementById('d-sql').textContent=solved.length;
+  document.getElementById('d-excel').textContent=xlCnt;
+  document.getElementById('d-ai').textContent=aiCnt;
+  document.getElementById('d-streak').textContent=streak;
+  document.getElementById('top-pill').textContent=solved.length+' solved';
+  var rb=document.getElementById('recent-body');
+  if(!recent.length){rb.innerHTML='<div class="empty-msg">No questions solved yet \u2014 start practicing! \ud83d\ude80</div>';return;}
+  rb.innerHTML=recent.slice(0,6).map(function(q){
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    return '<div class="r-item">'+
+      '<span class="tag '+dc+'">'+q.diff+'</span>'+
+      '<span class="tag tt">'+q.topic+'</span>'+
+      '<span class="r-title">'+q.title+'</span>'+
+      '<span class="r-time">'+q.date+'</span></div>';
+  }).join('');
+}
+
+function updateAch(){
+  var sl=document.getElementById('sl-list');
+  sl.innerHTML=recent.length
+    ?recent.map(function(q){
+      var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+      return '<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span>'+
+        '<span class="sl-title">'+q.title+'</span>'+
+        '<span class="sl-date">'+q.date+'</span></div>';
+    }).join('')
+    :'<div class="empty-msg" style="padding:14px;font-size:12px">No questions solved yet</div>';
+  document.getElementById('r-sql').textContent=solved.length;
+  document.getElementById('r-excel').textContent=xlCnt;
+  document.getElementById('r-streak').textContent=streak;
+  document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
+  var rl=document.getElementById('r-ql');
+  rl.innerHTML=recent.length
+    ?recent.map(function(q){return'<li><span>'+q.title+'</span><span style="color:#aaa">'+q.date+'</span></li>';}).join('')
+    :'<li style="color:#bbb;padding:4px 0">No questions completed yet</li>';
+  checkBadges();
+}
+
+function checkBadges(){
+  if(solved.length>=1)document.getElementById('b-beginner').classList.add('on');
+  if(solved.length>=8)document.getElementById('b-master').classList.add('on');
+  if(recent.some(function(q){return q.topic==='JOIN';}))document.getElementById('b-joiner').classList.add('on');
+  if(recent.some(function(q){return q.topic==='Window';}))document.getElementById('b-window').classList.add('on');
+  if(xlCnt>=1)document.getElementById('b-excel').classList.add('on');
+  if(aiCnt>=3)document.getElementById('b-ai').classList.add('on');
+}
+
+function dlPDF(){
+  var el=document.getElementById('resume-card');
+  html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'_Certificate.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(el).save();
+}
+function shareIt(){
+  var txt='\ud83d\ude80 My PracticeHub Progress\n\nSQL Solved: '+solved.length+' questions\nExcel Tasks: '+xlCnt+'\nAI Sessions: '+aiCnt+'\nStreak: '+streak+' days \ud83d\udd25\n\nRecently solved:\n'+recent.slice(0,3).map(function(q){return'\u2022 '+q.title;}).join('\n')+'\n\nPractice SQL & Excel at PracticeHub!';
+  navigator.clipboard.writeText(txt).then(function(){alert('\u2705 Copied to clipboard!\nPaste on LinkedIn, WhatsApp, or your resume \ud83d\udd17');});
+}
+
+function goTo(id,el){
+  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  document.getElementById('sec-'+id).classList.add('on');
+  if(el)el.classList.add('active');
+  var titles={dashboard:'Dashboard',sql:'SQL Practice',excel:'Excel Practice',ai:'AI Helper',achievements:'Achievements'};
+  document.getElementById('page-title').textContent=titles[id]||'Dashboard';
+  document.getElementById('sql-filters').style.display=id==='sql'?'block':'none';
+  if(id==='excel')initXL();
+  if(id==='achievements')updateAch();
+}
+
+window.addEventListener('load',async function(){
+  await initSQL();
+  var su=localStorage.getItem('ph_user');
+  if(su){user=JSON.parse(su);load();showUser();document.getElementById('btn-login-top').style.display='none';}
+  updateDash();
+  document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
+});
+</script>
+</body>
+</html>
