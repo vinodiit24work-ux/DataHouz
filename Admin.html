@@ -161,8 +161,6 @@ select.f-inp{cursor:pointer}
   </div>
 
   <div id="main">
-
-    <!-- OVERVIEW -->
     <div class="page on" id="page-overview">
       <div class="pg-head">
         <div><div class="pg-title">Admin Overview</div><div class="pg-sub">Your PracticeHub database at a glance</div></div>
@@ -185,7 +183,6 @@ select.f-inp{cursor:pointer}
       </div>
     </div>
 
-    <!-- QUESTIONS -->
     <div class="page" id="page-questions">
       <div class="pg-head">
         <div><div class="pg-title">Questions Manager</div><div class="pg-sub">Add, edit, or delete SQL practice questions</div></div>
@@ -226,10 +223,9 @@ select.f-inp{cursor:pointer}
       </div>
     </div>
 
-    <!-- USERS -->
     <div class="page" id="page-users">
       <div class="pg-head">
-        <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who signed up on your platform</div></div>
+        <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who signed up</div></div>
         <button class="btn btn-ghost" onclick="loadUsers()">🔄 Refresh</button>
       </div>
       <div class="u-table-wrap">
@@ -240,7 +236,6 @@ select.f-inp{cursor:pointer}
       </div>
     </div>
 
-    <!-- LEADERBOARD -->
     <div class="page" id="page-leaderboard">
       <div class="pg-head">
         <div><div class="pg-title">Live Leaderboard</div><div class="pg-sub">Top users ranked by questions solved</div></div>
@@ -253,7 +248,6 @@ select.f-inp{cursor:pointer}
         </table>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -302,7 +296,7 @@ select.f-inp{cursor:pointer}
         <div class="form-field">
           <label class="f-lbl">Expected Result Rows</label>
           <input class="f-inp" id="f-exp" type="number" min="0" value="1"/>
-          <span class="f-hint">How many rows should the correct answer return?</span>
+          <span class="f-hint">How many rows the correct answer returns?</span>
         </div>
       </div>
       <div class="form-field">
@@ -355,53 +349,45 @@ select.f-inp{cursor:pointer}
 
 <script>
 /* ════════════════════════════════════════
-   SUPABASE — SERVICE ROLE KEY
-   This key bypasses RLS — full admin access
-   NEVER put this key in practicehub.html!
+   ✅ FIXED: Using anon key (RLS disabled)
+   Run this SQL in Supabase first:
+   ALTER TABLE public.questions DISABLE ROW LEVEL SECURITY;
+   ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
+   ALTER TABLE public.user_progress DISABLE ROW LEVEL SECURITY;
 ════════════════════════════════════════ */
-var SB_URL     = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
-var SB_SERVICE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzkxMDMyMiwiZXhwIjoyMDg5NDg2MzIyfQ._BJ5OmwTCT7d2u-iAZuZ9_0jt6_-xdquIpGR9A6XKX0';
+var SB_URL  = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
+var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTAzMjIsImV4cCI6MjA4OTQ4NjMyMn0._sLzz4A5Krbf518Yw6TJTvwo1TOEUE5WM9EAaOUFP4A';
 
-/* Service role key — bypasses all RLS policies */
-var sb = supabase.createClient(SB_URL, SB_SERVICE, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
-  }
-});
+/* ✅ Simple anon client — works in browser after RLS is disabled */
+var sb = supabase.createClient(SB_URL, SB_ANON);
 
 var allQuestions=[], editingId=null, deleteId=null;
 
-/* ════ STATUS ════ */
 function setCloud(s){
   document.getElementById('cdot').className='cdot'+(s==='ok'?' ok':s==='err'?' err':'');
   document.getElementById('clbl').textContent=s==='ok'?'Connected ✓':s==='err'?'Connection Error':'Connecting...';
 }
 
-/* ════ LOAD ALL ════ */
 async function loadAll(){
   await loadQuestions();
   await loadOverviewStats();
 }
 
-/* ════ LOAD QUESTIONS ════ */
 async function loadQuestions(){
   try{
-    var r = await sb.from('questions').select('*').order('sort_order',{ascending:true});
-    if(r.error) throw r.error;
-    allQuestions = r.data || [];
-    document.getElementById('sc-q').textContent = allQuestions.length;
+    var r=await sb.from('questions').select('*').order('sort_order',{ascending:true});
+    if(r.error)throw r.error;
+    allQuestions=r.data||[];
+    document.getElementById('sc-q').textContent=allQuestions.length;
     renderQTable();
     setCloud('ok');
-    console.log('✅ Loaded', allQuestions.length, 'questions');
   }catch(e){
     setCloud('err');
     toast('Error: '+e.message,'err');
-    console.error('❌ loadQuestions:', e);
+    console.error('loadQuestions error:',e);
   }
 }
 
-/* ════ RENDER TABLE ════ */
 function renderQTable(){
   var search=(document.getElementById('q-search').value||'').toLowerCase();
   var diff=document.getElementById('qf-diff').value;
@@ -436,7 +422,6 @@ function renderQTable(){
   }).join('');
 }
 
-/* ════ ADD / EDIT ════ */
 function openAddModal(){
   editingId=null;clearForm();
   document.getElementById('modal-title').textContent='Add New Question';
@@ -491,23 +476,18 @@ async function saveQuestion(){
     solution,
     is_active:document.getElementById('f-active').checked,
   };
-  if(!editingId) payload.sort_order=allQuestions.length+1;
+  if(!editingId)payload.sort_order=allQuestions.length+1;
   try{
     var r=editingId
       ?await sb.from('questions').update(payload).eq('id',editingId)
       :await sb.from('questions').insert(payload);
     if(r.error)throw r.error;
-    closeQModal();
-    await loadQuestions();
-    await loadOverviewStats();
-    toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
-  }catch(e){
-    toast('Save failed: '+e.message,'err');
-    console.error('saveQuestion error:',e);
-  }finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
+    closeQModal();await loadQuestions();await loadOverviewStats();
+    toast(editingId?'✅ Question updated!':'✅ Question added! Live now.','ok');
+  }catch(e){toast('Save failed: '+e.message,'err');}
+  finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
 }
 
-/* ════ DELETE ════ */
 function askDelete(id,title){
   deleteId=id;
   document.getElementById('confirm-sub').textContent='"'+title+'" will be permanently deleted.';
@@ -528,30 +508,21 @@ async function confirmDelete(){
   finally{btn.innerHTML='Yes, Delete';btn.disabled=false;}
 }
 
-/* ════ OVERVIEW STATS ════ */
 async function loadOverviewStats(){
   try{
-    var qs=allQuestions;
-    document.getElementById('ov-total').textContent=qs.length;
-    document.getElementById('ov-easy').textContent=qs.filter(q=>q.difficulty==='easy').length;
-    document.getElementById('ov-medium').textContent=qs.filter(q=>q.difficulty==='medium').length;
-    document.getElementById('ov-hard').textContent=qs.filter(q=>q.difficulty==='hard').length;
-
+    document.getElementById('ov-total').textContent=allQuestions.length;
+    document.getElementById('ov-easy').textContent=allQuestions.filter(q=>q.difficulty==='easy').length;
+    document.getElementById('ov-medium').textContent=allQuestions.filter(q=>q.difficulty==='medium').length;
+    document.getElementById('ov-hard').textContent=allQuestions.filter(q=>q.difficulty==='hard').length;
     var ur=await sb.from('profiles').select('id');
-    var uCount=ur.data?ur.data.length:0;
-    document.getElementById('ov-users').textContent=uCount;
-    document.getElementById('sc-u').textContent=uCount;
-
+    var uc=ur.data?ur.data.length:0;
+    document.getElementById('ov-users').textContent=uc;
+    document.getElementById('sc-u').textContent=uc;
     var sr=await sb.from('user_progress').select('id').eq('status','solved');
     document.getElementById('ov-solved').textContent=sr.data?sr.data.length:0;
-  }catch(e){
-    console.error('Stats error:',e);
-    document.getElementById('ov-users').textContent='0';
-    document.getElementById('ov-solved').textContent='0';
-  }
+  }catch(e){console.error('Stats error:',e);}
 }
 
-/* ════ USERS ════ */
 async function loadUsers(){
   var tbody=document.getElementById('u-tbody');
   tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading...</td></tr>';
@@ -560,8 +531,7 @@ async function loadUsers(){
     if(r.error)throw r.error;
     var users=r.data||[];
     document.getElementById('sc-u').textContent=users.length;
-    document.getElementById('ov-users').textContent=users.length;
-    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';return;}
+    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet!</td></tr>';return;}
     tbody.innerHTML=users.map(u=>{
       var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
       var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
@@ -577,7 +547,6 @@ async function loadUsers(){
   }catch(e){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</td></tr>';}
 }
 
-/* ════ LEADERBOARD ════ */
 async function loadLeaderboard(){
   var tbody=document.getElementById('lb-tbody');
   tbody.innerHTML='<tr class="empty-row"><td colspan="5">Loading...</td></tr>';
@@ -601,7 +570,6 @@ async function loadLeaderboard(){
   }catch(e){tbody.innerHTML='<tr class="empty-row"><td colspan="5">Error: '+e.message+'</td></tr>';}
 }
 
-/* ════ PAGE NAV ════ */
 function goPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('active'));
@@ -611,21 +579,12 @@ function goPage(id,btn){
   if(id==='leaderboard')loadLeaderboard();
 }
 
-/* ════ TOAST ════ */
 function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
 
-/* ════ BOOT ════ */
 window.addEventListener('load',async()=>{
   setCloud('');
-  console.log('🚀 Admin panel loading...');
-  try{
-    await loadAll();
-    console.log('✅ Admin panel ready!');
-  }catch(e){
-    setCloud('err');
-    toast('Connection failed: '+e.message,'err');
-    console.error('❌ Boot error:',e);
-  }
+  try{await loadAll();}
+  catch(e){setCloud('err');toast('Failed: '+e.message,'err');}
 });
 </script>
 </body>
