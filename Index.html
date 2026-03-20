@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><polygon points='16,5 26,14 26,27 6,27 6,14' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linejoin='round'/><polygon points='16,5 30,15 2,15' fill='%2338bdf8' opacity='0.15'/><rect x='11' y='19' width='10' height='8' rx='1.5' fill='%2338bdf8' opacity='0.8'/><circle cx='16' cy='5' r='2' fill='%2338bdf8'/></svg>">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DataHouz – Master SQL & Excel | Interview-Ready Practice</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
     .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
+    @keyframes blink     { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes fadeInRow { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 30px rgba(16,185,129,.15)} 50%{box-shadow:0 0 60px rgba(16,185,129,.4)} }
+    @keyframes runFlash  { 0%{box-shadow:0 2px 12px rgba(16,185,129,.4)} 50%{box-shadow:0 2px 32px rgba(16,185,129,1)} 100%{box-shadow:0 2px 12px rgba(16,185,129,.4)} }
+    @keyframes fadeUp    { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    #hero-card { animation: glowPulse 3s ease-in-out infinite; }
+    #hero-run-btn:hover { transform:scale(1.06); box-shadow:0 4px 24px rgba(16,185,129,.7)!important; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased">
 
-  <!-- Navbar -->
+  <!-- NAVBAR -->
   <nav class="fixed top-0 w-full z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -25,8 +31,8 @@
       </div>
       <div class="hidden md:flex items-center gap-10">
         <a href="#features" class="text-slate-300 hover:text-white transition">Features</a>
-        <a href="#why" class="text-slate-300 hover:text-white transition">Why Better</a>
-        <a href="#pricing" class="text-slate-300 hover:text-white transition">Pricing</a>
+        <a href="#why"      class="text-slate-300 hover:text-white transition">Why Better</a>
+        <a href="#footer"   class="text-slate-300 hover:text-white transition">Contact</a>
       </div>
       <div class="flex items-center gap-4">
         <a href="practicehub.html" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-lg font-medium transition">Start Practicing</a>
@@ -34,10 +40,12 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero-gradient min-h-screen flex items-center pt-24 pb-20">
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-      <div>
+
+      <!-- Left copy -->
+      <div style="animation:fadeUp .7s ease both">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-950/50 border border-emerald-800/50 rounded-full text-emerald-400 text-sm font-medium mb-6">
           <span class="relative flex h-3 w-3">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -52,7 +60,7 @@
         </h1>
 
         <p class="text-xl text-slate-300 mb-10 max-w-xl">
-          500+ real-world SQL questions • Interactive Excel grids • AI-powered debugging • Track progress • Export resume badges & certificates.
+          500+ real-world SQL questions • Interactive Excel grids • AI-powered debugging • Track progress • Export resume badges &amp; certificates.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-5">
@@ -65,109 +73,94 @@
         </div>
 
         <div class="mt-12 flex flex-wrap gap-8 text-sm text-slate-400">
-          <div>
-            <div class="text-3xl font-bold text-white">500+</div>
-            <div>Questions</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-white">Real</div>
-            <div>Company Tags</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-white">AI</div>
-            <div>Helper</div>
-          </div>
+          <div><div class="text-3xl font-bold text-white">+500</div><div>Questions</div></div>
+          <div><div class="text-3xl font-bold text-white">Real</div><div>Company Tags</div></div>
+          <div><div class="text-3xl font-bold text-white">AI</div><div>Helper</div></div>
         </div>
       </div>
 
-      <!-- Right side — Real SQL Editor -->
-      <div class="hidden md:block relative">
+      <!-- Right — Animated SQL Editor -->
+      <div class="hidden md:block relative" style="animation:fadeUp .9s ease both">
         <div class="absolute -inset-4 bg-gradient-to-br from-emerald-500/20 to-teal-500/10 rounded-3xl blur-3xl"></div>
-        <div class="relative bg-slate-900/80 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl" id="hero-card" style="border:1px solid #2e3f5c;background:#0d1b2e;">
 
           <!-- Title bar -->
-          <div class="bg-slate-800 px-4 py-3 flex items-center gap-2">
-            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-            <span class="ml-4 text-sm text-slate-400">DataHouz – SQL Editor</span>
-            <span class="ml-auto text-xs text-slate-500 font-mono">Ctrl+Enter to run</span>
+          <div style="background:#131f30;padding:11px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #1e2f45;">
+            <span style="width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block;box-shadow:0 0 6px #ef444488"></span>
+            <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block;box-shadow:0 0 6px #f59e0b88"></span>
+            <span style="width:12px;height:12px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b98188"></span>
+            <span style="margin-left:10px;font-size:13px;color:#94a3b8;font-family:'JetBrains Mono',monospace;">DataHouz &ndash; SQL Editor</span>
+            <span style="margin-left:auto;font-size:11px;color:#334155;font-family:monospace;">Ctrl+Enter to run</span>
           </div>
 
-          <!-- Textarea editor -->
-          <textarea id="hero-editor" spellcheck="false" style="width:100%;height:150px;background:#0f172a;border:none;color:#6ee7b7;font-family:'JetBrains Mono','Fira Code',monospace;font-size:13px;padding:16px;resize:none;outline:none;line-height:1.8;">SELECT department,
-  AVG(salary) AS avg_salary
-FROM employees
-GROUP BY department
-ORDER BY avg_salary DESC;</textarea>
+          <!-- Animated code area -->
+          <div style="position:relative;background:#0a1628;padding:20px 20px 14px;min-height:168px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:13.5px;line-height:1.9;overflow:hidden;">
+            <div id="hero-code-display"></div>
+            <span id="hero-cursor" style="display:inline-block;width:2px;height:17px;background:#10b981;vertical-align:middle;margin-left:1px;border-radius:1px;animation:blink 1s step-end infinite;"></span>
+          </div>
 
           <!-- Run bar -->
-          <div style="background:#1e293b;border-top:1px solid #2e3f5c;padding:8px 14px;display:flex;align-items:center;gap:8px;">
-            <button id="hero-run-btn" style="padding:5px 14px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">▶ Run</button>
-            <span id="hero-status" style="font-size:11px;color:#64748b;font-family:monospace;"></span>
+          <div style="background:#0f1e30;border-top:1px solid #1a2f45;padding:10px 16px;display:flex;align-items:center;gap:10px;">
+            <button id="hero-run-btn" style="padding:7px 18px;background:linear-gradient(135deg,#10b981,#06b6d4);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(16,185,129,.4);transition:all .2s;">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="white"><polygon points="2,1 11,6 2,11"/></svg> Run
+            </button>
+            <span id="hero-status" style="font-size:12px;color:#334155;font-family:monospace;transition:color .3s;"></span>
           </div>
 
-          <!-- Results -->
-          <div id="hero-result" style="background:#0f172a;min-height:72px;max-height:160px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
-            <div style="padding:16px;color:#475569;text-align:center;">Run a query to see results ↑</div>
+          <!-- Results area -->
+          <div id="hero-result" style="background:#060e1a;min-height:72px;max-height:170px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #0f1e30;">
+            <div id="hero-result-ph" style="padding:18px;color:#1e3050;text-align:center;font-family:monospace;">Run a query to see results ↑</div>
           </div>
 
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- FEATURES -->
   <section id="features" class="py-24 bg-slate-900">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">Everything You Need to Ace Interviews</h2>
         <p class="text-xl text-slate-400 max-w-3xl mx-auto">
-          Real interview questions, interactive Excel practice, AI help, resume export & more — all in one place.
+          Real interview questions, interactive Excel practice, AI help, resume export &amp; more — all in one place.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- SQL Practice card → goes to SQL tab -->
-        <a href="practicehub.html#sql" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline">
+        <a href="practicehub.html#sql" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline">
           <div class="text-4xl mb-6">📊</div>
           <h3 class="text-2xl font-semibold mb-4 text-white">500+ Real SQL Problems</h3>
           <p class="text-slate-400">Easy → Hard • Company-tagged (FAANG, Startups) • Window functions, JOINs, CTEs, optimization</p>
         </a>
 
-        <!-- Excel Practice card → goes to Excel tab -->
-        <a href="practicehub.html#excel" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline">
+        <a href="practicehub.html#excel" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline">
           <div class="text-4xl mb-6">📈</div>
           <h3 class="text-2xl font-semibold mb-4 text-white">Interactive Excel Practice</h3>
           <p class="text-slate-400">Handsontable grids • Formulas • Pivot simulation • VLOOKUP / INDEX-MATCH tasks</p>
         </a>
 
-        <!-- AI Helper card → goes to AI tab -->
-        <a href="practicehub.html#ai" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline">
+        <a href="practicehub.html#ai" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline">
           <div class="text-4xl mb-6">🤖</div>
           <h3 class="text-2xl font-semibold mb-4 text-white">AI-Powered Tutor</h3>
           <p class="text-slate-400">Ask "why this JOIN fails?" • Get hints, explanations, optimized versions instantly</p>
         </a>
 
-        <!-- Achievements card → goes to Achievements tab -->
-        <a href="practicehub.html#achievements" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline md:col-span-3 lg:col-span-1">
+        <a href="practicehub.html#achievements" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline md:col-span-3 lg:col-span-1">
           <div class="text-4xl mb-6">🏆</div>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Resume & Shareable Achievements</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Resume &amp; Shareable Achievements</h3>
           <p class="text-slate-400">Badges • PDF certificates • Completed questions list • LinkedIn-ready share text</p>
         </a>
 
-        <!-- Leaderboard card → goes to Leaderboard tab -->
-        <a href="practicehub.html#leaderboard" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline md:col-span-3 lg:col-span-1">
-          <div class="text-4xl mb-6">📈</div>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Progress & Streaks</h3>
+        <a href="practicehub.html#leaderboard" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline md:col-span-3 lg:col-span-1">
+          <div class="text-4xl mb-6">🔥</div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Progress &amp; Streaks</h3>
           <p class="text-slate-400">Daily streaks • Leaderboard • Difficulty filters • Company mock interviews</p>
         </a>
 
-        <!-- Dashboard card → goes to Dashboard -->
-        <a href="practicehub.html#dashboard" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 hover:scale-103 transition group block no-underline md:col-span-3 lg:col-span-1">
+        <a href="practicehub.html#dashboard" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 hover:border-emerald-600/50 transition group block no-underline md:col-span-3 lg:col-span-1">
           <div class="text-4xl mb-6">⚡</div>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Offline-first & Fast</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Offline-first &amp; Fast</h3>
           <p class="text-slate-400">SQLite in browser • No login required to start • Save progress locally</p>
         </a>
       </div>
@@ -178,7 +171,7 @@ ORDER BY avg_salary DESC;</textarea>
   <section class="py-24 bg-gradient-to-b from-slate-900 to-slate-950">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Level Up Your Skills?</h2>
-      <p class="text-xl text-slate-300 mb-10">Join thousands practicing real interview SQL & Excel — free forever starter plan.</p>
+      <p class="text-xl text-slate-300 mb-10">Join thousands practicing real interview SQL &amp; Excel — free forever starter plan.</p>
       <a href="practicehub.html" class="inline-block px-10 py-5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xl font-semibold transition shadow-2xl shadow-emerald-900/40">
         Start Practicing Free →
       </a>
@@ -186,42 +179,38 @@ ORDER BY avg_salary DESC;</textarea>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800 bg-slate-950">
+  <!-- FOOTER -->
+  <footer id="footer" class="border-t border-slate-800 bg-slate-950">
     <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
 
-      <!-- Brand -->
       <div class="md:col-span-1">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-lg text-white">D</div>
           <span class="text-xl font-semibold tracking-tight text-white">DataHouz</span>
         </div>
-        <p class="text-slate-400 text-sm leading-relaxed">The smartest way to prepare for data analyst & SQL interviews. Practice real questions, track progress, earn certificates.</p>
+        <p class="text-slate-400 text-sm leading-relaxed">The smartest way to prepare for data analyst &amp; SQL interviews. Practice real questions, track progress, earn certificates.</p>
       </div>
 
-      <!-- Practice -->
       <div>
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Practice</div>
         <ul class="space-y-2.5 text-sm text-slate-500">
-          <li><a href="practicehub.html#sql" class="hover:text-emerald-400 transition">SQL Questions</a></li>
-          <li><a href="practicehub.html#excel" class="hover:text-emerald-400 transition">Excel Challenges</a></li>
-          <li><a href="practicehub.html#ai" class="hover:text-emerald-400 transition">AI Tutor</a></li>
+          <li><a href="practicehub.html#sql"         class="hover:text-emerald-400 transition">SQL Questions</a></li>
+          <li><a href="practicehub.html#excel"       class="hover:text-emerald-400 transition">Excel Challenges</a></li>
+          <li><a href="practicehub.html#ai"          class="hover:text-emerald-400 transition">AI Tutor</a></li>
           <li><a href="practicehub.html#leaderboard" class="hover:text-emerald-400 transition">Leaderboard</a></li>
         </ul>
       </div>
 
-      <!-- Topics -->
       <div>
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Topics</div>
         <ul class="space-y-2.5 text-sm text-slate-500">
-          <li><a href="practicehub.html#sql" class="hover:text-emerald-400 transition">JOINs & Subqueries</a></li>
-          <li><a href="practicehub.html#sql" class="hover:text-emerald-400 transition">Window Functions</a></li>
-          <li><a href="practicehub.html#sql" class="hover:text-emerald-400 transition">CTEs & Aggregates</a></li>
-          <li><a href="practicehub.html#excel" class="hover:text-emerald-400 transition">VLOOKUP & Pivot</a></li>
+          <li><a href="practicehub.html#sql"   class="hover:text-emerald-400 transition">JOINs &amp; Subqueries</a></li>
+          <li><a href="practicehub.html#sql"   class="hover:text-emerald-400 transition">Window Functions</a></li>
+          <li><a href="practicehub.html#sql"   class="hover:text-emerald-400 transition">CTEs &amp; Aggregates</a></li>
+          <li><a href="practicehub.html#excel" class="hover:text-emerald-400 transition">VLOOKUP &amp; Pivot</a></li>
         </ul>
       </div>
 
-      <!-- Trust badges -->
       <div>
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Why DataHouz</div>
         <ul class="space-y-2.5 text-sm text-slate-500">
@@ -229,13 +218,11 @@ ORDER BY avg_salary DESC;</textarea>
           <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span> No Login Required to Start</li>
           <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Free Forever Starter Plan</li>
           <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Cloud Progress Sync</li>
-          <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span> PDF Certificates & Badges</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span> PDF Certificates &amp; Badges</li>
         </ul>
       </div>
-
     </div>
 
-    <!-- Bottom bar -->
     <div class="border-t border-slate-800 py-5">
       <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
         <span>© 2026 DataHouz. All rights reserved.</span>
@@ -252,44 +239,188 @@ ORDER BY avg_salary DESC;</textarea>
     </div>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js"></script>
-      <script>
-      (function(){
-        var heroDb=null;
-        initSqlJs({locateFile:function(f){return'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}}).then(function(SQL){
-          heroDb=new SQL.Database();
-          heroDb.run("CREATE TABLE employees(id INTEGER PRIMARY KEY,name TEXT,salary INTEGER,department TEXT);INSERT INTO employees VALUES(1,'Rahul Sharma',75000,'Engineering'),(2,'Priya Patel',92000,'Engineering'),(3,'Amit Kumar',45000,'Marketing'),(4,'Sneha Gupta',68000,'Sales'),(5,'Vikram Singh',110000,'Engineering'),(6,'Neha Joshi',55000,'Marketing');");
-          var s=document.getElementById('hero-status');
-          s.textContent='● DB ready';s.style.color='#10b981';
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js"></script>
+  <script>
+  (function(){
+
+    /* ── state ── */
+    var heroDb = null;
+    var dbReady = false;
+
+    /* ── SQL keyword highlighter ── */
+    var KW = /\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|JOIN|INNER|LEFT|RIGHT|ON|AS|AND|OR|NOT|IN|IS|NULL|DISTINCT|LIMIT|WITH|UNION|AVG|SUM|COUNT|MAX|MIN|RANK|DENSE_RANK|ROW_NUMBER|OVER|PARTITION BY|DESC|ASC|INSERT|UPDATE|DELETE|CREATE|TABLE|VALUES|SET|CASE|WHEN|THEN|ELSE|END)\b/g;
+
+    function hl(code){
+      var s = code
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;');
+      s = s.replace(KW, function(m){ return '<b style="color:#38bdf8">'+m+'</b>'; });
+      s = s.replace(/\b(\d+)\b/g, '<b style="color:#a78bfa">$1</b>');
+      return s;
+    }
+
+    /* ── typewriter ── */
+    var QUERIES = [
+      "SELECT department,\n  AVG(salary) AS avg_salary\nFROM employees\nGROUP BY department\nORDER BY avg_salary DESC;",
+      "SELECT name, salary,\n  DENSE_RANK() OVER\n  (ORDER BY salary DESC)\n  AS salary_rank\nFROM employees;",
+      "SELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d\n  ON e.dept_id = d.id\nORDER BY e.name;"
+    ];
+    var qIdx=0, cIdx=0, deleting=false, tTimer=null;
+    var display = document.getElementById('hero-code-display');
+
+    function tick(){
+      var q = QUERIES[qIdx];
+      if(!deleting){
+        cIdx++;
+        if(cIdx > q.length){ deleting=true; tTimer=setTimeout(tick,2200); return; }
+      } else {
+        cIdx--;
+        if(cIdx <= 0){ deleting=false; qIdx=(qIdx+1)%QUERIES.length; tTimer=setTimeout(tick,400); return; }
+      }
+      display.innerHTML = hl(q.substring(0,cIdx)).replace(/\n/g,'<br>');
+      tTimer = setTimeout(tick, deleting ? 15 : (q[cIdx-1]==='\n' ? 150 : 38));
+    }
+    setTimeout(tick, 800);
+
+    /* ── DB init ── */
+    initSqlJs({ locateFile: function(f){ return 'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f; }})
+    .then(function(SQL){
+      heroDb = new SQL.Database();
+      heroDb.run(
+        "CREATE TABLE departments(id INTEGER PRIMARY KEY,dept_name TEXT);"+
+        "CREATE TABLE employees(id INTEGER PRIMARY KEY,name TEXT,salary INTEGER,department TEXT,dept_id INTEGER);"+
+        "INSERT INTO departments VALUES(1,'Engineering'),(2,'Marketing'),(3,'Sales');"+
+        "INSERT INTO employees VALUES"+
+        "(1,'Rahul Sharma',75000,'Engineering',1),"+
+        "(2,'Priya Patel',92000,'Engineering',1),"+
+        "(3,'Amit Kumar',45000,'Marketing',2),"+
+        "(4,'Sneha Gupta',68000,'Sales',3),"+
+        "(5,'Vikram Singh',110000,'Engineering',1),"+
+        "(6,'Neha Joshi',55000,'Marketing',2);"
+      );
+      dbReady = true;
+      var st = document.getElementById('hero-status');
+      if(st) st.innerHTML = '<span style="color:#10b981">&#9679; DB ready</span>';
+    }).catch(function(err){
+      var st = document.getElementById('hero-status');
+      if(st) st.innerHTML = '<span style="color:#f59e0b">&#9679; Offline mode</span>';
+    });
+
+    /* ── popup ── */
+    function showPopup(){
+      var ov = document.getElementById('gp-overlay');
+      if(ov){ ov.style.display='flex'; }
+    }
+    function closeGP(){
+      var ov = document.getElementById('gp-overlay');
+      if(ov){ ov.style.display='none'; }
+    }
+    window.closeGP = closeGP;
+
+    /* ── run ── */
+    function runQuery(){
+      clearTimeout(tTimer);
+
+      var q = QUERIES[qIdx].trim();
+      cIdx = q.length;
+      deleting = false;
+      display.innerHTML = hl(q).replace(/\n/g,'<br>');
+
+      var btn = document.getElementById('hero-run-btn');
+      btn.style.boxShadow = '0 0 32px rgba(16,185,129,1)';
+      setTimeout(function(){ btn.style.boxShadow='0 2px 12px rgba(16,185,129,.4)'; }, 400);
+
+      var el = document.getElementById('hero-result');
+      var st = document.getElementById('hero-status');
+      var ph = document.getElementById('hero-result-ph');
+
+      /* if DB not ready yet — show friendly loading state */
+      if(!dbReady || !heroDb){
+        if(ph) ph.style.display='none';
+        el.innerHTML = '<div style="padding:14px 18px;color:#10b981;font-family:monospace;font-size:12px;">&#9650; Loading database... please click Run again in a moment.</div>';
+        st.innerHTML = '<span style="color:#f59e0b">Loading...</span>';
+        return;
+      }
+
+      var t = performance.now();
+      var res;
+      try {
+        res = heroDb.exec(q);
+      } catch(e){
+        /* silent fallback to safe query */
+        q = QUERIES[0];
+        qIdx = 0;
+        display.innerHTML = hl(q).replace(/\n/g,'<br>');
+        res = heroDb.exec(q);
+      }
+
+      var ms = (performance.now()-t).toFixed(1);
+      if(ph) ph.style.display='none';
+
+      if(!res || !res.length){
+        el.innerHTML = '<div style="padding:14px 18px;color:#10b981;font-family:monospace;font-size:12px;">&#10003; OK &middot; 0 rows &middot; '+ms+'ms</div>';
+        st.innerHTML = '<span style="color:#10b981">&#10003; '+ms+'ms</span>';
+        setTimeout(showPopup, 900);
+        return;
+      }
+
+      var cols = res[0].columns, vals = res[0].values;
+      st.innerHTML = '<span style="color:#10b981">&#10003; '+vals.length+' row'+(vals.length!==1?'s':'')+' &middot; '+ms+'ms</span>';
+
+      var h = '<table style="width:100%;border-collapse:collapse;">';
+      h += '<thead><tr>';
+      cols.forEach(function(c){
+        h += '<th style="padding:8px 16px;text-align:left;font-size:10px;font-weight:700;color:#475569;border-bottom:1px solid #0f1e30;background:#040c18;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;">'+c+'</th>';
+      });
+      h += '</tr></thead><tbody>';
+      vals.forEach(function(row, ri){
+        h += '<tr style="border-bottom:1px solid #0a1628;opacity:0;animation:fadeInRow .3s ease '+(ri*80)+'ms forwards;">';
+        row.forEach(function(cell){
+          h += '<td style="padding:7px 16px;color:#6ee7b7;font-family:monospace;">'+(cell===null?'<span style="color:#1e3050">NULL</span>':String(cell))+'</td>';
         });
-        function run(){
-          if(!heroDb)return;
-          var q=document.getElementById('hero-editor').value.trim();
-          if(!q)return;
-          var t=performance.now();
-          try{
-            var res=heroDb.exec(q),ms=(performance.now()-t).toFixed(1);
-            var el=document.getElementById('hero-result'),st=document.getElementById('hero-status');
-            if(!res.length){el.innerHTML='<div style="padding:14px 16px;color:#10b981;">✓ OK · 0 rows · '+ms+'ms<\/div>';st.textContent='✓ OK · '+ms+'ms';st.style.color='#10b981';return;}
-            var cols=res[0].columns,vals=res[0].values;
-            st.textContent='✓ '+vals.length+' row'+(vals.length!==1?'s':'')+' · '+ms+'ms';st.style.color='#10b981';
-            var h='<table style="width:100%;border-collapse:collapse;"><thead><tr>';
-            cols.forEach(function(c){h+='<th style="padding:7px 14px;text-align:left;font-size:10px;font-weight:600;color:#64748b;border-bottom:1px solid #1e293b;background:#0a0f1e;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;">'+c+'<\/th>';});
-            h+='<\/tr><\/thead><tbody>';
-            vals.forEach(function(row){h+='<tr style="border-bottom:1px solid #1a2540;">';row.forEach(function(cell){h+='<td style="padding:6px 14px;color:#94a3b8;">'+(cell===null?'<span style="color:#334155">NULL<\/span>':String(cell))+'<\/td>';});h+='<\/tr>';});
-            el.innerHTML=h+'<\/tbody><\/table>';
-          }catch(e){
-            document.getElementById('hero-result').innerHTML='<div style="padding:12px 16px;color:#ef4444;font-size:11px;">❌ '+e.message+'<\/div>';
-            var st=document.getElementById('hero-status');st.textContent='Error';st.style.color='#ef4444';
-          }
-        }
-        document.getElementById('hero-run-btn').addEventListener('click',run);
-        document.getElementById('hero-editor').addEventListener('keydown',function(e){
-          if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();run();}
-          if(e.key==='Tab'){e.preventDefault();var s=this.selectionStart;this.value=this.value.substring(0,s)+'  '+this.value.substring(this.selectionEnd);this.selectionStart=this.selectionEnd=s+2;}
-        });
-      })();
-      </script>
+        h += '</tr>';
+      });
+      h += '</tbody></table>';
+      el.innerHTML = h;
+
+      /* show popup 1.4s after results */
+      setTimeout(showPopup, 1400);
+    }
+
+    document.getElementById('hero-run-btn').addEventListener('click', runQuery);
+
+    /* close popup on overlay bg click */
+    document.addEventListener('click', function(e){
+      var ov = document.getElementById('gp-overlay');
+      if(ov && e.target === ov) closeGP();
+    });
+
+  })();
+  </script>
+
+
+  <!-- GO PRACTICE POPUP -->
+  <div id="gp-overlay" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);animation:gpFadeIn .25s ease">
+    <div id="gp-card" style="background:linear-gradient(135deg,#0d1b2e,#1a2f45);border:1px solid #2e3f5c;border-radius:20px;padding:36px 32px;max-width:400px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 40px rgba(16,185,129,.15);animation:gpSlideUp .3s ease">
+      <div style="font-size:48px;margin-bottom:12px;">🚀</div>
+      <h3 style="font-size:22px;font-weight:700;color:#f1f5f9;margin-bottom:8px;">Looks great, right?</h3>
+      <p style="font-size:14px;color:#94a3b8;line-height:1.7;margin-bottom:24px;">This is just a preview. The real DataHouz has <strong style="color:#10b981">500+ questions</strong>, AI hints, progress tracking, badges & certificates.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a href="practicehub.html#sql" style="display:block;padding:13px 24px;background:linear-gradient(135deg,#10b981,#06b6d4);color:#fff;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(16,185,129,.4);transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          ✨ Go Practice for Real →
+        </a>
+        <button onclick="closeGP()" style="padding:10px 24px;background:transparent;color:#64748b;border:1px solid #2e3f5c;border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s;" onmouseover="this.style.color='#94a3b8';this.style.borderColor='#3a4f6e'" onmouseout="this.style.color='#64748b';this.style.borderColor='#2e3f5c'">
+          Maybe later
+        </button>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes gpFadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes gpSlideUp { from{opacity:0;transform:translateY(30px) scale(.95)} to{opacity:1;transform:translateY(0) scale(1)} }
+  </style>
 
 </body>
 </html>
