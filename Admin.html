@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PracticeHub Admin Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -262,7 +261,6 @@ select.f-inp{cursor:pointer}
       <div class="form-field">
         <label class="f-lbl f-required">Question Title</label>
         <input class="f-inp" id="f-title" placeholder="e.g. Find second highest salary"/>
-        <span class="f-hint">Short and clear — shown in the question list</span>
       </div>
       <div class="form-grid">
         <div class="form-field">
@@ -294,19 +292,17 @@ select.f-inp{cursor:pointer}
           </select>
         </div>
         <div class="form-field">
-          <label class="f-lbl">Expected Result Rows</label>
+          <label class="f-lbl">Expected Rows</label>
           <input class="f-inp" id="f-exp" type="number" min="0" value="1"/>
-          <span class="f-hint">How many rows the correct answer returns?</span>
         </div>
       </div>
       <div class="form-field">
         <label class="f-lbl f-required">Description</label>
-        <textarea class="f-inp" id="f-desc" placeholder="Describe what the user needs to write SQL for..." rows="3"></textarea>
+        <textarea class="f-inp" id="f-desc" placeholder="Describe the problem..." rows="3"></textarea>
       </div>
       <div class="form-field">
         <label class="f-lbl">Table Schema</label>
-        <textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)&#10;departments(id, dept_name)" rows="2"></textarea>
-        <span class="f-hint">Which tables/columns users need</span>
+        <textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)" rows="2"></textarea>
       </div>
       <div class="form-field">
         <label class="f-lbl">Hint</label>
@@ -315,7 +311,6 @@ select.f-inp{cursor:pointer}
       <div class="form-field">
         <label class="f-lbl f-required">Correct SQL Solution</label>
         <textarea class="f-inp mono" id="f-solution" placeholder="SELECT * FROM employees WHERE salary > 80000;" rows="4"></textarea>
-        <span class="f-hint">The correct answer — shown in Solution tab</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)">
         <input type="checkbox" id="f-active" checked style="width:16px;height:16px;accent-color:var(--green)"/>
@@ -348,18 +343,35 @@ select.f-inp{cursor:pointer}
 <div id="toast"></div>
 
 <script>
-/* ════════════════════════════════════════
-   ✅ FIXED: Using anon key (RLS disabled)
-   Run this SQL in Supabase first:
-   ALTER TABLE public.questions DISABLE ROW LEVEL SECURITY;
-   ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
-   ALTER TABLE public.user_progress DISABLE ROW LEVEL SECURITY;
-════════════════════════════════════════ */
-var SB_URL  = 'https://dzamhiyjpzsqwxjslwpa.supabase.co';
-var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTAzMjIsImV4cCI6MjA4OTQ4NjMyMn0._sLzz4A5Krbf518Yw6TJTvwo1TOEUE5WM9EAaOUFP4A';
+/* ══════════════════════════════════════════
+   PRACTICEHUB ADMIN — DIRECT REST API
+   Using fetch() directly — no SDK needed
+   Service role key sent as header (secure)
+══════════════════════════════════════════ */
+var BASE = 'https://dzamhiyjpzsqwxjslwpa.supabase.co/rest/v1';
+var KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzkxMDMyMiwiZXhwIjoyMDg5NDg2MzIyfQ._BJ5OmwTCT7d2u-iAZuZ9_0jt6_-xdquIpGR9A6XKX0';
 
-/* ✅ Simple anon client — works in browser after RLS is disabled */
-var sb = supabase.createClient(SB_URL, SB_ANON);
+/* All requests go through this function */
+async function api(method, table, params, body){
+  var url = BASE+'/'+table+(params?'?'+params:'');
+  var opts = {
+    method: method,
+    headers: {
+      'apikey': KEY,
+      'Authorization': 'Bearer '+KEY,
+      'Content-Type': 'application/json',
+      'Prefer': method==='POST'?'return=representation':'return=minimal'
+    }
+  };
+  if(body) opts.body = JSON.stringify(body);
+  var r = await fetch(url, opts);
+  if(!r.ok){
+    var err = await r.text();
+    throw new Error('HTTP '+r.status+': '+err);
+  }
+  var text = await r.text();
+  return text ? JSON.parse(text) : [];
+}
 
 var allQuestions=[], editingId=null, deleteId=null;
 
@@ -375,16 +387,15 @@ async function loadAll(){
 
 async function loadQuestions(){
   try{
-    var r=await sb.from('questions').select('*').order('sort_order',{ascending:true});
-    if(r.error)throw r.error;
-    allQuestions=r.data||[];
-    document.getElementById('sc-q').textContent=allQuestions.length;
+    var data = await api('GET','questions','order=sort_order.asc');
+    allQuestions = data||[];
+    document.getElementById('sc-q').textContent = allQuestions.length;
     renderQTable();
     setCloud('ok');
   }catch(e){
     setCloud('err');
     toast('Error: '+e.message,'err');
-    console.error('loadQuestions error:',e);
+    console.error('loadQuestions:',e);
   }
 }
 
@@ -476,16 +487,21 @@ async function saveQuestion(){
     solution,
     is_active:document.getElementById('f-active').checked,
   };
-  if(!editingId)payload.sort_order=allQuestions.length+1;
+  if(!editingId) payload.sort_order=allQuestions.length+1;
   try{
-    var r=editingId
-      ?await sb.from('questions').update(payload).eq('id',editingId)
-      :await sb.from('questions').insert(payload);
-    if(r.error)throw r.error;
-    closeQModal();await loadQuestions();await loadOverviewStats();
-    toast(editingId?'✅ Question updated!':'✅ Question added! Live now.','ok');
-  }catch(e){toast('Save failed: '+e.message,'err');}
-  finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
+    if(editingId){
+      await api('PATCH','questions','id=eq.'+editingId,payload);
+    }else{
+      await api('POST','questions','',payload);
+    }
+    closeQModal();
+    await loadQuestions();
+    await loadOverviewStats();
+    toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
+  }catch(e){
+    toast('Save failed: '+e.message,'err');
+    console.error('saveQuestion:',e);
+  }finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
 }
 
 function askDelete(id,title){
@@ -500,9 +516,10 @@ async function confirmDelete(){
   var btn=document.getElementById('confirm-ok-btn');
   btn.innerHTML='<span class="spinner"></span>';btn.disabled=true;
   try{
-    var r=await sb.from('questions').delete().eq('id',deleteId);
-    if(r.error)throw r.error;
-    closeConfirm();await loadQuestions();await loadOverviewStats();
+    await api('DELETE','questions','id=eq.'+deleteId);
+    closeConfirm();
+    await loadQuestions();
+    await loadOverviewStats();
     toast('🗑 Question deleted','info');
   }catch(e){toast('Delete failed: '+e.message,'err');}
   finally{btn.innerHTML='Yes, Delete';btn.disabled=false;}
@@ -514,24 +531,22 @@ async function loadOverviewStats(){
     document.getElementById('ov-easy').textContent=allQuestions.filter(q=>q.difficulty==='easy').length;
     document.getElementById('ov-medium').textContent=allQuestions.filter(q=>q.difficulty==='medium').length;
     document.getElementById('ov-hard').textContent=allQuestions.filter(q=>q.difficulty==='hard').length;
-    var ur=await sb.from('profiles').select('id');
-    var uc=ur.data?ur.data.length:0;
+    var users = await api('GET','profiles','select=id');
+    var uc = users?users.length:0;
     document.getElementById('ov-users').textContent=uc;
     document.getElementById('sc-u').textContent=uc;
-    var sr=await sb.from('user_progress').select('id').eq('status','solved');
-    document.getElementById('ov-solved').textContent=sr.data?sr.data.length:0;
-  }catch(e){console.error('Stats error:',e);}
+    var solves = await api('GET','user_progress','select=id&status=eq.solved');
+    document.getElementById('ov-solved').textContent=solves?solves.length:0;
+  }catch(e){console.error('Stats:',e);}
 }
 
 async function loadUsers(){
   var tbody=document.getElementById('u-tbody');
   tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading...</td></tr>';
   try{
-    var r=await sb.from('profiles').select('*').order('created_at',{ascending:false});
-    if(r.error)throw r.error;
-    var users=r.data||[];
+    var users = await api('GET','profiles','order=created_at.desc');
     document.getElementById('sc-u').textContent=users.length;
-    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet!</td></tr>';return;}
+    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';return;}
     tbody.innerHTML=users.map(u=>{
       var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
       var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
@@ -551,9 +566,7 @@ async function loadLeaderboard(){
   var tbody=document.getElementById('lb-tbody');
   tbody.innerHTML='<tr class="empty-row"><td colspan="5">Loading...</td></tr>';
   try{
-    var r=await sb.from('leaderboard').select('*').limit(50);
-    if(r.error)throw r.error;
-    var rows=r.data||[];
+    var rows = await api('GET','leaderboard','order=solved_count.desc&limit=50');
     if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="5">No users yet</td></tr>';return;}
     tbody.innerHTML=rows.map((u,i)=>{
       var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
@@ -583,8 +596,13 @@ function toast(msg,type){var t=document.getElementById('toast');t.textContent=ms
 
 window.addEventListener('load',async()=>{
   setCloud('');
-  try{await loadAll();}
-  catch(e){setCloud('err');toast('Failed: '+e.message,'err');}
+  try{
+    await loadAll();
+  }catch(e){
+    setCloud('err');
+    toast('Connection failed: '+e.message,'err');
+    console.error('Boot error:',e);
+  }
 });
 </script>
 </body>
