@@ -329,6 +329,69 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .handsontable thead th{background:var(--bg4)!important;color:var(--text2)!important}
 .wtHolder,.ht_master{background:var(--bg3)!important}
 @media(max-width:768px){#filter-sidebar{display:none}.ach-wrap{grid-template-columns:1fr}.t-btn span{display:none}}
+
+/* FOCUS MODE — full-width editor when question selected */
+#sql-split.focus-mode #ql-panel{display:none!important}
+#sql-split.focus-mode #drag-handle{display:none!important}
+#sql-split.focus-mode #ed-panel{width:100%}
+.back-btn{display:none;padding:5px 11px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:var(--font);align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
+.back-btn:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
+#sql-split.focus-mode .back-btn{display:flex}
+.q-nav{display:flex;align-items:center;gap:8px;padding:0 4px}
+.q-nav-info{font-size:11px;color:var(--text3)}
+
+/* ════════════════════════════════════════
+   VIEW MODE SWITCHER
+════════════════════════════════════════ */
+.vm-bar{display:none;align-items:center;gap:6px;padding:7px 14px;background:var(--bg2);border-bottom:2px solid var(--border);flex-shrink:0}
+#page-sql.on .vm-bar{display:flex}
+.vm-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-right:4px}
+.vm-group{display:flex;gap:3px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px}
+.vm-btn{display:flex;align-items:center;gap:6px;padding:6px 13px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);color:var(--text3);background:transparent;transition:all .18s;white-space:nowrap}
+.vm-btn svg{width:15px;height:15px;flex-shrink:0;opacity:.6;transition:opacity .18s}
+.vm-btn:hover{background:var(--bg3);color:var(--text2)}
+.vm-btn:hover svg{opacity:.9}
+.vm-btn.active{background:linear-gradient(135deg,var(--green),#06b6d4);color:#fff;box-shadow:0 2px 10px rgba(16,185,129,.35)}
+.vm-btn.active svg{opacity:1}
+.vm-sep{width:1px;height:20px;background:var(--border);margin:0 6px}
+.vm-hint{font-size:10px;color:var(--text3);margin-left:6px}
+
+/* ── MODE: split (default) ── */
+#sql-split.vm-split #ql-panel{display:flex!important;width:42%;flex:none}
+#sql-split.vm-split #drag-handle{display:flex!important}
+#sql-split.vm-split #ed-panel{flex:1}
+#sql-split.vm-split .back-btn{display:none!important}
+
+/* ── MODE: list (browse all questions, full width list) ── */
+#sql-split.vm-list #ql-panel{display:flex!important;width:100%!important;flex:none}
+#sql-split.vm-list #drag-handle{display:none!important}
+#sql-split.vm-list #ed-panel{display:none!important}
+#sql-split.vm-list .back-btn{display:none!important}
+/* Make rows bigger and highlighted in list mode */
+#sql-split.vm-list .ql-tbl td{padding:11px 12px;font-size:13px}
+#sql-split.vm-list .ql-tbl th{padding:9px 12px;font-size:10px}
+#sql-split.vm-list .ql-tbl tbody tr:hover td{background:var(--green-bg)!important;cursor:pointer}
+#sql-split.vm-list .ql-tbl tbody tr:hover td:first-child{border-left:3px solid var(--green)}
+#sql-split.vm-list .tag{font-size:11px;padding:3px 9px}
+#sql-split.vm-list .solve-btn{padding:5px 14px;font-size:12px;background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+#sql-split.vm-list .solve-btn:hover{background:var(--blue);color:#fff}
+
+/* ── MODE: focus (editor only, no list) ── */
+#sql-split.vm-focus #ql-panel{display:none!important}
+#sql-split.vm-focus #drag-handle{display:none!important}
+#sql-split.vm-focus #ed-panel{width:100%;flex:1}
+#sql-split.vm-focus .back-btn{display:flex!important}
+
+/* override old focus-mode class */
+#sql-split.focus-mode #ql-panel{display:none!important}
+#sql-split.focus-mode #drag-handle{display:none!important}
+#sql-split.focus-mode #ed-panel{width:100%}
+
+/* Default state before JS — show list mode */
+#sql-split{display:flex;flex:1;overflow:hidden}
+#sql-split:not(.vm-split):not(.vm-focus) #ql-panel{display:flex!important;width:100%!important}
+#sql-split:not(.vm-split):not(.vm-focus) #drag-handle{display:none!important}
+#sql-split:not(.vm-split):not(.vm-focus) #ed-panel{display:none!important}
 </style>
 </head>
 <body>
@@ -393,7 +456,30 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   </div>
 
   <!-- SQL PAGE -->
-  <div class="page" id="page-sql" style="flex-direction:row">
+  <div class="page" id="page-sql" style="flex-direction:column">
+
+    <!-- VIEW MODE BAR -->
+    <div class="vm-bar">
+      <span class="vm-label">View</span>
+      <div class="vm-group">
+        <button class="vm-btn" id="vm-split" onclick="setViewMode('split',this)" title="Split: questions + editor side by side">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="7" height="14" rx="1"/><rect x="11" y="3" width="7" height="14" rx="1"/></svg>
+          Split
+        </button>
+        <button class="vm-btn active" id="vm-list" onclick="setViewMode('list',this)" title="List: browse all questions full screen">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/></svg>
+          All Questions
+        </button>
+        <button class="vm-btn" id="vm-focus" onclick="setViewMode('focus',this)" title="Focus: editor only, distraction-free">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg>
+          Focus
+        </button>
+      </div>
+      <div class="vm-sep"></div>
+      <span class="vm-hint" id="vm-hint">Questions list + editor side by side</span>
+    </div>
+
+    <div id="sql-inner" style="display:flex;flex:1;overflow:hidden">
     <div id="filter-sidebar">
       <div class="fs-head"><span class="fs-title">Filters</span><button class="fs-toggle" onclick="toggleSidebar()">◀</button></div>
       <div class="fs-body">
@@ -428,7 +514,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       </div>
     </div>
 
-    <div id="sql-split">
+    <div id="sql-split" class="vm-list">
       <div id="ql-panel">
         <div class="mini-tab" onclick="expandQL()">
           <div class="mini-lbl">QUESTIONS</div>
@@ -466,10 +552,16 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 
       <!-- EDITOR PANEL -->
       <div id="ed-panel">
-        <div class="ep-tabs">
-          <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
-          <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
-          <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
+        <div class="ep-tabs" style="justify-content:space-between">
+          <div style="display:flex">
+            <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
+            <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
+            <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
+          </div>
+          <div class="q-nav">
+            <span class="q-nav-info" id="q-nav-info"></span>
+            <button class="back-btn" onclick="exitFocusMode()">☰ All Questions</button>
+          </div>
         </div>
 
         <div class="ep-tc on" id="ept-desc" style="flex-direction:column">
@@ -537,7 +629,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         </div>
       </div>
     </div>
-  </div>
+  </div><!-- /sql inner wrapper -->
+  </div><!-- /page-sql -->
 
   <!-- EXCEL -->
   <div class="page" id="page-excel">
@@ -768,7 +861,9 @@ async function submitSQL(){
       recent.unshift({title:curQ.title,diff:curQ.difficulty,topic:curQ.topic,date:new Date().toLocaleDateString('en-IN')});
       if(recent.length>10)recent.pop();
       await saveProgress(curQ.id);
-      updateDash();renderTable();loadQ(curQ.id);checkBadges();
+      updateDash();
+  // Init default view mode — show All Questions first
+  setViewMode('list', document.getElementById('vm-list'));renderTable();loadQ(curQ.id);checkBadges();
       toast('✅ "'+curQ.title+'" solved & saved to cloud!','ok');
     }else{
       toast('Already solved! Great job — try the next one.','info');
@@ -1005,6 +1100,50 @@ function loadQ(id){
   hideSubmitCard();
   epTab('desc',document.querySelector('.ep-tab'));
   renderTable();
+  // Enter focus mode — hide question list, show full editor
+  enterFocusMode();
+}
+
+
+
+/* ═══ VIEW MODE ═══ */
+var viewMode = 'split';
+var VM_HINTS = {
+  split: 'Questions list + editor side by side',
+  list:  'Browse all questions — click any to open in Focus mode',
+  focus: 'Distraction-free editor — full screen'
+};
+function setViewMode(mode, btn){
+  viewMode = mode;
+  var split = document.getElementById('sql-split');
+  split.classList.remove('vm-split','vm-list','vm-focus','focus-mode');
+  split.classList.add('vm-'+mode);
+  document.querySelectorAll('.vm-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.getElementById('vm-'+mode).classList.add('active');
+  var hint = document.getElementById('vm-hint');
+  if(hint) hint.textContent = VM_HINTS[mode]||'';
+  // If switching to list mode, make clicking a row go to focus mode
+  if(mode==='list'){
+    // rows already have onclick=loadQ which calls enterFocusMode -> sets focus-mode
+    // we override enterFocusMode behaviour for list mode
+  }
+  if(mode==='split' || mode==='focus'){
+    // ensure sidebar toggle button is right
+  }
+}
+
+/* ═══ FOCUS MODE ═══ */
+function enterFocusMode(){
+  // Switch to focus mode view
+  setViewMode('focus', document.getElementById('vm-focus'));
+  // Show question position e.g. "12 / 15"
+  var filtered=getFiltered();
+  var idx=filtered.findIndex(q=>String(q.id)===String(curQ.id));
+  document.getElementById('q-nav-info').textContent=(idx>=0?(idx+1)+' / '+filtered.length+' questions':'');
+}
+function exitFocusMode(){
+  setViewMode('split', document.getElementById('vm-split'));
 }
 
 /* ═══ DRAG RESIZE ═══ */
