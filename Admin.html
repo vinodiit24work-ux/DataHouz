@@ -21,6 +21,37 @@
   --r:6px;--r2:10px;--r3:14px;--topbar:52px;
 }
 html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px}
+
+/* ══ LOGIN SCREEN ══ */
+#login-screen{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+}
+.login-box{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--r3);padding:40px;width:100%;max-width:400px;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;justify-content:center}
+.login-mark{width:40px;height:40px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff}
+.login-title{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.login-sub{font-size:12px;color:var(--text3);text-align:center;margin-bottom:24px}
+.login-badge{display:inline-flex;padding:3px 10px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;font-size:10px;color:var(--amber);font-weight:600;margin:0 auto 24px;display:block;text-align:center;width:fit-content;margin:0 auto 20px}
+.l-lbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px}
+.l-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;color:var(--text);font-size:14px;font-family:var(--font);outline:none;transition:border-color .15s;margin-bottom:14px}
+.l-inp:focus{border-color:var(--green)}
+.l-inp.shake{animation:shake .4s ease;border-color:var(--red)!important}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.l-err{font-size:12px;color:var(--red);margin-bottom:12px;min-height:18px;font-weight:500;text-align:center}
+.l-btn{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.l-btn:hover{opacity:.88}
+.l-btn:disabled{opacity:.6;cursor:not-allowed}
+.l-foot{font-size:11px;color:var(--text3);text-align:center;margin-top:16px}
+.attempts-warn{font-size:11px;color:var(--amber);text-align:center;margin-top:10px;display:none}
+
+/* ══ TOPBAR ══ */
 #topbar{height:var(--topbar);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
 .t-mark{width:28px;height:28px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
 .t-name{font-size:15px;font-weight:700;letter-spacing:-.3px}
@@ -33,6 +64,12 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 @keyframes cp{0%,100%{opacity:1}50%{opacity:.3}}
 .t-home{padding:6px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:5px}
 .t-home:hover{color:var(--text)}
+.t-admin-user{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
+.t-admin-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.t-logout{padding:4px 10px;border-radius:var(--r);font-size:11px;color:var(--text3);border:1px solid var(--border);cursor:pointer;background:transparent;font-family:var(--font);transition:all .15s}
+.t-logout:hover{color:var(--red);border-color:var(--red-border)}
+
+/* ══ LAYOUT ══ */
 #layout{display:flex;height:calc(100vh - var(--topbar))}
 #sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:14px 10px;gap:3px}
 .s-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:8px 8px 4px;margin-top:6px}
@@ -128,12 +165,49 @@ select.f-inp{cursor:pointer}
 </head>
 <body>
 
+<!-- ══════════════════════════
+     ADMIN LOGIN SCREEN
+══════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-mark">P</div>
+      <div class="login-title">PracticeHub</div>
+    </div>
+    <div class="login-badge">🔐 ADMIN ACCESS ONLY</div>
+    <p class="login-sub">Enter your admin credentials to continue</p>
+
+    <label class="l-lbl">Username</label>
+    <input class="l-inp" id="l-user" placeholder="admin" type="text" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()"/>
+
+    <label class="l-lbl">Password</label>
+    <input class="l-inp" id="l-pass" placeholder="••••••••" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAdminLogin()"/>
+
+    <div class="l-err" id="l-err"></div>
+
+    <button class="l-btn" id="l-btn" onclick="doAdminLogin()">
+      🔑 Login to Admin Panel
+    </button>
+
+    <div class="attempts-warn" id="attempts-warn"></div>
+    <div class="l-foot">This page is restricted to administrators only</div>
+  </div>
+</div>
+
+<!-- ══ TOPBAR (hidden until logged in) ══ -->
+<div id="admin-app" style="display:none;flex-direction:column;height:100vh">
+
 <div id="topbar">
   <div class="t-mark">P</div>
   <div class="t-name">PracticeHub</div>
   <div class="t-badge">ADMIN PANEL</div>
   <div class="t-right">
     <div class="t-status"><div class="cdot" id="cdot"></div><span id="clbl">Connecting...</span></div>
+    <div class="t-admin-user">
+      <div class="t-admin-av">A</div>
+      <span style="font-size:12px;color:var(--amber);font-weight:500">Admin</span>
+    </div>
+    <button class="t-logout" onclick="doAdminLogout()">↩ Logout</button>
     <a class="t-home" href="practicehub.html">← Back to Site</a>
   </div>
 </div>
@@ -176,7 +250,7 @@ select.f-inp{cursor:pointer}
       <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r2);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:3px">➕ Add a new question</div>
-          <div style="font-size:12px;color:var(--text3)">Questions appear on your site immediately — no coding needed</div>
+          <div style="font-size:12px;color:var(--text3)">Questions appear on your site immediately</div>
         </div>
         <button class="btn btn-green" onclick="goPage('questions',document.getElementById('sb-questions'));setTimeout(openAddModal,200)">Add Question Now →</button>
       </div>
@@ -249,6 +323,8 @@ select.f-inp{cursor:pointer}
     </div>
   </div>
 </div>
+
+</div><!-- /admin-app -->
 
 <!-- ADD/EDIT MODAL -->
 <div class="overlay" id="q-overlay">
@@ -343,15 +419,111 @@ select.f-inp{cursor:pointer}
 <div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════
-   PRACTICEHUB ADMIN — DIRECT REST API
-   Using fetch() directly — no SDK needed
-   Service role key sent as header (secure)
-══════════════════════════════════════════ */
+/* ══════════════════════════════════════
+   ⚠️  CHANGE YOUR PASSWORD HERE!
+   Username and password for admin login
+══════════════════════════════════════ */
+var ADMIN_USERNAME = 'vinod';        // ← Change this to your name
+var ADMIN_PASSWORD = 'PracticeHub@2025';  // ← Change this to your password
+
+/* ══ LOGIN LOGIC ══ */
+var loginAttempts = 0;
+var maxAttempts = 5;
+var lockoutTime = 0;
+
+function doAdminLogin(){
+  // Check lockout
+  if(Date.now() < lockoutTime){
+    var secs = Math.ceil((lockoutTime - Date.now())/1000);
+    document.getElementById('l-err').textContent = '⏳ Too many attempts. Wait '+secs+' seconds.';
+    return;
+  }
+
+  var user = document.getElementById('l-user').value.trim();
+  var pass = document.getElementById('l-pass').value;
+  var btn  = document.getElementById('l-btn');
+
+  if(!user || !pass){
+    document.getElementById('l-err').textContent = 'Please enter username and password';
+    return;
+  }
+
+  btn.innerHTML='<span class="spinner"></span> Verifying...';
+  btn.disabled=true;
+
+  // Simulate slight delay for security feel
+  setTimeout(()=>{
+    if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD){
+      // ✅ Correct — show admin panel
+      loginAttempts = 0;
+      sessionStorage.setItem('ph_admin','1');
+      document.getElementById('login-screen').style.display='none';
+      document.getElementById('admin-app').style.display='flex';
+      loadAll();
+      toast('Welcome back, '+ADMIN_USERNAME+'! 🎉','ok');
+    }else{
+      // ❌ Wrong credentials
+      loginAttempts++;
+      var remaining = maxAttempts - loginAttempts;
+
+      // Shake the password field
+      var passEl = document.getElementById('l-pass');
+      passEl.classList.remove('shake');
+      void passEl.offsetWidth;
+      passEl.classList.add('shake');
+      passEl.value = '';
+      passEl.addEventListener('animationend',()=>passEl.classList.remove('shake'),{once:true});
+
+      if(loginAttempts >= maxAttempts){
+        lockoutTime = Date.now() + 60000; // 60 second lockout
+        document.getElementById('l-err').textContent = '🔒 Too many wrong attempts! Locked for 60 seconds.';
+        loginAttempts = 0;
+      }else{
+        document.getElementById('l-err').textContent = '❌ Wrong username or password. '+remaining+' attempt'+(remaining!==1?'s':'')+' remaining.';
+        var warn = document.getElementById('attempts-warn');
+        if(loginAttempts >= 3){
+          warn.style.display='block';
+          warn.textContent='⚠️ '+remaining+' attempts left before lockout';
+        }
+      }
+
+      btn.innerHTML='🔑 Login to Admin Panel';
+      btn.disabled=false;
+      document.getElementById('l-user').focus();
+    }
+  }, 600);
+}
+
+function doAdminLogout(){
+  if(!confirm('Logout from admin panel?'))return;
+  sessionStorage.removeItem('ph_admin');
+  document.getElementById('admin-app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('l-user').value='';
+  document.getElementById('l-pass').value='';
+  document.getElementById('l-err').textContent='';
+  document.getElementById('attempts-warn').style.display='none';
+  loginAttempts=0;
+  toast('Logged out from admin','info');
+}
+
+/* ══ AUTO LOGIN if session exists ══ */
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem('ph_admin')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-app').style.display='flex';
+    initAdmin();
+  }
+  // Focus username field
+  setTimeout(()=>document.getElementById('l-user').focus(),100);
+});
+
+/* ══════════════════════════════════════
+   SUPABASE REST API
+══════════════════════════════════════ */
 var BASE = 'https://dzamhiyjpzsqwxjslwpa.supabase.co/rest/v1';
 var KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzkxMDMyMiwiZXhwIjoyMDg5NDg2MzIyfQ._BJ5OmwTCT7d2u-iAZuZ9_0jt6_-xdquIpGR9A6XKX0';
 
-/* All requests go through this function */
 async function api(method, table, params, body){
   var url = BASE+'/'+table+(params?'?'+params:'');
   var opts = {
@@ -380,6 +552,12 @@ function setCloud(s){
   document.getElementById('clbl').textContent=s==='ok'?'Connected ✓':s==='err'?'Connection Error':'Connecting...';
 }
 
+async function initAdmin(){
+  setCloud('');
+  try{await loadAll();}
+  catch(e){setCloud('err');toast('Connection failed: '+e.message,'err');}
+}
+
 async function loadAll(){
   await loadQuestions();
   await loadOverviewStats();
@@ -395,7 +573,6 @@ async function loadQuestions(){
   }catch(e){
     setCloud('err');
     toast('Error: '+e.message,'err');
-    console.error('loadQuestions:',e);
   }
 }
 
@@ -500,7 +677,6 @@ async function saveQuestion(){
     toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
   }catch(e){
     toast('Save failed: '+e.message,'err');
-    console.error('saveQuestion:',e);
   }finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
 }
 
@@ -546,7 +722,7 @@ async function loadUsers(){
   try{
     var users = await api('GET','profiles','order=created_at.desc');
     document.getElementById('sc-u').textContent=users.length;
-    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet — share your site!</td></tr>';return;}
+    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet!</td></tr>';return;}
     tbody.innerHTML=users.map(u=>{
       var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
       var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
@@ -593,17 +769,6 @@ function goPage(id,btn){
 }
 
 function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
-
-window.addEventListener('load',async()=>{
-  setCloud('');
-  try{
-    await loadAll();
-  }catch(e){
-    setCloud('err');
-    toast('Connection failed: '+e.message,'err');
-    console.error('Boot error:',e);
-  }
-});
 </script>
 </body>
 </html>
