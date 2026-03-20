@@ -65,7 +65,7 @@
 
         <div class="mt-12 flex flex-wrap gap-8 text-sm text-slate-400">
           <div>
-            <div class="text-3xl font-bold text-white">500+</div>
+            <div class="text-3xl font-bold text-white">+500</div>
             <div>Questions</div>
           </div>
           <div>
@@ -79,25 +79,41 @@
         </div>
       </div>
 
-      <!-- Right side visual / mockup -->
+      <!-- Right side — Real SQL Editor -->
       <div class="hidden md:block relative">
         <div class="absolute -inset-4 bg-gradient-to-br from-emerald-500/20 to-teal-500/10 rounded-3xl blur-3xl"></div>
         <div class="relative bg-slate-900/80 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
+
+          <!-- Title bar -->
           <div class="bg-slate-800 px-4 py-3 flex items-center gap-2">
             <div class="w-3 h-3 rounded-full bg-red-500"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
             <div class="w-3 h-3 rounded-full bg-green-500"></div>
             <span class="ml-4 text-sm text-slate-400">DataHouz – SQL Editor</span>
+            <span class="ml-auto text-xs text-slate-500 font-mono">Ctrl+Enter to run</span>
           </div>
-          <div class="p-6 font-mono text-sm text-emerald-300">
-            <p><span class="text-blue-400">SELECT</span> department, <span class="text-blue-400">AVG</span>(salary) <span class="text-blue-400">AS</span> avg_salary</p>
-            <p><span class="text-blue-400">FROM</span> employees</p>
-            <p><span class="text-blue-400">GROUP BY</span> department</p>
-            <p><span class="text-blue-400">ORDER BY</span> avg_salary <span class="text-blue-400">DESC</span>;</p>
-            <div class="mt-6 text-green-400"># 3 rows returned in 42ms</div>
+
+          <!-- Textarea editor -->
+          <textarea id="hero-editor" spellcheck="false" style="width:100%;height:150px;background:#0f172a;border:none;color:#6ee7b7;font-family:'JetBrains Mono','Fira Code',monospace;font-size:13px;padding:16px;resize:none;outline:none;line-height:1.8;">SELECT department,
+  AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC;</textarea>
+
+          <!-- Run bar -->
+          <div style="background:#1e293b;border-top:1px solid #2e3f5c;padding:8px 14px;display:flex;align-items:center;gap:8px;">
+            <button id="hero-run-btn" style="padding:5px 14px;background:#10b981;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">▶ Run</button>
+            <span id="hero-status" style="font-size:11px;color:#64748b;font-family:monospace;"></span>
           </div>
+
+          <!-- Results -->
+          <div id="hero-result" style="background:#0f172a;min-height:72px;max-height:160px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+            <div style="padding:16px;color:#475569;text-align:center;">Run a query to see results ↑</div>
+          </div>
+
         </div>
       </div>
+
     </div>
   </section>
 
@@ -234,6 +250,45 @@
       </div>
     </div>
   </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js"></script>
+      <script>
+      (function(){
+        var heroDb=null;
+        initSqlJs({locateFile:function(f){return'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}}).then(function(SQL){
+          heroDb=new SQL.Database();
+          heroDb.run("CREATE TABLE employees(id INTEGER PRIMARY KEY,name TEXT,salary INTEGER,department TEXT);INSERT INTO employees VALUES(1,'Rahul Sharma',75000,'Engineering'),(2,'Priya Patel',92000,'Engineering'),(3,'Amit Kumar',45000,'Marketing'),(4,'Sneha Gupta',68000,'Sales'),(5,'Vikram Singh',110000,'Engineering'),(6,'Neha Joshi',55000,'Marketing');");
+          var s=document.getElementById('hero-status');
+          s.textContent='● DB ready';s.style.color='#10b981';
+        });
+        function run(){
+          if(!heroDb)return;
+          var q=document.getElementById('hero-editor').value.trim();
+          if(!q)return;
+          var t=performance.now();
+          try{
+            var res=heroDb.exec(q),ms=(performance.now()-t).toFixed(1);
+            var el=document.getElementById('hero-result'),st=document.getElementById('hero-status');
+            if(!res.length){el.innerHTML='<div style="padding:14px 16px;color:#10b981;">✓ OK · 0 rows · '+ms+'ms<\/div>';st.textContent='✓ OK · '+ms+'ms';st.style.color='#10b981';return;}
+            var cols=res[0].columns,vals=res[0].values;
+            st.textContent='✓ '+vals.length+' row'+(vals.length!==1?'s':'')+' · '+ms+'ms';st.style.color='#10b981';
+            var h='<table style="width:100%;border-collapse:collapse;"><thead><tr>';
+            cols.forEach(function(c){h+='<th style="padding:7px 14px;text-align:left;font-size:10px;font-weight:600;color:#64748b;border-bottom:1px solid #1e293b;background:#0a0f1e;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;">'+c+'<\/th>';});
+            h+='<\/tr><\/thead><tbody>';
+            vals.forEach(function(row){h+='<tr style="border-bottom:1px solid #1a2540;">';row.forEach(function(cell){h+='<td style="padding:6px 14px;color:#94a3b8;">'+(cell===null?'<span style="color:#334155">NULL<\/span>':String(cell))+'<\/td>';});h+='<\/tr>';});
+            el.innerHTML=h+'<\/tbody><\/table>';
+          }catch(e){
+            document.getElementById('hero-result').innerHTML='<div style="padding:12px 16px;color:#ef4444;font-size:11px;">❌ '+e.message+'<\/div>';
+            var st=document.getElementById('hero-status');st.textContent='Error';st.style.color='#ef4444';
+          }
+        }
+        document.getElementById('hero-run-btn').addEventListener('click',run);
+        document.getElementById('hero-editor').addEventListener('keydown',function(e){
+          if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();run();}
+          if(e.key==='Tab'){e.preventDefault();var s=this.selectionStart;this.value=this.value.substring(0,s)+'  '+this.value.substring(this.selectionEnd);this.selectionStart=this.selectionEnd=s+2;}
+        });
+      })();
+      </script>
 
 </body>
 </html>
