@@ -81,7 +81,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .tg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 
 /* SQL PAGE */
-#sql-page{flex-direction:row;overflow:hidden}
 #filter-sidebar{width:196px;min-width:196px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s}
 #filter-sidebar.collapsed{width:0;min-width:0;border-right:none}
 .fs-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -152,7 +151,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .mini-exp:hover{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
 
 /* EDITOR */
-.ep-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;padding:0 4px}
+.ep-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;padding:0 4px;justify-content:space-between}
 .ep-tab{padding:10px 13px;font-size:12px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .ep-tab:hover{color:var(--text2)}
 .ep-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
@@ -226,8 +225,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
-
-/* shake */
 @keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-5px)}30%{transform:translateX(5px)}45%{transform:translateX(-4px)}60%{transform:translateX(4px)}75%{transform:translateX(-2px)}90%{transform:translateX(2px)}}
 .shake{animation:shake .4s ease}
 
@@ -330,19 +327,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .wtHolder,.ht_master{background:var(--bg3)!important}
 @media(max-width:768px){#filter-sidebar{display:none}.ach-wrap{grid-template-columns:1fr}.t-btn span{display:none}}
 
-/* FOCUS MODE — full-width editor when question selected */
-#sql-split.focus-mode #ql-panel{display:none!important}
-#sql-split.focus-mode #drag-handle{display:none!important}
-#sql-split.focus-mode #ed-panel{width:100%}
-.back-btn{display:none;padding:5px 11px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:var(--font);align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
-.back-btn:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
-#sql-split.focus-mode .back-btn{display:flex}
-.q-nav{display:flex;align-items:center;gap:8px;padding:0 4px}
-.q-nav-info{font-size:11px;color:var(--text3)}
-
-/* ════════════════════════════════════════
-   VIEW MODE SWITCHER
-════════════════════════════════════════ */
+/* ════════ VIEW MODE SWITCHER ════════ */
 .vm-bar{display:none;align-items:center;gap:6px;padding:7px 14px;background:var(--bg2);border-bottom:2px solid var(--border);flex-shrink:0}
 #page-sql.on .vm-bar{display:flex}
 .vm-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-right:4px}
@@ -356,42 +341,163 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .vm-sep{width:1px;height:20px;background:var(--border);margin:0 6px}
 .vm-hint{font-size:10px;color:var(--text3);margin-left:6px}
 
-/* ── MODE: split (default) ── */
+/* ── SPLIT mode ── */
 #sql-split.vm-split #ql-panel{display:flex!important;width:42%;flex:none}
 #sql-split.vm-split #drag-handle{display:flex!important}
 #sql-split.vm-split #ed-panel{flex:1}
 #sql-split.vm-split .back-btn{display:none!important}
 
-/* ── MODE: list (browse all questions, full width list) ── */
+/* ── LIST mode ── */
 #sql-split.vm-list #ql-panel{display:flex!important;width:100%!important;flex:none}
 #sql-split.vm-list #drag-handle{display:none!important}
 #sql-split.vm-list #ed-panel{display:none!important}
 #sql-split.vm-list .back-btn{display:none!important}
-/* Make rows bigger and highlighted in list mode */
 #sql-split.vm-list .ql-tbl td{padding:11px 12px;font-size:13px}
 #sql-split.vm-list .ql-tbl th{padding:9px 12px;font-size:10px}
-#sql-split.vm-list .ql-tbl tbody tr:hover td{background:var(--green-bg)!important;cursor:pointer}
+#sql-split.vm-list .ql-tbl tbody tr:hover td{background:var(--green-bg)!important}
 #sql-split.vm-list .ql-tbl tbody tr:hover td:first-child{border-left:3px solid var(--green)}
 #sql-split.vm-list .tag{font-size:11px;padding:3px 9px}
 #sql-split.vm-list .solve-btn{padding:5px 14px;font-size:12px;background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
 #sql-split.vm-list .solve-btn:hover{background:var(--blue);color:#fff}
 
-/* ── MODE: focus (editor only, no list) ── */
+/* ── FOCUS mode ── */
 #sql-split.vm-focus #ql-panel{display:none!important}
 #sql-split.vm-focus #drag-handle{display:none!important}
 #sql-split.vm-focus #ed-panel{width:100%;flex:1}
 #sql-split.vm-focus .back-btn{display:flex!important}
 
-/* override old focus-mode class */
-#sql-split.focus-mode #ql-panel{display:none!important}
-#sql-split.focus-mode #drag-handle{display:none!important}
-#sql-split.focus-mode #ed-panel{width:100%}
+/* back btn */
+.back-btn{display:none;padding:5px 11px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:var(--font);align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
+.back-btn:hover{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
+.q-nav{display:flex;align-items:center;gap:8px;padding:0 4px}
+.q-nav-info{font-size:11px;color:var(--text3)}
 
-/* Default state before JS — show list mode */
+/* default state — list before JS */
 #sql-split{display:flex;flex:1;overflow:hidden}
 #sql-split:not(.vm-split):not(.vm-focus) #ql-panel{display:flex!important;width:100%!important}
 #sql-split:not(.vm-split):not(.vm-focus) #drag-handle{display:none!important}
 #sql-split:not(.vm-split):not(.vm-focus) #ed-panel{display:none!important}
+
+/* ════ DASHBOARD TABS ════ */
+.dash-tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:3px;width:fit-content}
+.dash-tab{padding:7px 16px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;color:var(--text3);transition:all .15s;white-space:nowrap;border:none;font-family:var(--font);background:transparent}
+.dash-tab:hover{color:var(--text2);background:var(--bg4)}
+.dash-tab.on{background:linear-gradient(135deg,var(--green),#06b6d4);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.3)}
+.dash-panel{display:none}.dash-panel.on{display:block}
+
+/* ════ ROADMAP SHELL ════ */
+.rm-shell{display:flex;gap:0;height:calc(100vh - 170px);overflow:hidden}
+.rm-nav{width:220px;min-width:220px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow-y:auto;flex-shrink:0}
+.rm-nav-title{padding:12px 14px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border)}
+.rm-nav-item{display:flex;align-items:center;gap:9px;padding:10px 14px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;border-bottom:1px solid var(--border)}
+.rm-nav-item:last-child{border-bottom:none}
+.rm-nav-item:hover{background:var(--bg3);border-left-color:var(--border2)}
+.rm-nav-item.on{background:var(--green-bg);border-left-color:var(--green)}
+.rm-nav-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.rm-nav-label{font-size:12px;font-weight:500;line-height:1.3}
+.rm-nav-sub{font-size:10px;color:var(--text3)}
+.rm-nav-done{width:16px;height:16px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;margin-left:auto;flex-shrink:0}
+
+.rm-content{flex:1;overflow-y:auto;padding:0 0 0 16px}
+.rm-topic-page{display:none}.rm-topic-page.on{display:block}
+
+/* ── topic header ── */
+.rm-hdr{border-radius:var(--r2);padding:20px 22px;margin-bottom:16px;position:relative;overflow:hidden}
+.rm-hdr-bg{position:absolute;inset:0;opacity:.07}
+.rm-hdr-content{position:relative;z-index:1}
+.rm-hdr-stage{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;opacity:.7}
+.rm-hdr-title{font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+.rm-hdr-sub{font-size:13px;opacity:.75;line-height:1.5}
+.rm-hdr-badges{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.rm-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)}
+
+/* ── note cards ── */
+.rm-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:14px;overflow:hidden}
+.rm-card-hdr{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--border)}
+.rm-card-icon{font-size:16px}
+.rm-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.rm-card-body{padding:14px 16px}
+.rm-card-body p{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:8px}
+.rm-card-body p:last-child{margin-bottom:0}
+.rm-card-body strong{color:var(--text);font-weight:600}
+
+/* ── analogy box ── */
+.rm-analogy{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(59,130,246,.08));border:1px solid rgba(139,92,246,.25);border-radius:var(--r2);padding:14px 16px;margin-bottom:14px;display:flex;gap:12px}
+.rm-analogy-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+.rm-analogy-text{font-size:13px;color:var(--text2);line-height:1.7}
+.rm-analogy-text strong{color:var(--purple)}
+
+/* ── visual diagram (SVG) ── */
+.rm-visual{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:14px;text-align:center}
+.rm-visual svg{max-width:100%;height:auto}
+.rm-visual-caption{font-size:11px;color:var(--text3);margin-top:8px;font-style:italic}
+
+/* ── syntax block ── */
+.rm-syntax{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:14px;overflow:hidden}
+.rm-syntax-hdr{background:var(--bg3);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.rm-syntax-lang{font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px}
+.rm-copy-btn{padding:3px 9px;border-radius:4px;font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text3);cursor:pointer;font-family:var(--font);transition:all .12s}
+.rm-copy-btn:hover{border-color:var(--green-border);color:var(--green)}
+.rm-syntax pre{padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.9;overflow-x:auto;color:var(--text2);margin:0}
+
+/* ── tip / warning / note ── */
+.rm-tip{border-radius:var(--r);padding:10px 14px;margin-bottom:12px;display:flex;gap:10px;font-size:12.5px;line-height:1.6}
+.rm-tip-amber{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
+.rm-tip-blue{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+.rm-tip-green{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.rm-tip-red{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.rm-tip strong{font-weight:700}
+
+/* ── comparison table ── */
+.rm-table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12px}
+.rm-table th{background:var(--bg3);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.rm-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.6}
+.rm-table tr:last-child td{border-bottom:none}
+.rm-table tr:hover td{background:var(--bg3)}
+
+/* ── step-by-step ── */
+.rm-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.rm-step{display:flex;gap:12px;align-items:flex-start}
+.rm-step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--green),#06b6d4);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.rm-step-text{font-size:13px;color:var(--text2);line-height:1.7;padding-top:2px}
+.rm-step-text strong{color:var(--text)}
+
+/* ── quiz / forced practice ── */
+.rm-quiz{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid var(--green-border);border-radius:var(--r2);padding:16px;margin-bottom:14px}
+.rm-quiz-title{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.rm-quiz-q{font-size:13px;color:var(--text);font-weight:500;margin-bottom:10px;line-height:1.5}
+.rm-quiz-opts{display:flex;flex-direction:column;gap:6px}
+.rm-quiz-opt{display:flex;align-items:flex-start;gap:8px;padding:8px 11px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s;line-height:1.5}
+.rm-quiz-opt:hover{border-color:var(--blue-border);color:var(--blue);background:var(--blue-bg)}
+.rm-quiz-opt.correct{border-color:var(--green-border);background:var(--green-bg);color:var(--green);pointer-events:none}
+.rm-quiz-opt.wrong{border-color:var(--red-border);background:var(--red-bg);color:var(--red);pointer-events:none}
+.rm-quiz-opt.disabled{pointer-events:none;opacity:.5}
+.rm-quiz-letter{width:18px;height:18px;border-radius:50%;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
+.rm-quiz-explain{margin-top:10px;padding:9px 12px;border-radius:var(--r);background:var(--bg4);font-size:12px;color:var(--text2);line-height:1.6;display:none}
+.rm-quiz-explain.show{display:block}
+
+/* ── practice CTA ── */
+.rm-practice-cta{background:var(--bg2);border:2px solid var(--green-border);border-radius:var(--r2);padding:16px;margin-bottom:14px}
+.rm-practice-title{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.rm-practice-list{display:flex;flex-direction:column;gap:7px}
+.rm-practice-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .15s}
+.rm-practice-item:hover{border-color:var(--blue-border);transform:translateX(3px)}
+.rm-practice-item:hover .rm-pi-arrow{color:var(--blue)}
+.rm-pi-diff{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rm-pi-num{font-family:var(--mono);font-size:10px;color:var(--text3);flex-shrink:0}
+.rm-pi-title{font-size:12px;color:var(--text);font-weight:500;flex:1}
+.rm-pi-company{font-size:10px;color:var(--text3);flex-shrink:0}
+.rm-pi-arrow{font-size:12px;color:var(--text3);flex-shrink:0;transition:color .15s}
+
+/* ── nav footer ── */
+.rm-nav-footer{display:flex;gap:8px;margin-top:14px;padding-bottom:4px}
+.rm-nav-prev,.rm-nav-next{flex:1;padding:9px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .15s;text-align:center}
+.rm-nav-prev:hover{border-color:var(--border2);color:var(--text)}
+.rm-nav-next{background:linear-gradient(135deg,var(--green),#06b6d4);border-color:transparent;color:#fff}
+.rm-nav-next:hover{opacity:.88}
+.rm-nav-prev:disabled,.rm-nav-next:disabled{opacity:.3;pointer-events:none}
+
+
 </style>
 </head>
 <body>
@@ -427,7 +533,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
     <div class="t-user" id="t-user">
       <div class="t-av" id="t-av">V</div>
       <span class="t-uname" id="t-uname">User</span>
-      <button class="t-out" onclick="doLogout()">↩ Logout</button>
+      <button class="t-out" onclick="doLogout()">&#8617; Logout</button>
     </div>
   </div>
 </div>
@@ -437,21 +543,39 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   <!-- DASHBOARD -->
   <div class="page on" id="page-dashboard">
     <div class="scroll-page">
-      <div class="stats-row">
-        <div class="sc cg"><div class="sc-lbl">SQL Solved</div><div class="sc-val" id="d-sql">0</div><div class="sc-sub">questions</div></div>
-        <div class="sc cb"><div class="sc-lbl">Excel Tasks</div><div class="sc-val" id="d-excel">0</div><div class="sc-sub">challenges</div></div>
-        <div class="sc ca"><div class="sc-lbl">AI Sessions</div><div class="sc-val" id="d-ai">0</div><div class="sc-sub">queries</div></div>
-        <div class="sc cp"><div class="sc-lbl">Streak</div><div class="sc-val" id="d-streak">0</div><div class="sc-sub">🔥 days</div></div>
+
+      <!-- Dashboard tab switcher -->
+      <div class="dash-tabs">
+        <button class="dash-tab on" onclick="dTab('overview',this)">&#127968; Overview</button>
+        <button class="dash-tab" onclick="dTab('roadmap',this)">&#128640; SQL Roadmap</button>
       </div>
-      <div class="sec-h">Quick Start</div>
-      <div class="qa-grid">
-        <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))"><div class="qa-ico">📊</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · Cloud sync</div></div></div>
-        <div class="qa" onclick="showPage('excel',document.getElementById('tb-excel'))"><div class="qa-ico">📈</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div></div>
-        <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">🤖</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Hints</div></div></div>
-        <div class="qa" onclick="showPage('leaderboard',document.getElementById('tb-lb'))"><div class="qa-ico">🏆</div><div><div class="qa-title">Leaderboard</div><div class="qa-desc">See top users worldwide</div></div></div>
+
+      <!-- ── OVERVIEW PANEL ── -->
+      <div class="dash-panel on" id="dp-overview">
+        <div class="stats-row">
+          <div class="sc cg"><div class="sc-lbl">SQL Solved</div><div class="sc-val" id="d-sql">0</div><div class="sc-sub">questions</div></div>
+          <div class="sc cb"><div class="sc-lbl">Excel Tasks</div><div class="sc-val" id="d-excel">0</div><div class="sc-sub">challenges</div></div>
+          <div class="sc ca"><div class="sc-lbl">AI Sessions</div><div class="sc-val" id="d-ai">0</div><div class="sc-sub">queries</div></div>
+          <div class="sc cp"><div class="sc-lbl">Streak</div><div class="sc-val" id="d-streak">0</div><div class="sc-sub">&#128293; days</div></div>
+        </div>
+        <div class="sec-h">Quick Start</div>
+        <div class="qa-grid">
+          <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))"><div class="qa-ico">&#128202;</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · Cloud sync</div></div></div>
+          <div class="qa" onclick="showPage('excel',document.getElementById('tb-excel'))"><div class="qa-ico">&#128200;</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div></div>
+          <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">&#129302;</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Hints</div></div></div>
+          <div class="qa" onclick="showPage('leaderboard',document.getElementById('tb-lb'))"><div class="qa-ico">&#127942;</div><div><div class="qa-title">Leaderboard</div><div class="qa-desc">See top users worldwide</div></div></div>
+        </div>
+        <div class="sec-h">Recently Solved</div>
+        <div class="recent-box" id="recent-box"><div class="empty">No questions solved yet — start practicing! &#128640;</div></div>
       </div>
-      <div class="sec-h">Recently Solved</div>
-      <div class="recent-box" id="recent-box"><div class="empty">No questions solved yet — start practicing! 🚀</div></div>
+
+      <!-- ── ROADMAP PANEL ── -->
+      <div class="dash-panel" id="dp-roadmap" style="height:calc(100vh - 140px);overflow:hidden">
+        <div id="rm-wrap" style="height:100%">
+          <div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">Loading roadmap...</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -466,171 +590,172 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="7" height="14" rx="1"/><rect x="11" y="3" width="7" height="14" rx="1"/></svg>
           Split
         </button>
-        <button class="vm-btn active" id="vm-list" onclick="setViewMode('list',this)" title="List: browse all questions full screen">
+        <button class="vm-btn active" id="vm-list" onclick="setViewMode('list',this)" title="List: browse all questions">
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/></svg>
           All Questions
         </button>
-        <button class="vm-btn" id="vm-focus" onclick="setViewMode('focus',this)" title="Focus: editor only, distraction-free">
+        <button class="vm-btn" id="vm-focus" onclick="setViewMode('focus',this)" title="Focus: editor only">
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg>
           Focus
         </button>
       </div>
       <div class="vm-sep"></div>
-      <span class="vm-hint" id="vm-hint">Questions list + editor side by side</span>
+      <span class="vm-hint" id="vm-hint">Browse all questions — click any to open in Focus mode</span>
     </div>
 
     <div id="sql-inner" style="display:flex;flex:1;overflow:hidden">
-    <div id="filter-sidebar">
-      <div class="fs-head"><span class="fs-title">Filters</span><button class="fs-toggle" onclick="toggleSidebar()">◀</button></div>
-      <div class="fs-body">
-        <div class="fg"><div class="fg-label">Difficulty</div>
-          <button class="fg-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard<span class="chk">✓</span></button>
+      <div id="filter-sidebar">
+        <div class="fs-head"><span class="fs-title">Filters</span><button class="fs-toggle" onclick="toggleSidebar()">&#9664;</button></div>
+        <div class="fs-body">
+          <div class="fg"><div class="fg-label">Difficulty</div>
+            <button class="fg-btn on" onclick="setF('diff','all',this)"><span class="dot da"></span>All<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('diff','easy',this)"><span class="dot de"></span>Easy<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('diff','medium',this)"><span class="dot dm"></span>Medium<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('diff','hard',this)"><span class="dot dh"></span>Hard<span class="chk">&#10003;</span></button>
+          </div>
+          <div class="fg"><div class="fg-label">Topic</div>
+            <button class="fg-btn on" onclick="setF('topic','all',this)">All Topics<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','SELECT',this)">SELECT &amp; FROM<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','WHERE',this)">WHERE<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','ORDER BY',this)">ORDER BY<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','Aggregate',this)">Aggregate<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','HAVING',this)">GROUP BY / HAVING<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','JOIN',this)">JOIN<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','Self JOIN',this)">Self JOIN<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','Subquery',this)">Subquery<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','CTE',this)">CTE<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('topic','Window',this)">Window Functions<span class="chk">&#10003;</span></button>
+          </div>
+          <div class="fg"><div class="fg-label">Company</div>
+            <button class="fg-btn on" onclick="setF('co','all',this)">All<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Google',this)">Google<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Amazon',this)">Amazon<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Meta',this)">Meta<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Netflix',this)">Netflix<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Microsoft',this)">Microsoft<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('co','Flipkart',this)">Flipkart<span class="chk">&#10003;</span></button>
+          </div>
+          <div class="fg"><div class="fg-label">Status</div>
+            <button class="fg-btn on" onclick="setF('status','all',this)">All<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('status','solved',this)">Solved &#10003;<span class="chk">&#10003;</span></button>
+            <button class="fg-btn" onclick="setF('status','unsolved',this)">Unsolved<span class="chk">&#10003;</span></button>
+          </div>
         </div>
-        <div class="fg"><div class="fg-label">Topic</div>
-          <button class="fg-btn on" onclick="setF('topic','all',this)">All Topics<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('topic','Aggregate',this)">Aggregate<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('topic','JOIN',this)">JOIN<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('topic','Window',this)">Window Functions<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('topic','Subquery',this)">Subquery<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('topic','CTE',this)">CTE<span class="chk">✓</span></button>
+      </div>
+
+      <div id="sql-split" class="vm-list">
+        <div id="ql-panel">
+          <div class="mini-tab" onclick="expandQL()">
+            <div class="mini-lbl">QUESTIONS</div>
+            <div class="mini-cnt" id="mini-cnt">0</div>
+            <button class="mini-exp">&#9654;</button>
+          </div>
+          <div class="ql-top">
+            <div class="ql-sr">
+              <button id="sb-show" class="btn btn-ghost" style="display:none;padding:5px 8px;font-size:11px" onclick="toggleSidebar()">&#9776;</button>
+              <input class="ql-search" id="ql-search" placeholder="Search questions..." oninput="renderTable()"/>
+              <span class="ql-cnt" id="ql-cnt">0</span>
+            </div>
+            <div class="chips" id="chips"></div>
+          </div>
+          <div class="ql-tw">
+            <table class="ql-tbl">
+              <thead><tr>
+                <th class="td-n">#</th>
+                <th onclick="sortTbl('title')" style="width:100%">TITLE <span class="si" id="si-title">&#9650;</span></th>
+                <th onclick="sortTbl('difficulty')">DIFFICULTY <span class="si" id="si-difficulty">&#9650;</span></th>
+                <th onclick="sortTbl('topic')">TOPIC <span class="si" id="si-topic">&#9650;</span></th>
+                <th onclick="sortTbl('company')">COMPANY <span class="si" id="si-company">&#9650;</span></th>
+                <th style="text-align:center">ROWS</th>
+                <th style="text-align:center">ACTION</th>
+              </tr></thead>
+              <tbody id="ql-tbody"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="fg"><div class="fg-label">Company</div>
-          <button class="fg-btn on" onclick="setF('co','all',this)">All<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Google',this)">Google<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Amazon',this)">Amazon<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Meta',this)">Meta<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Netflix',this)">Netflix<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Microsoft',this)">Microsoft<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('co','Flipkart',this)">Flipkart<span class="chk">✓</span></button>
+
+        <div id="drag-handle">
+          <button class="dh-arr dh-l" onclick="collapseQL()">&#9664;</button>
+          <button class="dh-arr dh-r" onclick="expandQL()">&#9654;</button>
         </div>
-        <div class="fg"><div class="fg-label">Status</div>
-          <button class="fg-btn on" onclick="setF('status','all',this)">All<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('status','solved',this)">Solved ✓<span class="chk">✓</span></button>
-          <button class="fg-btn" onclick="setF('status','unsolved',this)">Unsolved<span class="chk">✓</span></button>
+
+        <!-- EDITOR PANEL -->
+        <div id="ed-panel">
+          <div class="ep-tabs">
+            <div style="display:flex">
+              <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
+              <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
+              <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
+            </div>
+            <div class="q-nav">
+              <span class="q-nav-info" id="q-nav-info"></span>
+              <button class="back-btn" onclick="exitFocusMode()">&#9776; All Questions</button>
+            </div>
+          </div>
+
+          <div class="ep-tc on" id="ept-desc" style="flex-direction:column">
+            <div class="q-detail" id="q-detail"><div class="q-ph">&#8592; Select a question to begin</div></div>
+            <div class="ed-bar">
+              <span class="ed-lbl">SQL Editor</span>
+              <span class="kbd">Ctrl+Enter = Run</span>
+            </div>
+            <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;&#10;SELECT * FROM employees;"></textarea>
+            <div class="ed-actions">
+              <button class="btn btn-blue" id="run-btn" onclick="runSQL()">&#9654; Run Query</button>
+              <button class="btn btn-green" id="submit-btn" onclick="submitSQL()">&#10003; Submit</button>
+              <button class="btn btn-ghost" onclick="epTab('hints',document.querySelectorAll('.ep-tab')[2])">&#128161; Hint</button>
+            </div>
+
+            <div id="guest-banner">
+              <span class="gb-icon">&#9889;</span>
+              <div class="gb-text"><strong>Query ran!</strong> Login to save progress, earn badges, and appear on the leaderboard.</div>
+              <div class="gb-btns">
+                <button class="gb-google" onclick="signInGoogle()">
+                  <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                  Google
+                </button>
+                <button class="gb-signup" onclick="openModal('signup')">Sign Up Free</button>
+                <button class="gb-close" onclick="document.getElementById('guest-banner').classList.remove('show')">&#10005;</button>
+              </div>
+            </div>
+
+            <div id="submit-card">
+              <div class="sc2-emoji">&#128272;</div>
+              <div class="sc2-title">Login to submit your answer</div>
+              <div class="sc2-sub">Create a free account to submit, track your progress, earn badges, and appear on the leaderboard.</div>
+              <div class="sc2-btns">
+                <button class="sc2-google" onclick="signInGoogle()">
+                  <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                  Continue with Google
+                </button>
+                <button class="sc2-email" onclick="openModal('signup')">&#9993; Sign Up Free</button>
+              </div>
+              <button class="sc2-login" onclick="openModal('login')">Already have an account? Login &#8594;</button>
+              <button class="sc2-dismiss" onclick="hideSubmitCard()">Maybe later, I'll just browse</button>
+            </div>
+
+            <div class="res-panel" id="res-panel">
+              <div class="res-ph" onclick="toggleResult()">
+                <span class="res-lbl">Output</span>
+                <span id="res-meta"></span>
+                <span class="res-tog" id="res-tog">&#9660;</span>
+              </div>
+              <div class="res-bw" id="res-bw">
+                <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ep-tc" id="ept-solution" style="flex-direction:column;overflow-y:auto;padding:16px">
+            <div id="sol-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first.</div>
+          </div>
+          <div class="ep-tc" id="ept-hints" style="flex-direction:column;overflow-y:auto;padding:16px">
+            <div id="hint-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first.</div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div id="sql-split" class="vm-list">
-      <div id="ql-panel">
-        <div class="mini-tab" onclick="expandQL()">
-          <div class="mini-lbl">QUESTIONS</div>
-          <div class="mini-cnt" id="mini-cnt">0</div>
-          <button class="mini-exp">▶</button>
-        </div>
-        <div class="ql-top">
-          <div class="ql-sr">
-            <button id="sb-show" class="btn btn-ghost" style="display:none;padding:5px 8px;font-size:11px" onclick="toggleSidebar()">☰</button>
-            <input class="ql-search" id="ql-search" placeholder="Search questions..." oninput="renderTable()"/>
-            <span class="ql-cnt" id="ql-cnt">0</span>
-          </div>
-          <div class="chips" id="chips"></div>
-        </div>
-        <div class="ql-tw">
-          <table class="ql-tbl">
-            <thead><tr>
-              <th class="td-n">#</th>
-              <th onclick="sortTbl('title')" style="width:100%">TITLE <span class="si" id="si-title">▲</span></th>
-              <th onclick="sortTbl('difficulty')">DIFFICULTY <span class="si" id="si-difficulty">▲</span></th>
-              <th onclick="sortTbl('topic')">TOPIC <span class="si" id="si-topic">▲</span></th>
-              <th onclick="sortTbl('company')">COMPANY <span class="si" id="si-company">▲</span></th>
-              <th style="text-align:center">ROWS</th>
-              <th style="text-align:center">ACTION</th>
-            </tr></thead>
-            <tbody id="ql-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="drag-handle">
-        <button class="dh-arr dh-l" onclick="collapseQL()">◀</button>
-        <button class="dh-arr dh-r" onclick="expandQL()">▶</button>
-      </div>
-
-      <!-- EDITOR PANEL -->
-      <div id="ed-panel">
-        <div class="ep-tabs" style="justify-content:space-between">
-          <div style="display:flex">
-            <div class="ep-tab active" onclick="epTab('desc',this)">Description</div>
-            <div class="ep-tab" onclick="epTab('solution',this)">Solution</div>
-            <div class="ep-tab" onclick="epTab('hints',this)">Hints</div>
-          </div>
-          <div class="q-nav">
-            <span class="q-nav-info" id="q-nav-info"></span>
-            <button class="back-btn" onclick="exitFocusMode()">☰ All Questions</button>
-          </div>
-        </div>
-
-        <div class="ep-tc on" id="ept-desc" style="flex-direction:column">
-          <div class="q-detail" id="q-detail"><div class="q-ph">← Select a question to begin</div></div>
-
-          <div class="ed-bar">
-            <span class="ed-lbl">SQL Editor</span>
-            <span class="kbd">Ctrl+Enter = Run</span>
-          </div>
-          <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;&#10;SELECT * FROM employees;"></textarea>
-
-          <div class="ed-actions">
-            <button class="btn btn-blue" id="run-btn" onclick="runSQL()">▶ Run Query</button>
-            <button class="btn btn-green" id="submit-btn" onclick="submitSQL()">✓ Submit</button>
-            <button class="btn btn-ghost" onclick="epTab('hints',document.querySelectorAll('.ep-tab')[2])">💡 Hint</button>
-          </div>
-
-          <div id="guest-banner">
-            <span class="gb-icon">⚡</span>
-            <div class="gb-text">
-              <strong>Query ran!</strong> Login to save progress, earn badges, and appear on the leaderboard.
-            </div>
-            <div class="gb-btns">
-              <button class="gb-google" onclick="signInGoogle()">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Google
-              </button>
-              <button class="gb-signup" onclick="openModal('signup')">Sign Up Free</button>
-              <button class="gb-close" onclick="this.closest('#guest-banner').classList.remove('show')">✕</button>
-            </div>
-          </div>
-
-          <div id="submit-card">
-            <div class="sc2-emoji">🔐</div>
-            <div class="sc2-title">Login to submit your answer</div>
-            <div class="sc2-sub">Create a free account to submit, track your progress, earn badges, and appear on the leaderboard.</div>
-            <div class="sc2-btns">
-              <button class="sc2-google" onclick="signInGoogle()">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Continue with Google
-              </button>
-              <button class="sc2-email" onclick="openModal('signup')">✉ Sign Up Free</button>
-            </div>
-            <button class="sc2-login" onclick="openModal('login')">Already have an account? Login →</button>
-            <button class="sc2-dismiss" onclick="hideSubmitCard()">Maybe later, I'll just browse</button>
-          </div>
-
-          <div class="res-panel" id="res-panel">
-            <div class="res-ph" onclick="toggleResult()">
-              <span class="res-lbl">Output</span>
-              <span id="res-meta"></span>
-              <span class="res-tog" id="res-tog">▼</span>
-            </div>
-            <div class="res-bw" id="res-bw">
-              <div id="res-body"><div class="res-empty">Run a query to see results</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ep-tc" id="ept-solution" style="flex-direction:column;overflow-y:auto;padding:16px">
-          <div id="sol-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first.</div>
-        </div>
-        <div class="ep-tc" id="ept-hints" style="flex-direction:column;overflow-y:auto;padding:16px">
-          <div id="hint-body" style="font-size:13px;color:var(--text2);line-height:1.7">Select a question first.</div>
-        </div>
-      </div>
-    </div>
-  </div><!-- /sql inner wrapper -->
-  </div><!-- /page-sql -->
+  </div>
 
   <!-- EXCEL -->
   <div class="page" id="page-excel">
@@ -638,7 +763,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="xl-wrap">
         <div class="xl-top">
           <div class="xl-info"><h2>Excel Data Analysis Practice</h2><p>Edit cells · =SUM() · =AVERAGE() · =VLOOKUP() · Drag · Sort</p></div>
-          <div style="display:flex;gap:7px"><button class="btn btn-ghost" onclick="resetXL()">Reset</button><button class="btn btn-green" onclick="markXLDone()">Mark Complete ✓</button></div>
+          <div style="display:flex;gap:7px"><button class="btn btn-ghost" onclick="resetXL()">Reset</button><button class="btn btn-green" onclick="markXLDone()">Mark Complete &#10003;</button></div>
         </div>
         <div class="xl-grid-box"><div id="excel-grid"></div></div>
         <div class="xl-tasks">
@@ -661,9 +786,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
     <div class="scroll-page" style="display:flex;flex-direction:column">
       <div class="ai-wrap">
         <div class="chat-card">
-          <div class="chat-top"><div class="ai-av">🤖</div><div><div class="ai-nm">SQL & Excel AI Coach</div><div class="ai-st">● Online</div></div></div>
+          <div class="chat-top"><div class="ai-av">&#129302;</div><div><div class="ai-nm">SQL &amp; Excel AI Coach</div><div class="ai-st">&#9679; Online</div></div></div>
           <div class="chat-msgs" id="chat-msgs">
-            <div class="msg msg-ai"><div class="av-sm">🤖</div><div class="bubble">Hi! 👋 Ask me about JOINs, window functions, Excel formulas, or paste your query error and I'll fix it!</div></div>
+            <div class="msg msg-ai"><div class="av-sm">&#129302;</div><div class="bubble">Hi! &#128075; Ask me about JOINs, window functions, Excel formulas, or paste your query error and I'll fix it!</div></div>
           </div>
           <div class="qchips">
             <div class="qchip" onclick="quickAsk('Explain INNER JOIN vs LEFT JOIN')">JOIN types</div>
@@ -674,7 +799,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           </div>
           <div class="chat-inp-row">
             <input class="chat-inp" id="chat-inp" placeholder="Ask about SQL, Excel, or interview tips..." onkeydown="if(event.key==='Enter')sendMsg()"/>
-            <button class="btn btn-green" onclick="sendMsg()">Send →</button>
+            <button class="btn btn-green" onclick="sendMsg()">Send &#8594;</button>
           </div>
         </div>
       </div>
@@ -697,12 +822,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           <div class="ach-box">
             <div class="ach-ttl">Your Badges</div>
             <div class="bdg-grid">
-              <div class="bdg" id="b-beginner"><span class="bdg-ico">🌱</span><div class="bdg-nm">SQL Beginner</div></div>
-              <div class="bdg" id="b-joiner"><span class="bdg-ico">🔗</span><div class="bdg-nm">JOIN Master</div></div>
-              <div class="bdg" id="b-window"><span class="bdg-ico">🪟</span><div class="bdg-nm">Window Pro</div></div>
-              <div class="bdg" id="b-excel"><span class="bdg-ico">📊</span><div class="bdg-nm">Excel Ninja</div></div>
-              <div class="bdg" id="b-master"><span class="bdg-ico">🏆</span><div class="bdg-nm">SQL Master</div></div>
-              <div class="bdg" id="b-ai"><span class="bdg-ico">🤖</span><div class="bdg-nm">AI Explorer</div></div>
+              <div class="bdg" id="b-beginner"><span class="bdg-ico">&#127807;</span><div class="bdg-nm">SQL Beginner</div></div>
+              <div class="bdg" id="b-joiner"><span class="bdg-ico">&#128279;</span><div class="bdg-nm">JOIN Master</div></div>
+              <div class="bdg" id="b-window"><span class="bdg-ico">&#129695;</span><div class="bdg-nm">Window Pro</div></div>
+              <div class="bdg" id="b-excel"><span class="bdg-ico">&#128202;</span><div class="bdg-nm">Excel Ninja</div></div>
+              <div class="bdg" id="b-master"><span class="bdg-ico">&#127942;</span><div class="bdg-nm">SQL Master</div></div>
+              <div class="bdg" id="b-ai"><span class="bdg-ico">&#129302;</span><div class="bdg-nm">AI Explorer</div></div>
             </div>
           </div>
           <div class="ach-box">
@@ -713,7 +838,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <div class="ach-col">
           <div class="ach-box">
             <div class="resume-card" id="resume-card">
-              <div class="res-hdr"><div class="res-nm" id="r-name">Your Name</div><div class="res-tg">SQL & Excel Practitioner · DataHouz Certified</div></div>
+              <div class="res-hdr"><div class="res-nm" id="r-name">Your Name</div><div class="res-tg">SQL &amp; Excel Practitioner · DataHouz Certified</div></div>
               <div class="res-stats">
                 <div class="rs-cell"><span class="rs-val" id="r-sql">0</span><span class="rs-lbl">SQL Solved</span></div>
                 <div class="rs-cell"><span class="rs-val" id="r-excel">0</span><span class="rs-lbl">Excel Tasks</span></div>
@@ -725,8 +850,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
             </div>
           </div>
           <div style="display:flex;gap:8px">
-            <button class="btn btn-green" style="flex:1;padding:11px;justify-content:center" onclick="dlPDF()">📄 Download PDF</button>
-            <button class="btn btn-blue" style="flex:1;padding:11px;justify-content:center" onclick="shareIt()">🔗 Share</button>
+            <button class="btn btn-green" style="flex:1;padding:11px;justify-content:center" onclick="dlPDF()">&#128196; Download PDF</button>
+            <button class="btn btn-blue" style="flex:1;padding:11px;justify-content:center" onclick="shareIt()">&#128279; Share</button>
           </div>
         </div>
       </div>
@@ -743,7 +868,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="m-tab" id="mt-signup" onclick="mTab('signup',this)">Sign Up</div>
     </div>
     <div id="m-login">
-      <div class="m-title">Welcome back 👋</div>
+      <div class="m-title">Welcome back &#128075;</div>
       <div class="m-sub">Login to sync your progress to the cloud</div>
       <button class="google-btn" onclick="signInGoogle()">
         <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
@@ -755,11 +880,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <input class="m-inp" id="m-email" placeholder="you@example.com" type="email" onkeydown="if(event.key==='Enter')doLogin()"/>
       <label class="m-lbl">Password</label>
       <input class="m-inp" id="m-pass" placeholder="••••••••" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
-      <button class="btn btn-green" id="l-btn" style="width:100%;padding:10px;justify-content:center" onclick="doLogin()">Login →</button>
+      <button class="btn btn-green" id="l-btn" style="width:100%;padding:10px;justify-content:center" onclick="doLogin()">Login &#8594;</button>
       <div class="m-foot">Progress syncs to cloud · Works on any device</div>
     </div>
     <div id="m-signup" style="display:none">
-      <div class="m-title">Create free account 🚀</div>
+      <div class="m-title">Create free account &#128640;</div>
       <div class="m-sub">Free forever · Cloud sync · No credit card</div>
       <button class="google-btn" onclick="signInGoogle()">
         <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
@@ -774,7 +899,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <input class="m-inp" id="m-semail" placeholder="you@example.com" type="email"/>
       <label class="m-lbl">Password (min 6 characters)</label>
       <input class="m-inp" id="m-spass" placeholder="Create a password" type="password" onkeydown="if(event.key==='Enter')doSignup()"/>
-      <button class="btn btn-green" id="s-btn" style="width:100%;padding:10px;justify-content:center" onclick="doSignup()">Create Account →</button>
+      <button class="btn btn-green" id="s-btn" style="width:100%;padding:10px;justify-content:center" onclick="doSignup()">Create Account &#8594;</button>
       <div class="m-foot">Secure · Cancel anytime</div>
     </div>
     <button class="m-skip" onclick="closeModal()">Skip for now</button>
@@ -801,21 +926,51 @@ function setCloud(s){
   document.getElementById('clbl').textContent=s==='ok'?'Cloud ✓':s==='err'?'Offline':'Connecting...';
 }
 
-/* ═══ HASH-BASED NAVIGATION (for deep links from index.html) ═══ */
-var PAGE_MAP = {
-  '#dashboard': {page:'dashboard', btn:'tb-dash'},
-  '#sql':       {page:'sql',       btn:'tb-sql'},
-  '#excel':     {page:'excel',     btn:'tb-excel'},
-  '#ai':        {page:'ai',        btn:'tb-ai'},
+/* ═══ HASH NAVIGATION ═══ */
+var PAGE_MAP={
+  '#dashboard':{page:'dashboard',btn:'tb-dash'},
+  '#sql':{page:'sql',btn:'tb-sql'},
+  '#excel':{page:'excel',btn:'tb-excel'},
+  '#ai':{page:'ai',btn:'tb-ai'},
   '#leaderboard':{page:'leaderboard',btn:'tb-lb'},
   '#achievements':{page:'achievements',btn:'tb-ach'}
 };
 function handleHash(){
-  var hash = window.location.hash || '#dashboard';
-  var m = PAGE_MAP[hash];
-  if(m) showPage(m.page, document.getElementById(m.btn));
+  var hash=window.location.hash||'#dashboard';
+  var m=PAGE_MAP[hash];
+  if(m)showPage(m.page,document.getElementById(m.btn));
 }
-window.addEventListener('hashchange', handleHash);
+window.addEventListener('hashchange',handleHash);
+
+/* ═══ VIEW MODE ═══ */
+var viewMode='list';
+var VM_HINTS={
+  split:'Questions list + editor side by side',
+  list:'Browse all questions — click any to open in Focus mode',
+  focus:'Distraction-free editor — full screen'
+};
+function setViewMode(mode,btn){
+  viewMode=mode;
+  var split=document.getElementById('sql-split');
+  split.classList.remove('vm-split','vm-list','vm-focus','focus-mode');
+  split.classList.add('vm-'+mode);
+  document.querySelectorAll('.vm-btn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  else document.getElementById('vm-'+mode).classList.add('active');
+  var hint=document.getElementById('vm-hint');
+  if(hint)hint.textContent=VM_HINTS[mode]||'';
+}
+
+/* ═══ FOCUS MODE ═══ */
+function enterFocusMode(){
+  setViewMode('focus',document.getElementById('vm-focus'));
+  var filtered=getFiltered();
+  var idx=filtered.findIndex(function(q){return String(q.id)===String(curQ.id);});
+  document.getElementById('q-nav-info').textContent=(idx>=0?(idx+1)+' / '+filtered.length+' questions':'');
+}
+function exitFocusMode(){
+  setViewMode('list',document.getElementById('vm-list'));
+}
 
 /* ═══ RUN SQL ═══ */
 function runSQL(){
@@ -835,12 +990,16 @@ function runSQL(){
       var cols=res[0].columns,vals=res[0].values;
       meta.innerHTML='<span class="res-ok">✓ '+vals.length+' row'+(vals.length!==1?'s':'')+' returned</span>';
       var html='<table class="res-table"><thead><tr>';
-      cols.forEach(c=>html+='<th>'+c+'</th>');
+      cols.forEach(function(c){html+='<th>'+c+'</th>';});
       html+='</tr></thead><tbody>';
-      vals.forEach(row=>{html+='<tr>';row.forEach(cell=>html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>');html+='</tr>';});
+      vals.forEach(function(row){
+        html+='<tr>';
+        row.forEach(function(cell){html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>';});
+        html+='</tr>';
+      });
       body.innerHTML=html+'</tbody></table>';
     }
-    if(!user) document.getElementById('guest-banner').classList.add('show');
+    if(!user)document.getElementById('guest-banner').classList.add('show');
   }catch(e){
     document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
     document.getElementById('res-body').innerHTML='<div style="padding:12px 14px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6">❌ '+e.message+'</div>';
@@ -862,8 +1021,9 @@ async function submitSQL(){
       if(recent.length>10)recent.pop();
       await saveProgress(curQ.id);
       updateDash();
-  // Init default view mode — show All Questions first
-  setViewMode('list', document.getElementById('vm-list'));renderTable();loadQ(curQ.id);checkBadges();
+      renderTable();
+      loadQ(curQ.id);
+      checkBadges();
       toast('✅ "'+curQ.title+'" solved & saved to cloud!','ok');
     }else{
       toast('Already solved! Great job — try the next one.','info');
@@ -883,7 +1043,7 @@ function hideSubmitCard(){
 function shakeBtn(id){
   var b=document.getElementById(id);
   b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');
-  b.addEventListener('animationend',()=>b.classList.remove('shake'),{once:true});
+  b.addEventListener('animationend',function(){b.classList.remove('shake');},{once:true});
 }
 
 /* ═══ AUTH ═══ */
@@ -927,7 +1087,7 @@ async function doSignup(){
       toast('Welcome to DataHouz! 🎉','ok');
     }else{
       document.getElementById('s-ok').textContent='✅ Check your email to confirm, then log in.';
-      setTimeout(()=>{btn.innerHTML='Create Account →';btn.disabled=false;},6000);
+      setTimeout(function(){btn.innerHTML='Create Account →';btn.disabled=false;},6000);
       btn.innerHTML='Check your email ✉️';
     }
   }catch(e){document.getElementById('s-err').textContent=e.message||'Signup failed';btn.innerHTML='Create Account →';btn.disabled=false;}
@@ -952,7 +1112,7 @@ function showUserUI(){
 }
 async function doLogout(){
   if(!confirm('Log out?'))return;
-  await sb.auth.signOut().catch(()=>{});
+  await sb.auth.signOut().catch(function(){});
   user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
   document.getElementById('t-user').style.display='none';
   document.getElementById('t-login-btn').style.display='';
@@ -966,9 +1126,9 @@ async function loadCloudProgress(){
   try{
     var r=await sb.from('user_progress').select('question_id,status,solved_at').eq('user_id',user.id).eq('status','solved');
     if(r.error)throw r.error;
-    solved=(r.data||[]).map(x=>x.question_id);
-    recent=(r.data||[]).sort((a,b)=>new Date(b.solved_at)-new Date(a.solved_at)).slice(0,10).map(x=>{
-      var q=QS.find(q=>String(q.id)===String(x.question_id));
+    solved=(r.data||[]).map(function(x){return x.question_id;});
+    recent=(r.data||[]).sort(function(a,b){return new Date(b.solved_at)-new Date(a.solved_at);}).slice(0,10).map(function(x){
+      var q=QS.find(function(q){return String(q.id)===String(x.question_id);});
       return q?{title:q.title,diff:q.difficulty,topic:q.topic,date:new Date(x.solved_at).toLocaleDateString('en-IN')}:null;
     }).filter(Boolean);
     var prof=await sb.from('profiles').select('streak').eq('id',user.id).single();
@@ -977,8 +1137,10 @@ async function loadCloudProgress(){
   }catch(e){console.error(e);}
 }
 async function saveProgress(qid){
-  try{await sb.from('user_progress').upsert({user_id:user.id,question_id:qid,status:'solved',solved_at:new Date().toISOString()},{onConflict:'user_id,question_id'});setCloud('ok');}
-  catch(e){setCloud('err');}
+  try{
+    await sb.from('user_progress').upsert({user_id:user.id,question_id:qid,status:'solved',solved_at:new Date().toISOString()},{onConflict:'user_id,question_id'});
+    setCloud('ok');
+  }catch(e){setCloud('err');}
 }
 async function loadQuestions(){
   try{
@@ -993,7 +1155,7 @@ async function loadLeaderboard(){
   try{
     var r=await sb.from('leaderboard').select('*').limit(20);if(r.error)throw r.error;
     if(!r.data||!r.data.length){el.innerHTML='<div class="empty">No users yet — be the first! 🚀</div>';return;}
-    el.innerHTML=r.data.map((u,i)=>{
+    el.innerHTML=r.data.map(function(u,i){
       var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
       var medal=i<3?['🥇','🥈','🥉'][i]:(i+1);
       return '<div class="lb-row"><div class="lb-rank '+rc+'">'+medal+'</div>'+
@@ -1006,35 +1168,222 @@ async function loadLeaderboard(){
 
 /* ═══ FALLBACK QUESTIONS ═══ */
 var FALLBACK=[
-  {id:0,title:"Show all employees",difficulty:"easy",company:"Google",topic:"Aggregate",description:"Display every record from the employees table.",hint:"SELECT * FROM employees;",schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",expected_rows:6,solution:"SELECT * FROM employees;"},
-  {id:1,title:"Employees earning > ₹80,000",difficulty:"easy",company:"Amazon",topic:"Aggregate",description:"Find employees with salary greater than 80,000.",hint:"Use WHERE salary > 80000",schema_ref:"employees(id, name, salary)",expected_rows:2,solution:"SELECT * FROM employees WHERE salary > 80000;"},
-  {id:2,title:"Average salary by department",difficulty:"medium",company:"Meta",topic:"Aggregate",description:"Calculate average salary per department.",hint:"SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id;",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"SELECT dept_id, AVG(salary) as avg_salary FROM employees GROUP BY dept_id;"},
-  {id:3,title:"Employee + Department name (JOIN)",difficulty:"medium",company:"Google",topic:"JOIN",description:"Show each employee's name with their department name.",hint:"INNER JOIN departments d ON e.dept_id = d.id",schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",expected_rows:6,solution:"SELECT e.name, d.dept_name FROM employees e INNER JOIN departments d ON e.dept_id = d.id;"},
-  {id:4,title:"Second highest salary",difficulty:"medium",company:"Microsoft",topic:"Subquery",description:"Find the second highest salary.",hint:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);",schema_ref:"employees(id, name, salary)",expected_rows:1,solution:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"},
-  {id:5,title:"Departments with > 2 employees",difficulty:"easy",company:"Flipkart",topic:"Aggregate",description:"Departments with more than 2 employees.",hint:"GROUP BY dept_id HAVING COUNT(*) > 2",schema_ref:"employees(id, name, dept_id)",expected_rows:1,solution:"SELECT dept_id, COUNT(*) FROM employees GROUP BY dept_id HAVING COUNT(*) > 2;"},
-  {id:6,title:"Find duplicate names",difficulty:"medium",company:"Amazon",topic:"Aggregate",description:"Names appearing more than once.",hint:"GROUP BY name HAVING COUNT(*) > 1",schema_ref:"employees(id, name)",expected_rows:1,solution:"SELECT name, COUNT(*) FROM employees GROUP BY name HAVING COUNT(*) > 1;"},
-  {id:7,title:"Employee + manager (Self JOIN)",difficulty:"medium",company:"Meta",topic:"JOIN",description:"Show each employee with their manager's name.",hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",schema_ref:"employees(id, name, salary, manager_id)",expected_rows:4,solution:"SELECT e1.name as employee, e2.name as manager FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id;"},
-  {id:8,title:"Running salary total (Window)",difficulty:"hard",company:"Netflix",topic:"Window",description:"Cumulative running total per department.",hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:6,solution:"SELECT name, dept_id, salary, SUM(salary) OVER (PARTITION BY dept_id ORDER BY id) as running_total FROM employees;"},
-  {id:9,title:"Rank by salary — DENSE_RANK()",difficulty:"hard",company:"Netflix",topic:"Window",description:"Rank employees per department by salary.",hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:6,solution:"SELECT name, dept_id, salary, DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rnk FROM employees;"},
-  {id:10,title:"Top 3 salaries per department",difficulty:"hard",company:"Google",topic:"Window",description:"Top 3 highest paid per department.",hint:"ROW_NUMBER() in subquery WHERE rn <= 3",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:5,solution:"SELECT name, dept_id, salary FROM (SELECT name, dept_id, salary, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) as rn FROM employees) t WHERE rn <= 3;"},
-  {id:11,title:"Employees above dept average",difficulty:"hard",company:"Meta",topic:"Subquery",description:"Employees earning above their dept average.",hint:"Correlated subquery on dept_id",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"SELECT name, salary FROM employees e1 WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id);"},
-  {id:12,title:"Count per department",difficulty:"easy",company:"Flipkart",topic:"Aggregate",description:"Department name and employee count.",hint:"COUNT(*) + GROUP BY + JOIN departments",schema_ref:"employees(id, name, dept_id)\ndepartments(id, dept_name)",expected_rows:3,solution:"SELECT d.dept_name, COUNT(e.id) FROM departments d LEFT JOIN employees e ON e.dept_id = d.id GROUP BY d.dept_name;"},
-  {id:13,title:"CTE: Max salary per dept",difficulty:"hard",company:"Microsoft",topic:"CTE",description:"Use WITH clause to find max salary per dept.",hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id)",schema_ref:"employees(id, name, salary, dept_id)",expected_rows:3,solution:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id) SELECT e.name, e.salary FROM employees e JOIN dept_max d ON e.dept_id = d.dept_id WHERE e.salary = d.mx;"},
-  {id:14,title:"Employees earning > manager",difficulty:"hard",company:"Amazon",topic:"JOIN",description:"Employees with higher salary than their manager.",hint:"e1.salary > e2.salary AND e1.manager_id = e2.id",schema_ref:"employees(id, name, salary, manager_id)",expected_rows:2,solution:"SELECT e1.name, e1.salary FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id WHERE e1.salary > e2.salary;"},
+  /* ── SELECT & FROM ── */
+  {id:0,title:"Show all employees",difficulty:"easy",company:"Google",topic:"SELECT",
+   description:"Display every record from the employees table.",
+   hint:"SELECT * FROM employees;",
+   schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",
+   expected_rows:6,solution:"SELECT * FROM employees;"},
+
+  {id:1,title:"Show only name and salary",difficulty:"easy",company:"Amazon",topic:"SELECT",
+   description:"Retrieve only the name and salary columns from employees.",
+   hint:"SELECT name, salary FROM employees;",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:6,solution:"SELECT name, salary FROM employees;"},
+
+  {id:2,title:"Alias column names",difficulty:"easy",company:"Flipkart",topic:"SELECT",
+   description:"Select name as 'Employee Name' and salary as 'Monthly Pay' from employees.",
+   hint:"Use AS keyword: SELECT name AS 'Employee Name'",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:6,solution:"SELECT name AS 'Employee Name', salary AS 'Monthly Pay' FROM employees;"},
+
+  /* ── WHERE ── */
+  {id:3,title:"Employees earning > ₹80,000",difficulty:"easy",company:"Amazon",topic:"WHERE",
+   description:"Find employees with salary greater than 80,000.",
+   hint:"Use WHERE salary > 80000",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:2,solution:"SELECT * FROM employees WHERE salary > 80000;"},
+
+  {id:4,title:"Employees in Engineering dept",difficulty:"easy",company:"Google",topic:"WHERE",
+   description:"Find all employees who belong to department id 1 (Engineering).",
+   hint:"WHERE dept_id = 1",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:3,solution:"SELECT * FROM employees WHERE dept_id = 1;"},
+
+  {id:5,title:"Employees with salary between ranges",difficulty:"easy",company:"Flipkart",topic:"WHERE",
+   description:"Find employees with salary between 50,000 and 90,000 (inclusive).",
+   hint:"Use BETWEEN 50000 AND 90000",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:3,solution:"SELECT name, salary FROM employees WHERE salary BETWEEN 50000 AND 90000;"},
+
+  {id:6,title:"Employees with no manager",difficulty:"easy",company:"Microsoft",topic:"WHERE",
+   description:"Find employees who do not have a manager (manager_id is NULL).",
+   hint:"WHERE manager_id IS NULL",
+   schema_ref:"employees(id, name, manager_id)",
+   expected_rows:3,solution:"SELECT name FROM employees WHERE manager_id IS NULL;"},
+
+  /* ── ORDER BY ── */
+  {id:7,title:"Employees sorted by salary (highest first)",difficulty:"easy",company:"Google",topic:"ORDER BY",
+   description:"List all employees sorted by salary from highest to lowest.",
+   hint:"ORDER BY salary DESC",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:6,solution:"SELECT name, salary FROM employees ORDER BY salary DESC;"},
+
+  {id:8,title:"Top 3 highest paid employees",difficulty:"easy",company:"Amazon",topic:"ORDER BY",
+   description:"Find the top 3 highest-paid employees.",
+   hint:"ORDER BY salary DESC LIMIT 3",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:3,solution:"SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;"},
+
+  {id:9,title:"Second highest salary",difficulty:"medium",company:"Microsoft",topic:"ORDER BY",
+   description:"Find the second highest salary using ORDER BY and OFFSET.",
+   hint:"ORDER BY salary DESC LIMIT 1 OFFSET 1",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:1,solution:"SELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1;"},
+
+  /* ── AGGREGATE ── */
+  {id:10,title:"Count total employees",difficulty:"easy",company:"Flipkart",topic:"Aggregate",
+   description:"Count how many employees are in the table.",
+   hint:"SELECT COUNT(*) FROM employees;",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:1,solution:"SELECT COUNT(*) AS total_employees FROM employees;"},
+
+  {id:11,title:"Average salary of all employees",difficulty:"easy",company:"Meta",topic:"Aggregate",
+   description:"Calculate the average salary across all employees.",
+   hint:"SELECT AVG(salary) FROM employees;",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:1,solution:"SELECT AVG(salary) AS avg_salary FROM employees;"},
+
+  {id:12,title:"Highest and lowest salary",difficulty:"easy",company:"Google",topic:"Aggregate",
+   description:"Find the maximum and minimum salary in the company.",
+   hint:"SELECT MAX(salary), MIN(salary) FROM employees;",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:1,solution:"SELECT MAX(salary) AS highest, MIN(salary) AS lowest FROM employees;"},
+
+  {id:13,title:"Average salary by department",difficulty:"medium",company:"Meta",topic:"Aggregate",
+   description:"Calculate average salary per department, sorted highest first.",
+   hint:"GROUP BY dept_id with AVG(salary)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:3,solution:"SELECT dept_id, AVG(salary) AS avg_salary FROM employees GROUP BY dept_id ORDER BY avg_salary DESC;"},
+
+  /* ── GROUP BY / HAVING ── */
+  {id:14,title:"Departments with > 2 employees",difficulty:"easy",company:"Flipkart",topic:"HAVING",
+   description:"Find departments that have more than 2 employees.",
+   hint:"GROUP BY dept_id HAVING COUNT(*) > 2",
+   schema_ref:"employees(id, name, dept_id)",
+   expected_rows:1,solution:"SELECT dept_id, COUNT(*) AS cnt FROM employees GROUP BY dept_id HAVING COUNT(*) > 2;"},
+
+  {id:15,title:"Find duplicate names",difficulty:"medium",company:"Amazon",topic:"HAVING",
+   description:"Find employee names that appear more than once.",
+   hint:"GROUP BY name HAVING COUNT(*) > 1",
+   schema_ref:"employees(id, name)",
+   expected_rows:1,solution:"SELECT name, COUNT(*) AS cnt FROM employees GROUP BY name HAVING COUNT(*) > 1;"},
+
+  {id:16,title:"Departments with avg salary above 70k",difficulty:"medium",company:"Netflix",topic:"HAVING",
+   description:"Find departments where the average salary exceeds 70,000.",
+   hint:"HAVING AVG(salary) > 70000",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:1,solution:"SELECT dept_id, AVG(salary) AS avg_sal FROM employees GROUP BY dept_id HAVING AVG(salary) > 70000;"},
+
+  /* ── JOIN ── */
+  {id:17,title:"Employee + Department name (INNER JOIN)",difficulty:"medium",company:"Google",topic:"JOIN",
+   description:"Show each employee's name along with their department name using INNER JOIN.",
+   hint:"INNER JOIN departments d ON e.dept_id = d.id",
+   schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",
+   expected_rows:6,solution:"SELECT e.name, d.dept_name FROM employees e INNER JOIN departments d ON e.dept_id = d.id;"},
+
+  {id:18,title:"All departments with employee count (LEFT JOIN)",difficulty:"medium",company:"Flipkart",topic:"JOIN",
+   description:"List all departments and how many employees each has (include departments with 0 employees).",
+   hint:"LEFT JOIN employees e ON d.id = e.dept_id then COUNT(e.id)",
+   schema_ref:"employees(id, name, dept_id)\ndepartments(id, dept_name)",
+   expected_rows:3,solution:"SELECT d.dept_name, COUNT(e.id) AS emp_count FROM departments d LEFT JOIN employees e ON d.id = e.dept_id GROUP BY d.dept_name;"},
+
+  {id:19,title:"Employee salary with dept name",difficulty:"medium",company:"Amazon",topic:"JOIN",
+   description:"Show employee name, department name, and salary for all employees.",
+   hint:"JOIN departments using dept_id",
+   schema_ref:"employees(id, name, salary, dept_id)\ndepartments(id, dept_name)",
+   expected_rows:6,solution:"SELECT e.name, d.dept_name, e.salary FROM employees e INNER JOIN departments d ON e.dept_id = d.id ORDER BY e.salary DESC;"},
+
+  /* ── SELF JOIN ── */
+  {id:20,title:"Employee + manager (Self JOIN)",difficulty:"medium",company:"Meta",topic:"Self JOIN",
+   description:"Show each employee's name alongside their manager's name.",
+   hint:"FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id",
+   schema_ref:"employees(id, name, salary, manager_id)",
+   expected_rows:4,solution:"SELECT e1.name AS employee, e2.name AS manager FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id;"},
+
+  {id:21,title:"Employees earning more than their manager",difficulty:"hard",company:"Amazon",topic:"Self JOIN",
+   description:"Find employees whose salary is higher than their manager's salary.",
+   hint:"JOIN employees e2 ON e1.manager_id = e2.id WHERE e1.salary > e2.salary",
+   schema_ref:"employees(id, name, salary, manager_id)",
+   expected_rows:2,solution:"SELECT e1.name, e1.salary FROM employees e1 JOIN employees e2 ON e1.manager_id = e2.id WHERE e1.salary > e2.salary;"},
+
+  /* ── SUBQUERY ── */
+  {id:22,title:"Employees above company average salary",difficulty:"medium",company:"Google",topic:"Subquery",
+   description:"Find employees whose salary is above the company average.",
+   hint:"WHERE salary > (SELECT AVG(salary) FROM employees)",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:3,solution:"SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);"},
+
+  {id:23,title:"Second highest salary (subquery)",difficulty:"medium",company:"Microsoft",topic:"Subquery",
+   description:"Find the second highest salary using a subquery.",
+   hint:"WHERE salary < (SELECT MAX(salary)...)",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:1,solution:"SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);"},
+
+  {id:24,title:"Employees above their dept average",difficulty:"hard",company:"Meta",topic:"Subquery",
+   description:"Find employees earning above their own department's average salary.",
+   hint:"Correlated subquery: WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:3,solution:"SELECT name, salary FROM employees e1 WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id);"},
+
+  /* ── CTE ── */
+  {id:25,title:"CTE: Max salary per dept",difficulty:"hard",company:"Microsoft",topic:"CTE",
+   description:"Use a WITH clause to find the highest-paid employee in each department.",
+   hint:"WITH dept_max AS (SELECT dept_id, MAX(salary) as mx FROM employees GROUP BY dept_id)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:3,solution:"WITH dept_max AS (SELECT dept_id, MAX(salary) AS mx FROM employees GROUP BY dept_id) SELECT e.name, e.salary FROM employees e JOIN dept_max d ON e.dept_id = d.dept_id WHERE e.salary = d.mx;"},
+
+  {id:26,title:"CTE: Employees above average",difficulty:"hard",company:"Netflix",topic:"CTE",
+   description:"Use a CTE to first calculate company average, then find employees above it.",
+   hint:"WITH avg_cte AS (SELECT AVG(salary) AS avg_sal FROM employees)",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:3,solution:"WITH avg_cte AS (SELECT AVG(salary) AS avg_sal FROM employees) SELECT e.name, e.salary FROM employees e JOIN avg_cte a ON e.salary > a.avg_sal;"},
+
+  /* ── WINDOW FUNCTIONS ── */
+  {id:27,title:"Rank employees by salary (DENSE_RANK)",difficulty:"hard",company:"Netflix",topic:"Window",
+   description:"Rank all employees by salary using DENSE_RANK — no gaps for ties.",
+   hint:"DENSE_RANK() OVER (ORDER BY salary DESC)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:6,solution:"SELECT name, dept_id, salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employees;"},
+
+  {id:28,title:"Rank by salary within each department",difficulty:"hard",company:"Google",topic:"Window",
+   description:"Rank employees by salary separately within each department.",
+   hint:"DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:6,solution:"SELECT name, dept_id, salary, DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS dept_rank FROM employees;"},
+
+  {id:29,title:"Top 3 salaries per department",difficulty:"hard",company:"Google",topic:"Window",
+   description:"Get the top 3 highest-paid employees in each department.",
+   hint:"ROW_NUMBER() in subquery WHERE rn <= 3",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:5,solution:"SELECT name, dept_id, salary FROM (SELECT name, dept_id, salary, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS rn FROM employees) t WHERE rn <= 3;"},
+
+  {id:30,title:"Running salary total per department",difficulty:"hard",company:"Netflix",topic:"Window",
+   description:"Calculate the cumulative running total of salary within each department.",
+   hint:"SUM(salary) OVER (PARTITION BY dept_id ORDER BY id)",
+   schema_ref:"employees(id, name, salary, dept_id)",
+   expected_rows:6,solution:"SELECT name, dept_id, salary, SUM(salary) OVER (PARTITION BY dept_id ORDER BY id) AS running_total FROM employees;"},
+
+  {id:31,title:"Row number across all employees",difficulty:"medium",company:"Amazon",topic:"Window",
+   description:"Assign a unique row number to each employee ordered by salary descending.",
+   hint:"ROW_NUMBER() OVER (ORDER BY salary DESC)",
+   schema_ref:"employees(id, name, salary)",
+   expected_rows:6,solution:"SELECT name, salary, ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num FROM employees;"},
 ];
 
+/* ═══ SQL ENGINE
 /* ═══ SQL ENGINE ═══ */
 async function initSQL(){
-  var SQL=await initSqlJs({locateFile:f=>'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f});
+  var SQL=await initSqlJs({locateFile:function(f){return 'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/'+f;}});
   db=new SQL.Database();
   db.run("CREATE TABLE departments(id INTEGER PRIMARY KEY,dept_name TEXT);CREATE TABLE employees(id INTEGER PRIMARY KEY,name TEXT,salary INTEGER,dept_id INTEGER,manager_id INTEGER);INSERT INTO departments VALUES(1,'Engineering'),(2,'Marketing'),(3,'Sales');INSERT INTO employees VALUES(1,'Rahul Sharma',75000,1,NULL),(2,'Priya Patel',92000,1,1),(3,'Amit Kumar',45000,2,NULL),(4,'Sneha Gupta',68000,3,NULL),(5,'Vikram Singh',110000,1,2),(6,'Rahul Sharma',55000,2,3);");
-  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runSQL();});
+  document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runSQL();});
 }
 
 /* ═══ TABLE ═══ */
 function getFiltered(){
   var s=(document.getElementById('ql-search').value||'').toLowerCase();
-  return QS.filter(q=>{
+  return QS.filter(function(q){
     if(s&&q.title.toLowerCase().indexOf(s)===-1&&(q.description||'').toLowerCase().indexOf(s)===-1)return false;
     if(F.diff!=='all'&&q.difficulty!==F.diff)return false;
     if(F.topic!=='all'&&q.topic!==F.topic)return false;
@@ -1046,13 +1395,13 @@ function getFiltered(){
 }
 function renderTable(){
   var qs=getFiltered();
-  if(sortCol)qs.sort((a,b)=>{var va=a[sortCol]||'',vb=b[sortCol]||'';return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
+  if(sortCol)qs.sort(function(a,b){var va=a[sortCol]||'',vb=b[sortCol]||'';return sortAsc?(va>vb?1:-1):(va<vb?1:-1);});
   document.getElementById('ql-cnt').textContent=qs.length+'/'+QS.length;
   document.getElementById('mini-cnt').textContent=qs.length;
   renderChips();
   var tbody=document.getElementById('ql-tbody');
   if(!qs.length){tbody.innerHTML='<tr class="ql-empty"><td colspan="7">No questions match filters</td></tr>';return;}
-  tbody.innerHTML=qs.map((q,i)=>{
+  tbody.innerHTML=qs.map(function(q,i){
     var isSolved=solved.map(String).includes(String(q.id));
     var isActive=curQ&&String(curQ.id)===String(q.id);
     var dc=q.difficulty==='easy'?'te':q.difficulty==='medium'?'tm':'th';
@@ -1076,12 +1425,14 @@ function renderChips(){
   if(html)html+='<button class="clr-all" onclick="clrF()">Clear all</button>';
   document.getElementById('chips').innerHTML=html;
 }
-function rmF(k){F[k]='all';var m={diff:0,topic:1,co:2,status:3};var gs=document.querySelectorAll('.fg');if(gs[m[k]]){gs[m[k]].querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));gs[m[k]].querySelector('.fg-btn').classList.add('on');}renderTable();}
-function clrF(){F={diff:'all',topic:'all',co:'all',status:'all'};document.querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.fg .fg-btn:first-child').forEach(b=>b.classList.add('on'));renderTable();}
-function setF(k,v,el){F[k]=v;el.closest('.fg').querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderTable();}
-function sortTbl(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=true;}document.querySelectorAll('.si').forEach(s=>{s.textContent='▲';s.parentElement.classList.remove('sorted');});var si=document.getElementById('si-'+col);if(si){si.textContent=sortAsc?'▲':'▼';si.parentElement.classList.add('sorted');}renderTable();}
+function rmF(k){F[k]='all';var m={diff:0,topic:1,co:2,status:3};var gs=document.querySelectorAll('.fg');if(gs[m[k]]){gs[m[k]].querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});gs[m[k]].querySelector('.fg-btn').classList.add('on');}renderTable();}
+function clrF(){F={diff:'all',topic:'all',co:'all',status:'all'};document.querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('.fg .fg-btn:first-child').forEach(function(b){b.classList.add('on');});renderTable();}
+function setF(k,v,el){F[k]=v;el.closest('.fg').querySelectorAll('.fg-btn').forEach(function(b){b.classList.remove('on');});el.classList.add('on');renderTable();}
+function sortTbl(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=true;}document.querySelectorAll('.si').forEach(function(s){s.textContent='▲';s.parentElement.classList.remove('sorted');});var si=document.getElementById('si-'+col);if(si){si.textContent=sortAsc?'▲':'▼';si.parentElement.classList.add('sorted');}renderTable();}
+
 function loadQ(id){
-  curQ=QS.find(q=>String(q.id)===String(id));if(!curQ)return;
+  curQ=QS.find(function(q){return String(q.id)===String(id);});
+  if(!curQ)return;
   var isSolved=solved.map(String).includes(String(curQ.id));
   var dc=curQ.difficulty==='easy'?'te':curQ.difficulty==='medium'?'tm':'th';
   document.getElementById('q-detail').innerHTML=
@@ -1100,75 +1451,45 @@ function loadQ(id){
   hideSubmitCard();
   epTab('desc',document.querySelector('.ep-tab'));
   renderTable();
-  // Enter focus mode — hide question list, show full editor
   enterFocusMode();
-}
-
-
-
-/* ═══ VIEW MODE ═══ */
-var viewMode = 'split';
-var VM_HINTS = {
-  split: 'Questions list + editor side by side',
-  list:  'Browse all questions — click any to open in Focus mode',
-  focus: 'Distraction-free editor — full screen'
-};
-function setViewMode(mode, btn){
-  viewMode = mode;
-  var split = document.getElementById('sql-split');
-  split.classList.remove('vm-split','vm-list','vm-focus','focus-mode');
-  split.classList.add('vm-'+mode);
-  document.querySelectorAll('.vm-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  else document.getElementById('vm-'+mode).classList.add('active');
-  var hint = document.getElementById('vm-hint');
-  if(hint) hint.textContent = VM_HINTS[mode]||'';
-  // If switching to list mode, make clicking a row go to focus mode
-  if(mode==='list'){
-    // rows already have onclick=loadQ which calls enterFocusMode -> sets focus-mode
-    // we override enterFocusMode behaviour for list mode
-  }
-  if(mode==='split' || mode==='focus'){
-    // ensure sidebar toggle button is right
-  }
-}
-
-/* ═══ FOCUS MODE ═══ */
-function enterFocusMode(){
-  // Switch to focus mode view
-  setViewMode('focus', document.getElementById('vm-focus'));
-  // Show question position e.g. "12 / 15"
-  var filtered=getFiltered();
-  var idx=filtered.findIndex(q=>String(q.id)===String(curQ.id));
-  document.getElementById('q-nav-info').textContent=(idx>=0?(idx+1)+' / '+filtered.length+' questions':'');
-}
-function exitFocusMode(){
-  setViewMode('split', document.getElementById('vm-split'));
 }
 
 /* ═══ DRAG RESIZE ═══ */
 (function(){
-  var h=document.getElementById('drag-handle'),p=document.getElementById('ql-panel'),s=document.getElementById('sql-split');var sx,sw;
-  h.addEventListener('mousedown',e=>{if(p.classList.contains('mini'))return;sx=e.clientX;sw=p.getBoundingClientRect().width;h.classList.add('drag');document.body.classList.add('no-select');e.preventDefault();});
-  document.addEventListener('mousemove',e=>{if(!h.classList.contains('drag'))return;var nw=Math.max(180,Math.min(sw+(e.clientX-sx),s.getBoundingClientRect().width-220));p.style.width=nw+'px';p.style.flex='none';});
-  document.addEventListener('mouseup',()=>{h.classList.remove('drag');document.body.classList.remove('no-select');});
+  var h=document.getElementById('drag-handle'),p=document.getElementById('ql-panel'),s=document.getElementById('sql-split');
+  var sx,sw;
+  h.addEventListener('mousedown',function(e){
+    if(p.classList.contains('mini'))return;
+    sx=e.clientX;sw=p.getBoundingClientRect().width;
+    h.classList.add('drag');document.body.classList.add('no-select');e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!h.classList.contains('drag'))return;
+    var nw=Math.max(180,Math.min(sw+(e.clientX-sx),s.getBoundingClientRect().width-220));
+    p.style.width=nw+'px';p.style.flex='none';
+  });
+  document.addEventListener('mouseup',function(){h.classList.remove('drag');document.body.classList.remove('no-select');});
 })();
 function collapseQL(){var p=document.getElementById('ql-panel');p.classList.add('mini');p.style.width='36px';p.style.flex='none';}
 function expandQL(){var p=document.getElementById('ql-panel');p.classList.remove('mini');p.style.width='42%';p.style.flex='none';}
 function toggleSidebar(){sidebarOpen=!sidebarOpen;document.getElementById('filter-sidebar').classList.toggle('collapsed',!sidebarOpen);document.getElementById('sb-show').style.display=sidebarOpen?'none':'flex';}
 function toggleResult(){resultOpen=!resultOpen;document.getElementById('res-bw').classList.toggle('closed',!resultOpen);document.getElementById('res-tog').style.transform=resultOpen?'':'rotate(-90deg)';}
-function epTab(id,el){document.querySelectorAll('.ep-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.ep-tc').forEach(c=>c.classList.remove('on'));if(el)el.classList.add('active');else document.querySelector('.ep-tab').classList.add('active');document.getElementById('ept-'+id).classList.add('on');}
+function epTab(id,el){
+  document.querySelectorAll('.ep-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.ep-tc').forEach(function(c){c.classList.remove('on');});
+  if(el)el.classList.add('active');else document.querySelector('.ep-tab').classList.add('active');
+  document.getElementById('ept-'+id).classList.add('on');
+}
 
 /* ═══ PAGE NAV ═══ */
 function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.t-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.t-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('on');
   if(btn)btn.classList.add('active');
   if(id==='excel')initXL();
   if(id==='achievements')updateAch();
   if(id==='leaderboard')loadLeaderboard();
-  // update URL hash without triggering hashchange loop
   history.replaceState(null,'','#'+id);
 }
 
@@ -1176,7 +1497,12 @@ function showPage(id,btn){
 function initXL(){
   if(hot)return;
   hot=new Handsontable(document.getElementById('excel-grid'),{
-    data:[['Product','Jan Sales','Feb Sales','Mar Sales','Q1 Total','Monthly Avg'],['Laptop Pro',45000,52000,61000,'=SUM(B2:D2)','=AVERAGE(B2:D2)'],['Smartphone X',32000,38000,29000,'=SUM(B3:D3)','=AVERAGE(B3:D3)'],['Wireless Earbuds',15000,18000,22000,'=SUM(B4:D4)','=AVERAGE(B4:D4)'],['USB Charger',8000,12000,9000,'=SUM(B5:D5)','=AVERAGE(B5:D5)'],['Tablet','','','','=SUM(B6:D6)','=AVERAGE(B6:D6)']],
+    data:[['Product','Jan Sales','Feb Sales','Mar Sales','Q1 Total','Monthly Avg'],
+      ['Laptop Pro',45000,52000,61000,'=SUM(B2:D2)','=AVERAGE(B2:D2)'],
+      ['Smartphone X',32000,38000,29000,'=SUM(B3:D3)','=AVERAGE(B3:D3)'],
+      ['Wireless Earbuds',15000,18000,22000,'=SUM(B4:D4)','=AVERAGE(B4:D4)'],
+      ['USB Charger',8000,12000,9000,'=SUM(B5:D5)','=AVERAGE(B5:D5)'],
+      ['Tablet','','','','=SUM(B6:D6)','=AVERAGE(B6:D6)']],
     rowHeaders:true,colHeaders:true,contextMenu:true,formulas:true,width:'100%',height:420,stretchH:'all',licenseKey:'non-commercial-and-evaluation'
   });
 }
@@ -1184,11 +1510,659 @@ function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
 function markXLDone(){if(!user){openModal('signup');toast('Login to save your progress','warn');return;}xlCnt++;updateDash();checkBadges();toast('Excel challenge complete! ✅','ok');}
 
 /* ═══ AI ═══ */
-var AIR={join:"JOIN types:\n\n• INNER JOIN — only matching rows from both tables\n• LEFT JOIN — all from left + NULLs if no match\n• RIGHT JOIN — opposite\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",window:"Window Functions:\n\nFUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n• ROW_NUMBER() — unique row per group\n• RANK() — rank with gaps\n• DENSE_RANK() — no gaps\n• SUM(salary) OVER (PARTITION BY dept_id) — running total",vlookup:"VLOOKUP:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\n• FALSE = exact match\nTip: Use XLOOKUP() in Excel 365!",cte:"CTE:\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees GROUP BY dept_id\n)\nSELECT e.name FROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;",second:"Second Highest:\n\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nOR:\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;"};
-function addMsg(r,t){var el=document.createElement('div');el.className='msg msg-'+r;el.innerHTML='<div class="av-sm">'+(r==='ai'?'🤖':'U')+'</div><div class="bubble">'+t.replace(/\n/g,'<br>')+'</div>';var m=document.getElementById('chat-msgs');m.appendChild(el);m.scrollTop=99999;}
-function sendMsg(){var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;addMsg('user',txt);inp.value='';aiCnt++;updateDash();
-  setTimeout(()=>{var lo=txt.toLowerCase();var rep;if(lo.includes('join'))rep=AIR.join;else if(lo.includes('window')||lo.includes('rank')||lo.includes('partition'))rep=AIR.window;else if(lo.includes('vlookup')||lo.includes('excel'))rep=AIR.vlookup;else if(lo.includes('cte'))rep=AIR.cte;else if(lo.includes('second')||lo.includes('2nd'))rep=AIR.second;else rep='Good question!\n\nFor "'+txt+'":\n1. Identify which tables have the data\n2. Choose the right clause — WHERE, GROUP BY, JOIN\n3. Start simple then add complexity\n\nPaste your query/error and I\'ll debug it! 🚀';addMsg('ai',rep);},550);}
+var AIR={
+  join:"JOIN types:\n\n• INNER JOIN — only matching rows from both tables\n• LEFT JOIN — all from left + NULLs if no match\n• RIGHT JOIN — opposite\n\nExample:\nSELECT e.name, d.dept_name\nFROM employees e\nINNER JOIN departments d ON e.dept_id = d.id;",
+  window:"Window Functions:\n\nFUNCTION() OVER (PARTITION BY col ORDER BY col)\n\n• ROW_NUMBER() — unique row per group\n• RANK() — rank with gaps\n• DENSE_RANK() — no gaps\n• SUM(salary) OVER (PARTITION BY dept_id) — running total",
+  vlookup:"VLOOKUP:\n=VLOOKUP(lookup_value, table_array, col_index, FALSE)\n\n• FALSE = exact match\nTip: Use XLOOKUP() in Excel 365!",
+  cte:"CTE:\n\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) as mx\n  FROM employees GROUP BY dept_id\n)\nSELECT e.name FROM employees e\nJOIN dept_max d ON e.dept_id = d.dept_id;",
+  second:"Second Highest:\n\nSELECT MAX(salary) FROM employees\nWHERE salary < (SELECT MAX(salary) FROM employees);\n\nOR:\nSELECT DISTINCT salary FROM employees\nORDER BY salary DESC LIMIT 1 OFFSET 1;"
+};
+function addMsg(r,t){
+  var el=document.createElement('div');
+  el.className='msg msg-'+r;
+  el.innerHTML='<div class="av-sm">'+(r==='ai'?'🤖':'U')+'</div><div class="bubble">'+t.replace(/\n/g,'<br>')+'</div>';
+  var m=document.getElementById('chat-msgs');m.appendChild(el);m.scrollTop=99999;
+}
+function sendMsg(){
+  var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;
+  addMsg('user',txt);inp.value='';aiCnt++;updateDash();
+  setTimeout(function(){
+    var lo=txt.toLowerCase();var rep;
+    if(lo.includes('join'))rep=AIR.join;
+    else if(lo.includes('window')||lo.includes('rank')||lo.includes('partition'))rep=AIR.window;
+    else if(lo.includes('vlookup')||lo.includes('excel'))rep=AIR.vlookup;
+    else if(lo.includes('cte'))rep=AIR.cte;
+    else if(lo.includes('second')||lo.includes('2nd'))rep=AIR.second;
+    else rep='Good question!\n\nFor "'+txt+'":\n1. Identify which tables have the data\n2. Choose the right clause — WHERE, GROUP BY, JOIN\n3. Start simple then add complexity\n\nPaste your query/error and I\'ll debug it! 🚀';
+    addMsg('ai',rep);
+  },550);
+}
 function quickAsk(q){document.getElementById('chat-inp').value=q;sendMsg();}
+
+
+/* ═══ DASHBOARD TABS ═══ */
+function dTab(id, btn){
+  document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('dp-'+id).classList.add('on');
+  if(btn) btn.classList.add('on');
+  if(id==='roadmap') initRoadmap();
+}
+
+/* ═══ ROADMAP ENGINE ═══ */
+var rmCurrentTopic = 0;
+var rmTopics = [];
+var roadmapReady = false;
+
+/* All topics flat list */
+function buildTopicList(){
+  return [
+    { id:'select', stage:'01 · Foundations', title:'SELECT & FROM', icon:'📋', color:'#10b981', difficulty:'easy',
+      qs:[0,1,2] },
+    { id:'where', stage:'01 · Foundations', title:'WHERE Filter', icon:'🔍', color:'#10b981', difficulty:'easy',
+      qs:[3,4,5,6] },
+    { id:'orderby', stage:'01 · Foundations', title:'ORDER BY & LIMIT', icon:'📊', color:'#10b981', difficulty:'easy',
+      qs:[7,8,9] },
+    { id:'agg', stage:'02 · Aggregations', title:'Aggregate Functions', icon:'➕', color:'#3b82f6', difficulty:'easy',
+      qs:[10,11,12,13] },
+    { id:'groupby', stage:'02 · Aggregations', title:'GROUP BY', icon:'📦', color:'#3b82f6', difficulty:'easy',
+      qs:[13,14,15] },
+    { id:'having', stage:'02 · Aggregations', title:'HAVING Clause', icon:'🎯', color:'#3b82f6', difficulty:'medium',
+      qs:[14,15,16] },
+    { id:'inner', stage:'03 · JOINs', title:'INNER JOIN', icon:'🔗', color:'#8b5cf6', difficulty:'medium',
+      qs:[17,18,19] },
+    { id:'left', stage:'03 · JOINs', title:'LEFT JOIN', icon:'⬅️', color:'#8b5cf6', difficulty:'medium',
+      qs:[18] },
+    { id:'self', stage:'03 · JOINs', title:'Self JOIN', icon:'🪞', color:'#8b5cf6', difficulty:'medium',
+      qs:[20,21] },
+    { id:'subq', stage:'04 · Subqueries', title:'Subqueries', icon:'🔄', color:'#f59e0b', difficulty:'medium',
+      qs:[22,23,24] },
+    { id:'cte', stage:'05 · CTEs', title:'WITH / CTE', icon:'📜', color:'#06b6d4', difficulty:'hard',
+      qs:[25,26] },
+    { id:'winrank', stage:'06 · Window Fns', title:'RANK & DENSE_RANK', icon:'🏅', color:'#ef4444', difficulty:'hard',
+      qs:[27,28,29,31] },
+    { id:'partition', stage:'06 · Window Fns', title:'PARTITION BY', icon:'🪟', color:'#ef4444', difficulty:'hard',
+      qs:[27,28,29] },
+    { id:'running', stage:'06 · Window Fns', title:'Running Totals', icon:'🏃', color:'#ef4444', difficulty:'hard',
+      qs:[30] }
+  ];
+}
+
+function hl(code){
+  var KW=['SELECT','FROM','WHERE','GROUP BY','ORDER BY','HAVING','JOIN','INNER','LEFT','RIGHT','FULL','ON','AS','AND','OR','WITH','PARTITION BY','OVER','LIMIT','COUNT','SUM','AVG','MAX','MIN','RANK','DENSE_RANK','ROW_NUMBER','DESC','ASC','NOT','IN','NULL','DISTINCT','BETWEEN','LIKE','CREATE','TABLE','INSERT','VALUES'];
+  var s = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  KW.forEach(function(kw){
+    var re = new RegExp('(?<![a-zA-Z_])'+kw+'(?![a-zA-Z_])','g');
+    s = s.replace(re,'<span style="color:#38bdf8;font-weight:700">'+kw+'</span>');
+  });
+  s = s.replace(/--[^\n]*/g,'<span style="color:#64748b;font-style:italic">$&</span>');
+  s = s.replace(/\b(\d+)\b/g,'<span style="color:#a78bfa">$1</span>');
+  s = s.replace(/'[^']*'/g,'<span style="color:#fbbf24">$&</span>');
+  return s;
+}
+
+function sqlBlock(code, title){
+  title = title||'SQL';
+  return '<div class="rm-syntax">'
+    +'<div class="rm-syntax-hdr">'
+      +'<span class="rm-syntax-lang">'+title+'</span>'
+      +'<button class="rm-copy-btn" onclick="copyCode(this)">📋 Copy</button>'
+    +'</div>'
+    +'<pre>'+hl(code)+'</pre>'
+    +'</div>';
+}
+function copyCode(btn){
+  var pre = btn.closest('.rm-syntax').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(function(){
+    btn.textContent='✓ Copied!'; btn.style.color='var(--green)';
+    setTimeout(function(){btn.textContent='📋 Copy';btn.style.color='';},2000);
+  });
+}
+
+function tipBox(type,icon,text){
+  return '<div class="rm-tip rm-tip-'+type+'"><span style="font-size:16px;flex-shrink:0">'+icon+'</span><div>'+text+'</div></div>';
+}
+
+function quiz(q, opts, correctIdx, explanation){
+  var letters = ['A','B','C','D'];
+  var optsHtml = opts.map(function(o,i){
+    return '<div class="rm-quiz-opt" onclick="answerQuiz(this,'+i+','+correctIdx+')">'
+      +'<span class="rm-quiz-letter">'+letters[i]+'</span>'
+      +o+'</div>';
+  }).join('');
+  return '<div class="rm-quiz">'
+    +'<div class="rm-quiz-title">✏️ Quick Check — Try it before moving on!</div>'
+    +'<div class="rm-quiz-q">'+q+'</div>'
+    +'<div class="rm-quiz-opts">'+optsHtml+'</div>'
+    +'<div class="rm-quiz-explain">'+explanation+'</div>'
+    +'</div>';
+}
+
+function answerQuiz(el, chosen, correct){
+  var container = el.closest('.rm-quiz-opts');
+  var explain = el.closest('.rm-quiz').querySelector('.rm-quiz-explain');
+  container.querySelectorAll('.rm-quiz-opt').forEach(function(o,i){
+    o.classList.add(i===correct?'correct':'disabled');
+  });
+  if(chosen !== correct) el.classList.add('wrong');
+  else el.classList.add('correct');
+  if(explain) explain.classList.add('show');
+}
+
+function practiceLinks(qids){
+  if(!qids||!qids.length) return '';
+  var items = qids.map(function(qid){
+    var q = FALLBACK.find(function(f){return f.id===qid;});
+    if(!q) return '';
+    var dotColor = q.difficulty==='easy'?'var(--green)':q.difficulty==='medium'?'var(--amber)':'var(--red)';
+    return '<div class="rm-practice-item" onclick="openRoadmapQ('+qid+')">'
+      +'<span class="rm-pi-diff" style="background:'+dotColor+'"></span>'
+      +'<span class="rm-pi-num">#'+(qid+1)+'</span>'
+      +'<span class="rm-pi-title">'+q.title+'</span>'
+      +'<span class="rm-pi-company">'+q.company+'</span>'
+      +'<span class="rm-pi-arrow">→ Solve</span>'
+      +'</div>';
+  }).join('');
+  return '<div class="rm-practice-cta">'
+    +'<div class="rm-practice-title">🎯 Now Practice These Questions</div>'
+    +'<div class="rm-practice-list">'+items+'</div>'
+    +'</div>';
+}
+
+/* ── TOPIC CONTENT BUILDERS ── */
+function buildTopicContent(topic){
+  switch(topic.id){
+
+    case 'select': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#064e3b,#065f46);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 01 · SQL Foundations</div>'
+        +'<div class="rm-hdr-title">📋 SELECT & FROM</div>'
+        +'<div class="rm-hdr-sub">The very first SQL command you will ever use. Every single query starts here.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Easy</span><span class="rm-badge">Beginner</span><span class="rm-badge">Google · Amazon</span></div>'
+      +'</div>'
+
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">📱</div><div class="rm-analogy-text"><strong>Think of it like a spreadsheet:</strong> Imagine your data is a big Excel sheet. <strong>SELECT</strong> is like choosing which COLUMNS to see, and <strong>FROM</strong> is choosing which SHEET (table) to look at.</div></div>'
+
+      +'<div class="rm-card">'
+        +'<div class="rm-card-hdr"><span class="rm-card-icon">🧠</span><span class="rm-card-title" style="color:var(--green)">Core Concept</span></div>'
+        +'<div class="rm-card-body">'
+          +'<p><strong>SELECT</strong> tells SQL <em>what data</em> you want to see (which columns).</p>'
+          +'<p><strong>FROM</strong> tells SQL <em>where</em> to get the data from (which table).</p>'
+          +'<p>Use <strong>*</strong> to select ALL columns. Use column names to pick specific ones.</p>'
+        +'</div>'
+      +'</div>'
+
+      +'<div class="rm-visual"><svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="max-width:480px">'
+        +'<rect width="500" height="200" fill="#0a1628" rx="10"/>'
+        +'<rect x="20" y="20" width="220" height="160" fill="#1e293b" rx="8" stroke="#2e3f5c" stroke-width="1"/>'
+        +'<text x="130" y="42" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">employees table</text>'
+        +'<rect x="28" y="50" width="204" height="24" fill="#263148"/>'
+        +'<text x="60" y="66" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">id</text>'
+        +'<text x="100" y="66" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">name</text>'
+        +'<text x="170" y="66" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">salary</text>'
+        +'<text x="60" y="92" fill="#e2e8f0" font-size="10" font-family="monospace">1</text>'
+        +'<text x="95" y="92" fill="#10b981" font-size="10" font-family="monospace">Rahul</text>'
+        +'<text x="165" y="92" fill="#e2e8f0" font-size="10" font-family="monospace">75000</text>'
+        +'<text x="60" y="112" fill="#e2e8f0" font-size="10" font-family="monospace">2</text>'
+        +'<text x="95" y="112" fill="#10b981" font-size="10" font-family="monospace">Priya</text>'
+        +'<text x="165" y="112" fill="#e2e8f0" font-size="10" font-family="monospace">92000</text>'
+        +'<text x="60" y="132" fill="#e2e8f0" font-size="10" font-family="monospace">3</text>'
+        +'<text x="95" y="132" fill="#10b981" font-size="10" font-family="monospace">Amit</text>'
+        +'<text x="165" y="132" fill="#e2e8f0" font-size="10" font-family="monospace">45000</text>'
+        +'<path d="M250,100 L310,100" stroke="#10b981" stroke-width="2" marker-end="url(#arr)"/>'
+        +'<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#10b981"/></marker></defs>'
+        +'<text x="267" y="94" fill="#10b981" font-size="9" font-family="monospace">SELECT</text>'
+        +'<text x="263" y="108" fill="#10b981" font-size="9" font-family="monospace">name, salary</text>'
+        +'<rect x="315" y="50" width="160" height="120" fill="#1e293b" rx="8" stroke="#10b981" stroke-width="1.5"/>'
+        +'<text x="395" y="42" text-anchor="middle" fill="#10b981" font-size="10" font-family="monospace">result</text>'
+        +'<rect x="323" y="58" width="144" height="22" fill="#263148"/>'
+        +'<text x="355" y="73" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">name</text>'
+        +'<text x="420" y="73" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">salary</text>'
+        +'<text x="350" y="98" fill="#10b981" font-size="10" font-family="monospace">Rahul</text>'
+        +'<text x="415" y="98" fill="#e2e8f0" font-size="10" font-family="monospace">75000</text>'
+        +'<text x="350" y="118" fill="#10b981" font-size="10" font-family="monospace">Priya</text>'
+        +'<text x="415" y="118" fill="#e2e8f0" font-size="10" font-family="monospace">92000</text>'
+        +'<text x="350" y="138" fill="#10b981" font-size="10" font-family="monospace">Amit</text>'
+        +'<text x="415" y="138" fill="#e2e8f0" font-size="10" font-family="monospace">45000</text>'
+      +'</svg><div class="rm-visual-caption">SELECT picks specific columns — id column is excluded from the result</div></div>'
+
+      +sqlBlock('-- Select specific columns\nSELECT name, salary\nFROM employees;\n\n-- Select ALL columns\nSELECT *\nFROM employees;\n\n-- Rename column in output\nSELECT name AS employee_name,\n       salary AS monthly_pay\nFROM employees;')
+
+      +tipBox('amber','💡','<strong>Interview Tip:</strong> Avoid using SELECT * in production queries — it is slow and can break code when columns are added. Always name the columns you need.')
+      +tipBox('blue','📝','<strong>Remember:</strong> SQL keywords are case-insensitive. SELECT = select = Select. But the convention is UPPERCASE for keywords and lowercase for column/table names.')
+
+      +quiz(
+        'Which query correctly selects only the name column from the employees table?',
+        ['SELECT employees FROM name;','SELECT name FROM employees;','FROM employees SELECT name;','GET name FROM employees;'],
+        1,
+        '✅ <strong>B is correct!</strong> The syntax is always: SELECT [columns] FROM [table]. The keyword SELECT comes first, then column names, then FROM, then the table name.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'where': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 01 · SQL Foundations</div>'
+        +'<div class="rm-hdr-title">🔍 WHERE Clause</div>'
+        +'<div class="rm-hdr-sub">Filter rows to see only the data you care about. Like a search function for your database.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Easy</span><span class="rm-badge">Amazon</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🛒</div><div class="rm-analogy-text"><strong>Think of it like a shopping filter:</strong> Imagine you are on Amazon and you filter products by <em>Price: under ₹1000</em> and <em>Brand: Nike</em>. WHERE does exactly that for your database rows.</div></div>'
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">🧠</span><span class="rm-card-title" style="color:var(--blue)">Core Concept</span></div><div class="rm-card-body"><p>WHERE goes <strong>after FROM</strong> and filters which rows are returned. Only rows where the condition is TRUE are included.</p><p>You can combine conditions using <strong>AND</strong> (both must be true) or <strong>OR</strong> (at least one must be true).</p></div></div>'
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">🔧</span><span class="rm-card-title" style="color:var(--blue)">All WHERE Operators</span></div><div class="rm-card-body">'
+        +'<table class="rm-table"><thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead><tbody>'
+        +'<tr><td><code style="color:var(--green)">=</code></td><td>Equals</td><td>salary = 50000</td></tr>'
+        +'<tr><td><code style="color:var(--green)">!= or &lt;&gt;</code></td><td>Not equal</td><td>dept_id != 2</td></tr>'
+        +'<tr><td><code style="color:var(--green)">&gt; &lt; &gt;= &lt;=</code></td><td>Comparison</td><td>salary &gt; 80000</td></tr>'
+        +'<tr><td><code style="color:var(--green)">BETWEEN</code></td><td>Range (inclusive)</td><td>salary BETWEEN 40000 AND 80000</td></tr>'
+        +'<tr><td><code style="color:var(--green)">IN</code></td><td>Matches any in list</td><td>dept_id IN (1, 3)</td></tr>'
+        +'<tr><td><code style="color:var(--green)">LIKE</code></td><td>Pattern match</td><td>name LIKE \'R%\'</td></tr>'
+        +'<tr><td><code style="color:var(--green)">IS NULL</code></td><td>No value</td><td>manager_id IS NULL</td></tr>'
+        +'</tbody></table>'
+      +'</div></div>'
+      +sqlBlock('-- Basic filter\nSELECT name, salary\nFROM employees\nWHERE salary > 80000;\n\n-- Multiple conditions\nSELECT name, salary\nFROM employees\nWHERE salary > 50000\n  AND dept_id = 1;\n\n-- IN operator\nSELECT name FROM employees\nWHERE dept_id IN (1, 3);\n\n-- Find employees without a manager\nSELECT name FROM employees\nWHERE manager_id IS NULL;')
+      +tipBox('red','⚠️','<strong>Common Mistake:</strong> Use <code>IS NULL</code> not <code>= NULL</code> to check for null values. <code>WHERE manager_id = NULL</code> will return 0 rows!')
+      +tipBox('amber','💡','<strong>Order of clauses:</strong> SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY → LIMIT. WHERE always comes before GROUP BY.')
+      +quiz(
+        'Which query finds employees with salary between ₹50,000 and ₹90,000?',
+        ['WHERE salary > 50000 OR salary < 90000','WHERE salary BETWEEN 50000 AND 90000','WHERE salary IN (50000, 90000)','WHERE 50000 < salary > 90000'],
+        1,
+        '✅ <strong>B is correct!</strong> BETWEEN is inclusive — it includes both endpoints. So BETWEEN 50000 AND 90000 means salary &gt;= 50000 AND salary &lt;= 90000.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'orderby': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#14532d,#166534);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 01 · SQL Foundations</div>'
+        +'<div class="rm-hdr-title">📊 ORDER BY & LIMIT</div>'
+        +'<div class="rm-hdr-sub">Sort your results and control how many rows you get back. Essential for top-N queries.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Easy</span><span class="rm-badge">Microsoft</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏆</div><div class="rm-analogy-text"><strong>Think of it like a scoreboard:</strong> ORDER BY sorts players by score (high to low = DESC). LIMIT 3 shows only the Top 3.</div></div>'
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">🧠</span><span class="rm-card-title" style="color:var(--green)">Core Concept</span></div><div class="rm-card-body"><p><strong>ORDER BY column ASC</strong> — sort A to Z, smallest to largest (default).</p><p><strong>ORDER BY column DESC</strong> — sort Z to A, largest to smallest.</p><p><strong>LIMIT n</strong> — return only the first n rows after sorting. Used heavily for "Top 5", "Last 3" type queries.</p></div></div>'
+      +sqlBlock('-- Top 3 highest-paid employees\nSELECT name, salary\nFROM employees\nORDER BY salary DESC\nLIMIT 3;\n\n-- Sort by name alphabetically\nSELECT name FROM employees\nORDER BY name ASC;\n\n-- Second highest salary (classic interview)\nSELECT DISTINCT salary\nFROM employees\nORDER BY salary DESC\nLIMIT 1 OFFSET 1;')
+      +tipBox('amber','💡','<strong>OFFSET trick:</strong> LIMIT 1 OFFSET 1 skips 1 row and takes 1 — this gives you the 2nd highest. OFFSET 2 gives 3rd highest, and so on.')
+      +tipBox('blue','📝','<strong>NULL sorting:</strong> NULLs appear LAST in ASC order and FIRST in DESC order by default in most databases.')
+      +quiz(
+        'You want the 3 lowest-paid employees. Which ORDER BY is correct?',
+        ['ORDER BY salary DESC LIMIT 3','ORDER BY salary ASC LIMIT 3','ORDER BY salary LIMIT 3 DESC','LIMIT 3 ORDER BY salary'],
+        1,
+        '✅ <strong>B is correct!</strong> ASC (ascending) goes from lowest to highest. So ORDER BY salary ASC gives cheapest first, then LIMIT 3 takes only the top 3 of that sorted list.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'agg': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 02 · Aggregations</div>'
+        +'<div class="rm-hdr-title">➕ Aggregate Functions</div>'
+        +'<div class="rm-hdr-sub">Turn many rows into one summary number. The backbone of data analysis.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Easy</span><span class="rm-badge">Meta · Flipkart · Amazon</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">📊</div><div class="rm-analogy-text"><strong>Think of it like a report card:</strong> You have 30 test scores. Aggregate functions summarize them — COUNT tells you there are 30 scores, AVG gives the class average, MAX finds the highest, MIN the lowest, SUM the total points.</div></div>'
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">🔧</span><span class="rm-card-title" style="color:var(--blue)">The 5 Big Aggregate Functions</span></div><div class="rm-card-body">'
+        +'<table class="rm-table"><thead><tr><th>Function</th><th>What it does</th><th>Handles NULL?</th></tr></thead><tbody>'
+        +'<tr><td><code style="color:var(--green)">COUNT(*)</code></td><td>Count all rows including NULLs</td><td>✅ Yes</td></tr>'
+        +'<tr><td><code style="color:var(--green)">COUNT(col)</code></td><td>Count non-NULL values in column</td><td>❌ Skips NULLs</td></tr>'
+        +'<tr><td><code style="color:var(--green)">SUM(col)</code></td><td>Total sum of all values</td><td>❌ Skips NULLs</td></tr>'
+        +'<tr><td><code style="color:var(--green)">AVG(col)</code></td><td>Average (mean) of values</td><td>❌ Skips NULLs</td></tr>'
+        +'<tr><td><code style="color:var(--green)">MAX(col)</code></td><td>Largest value</td><td>❌ Skips NULLs</td></tr>'
+        +'<tr><td><code style="color:var(--green)">MIN(col)</code></td><td>Smallest value</td><td>❌ Skips NULLs</td></tr>'
+        +'</tbody></table>'
+      +'</div></div>'
+      +sqlBlock('-- Total employees\nSELECT COUNT(*) AS total_employees\nFROM employees;\n\n-- Average and max salary\nSELECT AVG(salary) AS avg_salary,\n       MAX(salary) AS highest,\n       MIN(salary) AS lowest\nFROM employees;\n\n-- Total salary bill\nSELECT SUM(salary) AS total_payroll\nFROM employees;')
+      +tipBox('red','⚠️','<strong>Gotcha:</strong> AVG(salary) skips NULLs. So if 2 of 10 employees have NULL salary, AVG divides the sum by 8, not 10. This can give misleading results!')
+      +tipBox('green','✅','<strong>Best Practice:</strong> Always use AS to alias your aggregations. <code>AVG(salary) AS avg_salary</code> makes results readable.')
+      +quiz(
+        'A table has 10 rows. 3 rows have NULL in the salary column. What does COUNT(*) return vs COUNT(salary)?',
+        ['COUNT(*) = 10, COUNT(salary) = 10','COUNT(*) = 7, COUNT(salary) = 7','COUNT(*) = 10, COUNT(salary) = 7','COUNT(*) = 7, COUNT(salary) = 10'],
+        2,
+        '✅ <strong>C is correct!</strong> COUNT(*) counts ALL rows regardless of NULLs = 10. COUNT(salary) skips rows where salary IS NULL = 7.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'groupby': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 02 · Aggregations</div>'
+        +'<div class="rm-hdr-title">📦 GROUP BY</div>'
+        +'<div class="rm-hdr-sub">Split data into groups and calculate aggregates for each group separately.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Easy-Medium</span><span class="rm-badge">Meta · Flipkart</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🗂️</div><div class="rm-analogy-text"><strong>Think of it like sorting mail:</strong> You have 100 letters. GROUP BY dept_id sorts them into department piles. Then COUNT(*) counts each pile separately — Engineering: 30, Marketing: 20, Sales: 50.</div></div>'
+      +'<div class="rm-visual"><svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="max-width:480px">'
+        +'<rect width="500" height="220" fill="#0a1628" rx="10"/>'
+        +'<text x="120" y="22" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">employees (6 rows)</text>'
+        +'<rect x="20" y="30" width="200" height="26" fill="#263148"/>'
+        +'<text x="60" y="47" fill="#64748b" font-size="9" font-family="monospace" font-weight="bold">name</text>'
+        +'<text x="130" y="47" fill="#64748b" font-size="9" font-family="monospace" font-weight="bold">dept_id</text>'
+        +'<text x="54" y="68" fill="#e2e8f0" font-size="9" font-family="monospace">Rahul</text><text x="130" y="68" fill="#10b981" font-size="9" font-family="monospace">1</text>'
+        +'<text x="54" y="84" fill="#e2e8f0" font-size="9" font-family="monospace">Priya</text><text x="130" y="84" fill="#10b981" font-size="9" font-family="monospace">1</text>'
+        +'<text x="54" y="100" fill="#e2e8f0" font-size="9" font-family="monospace">Amit</text><text x="130" y="100" fill="#f59e0b" font-size="9" font-family="monospace">2</text>'
+        +'<text x="54" y="116" fill="#e2e8f0" font-size="9" font-family="monospace">Vikram</text><text x="130" y="116" fill="#10b981" font-size="9" font-family="monospace">1</text>'
+        +'<text x="54" y="132" fill="#e2e8f0" font-size="9" font-family="monospace">Sneha</text><text x="130" y="132" fill="#ef4444" font-size="9" font-family="monospace">3</text>'
+        +'<text x="54" y="148" fill="#e2e8f0" font-size="9" font-family="monospace">Neha</text><text x="130" y="148" fill="#f59e0b" font-size="9" font-family="monospace">2</text>'
+        +'<text x="130" y="180" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace">GROUP BY dept_id</text>'
+        +'<path d="M230,100 L270,100" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,2"/>'
+        +'<rect x="275" y="30" width="110" height="50" fill="#1e293b" rx="6" stroke="#10b981" stroke-width="1.5"/>'
+        +'<text x="330" y="50" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace">dept 1</text>'
+        +'<text x="330" y="64" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">Rahul,Priya,Vikram</text>'
+        +'<text x="330" y="75" text-anchor="middle" fill="#38bdf8" font-size="9" font-family="monospace">COUNT=3</text>'
+        +'<rect x="275" y="90" width="110" height="50" fill="#1e293b" rx="6" stroke="#f59e0b" stroke-width="1.5"/>'
+        +'<text x="330" y="110" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="monospace">dept 2</text>'
+        +'<text x="330" y="124" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">Amit, Neha</text>'
+        +'<text x="330" y="135" text-anchor="middle" fill="#38bdf8" font-size="9" font-family="monospace">COUNT=2</text>'
+        +'<rect x="275" y="150" width="110" height="50" fill="#1e293b" rx="6" stroke="#ef4444" stroke-width="1.5"/>'
+        +'<text x="330" y="170" text-anchor="middle" fill="#ef4444" font-size="9" font-family="monospace">dept 3</text>'
+        +'<text x="330" y="184" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">Sneha</text>'
+        +'<text x="330" y="195" text-anchor="middle" fill="#38bdf8" font-size="9" font-family="monospace">COUNT=1</text>'
+        +'<text x="420" y="110" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">→ result</text>'
+        +'<text x="420" y="125" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="monospace">1 | 3</text>'
+        +'<text x="420" y="140" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="monospace">2 | 2</text>'
+        +'<text x="420" y="155" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="monospace">3 | 1</text>'
+      +'</svg><div class="rm-visual-caption">GROUP BY splits rows into buckets, then COUNT runs on each bucket separately</div></div>'
+      +sqlBlock('-- Count employees per department\nSELECT dept_id, COUNT(*) AS headcount\nFROM employees\nGROUP BY dept_id;\n\n-- Average salary per department\nSELECT dept_id,\n       AVG(salary) AS avg_salary,\n       MAX(salary) AS top_salary\nFROM employees\nGROUP BY dept_id\nORDER BY avg_salary DESC;')
+      +tipBox('red','⚠️','<strong>Golden Rule:</strong> Every column in SELECT that is NOT an aggregate function MUST appear in GROUP BY. Breaking this rule is the #1 SQL error beginners make.')
+      +quiz(
+        'Which query correctly finds the average salary per department?',
+        ['SELECT AVG(salary) FROM employees GROUP BY dept_id','SELECT dept_id, AVG(salary) FROM employees GROUP BY dept_id','SELECT dept_id, AVG(salary) FROM employees','SELECT dept_id FROM employees GROUP BY AVG(salary)'],
+        1,
+        '✅ <strong>B is correct!</strong> We SELECT dept_id (the grouping column) AND AVG(salary) (the aggregate). dept_id must also appear in GROUP BY because it is not an aggregate.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'having': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#78350f,#b45309);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 02 · Aggregations</div>'
+        +'<div class="rm-hdr-title">🎯 HAVING Clause</div>'
+        +'<div class="rm-hdr-sub">Filter GROUPS after aggregation. Like WHERE, but for the results of GROUP BY.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Medium</span><span class="rm-badge">Flipkart · Amazon</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏪</div><div class="rm-analogy-text"><strong>Think of it like a store report:</strong> You group sales by store (GROUP BY). Then HAVING filters out stores with less than ₹1L sales. WHERE would filter individual sale records — HAVING filters the store summaries.</div></div>'
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">⚖️</span><span class="rm-card-title" style="color:var(--amber)">WHERE vs HAVING — The Key Difference</span></div><div class="rm-card-body">'
+        +'<table class="rm-table"><thead><tr><th></th><th>WHERE</th><th>HAVING</th></tr></thead><tbody>'
+        +'<tr><td><strong>Filters</strong></td><td>Individual rows</td><td>Groups / aggregates</td></tr>'
+        +'<tr><td><strong>Runs</strong></td><td>Before GROUP BY</td><td>After GROUP BY</td></tr>'
+        +'<tr><td><strong>Can use</strong></td><td>Column values</td><td>Aggregate functions</td></tr>'
+        +'<tr><td><strong>Example</strong></td><td>WHERE salary > 50000</td><td>HAVING COUNT(*) > 2</td></tr>'
+        +'</tbody></table>'
+      +'</div></div>'
+      +sqlBlock('-- Departments with more than 2 employees\nSELECT dept_id, COUNT(*) AS cnt\nFROM employees\nGROUP BY dept_id\nHAVING COUNT(*) > 2;\n\n-- Departments where avg salary > 60000\nSELECT dept_id, AVG(salary) AS avg_sal\nFROM employees\nGROUP BY dept_id\nHAVING AVG(salary) > 60000;\n\n-- Using WHERE and HAVING together\nSELECT dept_id, COUNT(*) AS cnt\nFROM employees\nWHERE salary > 40000    -- filter rows first\nGROUP BY dept_id\nHAVING COUNT(*) >= 2;  -- then filter groups')
+      +tipBox('amber','💡','<strong>Execution order:</strong> FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. HAVING always comes after GROUP BY!')
+      +quiz(
+        'You want departments where the total salary bill exceeds ₹200,000. Which is correct?',
+        ['WHERE SUM(salary) > 200000','HAVING salary > 200000','HAVING SUM(salary) > 200000','WHERE total_salary > 200000'],
+        2,
+        '✅ <strong>C is correct!</strong> SUM(salary) is an aggregate, so it must be in HAVING, not WHERE. HAVING SUM(salary) > 200000 runs after GROUP BY and filters departments by their total payroll.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'inner': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#2e1065,#5b21b6);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 03 · JOINs</div>'
+        +'<div class="rm-hdr-title">🔗 INNER JOIN</div>'
+        +'<div class="rm-hdr-sub">Combine rows from two tables where a matching value exists in both.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Medium</span><span class="rm-badge">Google · Meta</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">💑</div><div class="rm-analogy-text"><strong>Think of it like a matchmaking app:</strong> You have a list of employees and a list of departments. INNER JOIN matches each employee with their department — if there is no match (an employee with no department), they do NOT appear in results.</div></div>'
+      +'<div class="rm-visual"><svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">'
+        +'<rect width="400" height="160" fill="#0a1628" rx="10"/>'
+        +'<circle cx="155" cy="80" r="60" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="1.5"/>'
+        +'<circle cx="245" cy="80" r="60" fill="rgba(59,130,246,0.2)" stroke="#3b82f6" stroke-width="1.5"/>'
+        +'<ellipse cx="200" cy="80" rx="28" ry="55" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="2"/>'
+        +'<text x="115" y="75" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="monospace">employees</text>'
+        +'<text x="115" y="90" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">no dept</text>'
+        +'<text x="200" y="78" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace" font-weight="bold">MATCH</text>'
+        +'<text x="200" y="91" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace">✓ returned</text>'
+        +'<text x="285" y="75" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="monospace">departments</text>'
+        +'<text x="285" y="90" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">no emp</text>'
+      +'</svg><div class="rm-visual-caption">INNER JOIN returns only the intersection — rows with matches in BOTH tables</div></div>'
+      +sqlBlock('SELECT e.name, e.salary, d.dept_name\nFROM employees e\nINNER JOIN departments d\n  ON e.dept_id = d.id;\n\n-- Alias makes it shorter\n-- e = employees table, d = departments table\n-- ON specifies the matching condition')
+      +tipBox('amber','💡','<strong>Interview Tip:</strong> Always use table aliases (e, d) to make JOINs readable. In interviews, this shows professionalism.')
+      +tipBox('red','⚠️','<strong>Watch out:</strong> If an employee has dept_id = NULL or a dept_id that does not exist in departments, that employee will be EXCLUDED from INNER JOIN results.')
+      +quiz(
+        'employees has 6 rows. departments has 3 rows. 5 employees have valid dept_id. How many rows does INNER JOIN return?',
+        ['6 rows (all employees)','3 rows (all departments)','5 rows (only matching employees)','18 rows (6 × 3)'],
+        2,
+        '✅ <strong>C is correct!</strong> INNER JOIN only returns rows where there is a match in BOTH tables. The 1 employee with no matching department is excluded. Result = 5 rows.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'left': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#312e81,#4338ca);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 03 · JOINs</div>'
+        +'<div class="rm-hdr-title">⬅️ LEFT JOIN</div>'
+        +'<div class="rm-hdr-sub">Keep ALL rows from the left table. Show NULLs where there is no match on the right.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Medium</span><span class="rm-badge">Flipkart</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">📋</div><div class="rm-analogy-text"><strong>Think of it like attendance:</strong> You have all students in a class list (left). You match them with their exam scores (right). LEFT JOIN keeps ALL students — those who did not take the exam show NULL for score. Nobody gets dropped from the list.</div></div>'
+      +'<div class="rm-visual"><svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">'
+        +'<rect width="400" height="160" fill="#0a1628" rx="10"/>'
+        +'<circle cx="155" cy="80" r="60" fill="rgba(59,130,246,0.35)" stroke="#3b82f6" stroke-width="2"/>'
+        +'<circle cx="245" cy="80" r="60" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,2"/>'
+        +'<text x="110" y="75" text-anchor="middle" fill="#93c5fd" font-size="10" font-family="monospace">LEFT table</text>'
+        +'<text x="110" y="90" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace">✓ ALL kept</text>'
+        +'<text x="197" y="78" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">match</text>'
+        +'<text x="197" y="90" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">✓ kept</text>'
+        +'<text x="285" y="75" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">RIGHT table</text>'
+        +'<text x="285" y="90" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">no match=NULL</text>'
+      +'</svg><div class="rm-visual-caption">LEFT JOIN keeps everything from the left table. Non-matching right-side = NULL</div></div>'
+      +sqlBlock('-- All departments and their employee count\n-- (even departments with NO employees)\nSELECT d.dept_name, COUNT(e.id) AS emp_count\nFROM departments d\nLEFT JOIN employees e\n  ON d.id = e.dept_id\nGROUP BY d.dept_name;\n\n-- Finding employees with NO department\nSELECT e.name\nFROM employees e\nLEFT JOIN departments d\n  ON e.dept_id = d.id\nWHERE d.id IS NULL;  -- unmatched rows')
+      +tipBox('green','✅','<strong>Common use case:</strong> Finding rows with NO match — e.g., customers who never ordered, employees with no department. Use LEFT JOIN + WHERE right_table.id IS NULL.')
+      +quiz(
+        'When would you choose LEFT JOIN over INNER JOIN?',
+        ['When you want only matching rows from both tables','When you want ALL rows from the left table even with no match','When the right table is bigger','When you need to sort the results'],
+        1,
+        '✅ <strong>B is correct!</strong> LEFT JOIN is used when you must keep all rows from the left table regardless of matches. Classic use case: list all departments even if they have zero employees.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'self': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 03 · JOINs</div>'
+        +'<div class="rm-hdr-title">🪞 Self JOIN</div>'
+        +'<div class="rm-hdr-sub">Join a table with itself to compare rows or navigate hierarchies like org charts.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Medium-Hard</span><span class="rm-badge">Meta · Amazon</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏢</div><div class="rm-analogy-text"><strong>Think of it like an org chart:</strong> Every employee has a manager_id that points to another employee in the SAME table. Self JOIN lets you match each employee row with their manager row — two copies of the same table!</div></div>'
+      +sqlBlock('-- Show each employee with their manager name\nSELECT\n  e1.name AS employee,\n  e2.name AS manager\nFROM employees e1\nJOIN employees e2\n  ON e1.manager_id = e2.id;\n\n-- Find employees who earn MORE than their manager\nSELECT e1.name, e1.salary AS emp_sal,\n       e2.name AS manager, e2.salary AS mgr_sal\nFROM employees e1\nJOIN employees e2\n  ON e1.manager_id = e2.id\nWHERE e1.salary > e2.salary;')
+      +tipBox('amber','💡','<strong>Key trick:</strong> You MUST use different aliases (e1, e2) to refer to the two "copies" of the same table. Without aliases, SQL cannot tell which copy you mean.')
+      +tipBox('blue','📝','<strong>Real world use:</strong> Org charts, finding pairs (users who follow each other), comparing current vs previous records in the same table.')
+      +quiz(
+        'In a self JOIN of the employees table, what do e1 and e2 represent?',
+        ['e1 = managers only, e2 = employees only','Two separate queries on different tables','Two aliases for the same table — used to compare rows within it','The first and second databases'],
+        2,
+        '✅ <strong>C is correct!</strong> e1 and e2 are just aliases — they both point to the employees table. e1 represents the employee row and e2 represents the manager row (from the same table).'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'subq': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#78350f,#d97706);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 04 · Subqueries</div>'
+        +'<div class="rm-hdr-title">🔄 Subqueries</div>'
+        +'<div class="rm-hdr-sub">A query inside a query. The inner query runs first and passes its result to the outer query.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Medium-Hard</span><span class="rm-badge">Microsoft · Meta</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🎁</div><div class="rm-analogy-text"><strong>Think of it like a gift inside a box:</strong> You open the outer box (outer query). Inside is a smaller box (subquery). The smaller box must be opened first to know what is inside, then the outer box uses that information.</div></div>'
+      +sqlBlock('-- Second highest salary (scalar subquery)\nSELECT MAX(salary)\nFROM employees\nWHERE salary < (\n  SELECT MAX(salary)   -- inner runs FIRST\n  FROM employees       -- returns 110000\n);                     -- outer then finds max < 110000\n\n-- Correlated subquery: employees above dept avg\nSELECT name, salary, dept_id\nFROM employees e1\nWHERE salary > (\n  SELECT AVG(salary)\n  FROM employees e2\n  WHERE e2.dept_id = e1.dept_id  -- links to outer!\n);')
+      +'<div class="rm-card"><div class="rm-card-hdr"><span class="rm-card-icon">⚖️</span><span class="rm-card-title" style="color:var(--amber)">Types of Subqueries</span></div><div class="rm-card-body">'
+        +'<table class="rm-table"><thead><tr><th>Type</th><th>Returns</th><th>Where used</th></tr></thead><tbody>'
+        +'<tr><td><strong>Scalar</strong></td><td>Single value (1 row, 1 col)</td><td>WHERE, SELECT</td></tr>'
+        +'<tr><td><strong>Row</strong></td><td>Single row, multiple cols</td><td>WHERE with = (row)</td></tr>'
+        +'<tr><td><strong>Table</strong></td><td>Multiple rows & cols</td><td>FROM clause</td></tr>'
+        +'<tr><td><strong>Correlated</strong></td><td>Depends on outer row</td><td>WHERE (runs per row)</td></tr>'
+        +'</tbody></table>'
+      +'</div></div>'
+      +tipBox('red','⚠️','<strong>Performance Warning:</strong> Correlated subqueries run once per row — very slow on big tables. Use JOINs or window functions instead when possible.')
+      +quiz(
+        'A subquery is correlated when:',
+        ['It returns more than one row','It is placed in the FROM clause','It references a column from the outer query','It uses GROUP BY inside it'],
+        2,
+        '✅ <strong>C is correct!</strong> A correlated subquery references a column from the outer query (like e1.dept_id), which means it must re-run for each row of the outer query.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'cte': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#0c4a6e,#0369a1);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 05 · CTEs</div>'
+        +'<div class="rm-hdr-title">📜 WITH / CTE</div>'
+        +'<div class="rm-hdr-sub">Name a subquery and reuse it. Makes complex queries clean and readable.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Hard</span><span class="rm-badge">Microsoft · Google</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">📝</div><div class="rm-analogy-text"><strong>Think of it like a sticky note:</strong> Instead of writing the same complex subquery 3 times, you write it once, stick a name on it (the WITH clause), then reference that name in your main query. Much cleaner!</div></div>'
+      +'<div class="rm-steps"><div class="rm-step"><div class="rm-step-num">1</div><div class="rm-step-text"><strong>Write WITH keyword</strong> — signals start of CTE</div></div><div class="rm-step"><div class="rm-step-num">2</div><div class="rm-step-text"><strong>Name your CTE</strong> — like <code style="color:var(--green)">dept_max AS (...)</code></div></div><div class="rm-step"><div class="rm-step-num">3</div><div class="rm-step-text"><strong>Write the inner query</strong> inside parentheses</div></div><div class="rm-step"><div class="rm-step-num">4</div><div class="rm-step-text"><strong>Use the CTE name</strong> in the main query like a table</div></div></div>'
+      +sqlBlock('-- WITHOUT CTE (hard to read)\nSELECT e.name, e.salary\nFROM employees e\nJOIN (SELECT dept_id, MAX(salary) AS mx\n      FROM employees GROUP BY dept_id) d\n  ON e.dept_id = d.dept_id\nWHERE e.salary = d.mx;\n\n-- WITH CTE (clean & readable)\nWITH dept_max AS (\n  SELECT dept_id, MAX(salary) AS mx\n  FROM employees\n  GROUP BY dept_id\n)\nSELECT e.name, e.salary\nFROM employees e\nJOIN dept_max d\n  ON e.dept_id = d.dept_id\nWHERE e.salary = d.mx;\n\n-- Chain multiple CTEs\nWITH\n  cte1 AS (SELECT ...),\n  cte2 AS (SELECT ... FROM cte1)\nSELECT * FROM cte2;')
+      +tipBox('green','✅','<strong>Interview Tip:</strong> Always use CTEs in interviews for complex queries. It shows you can write clean, maintainable SQL — exactly what companies want.')
+      +quiz(
+        'When should you use a CTE instead of a subquery?',
+        ['Only when the query runs slowly','When you need to reference the same subquery multiple times or want readability','CTEs are always slower so avoid them','When the table has more than 1000 rows'],
+        1,
+        '✅ <strong>B is correct!</strong> CTEs shine when you need to reuse a subquery multiple times in the same query, or simply to improve readability. They have the same performance as subqueries in most databases.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'winrank': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#7f1d1d,#b91c1c);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 06 · Window Functions</div>'
+        +'<div class="rm-hdr-title">🏅 RANK & DENSE_RANK</div>'
+        +'<div class="rm-hdr-sub">Rank rows within a result set. The most asked window functions in data analyst interviews.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Hard</span><span class="rm-badge">Netflix · Google</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏃</div><div class="rm-analogy-text"><strong>Think of it like a race:</strong> 3 runners finish in 1st, 1st (tie), and 3rd place. ROW_NUMBER gives them 1,2,3. RANK gives them 1,1,3 (skip 2 — gap). DENSE_RANK gives them 1,1,2 (no gap).</div></div>'
+      +'<div class="rm-visual"><svg viewBox="0 0 480 180" xmlns="http://www.w3.org/2000/svg" style="max-width:480px">'
+        +'<rect width="480" height="180" fill="#0a1628" rx="10"/>'
+        +'<text x="240" y="20" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">Tie scenario: Priya and Vikram both earn 92000</text>'
+        +'<rect x="20" y="30" width="130" height="130" fill="#1e293b" rx="6" stroke="#2e3f5c" stroke-width="1"/>'
+        +'<text x="85" y="50" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold">ROW_NUMBER()</text>'
+        +'<text x="85" y="68" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">unique always</text>'
+        +'<text x="35" y="88" fill="#e2e8f0" font-size="10" font-family="monospace">Vikram 110k → 1</text>'
+        +'<text x="35" y="104" fill="#e2e8f0" font-size="10" font-family="monospace">Priya  92k  → 2</text>'
+        +'<text x="35" y="120" fill="#a78bfa" font-size="10" font-family="monospace">Vikram 92k  → 3</text>'
+        +'<text x="35" y="136" fill="#e2e8f0" font-size="10" font-family="monospace">Rahul  75k  → 4</text>'
+        +'<text x="35" y="152" fill="#e2e8f0" font-size="10" font-family="monospace">Sneha  68k  → 5</text>'
+        +'<rect x="170" y="30" width="130" height="130" fill="#1e293b" rx="6" stroke="#2e3f5c" stroke-width="1"/>'
+        +'<text x="235" y="50" text-anchor="middle" fill="#f87171" font-size="10" font-family="monospace" font-weight="bold">RANK()</text>'
+        +'<text x="235" y="68" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">gaps after ties</text>'
+        +'<text x="185" y="88" fill="#e2e8f0" font-size="10" font-family="monospace">Vikram 110k → 1</text>'
+        +'<text x="185" y="104" fill="#fbbf24" font-size="10" font-family="monospace">Priya  92k  → 2 ←tie</text>'
+        +'<text x="185" y="120" fill="#fbbf24" font-size="10" font-family="monospace">Vikram 92k  → 2 ←tie</text>'
+        +'<text x="185" y="136" fill="#f87171" font-size="10" font-family="monospace">Rahul  75k  → 4 ←gap!</text>'
+        +'<text x="185" y="152" fill="#e2e8f0" font-size="10" font-family="monospace">Sneha  68k  → 5</text>'
+        +'<rect x="320" y="30" width="140" height="130" fill="#1e293b" rx="6" stroke="#2e3f5c" stroke-width="1"/>'
+        +'<text x="390" y="50" text-anchor="middle" fill="#34d399" font-size="10" font-family="monospace" font-weight="bold">DENSE_RANK()</text>'
+        +'<text x="390" y="68" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">no gaps</text>'
+        +'<text x="330" y="88" fill="#e2e8f0" font-size="10" font-family="monospace">Vikram 110k → 1</text>'
+        +'<text x="330" y="104" fill="#fbbf24" font-size="10" font-family="monospace">Priya  92k  → 2 ←tie</text>'
+        +'<text x="330" y="120" fill="#fbbf24" font-size="10" font-family="monospace">Vikram 92k  → 2 ←tie</text>'
+        +'<text x="330" y="136" fill="#34d399" font-size="10" font-family="monospace">Rahul  75k  → 3 ✓</text>'
+        +'<text x="330" y="152" fill="#e2e8f0" font-size="10" font-family="monospace">Sneha  68k  → 4</text>'
+      +'</svg><div class="rm-visual-caption">When two values tie: RANK skips the next number, DENSE_RANK does not</div></div>'
+      +sqlBlock('SELECT name, salary,\n  ROW_NUMBER() OVER (ORDER BY salary DESC) AS rn,\n  RANK()       OVER (ORDER BY salary DESC) AS rnk,\n  DENSE_RANK() OVER (ORDER BY salary DESC) AS drnk\nFROM employees;\n\n-- Top 3 salaries per department\nSELECT * FROM (\n  SELECT name, dept_id, salary,\n    ROW_NUMBER() OVER (\n      PARTITION BY dept_id\n      ORDER BY salary DESC\n    ) AS rn\n  FROM employees\n) t WHERE rn <= 3;')
+      +tipBox('amber','💡','<strong>Interview Classic:</strong> "Find the Nth highest salary" — use DENSE_RANK() OVER (ORDER BY salary DESC) in a subquery then WHERE dense_rank = N.')
+      +quiz(
+        'Salaries are: 100, 90, 90, 80. What are the DENSE_RANK values (highest first)?',
+        ['1, 2, 3, 4','1, 2, 2, 4','1, 2, 2, 3','1, 1, 2, 3'],
+        2,
+        '✅ <strong>C is correct!</strong> 100=rank 1, both 90s=rank 2 (tie), 80=rank 3 (DENSE_RANK has no gap after the tie). With regular RANK, 80 would be rank 4.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'partition': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#7f1d1d,#991b1b);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 06 · Window Functions</div>'
+        +'<div class="rm-hdr-title">🪟 PARTITION BY</div>'
+        +'<div class="rm-hdr-sub">Reset window functions per group. Like GROUP BY but keeps all rows.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Hard</span><span class="rm-badge">Netflix · Google</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏢</div><div class="rm-analogy-text"><strong>Think of it like department rankings:</strong> Without PARTITION BY, you rank all employees globally (1-6). With PARTITION BY dept_id, you rank within each department separately — Engineering 1-3, Marketing 1-2, Sales 1-1.</div></div>'
+      +sqlBlock('-- WITHOUT PARTITION BY: global ranking\nSELECT name, salary,\n  DENSE_RANK() OVER (ORDER BY salary DESC) AS global_rank\nFROM employees;\n\n-- WITH PARTITION BY: rank within each dept\nSELECT name, dept_id, salary,\n  DENSE_RANK() OVER (\n    PARTITION BY dept_id      -- reset per dept\n    ORDER BY salary DESC      -- sort within dept\n  ) AS dept_rank\nFROM employees;')
+      +tipBox('green','✅','<strong>Key insight:</strong> PARTITION BY is to window functions what GROUP BY is to aggregates — but PARTITION BY keeps all individual rows visible in the output.')
+      +quiz(
+        'What does PARTITION BY dept_id do in a window function?',
+        ['Groups the rows and returns one row per department','Filters rows to only show one department','Resets the window calculation separately for each department','Sorts the results by department'],
+        2,
+        '✅ <strong>C is correct!</strong> PARTITION BY resets the ranking (or sum, or row_number) at the start of each new partition group. All rows are still returned — just the calculation restarts per partition.'
+      )
+      +practiceLinks(topic.qs);
+
+    case 'running': return ''
+      +'<div class="rm-hdr" style="background:linear-gradient(135deg,#7f1d1d,#b91c1c);color:#fff">'
+        +'<div class="rm-hdr-stage">Stage 06 · Window Functions</div>'
+        +'<div class="rm-hdr-title">🏃 Running Totals</div>'
+        +'<div class="rm-hdr-sub">Cumulative sum that grows row by row. One of the most common data analyst interview questions.</div>'
+        +'<div class="rm-hdr-badges"><span class="rm-badge">Hard</span><span class="rm-badge">Netflix</span></div>'
+      +'</div>'
+      +'<div class="rm-analogy"><div class="rm-analogy-icon">🏦</div><div class="rm-analogy-text"><strong>Think of it like a bank statement:</strong> Each transaction row shows the new running balance (previous balance + this transaction). SUM OVER does exactly this — each row shows the sum of all rows up to and including itself.</div></div>'
+      +sqlBlock('-- Running total of salaries ordered by id\nSELECT\n  name,\n  salary,\n  SUM(salary) OVER (\n    ORDER BY id\n  ) AS running_total\nFROM employees;\n\n-- Running total RESET per department\nSELECT\n  name, dept_id, salary,\n  SUM(salary) OVER (\n    PARTITION BY dept_id   -- reset per dept\n    ORDER BY id\n  ) AS dept_running_total\nFROM employees;')
+      +tipBox('amber','💡','<strong>Why ORDER BY matters inside OVER:</strong> Without ORDER BY inside OVER(), SUM() gives the TOTAL for all rows — not a running total. The ORDER BY defines the accumulation direction.')
+      +tipBox('blue','📝','<strong>Other window aggregates:</strong> AVG() OVER, MAX() OVER, COUNT() OVER all work the same way — they compute the aggregate over the window frame, not just the partition.')
+      +quiz(
+        'Salaries in order are: 45000, 68000, 75000. What is the running_total for the 3rd row?',
+        ['75000','113000','188000','68000'],
+        2,
+        '✅ <strong>C is correct!</strong> Running total accumulates: Row 1 = 45000, Row 2 = 45000+68000 = 113000, Row 3 = 113000+75000 = 188000. Each row is the sum of all rows up to and including itself.'
+      )
+      +practiceLinks(topic.qs);
+
+    default: return '<div class="rm-card"><div class="rm-card-body"><p>Topic coming soon!</p></div></div>';
+  }
+}
+
+/* ── NAV BUILDER ── */
+function initRoadmap(){
+  if(roadmapReady) return;
+  roadmapReady = true;
+  rmTopics = buildTopicList();
+
+  var wrap = document.getElementById('rm-wrap');
+  if(!wrap) return;
+
+  // Build left nav
+  var navHtml = '<div class="rm-nav-title">📚 SQL Roadmap</div>';
+  rmTopics.forEach(function(t, i){
+    var diffDot = t.difficulty==='easy'?'var(--green)':t.difficulty==='medium'?'var(--amber)':'var(--red)';
+    navHtml += '<div class="rm-nav-item'+(i===0?' on':'')+'" onclick="rmGoTo('+i+')" id="rm-nav-'+i+'">'
+      +'<div class="rm-nav-num" style="background:'+t.color+'22;color:'+t.color+'">'+t.icon+'</div>'
+      +'<div><div class="rm-nav-label">'+t.title+'</div><div class="rm-nav-sub" style="color:'+t.color+'">'+t.stage+'</div></div>'
+      +'</div>';
+  });
+
+  // Build content pages
+  var contentHtml = rmTopics.map(function(t, i){
+    return '<div class="rm-topic-page'+(i===0?' on':'')+'" id="rm-page-'+i+'">'
+      + buildTopicContent(t)
+      +'<div class="rm-nav-footer">'
+        +'<button class="rm-nav-prev" onclick="rmGoTo('+(i-1)+')" '+(i===0?'disabled':'')+'>&larr; Previous</button>'
+        +'<button class="rm-nav-next" onclick="rmGoTo('+(i+1)+')" '+(i===rmTopics.length-1?'disabled':'')+'>Next &rarr;</button>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+
+  wrap.innerHTML = '<div class="rm-shell">'
+    +'<div class="rm-nav">'+navHtml+'</div>'
+    +'<div class="rm-content" id="rm-content">'+contentHtml+'</div>'
+    +'</div>';
+
+  rmCurrentTopic = 0;
+}
+
+function rmGoTo(idx){
+  if(idx < 0 || idx >= rmTopics.length) return;
+  document.querySelectorAll('.rm-nav-item').forEach(function(n){n.classList.remove('on');});
+  document.querySelectorAll('.rm-topic-page').forEach(function(p){p.classList.remove('on');});
+  var nav = document.getElementById('rm-nav-'+idx);
+  var page = document.getElementById('rm-page-'+idx);
+  if(nav) nav.classList.add('on');
+  if(page) page.classList.add('on');
+  rmCurrentTopic = idx;
+  var content = document.getElementById('rm-content');
+  if(content) content.scrollTop = 0;
+  // scroll nav item into view
+  if(nav) nav.scrollIntoView({block:'nearest'});
+}
+
+function openRoadmapQ(qid){
+  showPage('sql', document.getElementById('tb-sql'));
+  setTimeout(function(){ loadQ(qid); }, 100);
+}
+
 
 /* ═══ DASHBOARD ═══ */
 function updateDash(){
@@ -1199,58 +2173,82 @@ function updateDash(){
   document.getElementById('t-pill').textContent=solved.length+' solved';
   var rb=document.getElementById('recent-box');
   if(!recent.length){rb.innerHTML='<div class="empty">No questions solved yet — start practicing! 🚀</div>';return;}
-  rb.innerHTML=recent.slice(0,6).map(q=>{var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';return'<div class="ri"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="ri-title">'+q.title+'</span><span class="ri-date">'+q.date+'</span></div>';}).join('');
+  rb.innerHTML=recent.slice(0,6).map(function(q){
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    return '<div class="ri"><span class="tag '+dc+'">'+q.diff+'</span><span class="tag tt">'+q.topic+'</span><span class="ri-title">'+q.title+'</span><span class="ri-date">'+q.date+'</span></div>';
+  }).join('');
 }
 
 /* ═══ ACHIEVEMENTS ═══ */
 function updateAch(){
-  document.getElementById('sl-list').innerHTML=recent.length?recent.map(q=>{var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';return'<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';}).join(''):'<div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div>';
+  document.getElementById('sl-list').innerHTML=recent.length?recent.map(function(q){
+    var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
+    return '<div class="sl-item"><span class="tag '+dc+'">'+q.diff+'</span><span class="sl-title">'+q.title+'</span><span class="sl-date">'+q.date+'</span></div>';
+  }).join(''):'<div class="empty" style="padding:12px;font-size:11px">No questions solved yet</div>';
   document.getElementById('r-sql').textContent=solved.length;
   document.getElementById('r-excel').textContent=xlCnt;
   document.getElementById('r-streak').textContent=streak;
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
-  document.getElementById('r-ql').innerHTML=recent.length?recent.map(q=>'<li><span>'+q.title+'</span><span style="color:#aaa">'+q.date+'</span></li>').join(''):'<li style="color:#bbb;padding:3px 0">No questions yet</li>';
+  document.getElementById('r-ql').innerHTML=recent.length?recent.map(function(q){
+    return '<li><span>'+q.title+'</span><span style="color:#aaa">'+q.date+'</span></li>';
+  }).join(''):'<li style="color:#bbb;padding:3px 0">No questions yet</li>';
   checkBadges();
 }
 function checkBadges(){
   if(solved.length>=1)document.getElementById('b-beginner').classList.add('on');
   if(solved.length>=8)document.getElementById('b-master').classList.add('on');
-  if(recent.some(q=>q.topic==='JOIN'))document.getElementById('b-joiner').classList.add('on');
-  if(recent.some(q=>q.topic==='Window'))document.getElementById('b-window').classList.add('on');
+  if(recent.some(function(q){return q.topic==='JOIN';}))document.getElementById('b-joiner').classList.add('on');
+  if(recent.some(function(q){return q.topic==='Window';}))document.getElementById('b-window').classList.add('on');
   if(xlCnt>=1)document.getElementById('b-excel').classList.add('on');
   if(aiCnt>=3)document.getElementById('b-ai').classList.add('on');
 }
 
 /* ═══ PDF / SHARE ═══ */
-function dlPDF(){html2pdf().set({margin:10,filename:'DataHouz_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
-function shareIt(){var txt='🚀 My DataHouz Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(q=>'• '+q.title).join('\n');navigator.clipboard.writeText(txt).then(()=>toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok'));}
+function dlPDF(){
+  html2pdf().set({margin:10,filename:'DataHouz_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();
+}
+function shareIt(){
+  var txt='🚀 My DataHouz Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(function(q){return '• '+q.title;}).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok');});
+}
 
 /* ═══ MODAL ═══ */
 function openModal(tab){document.getElementById('overlay').classList.add('show');if(tab==='signup')mTab('signup',document.getElementById('mt-signup'));else mTab('login',document.getElementById('mt-login'));}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
-document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeModal();});
-function mTab(t,el){document.querySelectorAll('.m-tab').forEach(x=>x.classList.remove('on'));el.classList.add('on');document.getElementById('m-login').style.display=t==='login'?'':'none';document.getElementById('m-signup').style.display=t==='signup'?'':'none';}
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target.id==='overlay')closeModal();});
+function mTab(t,el){
+  document.querySelectorAll('.m-tab').forEach(function(x){x.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('m-login').style.display=t==='login'?'':'none';
+  document.getElementById('m-signup').style.display=t==='signup'?'':'none';
+}
 
 /* ═══ TOAST ═══ */
-function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
+function toast(msg,type){
+  var t=document.getElementById('toast');t.textContent=msg;
+  t.className='show '+(type||'ok');
+  clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},3500);
+}
 
 /* ═══ BOOT ═══ */
-window.addEventListener('load',async()=>{
+window.addEventListener('load',async function(){
   setCloud('');
   await initSQL();
   await loadQuestions();
   try{
     var sess=await sb.auth.getSession();
-    if(sess.data?.session)await onSession(sess.data.session);
+    if(sess.data&&sess.data.session)await onSession(sess.data.session);
     else setCloud('err');
-    sb.auth.onAuthStateChange(async(_,session)=>{
+    sb.auth.onAuthStateChange(async function(_,session){
       if(session){await onSession(session);hideSubmitCard();document.getElementById('guest-banner').classList.remove('show');}
       else setCloud('err');
     });
   }catch(e){setCloud('err');}
   updateDash();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
-  // Handle deep-link hash from index.html cards
+  // Init view mode — list by default
+  setViewMode('list',document.getElementById('vm-list'));
+  // Handle deep-link hash
   handleHash();
 });
 </script>
