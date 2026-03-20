@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PracticeHub – SQL & Excel Practice</title>
+<title>DataHouz – SQL & Excel Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
@@ -170,9 +170,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 #sql-editor{flex:1;background:var(--bg);border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:12px 14px;resize:none;outline:none;line-height:1.8;min-height:80px}
 .ed-actions{padding:9px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:var(--bg2);align-items:center}
 
-/* ═══════════════════════════════════
-   GUEST BANNER — shown after run
-═══════════════════════════════════ */
+/* GUEST BANNER */
 #guest-banner{display:none;padding:9px 14px;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border-top:1px solid var(--amber-border);flex-shrink:0;align-items:center;gap:10px;animation:slideUp .25s ease}
 #guest-banner.show{display:flex}
 @keyframes slideUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
@@ -188,10 +186,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .gb-close{padding:5px 8px;border-radius:var(--r);background:transparent;color:var(--text3);font-size:12px;cursor:pointer;border:none}
 .gb-close:hover{color:var(--text)}
 
-/* ═══════════════════════════════════
-   SUBMIT LOGIN CARD — inline in editor
-   shown when user clicks Submit without login
-═══════════════════════════════════ */
+/* SUBMIT LOGIN CARD */
 #submit-card{display:none;flex-direction:column;align-items:center;padding:24px 20px;gap:14px;background:var(--bg2);border-top:2px solid var(--green-border);flex-shrink:0;animation:fadeUp .25s ease}
 #submit-card.show{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -340,7 +335,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 
 <!-- TOPBAR -->
 <div id="topbar">
-  <a class="t-logo" href="index.html"><div class="t-mark">P</div><div class="t-name">PracticeHub</div></a>
+  <a class="t-logo" href="index.html"><div class="t-mark">D</div><div class="t-name">DataHouz</div></a>
   <div class="t-sep"></div>
   <nav class="t-nav">
     <button class="t-btn active" id="tb-dash" onclick="showPage('dashboard',this)">
@@ -486,14 +481,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           </div>
           <textarea id="sql-editor" spellcheck="false" placeholder="-- Select a question, then write your SQL here&#10;&#10;SELECT * FROM employees;"></textarea>
 
-          <!-- ACTION BUTTONS -->
           <div class="ed-actions">
             <button class="btn btn-blue" id="run-btn" onclick="runSQL()">▶ Run Query</button>
             <button class="btn btn-green" id="submit-btn" onclick="submitSQL()">✓ Submit</button>
             <button class="btn btn-ghost" onclick="epTab('hints',document.querySelectorAll('.ep-tab')[2])">💡 Hint</button>
           </div>
 
-          <!-- ① GUEST BANNER — slides up after Run when not logged in -->
           <div id="guest-banner">
             <span class="gb-icon">⚡</span>
             <div class="gb-text">
@@ -509,7 +502,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
             </div>
           </div>
 
-          <!-- ② SUBMIT LOGIN CARD — shown when Submit clicked without login -->
           <div id="submit-card">
             <div class="sc2-emoji">🔐</div>
             <div class="sc2-title">Login to submit your answer</div>
@@ -525,7 +517,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
             <button class="sc2-dismiss" onclick="hideSubmitCard()">Maybe later, I'll just browse</button>
           </div>
 
-          <!-- RESULT PANEL -->
           <div class="res-panel" id="res-panel">
             <div class="res-ph" onclick="toggleResult()">
               <span class="res-lbl">Output</span>
@@ -629,7 +620,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <div class="ach-col">
           <div class="ach-box">
             <div class="resume-card" id="resume-card">
-              <div class="res-hdr"><div class="res-nm" id="r-name">Your Name</div><div class="res-tg">SQL & Excel Practitioner · PracticeHub Certified</div></div>
+              <div class="res-hdr"><div class="res-nm" id="r-name">Your Name</div><div class="res-tg">SQL & Excel Practitioner · DataHouz Certified</div></div>
               <div class="res-stats">
                 <div class="rs-cell"><span class="rs-val" id="r-sql">0</span><span class="rs-lbl">SQL Solved</span></div>
                 <div class="rs-cell"><span class="rs-val" id="r-excel">0</span><span class="rs-lbl">Excel Tasks</span></div>
@@ -637,7 +628,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
               </div>
               <div class="res-sl">Completed Questions</div>
               <ul class="res-ql" id="r-ql"><li style="color:#bbb;padding:3px 0">No questions yet</li></ul>
-              <div class="res-wm">Verified by PracticeHub · <span id="r-date"></span></div>
+              <div class="res-wm">Verified by DataHouz · <span id="r-date"></span></div>
             </div>
           </div>
           <div style="display:flex;gap:8px">
@@ -658,7 +649,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="m-tab on" id="mt-login" onclick="mTab('login',this)">Login</div>
       <div class="m-tab" id="mt-signup" onclick="mTab('signup',this)">Sign Up</div>
     </div>
-    <!-- LOGIN -->
     <div id="m-login">
       <div class="m-title">Welcome back 👋</div>
       <div class="m-sub">Login to sync your progress to the cloud</div>
@@ -669,13 +659,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="m-divider"><span>or continue with email</span></div>
       <div class="m-err" id="l-err"></div>
       <label class="m-lbl">Email</label>
-      <input class="m-inp" id="m-email" placeholder="vinod@example.com" type="email" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <input class="m-inp" id="m-email" placeholder="you@example.com" type="email" onkeydown="if(event.key==='Enter')doLogin()"/>
       <label class="m-lbl">Password</label>
       <input class="m-inp" id="m-pass" placeholder="••••••••" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
       <button class="btn btn-green" id="l-btn" style="width:100%;padding:10px;justify-content:center" onclick="doLogin()">Login →</button>
       <div class="m-foot">Progress syncs to cloud · Works on any device</div>
     </div>
-    <!-- SIGNUP -->
     <div id="m-signup" style="display:none">
       <div class="m-title">Create free account 🚀</div>
       <div class="m-sub">Free forever · Cloud sync · No credit card</div>
@@ -687,9 +676,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="m-err" id="s-err"></div>
       <div class="m-ok" id="s-ok"></div>
       <label class="m-lbl">Full Name</label>
-      <input class="m-inp" id="m-sname" placeholder="Vinod Kumar" type="text"/>
+      <input class="m-inp" id="m-sname" placeholder="Your Name" type="text"/>
       <label class="m-lbl">Email</label>
-      <input class="m-inp" id="m-semail" placeholder="vinod@example.com" type="email"/>
+      <input class="m-inp" id="m-semail" placeholder="you@example.com" type="email"/>
       <label class="m-lbl">Password (min 6 characters)</label>
       <input class="m-inp" id="m-spass" placeholder="Create a password" type="password" onkeydown="if(event.key==='Enter')doSignup()"/>
       <button class="btn btn-green" id="s-btn" style="width:100%;padding:10px;justify-content:center" onclick="doSignup()">Create Account →</button>
@@ -719,18 +708,29 @@ function setCloud(s){
   document.getElementById('clbl').textContent=s==='ok'?'Cloud ✓':s==='err'?'Offline':'Connecting...';
 }
 
-/* ═══════════════════════════════════
-   RUN SQL
-   - Anyone can run (guest or logged in)
-   - Guest sees a banner after running: "Login to save progress"
-   - Banner has Google button + Sign Up Free button
-═══════════════════════════════════ */
+/* ═══ HASH-BASED NAVIGATION (for deep links from index.html) ═══ */
+var PAGE_MAP = {
+  '#dashboard': {page:'dashboard', btn:'tb-dash'},
+  '#sql':       {page:'sql',       btn:'tb-sql'},
+  '#excel':     {page:'excel',     btn:'tb-excel'},
+  '#ai':        {page:'ai',        btn:'tb-ai'},
+  '#leaderboard':{page:'leaderboard',btn:'tb-lb'},
+  '#achievements':{page:'achievements',btn:'tb-ach'}
+};
+function handleHash(){
+  var hash = window.location.hash || '#dashboard';
+  var m = PAGE_MAP[hash];
+  if(m) showPage(m.page, document.getElementById(m.btn));
+}
+window.addEventListener('hashchange', handleHash);
+
+/* ═══ RUN SQL ═══ */
 function runSQL(){
   var q=document.getElementById('sql-editor').value.trim();
   if(!q){shakeBtn('run-btn');toast('Write a SQL query first!','warn');return;}
   if(!db){toast('Database loading, please wait...','info');return;}
   if(!resultOpen)toggleResult();
-  hideSubmitCard(); // hide submit card if open
+  hideSubmitCard();
   try{
     var res=db.exec(q);
     var meta=document.getElementById('res-meta');
@@ -747,30 +747,17 @@ function runSQL(){
       vals.forEach(row=>{html+='<tr>';row.forEach(cell=>html+='<td>'+(cell===null?'<span style="color:var(--text3)">NULL</span>':String(cell).replace(/</g,'&lt;'))+'</td>');html+='</tr>';});
       body.innerHTML=html+'</tbody></table>';
     }
-    // show guest banner only if not logged in
-    if(!user){
-      document.getElementById('guest-banner').classList.add('show');
-    }
+    if(!user) document.getElementById('guest-banner').classList.add('show');
   }catch(e){
     document.getElementById('res-meta').innerHTML='<span class="res-err">Error</span>';
     document.getElementById('res-body').innerHTML='<div style="padding:12px 14px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6">❌ '+e.message+'</div>';
   }
 }
 
-/* ═══════════════════════════════════
-   SUBMIT SQL
-   - NOT logged in → shake button + show inline submit card with Google & Sign Up
-   - Logged in → save to cloud
-═══════════════════════════════════ */
+/* ═══ SUBMIT SQL ═══ */
 async function submitSQL(){
   if(!curQ){shakeBtn('submit-btn');toast('Select a question first!','warn');return;}
-  if(!user){
-    // shake the button so user feels the block
-    shakeBtn('submit-btn');
-    // show the inline login card
-    showSubmitCard();
-    return;
-  }
+  if(!user){shakeBtn('submit-btn');showSubmitCard();return;}
   var q=document.getElementById('sql-editor').value.trim();
   if(!q){shakeBtn('submit-btn');toast('Write your SQL query first!','warn');return;}
   try{
@@ -789,7 +776,6 @@ async function submitSQL(){
   }catch(e){toast('Fix your query first: '+e.message,'err');}
 }
 
-/* submit card show/hide */
 function showSubmitCard(){
   document.getElementById('submit-card').classList.add('show');
   document.getElementById('res-panel').style.display='none';
@@ -799,13 +785,9 @@ function hideSubmitCard(){
   document.getElementById('submit-card').classList.remove('show');
   document.getElementById('res-panel').style.display='';
 }
-
-/* shake animation */
 function shakeBtn(id){
   var b=document.getElementById(id);
-  b.classList.remove('shake');
-  void b.offsetWidth;
-  b.classList.add('shake');
+  b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');
   b.addEventListener('animationend',()=>b.classList.remove('shake'),{once:true});
 }
 
@@ -816,7 +798,6 @@ async function signInGoogle(){
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
 }
-
 async function doLogin(){
   var email=document.getElementById('m-email').value.trim();
   var pass=document.getElementById('m-pass').value;
@@ -827,32 +808,28 @@ async function doLogin(){
   try{
     var r=await sb.auth.signInWithPassword({email,password:pass});
     if(r.error)throw r.error;
-    await onSession(r.data.session);
-    closeModal();hideSubmitCard();
+    await onSession(r.data.session);closeModal();hideSubmitCard();
     document.getElementById('guest-banner').classList.remove('show');
     toast('Welcome back! 🎉','ok');
   }catch(e){
     document.getElementById('l-err').textContent=e.message==='Invalid login credentials'?'Wrong email or password.':e.message;
   }finally{btn.innerHTML='Login →';btn.disabled=false;}
 }
-
 async function doSignup(){
   var name=document.getElementById('m-sname').value.trim();
   var email=document.getElementById('m-semail').value.trim();
   var pass=document.getElementById('m-spass').value;
-  document.getElementById('s-err').textContent='';
-  document.getElementById('s-ok').textContent='';
+  document.getElementById('s-err').textContent='';document.getElementById('s-ok').textContent='';
   if(!name||!email||!pass){document.getElementById('s-err').textContent='Please fill all fields';return;}
   if(pass.length<6){document.getElementById('s-err').textContent='Password must be at least 6 characters';return;}
-  var btn=document.getElementById('s-btn');
-  btn.innerHTML='<span class="spinner"></span> Creating...';btn.disabled=true;
+  var btn=document.getElementById('s-btn');btn.innerHTML='<span class="spinner"></span> Creating...';btn.disabled=true;
   try{
     var r=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name,username:name.toLowerCase().replace(/\s+/g,'_')}}});
     if(r.error)throw r.error;
     if(r.data.session){
       await onSession(r.data.session);closeModal();hideSubmitCard();
       document.getElementById('guest-banner').classList.remove('show');
-      toast('Welcome to PracticeHub! 🎉','ok');
+      toast('Welcome to DataHouz! 🎉','ok');
     }else{
       document.getElementById('s-ok').textContent='✅ Check your email to confirm, then log in.';
       setTimeout(()=>{btn.innerHTML='Create Account →';btn.disabled=false;},6000);
@@ -860,17 +837,14 @@ async function doSignup(){
     }
   }catch(e){document.getElementById('s-err').textContent=e.message||'Signup failed';btn.innerHTML='Create Account →';btn.disabled=false;}
 }
-
 async function onSession(session){
   if(!session)return;
   var m=session.user.user_metadata||{};
   user={id:session.user.id,email:session.user.email,name:m.full_name||m.name||session.user.email.split('@')[0],avatar:m.avatar_url||m.picture||null};
-  showUserUI();
-  await loadCloudProgress();
+  showUserUI();await loadCloudProgress();
   try{await sb.rpc('update_streak',{p_user_id:user.id});}catch(e){}
   setCloud('ok');
 }
-
 function showUserUI(){
   if(!user)return;
   document.getElementById('t-user').style.display='flex';
@@ -881,7 +855,6 @@ function showUserUI(){
   if(user.avatar)av.innerHTML='<img src="'+user.avatar+'" alt="av"/>';
   else av.textContent=user.name.charAt(0).toUpperCase();
 }
-
 async function doLogout(){
   if(!confirm('Log out?'))return;
   await sb.auth.signOut().catch(()=>{});
@@ -929,7 +902,7 @@ async function loadLeaderboard(){
       var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
       var medal=i<3?['🥇','🥈','🥉'][i]:(i+1);
       return '<div class="lb-row"><div class="lb-rank '+rc+'">'+medal+'</div>'+
-        '<div class="lb-av">'+(u.avatar_url?'<img src="'+u.avatar_url+'"/>':( (u.username||'U').charAt(0).toUpperCase()))+'</div>'+
+        '<div class="lb-av">'+(u.avatar_url?'<img src="'+u.avatar_url+'"/>':((u.username||'U').charAt(0).toUpperCase()))+'</div>'+
         '<div class="lb-info"><div class="lb-name">'+(u.full_name||u.username||'User')+'</div><div class="lb-meta">@'+(u.username||'user')+'</div></div>'+
         '<div class="lb-solved">'+(u.solved_count||0)+' solved</div><div class="lb-streak">'+(u.streak||0)+' 🔥</div></div>';
     }).join('');
@@ -1012,7 +985,6 @@ function rmF(k){F[k]='all';var m={diff:0,topic:1,co:2,status:3};var gs=document.
 function clrF(){F={diff:'all',topic:'all',co:'all',status:'all'};document.querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.fg .fg-btn:first-child').forEach(b=>b.classList.add('on'));renderTable();}
 function setF(k,v,el){F[k]=v;el.closest('.fg').querySelectorAll('.fg-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderTable();}
 function sortTbl(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=true;}document.querySelectorAll('.si').forEach(s=>{s.textContent='▲';s.parentElement.classList.remove('sorted');});var si=document.getElementById('si-'+col);if(si){si.textContent=sortAsc?'▲':'▼';si.parentElement.classList.add('sorted');}renderTable();}
-
 function loadQ(id){
   curQ=QS.find(q=>String(q.id)===String(id));if(!curQ)return;
   var isSolved=solved.map(String).includes(String(curQ.id));
@@ -1057,6 +1029,8 @@ function showPage(id,btn){
   if(id==='excel')initXL();
   if(id==='achievements')updateAch();
   if(id==='leaderboard')loadLeaderboard();
+  // update URL hash without triggering hashchange loop
+  history.replaceState(null,'','#'+id);
 }
 
 /* ═══ EXCEL ═══ */
@@ -1109,8 +1083,8 @@ function checkBadges(){
 }
 
 /* ═══ PDF / SHARE ═══ */
-function dlPDF(){html2pdf().set({margin:10,filename:'PracticeHub_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
-function shareIt(){var txt='🚀 My PracticeHub Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(q=>'• '+q.title).join('\n');navigator.clipboard.writeText(txt).then(()=>toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok'));}
+function dlPDF(){html2pdf().set({margin:10,filename:'DataHouz_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
+function shareIt(){var txt='🚀 My DataHouz Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(q=>'• '+q.title).join('\n');navigator.clipboard.writeText(txt).then(()=>toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok'));}
 
 /* ═══ MODAL ═══ */
 function openModal(tab){document.getElementById('overlay').classList.add('show');if(tab==='signup')mTab('signup',document.getElementById('mt-signup'));else mTab('login',document.getElementById('mt-login'));}
@@ -1137,6 +1111,8 @@ window.addEventListener('load',async()=>{
   }catch(e){setCloud('err');}
   updateDash();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
+  // Handle deep-link hash from index.html cards
+  handleHash();
 });
 </script>
 </body>
