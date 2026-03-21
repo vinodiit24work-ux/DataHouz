@@ -287,7 +287,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .qd-desc code{font-family:var(--mono);background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:11px;color:var(--green)}
 .qd-desc strong{color:var(--text);font-weight:600}
 
-/* Company badge colors */
+/* SQL syntax highlight classes */
+.hl-kw{color:#38bdf8;font-weight:700}
+.hl-str{color:#fbbf24}
+.hl-num{color:#a78bfa}
+.hl-cmt{color:#64748b;font-style:italic}
+.login-gate-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:280px;padding:32px;text-align:center;gap:14px}
+.login-gate-icon{font-size:48px}
+.login-gate-title{font-size:16px;font-weight:700;color:var(--text)}
+.login-gate-sub{font-size:13px;color:var(--text2);line-height:1.6;max-width:300px}
+.login-gate-btns{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:center}
+.login-gate-google{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .15s}
+.login-gate-google:hover{background:var(--bg4)}
+.login-gate-btn{padding:10px 20px;border-radius:8px;background:var(--green);color:#fff;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:var(--font)}
+.login-gate-btn:hover{opacity:.88}
+.login-gate-note{font-size:11px;color:var(--text3)}
 .co-badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:600;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
 .co-tv{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .ql-tbl tbody tr.tv-row td{border-left:2px solid var(--green-bg)}
@@ -597,6 +611,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 #toast.info{background:var(--blue);color:#fff}
 #toast.warn{background:var(--amber);color:#111}
 .no-select{user-select:none;-webkit-user-select:none}
+
+/* ── DASHBOARD BADGE ── */
+.d-bdg{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:500;background:var(--bg3);border:1px solid var(--border);color:var(--text3);transition:all .2s;cursor:default}
+.d-bdg-ico{font-size:14px;opacity:.25;transition:opacity .2s}
+.d-bdg.earned{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber)}
+.d-bdg.earned .d-bdg-ico{opacity:1}
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 .handsontable{font-family:var(--mono)!important;font-size:12px!important}
 .handsontable th,.handsontable td{background:var(--bg3)!important;border-color:var(--border)!important;color:var(--text)!important}
@@ -792,14 +812,52 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <div class="stats-row">
           <div class="sc cg"><div class="sc-lbl">SQL Solved</div><div class="sc-val" id="d-sql">0</div><div class="sc-sub">questions</div></div>
           <div class="sc cb"><div class="sc-lbl">Excel Tasks</div><div class="sc-val" id="d-excel">0</div><div class="sc-sub">challenges</div></div>
-          <div class="sc ca"><div class="sc-lbl">AI Sessions</div><div class="sc-val" id="d-ai">0</div><div class="sc-sub">queries</div></div>
+          <div class="sc ca"><div class="sc-lbl">Accuracy</div><div class="sc-val" id="d-accuracy">—</div><div class="sc-sub">correct rate</div></div>
           <div class="sc cp"><div class="sc-lbl">Streak</div><div class="sc-val" id="d-streak">0</div><div class="sc-sub">&#128293; days</div></div>
         </div>
+        <!-- USER PROFILE CARD (visible when logged in) -->
+        <div id="d-profile-card" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px;margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div id="d-av" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden">U</div>
+            <div style="flex:1;min-width:140px">
+              <div id="d-uname" style="font-size:14px;font-weight:700">—</div>
+              <div id="d-uemail" style="font-size:11px;color:var(--text3);margin-top:1px">—</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div style="text-align:center;padding:8px 14px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r)">
+                <div style="font-size:20px;font-weight:800;color:var(--green)" id="d-pc-sql">0</div>
+                <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">SQL Solved</div>
+              </div>
+              <div style="text-align:center;padding:8px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r)">
+                <div style="font-size:20px;font-weight:800;color:var(--amber)" id="d-pc-streak">0</div>
+                <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">🔥 Streak</div>
+              </div>
+              <div style="text-align:center;padding:8px 14px;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--r)">
+                <div style="font-size:20px;font-weight:800;color:var(--blue)" id="d-pc-acc">—</div>
+                <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Accuracy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BADGES -->
+        <div class="sec-h" style="margin-bottom:8px">Your Badges</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px">
+          <div class="d-bdg" id="db-beginner"><span class="d-bdg-ico">🌱</span><span>SQL Beginner</span></div>
+          <div class="d-bdg" id="db-five"><span class="d-bdg-ico">⚡</span><span>5 Solved</span></div>
+          <div class="d-bdg" id="db-master"><span class="d-bdg-ico">🏆</span><span>SQL Master</span></div>
+          <div class="d-bdg" id="db-joiner"><span class="d-bdg-ico">🔗</span><span>JOIN Master</span></div>
+          <div class="d-bdg" id="db-window"><span class="d-bdg-ico">🏎</span><span>Window Pro</span></div>
+          <div class="d-bdg" id="db-excel"><span class="d-bdg-ico">📊</span><span>Excel Ninja</span></div>
+          <div class="d-bdg" id="db-streak"><span class="d-bdg-ico">🔥</span><span>3-Day Streak</span></div>
+          <div class="d-bdg" id="db-hard"><span class="d-bdg-ico">💎</span><span>Hard Solver</span></div>
+        </div>
+
         <div class="sec-h">Quick Start</div>
         <div class="qa-grid">
           <div class="qa" onclick="showPage('sql',document.getElementById('tb-sql'))"><div class="qa-ico">&#128202;</div><div><div class="qa-title">SQL Practice</div><div class="qa-desc">Real interview questions · Cloud sync</div></div></div>
           <div class="qa" onclick="showPage('excel',document.getElementById('tb-excel'))"><div class="qa-ico">&#128200;</div><div><div class="qa-title">Excel Practice</div><div class="qa-desc">Interactive grid · Formulas · Data tasks</div></div></div>
-          <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">&#129302;</div><div><div class="qa-title">AI Helper</div><div class="qa-desc">Explain errors · Fix queries · Hints</div></div></div>
+          <div class="qa" onclick="showPage('ai',document.getElementById('tb-ai'))"><div class="qa-ico">&#127968;</div><div><div class="qa-title">Houz AI ✨</div><div class="qa-desc">Ask SQL/Excel questions · Get hints</div></div></div>
           <div class="qa" onclick="showPage('leaderboard',document.getElementById('tb-lb'))"><div class="qa-ico">&#127942;</div><div><div class="qa-title">Leaderboard</div><div class="qa-desc">See top users worldwide</div></div></div>
         </div>
         <div class="sec-h">Recently Solved</div>
@@ -944,7 +1002,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           <div class="ed-actions">
             <button class="btn btn-blue" id="run-btn" onclick="runSQL()">&#9654; Run Query</button>
             <button class="btn btn-green" id="submit-btn" onclick="submitSQL()">&#10003; Submit</button>
-            <button class="btn btn-ghost" onclick="qfTab('hints',document.getElementById('qft-hints'))">&#128161; Hint</button>
+            <button class="btn btn-ghost" onclick="onHintClick()">&#128161; Hint</button>
           </div>
 
           <div id="guest-banner">
@@ -1150,7 +1208,8 @@ var sb = supabase.createClient(SB_URL, SB_ANON);
 /* ═══ STATE ═══ */
 var user=null,db=null,curQ=null,hot=null;
 var QS=[],solved=[],recent=[],aiCnt=0,xlCnt=0,streak=0;
-var F={diff:'all',topic:'all',co:'all',status:'unsolved'}; /* default: show unsolved */
+var solved_count_override=null; /* used when leaderboard/profiles has higher count than user_progress */
+var F={diff:'all',topic:'all',co:'all',status:'unsolved'};
 var sortCol='',sortAsc=true,sidebarOpen=true,resultOpen=true;
 
 /* ═══ CLOUD STATUS ═══ */
@@ -1475,47 +1534,65 @@ async function submitSQL(){
   if(!resultOpen)toggleResult();
   hideSubmitCard();
 
-  /* Step 1 — Run the user's query */
+  /* ── Step 1: Run user query ── */
   var userRes=null;
   try{
     var execResult=db.exec(q);
     userRes=execResult.length?execResult[0]:null;
   }catch(e){
-    /* Syntax / runtime error */
     document.getElementById('res-meta').innerHTML='<span class="res-err">❌ Cannot Submit — Fix Error First</span>';
     document.getElementById('res-body').innerHTML=buildErrHTML(e.message,q)+buildAccuracyBar();
     toast('Fix the error before submitting','err');
     return;
   }
 
-  /* Step 2 — Get correct answer */
-  var correctRes=getCorrectOutput(curQ);
+  /* ── Step 2: Try to get correct output for comparison ── */
+  var correctRes=null;
+  try{ correctRes=getCorrectOutput(curQ); }catch(ex){}
 
-  /* Step 3 — Compare */
+  /* ── Step 3: Compare outputs ── */
   var cmp=compareResults(userRes,correctRes);
+
   var qid=String(curQ.id);
   var now=new Date();
   var dateStr=now.toLocaleDateString('en-IN')+' '+now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
   var rowCount=userRes?userRes.values.length:0;
+  var isResolved=solved.map(String).includes(qid);
 
-  _correct++; _attempts++;
+  /* ── Step 4: Decide correct/wrong ──
+     Mark CORRECT if:
+     a) output comparison matches exactly, OR
+     b) no model solution exists (noref) and query returned rows, OR
+     c) row count matches expected_rows exactly
+  */
+  var expectedRows=curQ.expected_rows||null;
+  var isCorrect=(
+    cmp.match===true ||
+    (cmp.match==='noref' && rowCount>0) ||
+    (correctRes===null && expectedRows!==null && rowCount===expectedRows)
+  );
 
-  if(cmp.match===true||(cmp.match==='noref'&&rowCount===(curQ.expected_rows||rowCount))){
-    /* ─── CORRECT ─── */
-    var isResolved=solved.map(String).includes(qid);
+  _attempts++;
+  if(isCorrect) _correct++;
+
+  if(isCorrect){
+    /* ── CORRECT ── */
     _mySolutions[qid]={code:q,date:dateStr,attempts:(_mySolutions[qid]?_mySolutions[qid].attempts+1:1)};
 
     if(!isResolved){
+      /* First time solving */
       solved.push(curQ.id);
       streak=Math.min(streak+1,30);
       recent.unshift({title:curQ.title,diff:curQ.difficulty,topic:curQ.topic,date:now.toLocaleDateString('en-IN')});
       if(recent.length>10)recent.pop();
+      /* Save immediately */
       await saveProgress(curQ.id,q);
       updateDash();renderTable();checkBadges();
       document.getElementById('res-meta').innerHTML='<span class="res-ok">✅ Correct Answer!</span>';
       document.getElementById('res-body').innerHTML=buildCorrectHTML(curQ.title,dateStr,rowCount,false,userRes,cmp);
       toast('🎉 Correct! "'+curQ.title+'" solved!','ok');
     }else{
+      /* Re-solving */
       await saveProgress(curQ.id,q);
       renderTable();
       document.getElementById('res-meta').innerHTML='<span class="res-ok">✅ Correct (Re-solved)</span>';
@@ -1523,8 +1600,7 @@ async function submitSQL(){
       toast('🔄 Updated solution saved!','info');
     }
   }else{
-    /* ─── WRONG ─── */
-    _correct--; // undo the increment above
+    /* ── WRONG ── */
     document.getElementById('res-meta').innerHTML='<span class="res-err">❌ Wrong Answer</span>';
     document.getElementById('res-body').innerHTML=buildWrongHTML(cmp,userRes);
     toast('❌ Not quite right — check the comparison below','err');
@@ -1610,8 +1686,36 @@ async function onSession(session){
   if(!session)return;
   var m=session.user.user_metadata||{};
   user={id:session.user.id,email:session.user.email,name:m.full_name||m.name||session.user.email.split('@')[0],avatar:m.avatar_url||m.picture||null};
-  showUserUI();await loadCloudProgress();
-  try{await sb.rpc('update_streak',{p_user_id:user.id});}catch(e){}
+  showUserUI();
+  updateTabLocks();
+  await loadCloudProgress();
+  /* Update daily streak — try RPC first, fall back to manual */
+  try{
+    var rpcR=await sb.rpc('update_streak',{p_user_id:user.id});
+    if(!rpcR.error&&rpcR.data!=null){
+      streak=rpcR.data;
+      updateDash();
+    }
+  }catch(e){
+    /* RPC not available — update streak manually based on last solve date */
+    try{
+      var lastR=await sb.from('user_progress')
+        .select('solved_at').eq('user_id',user.id).eq('status','solved')
+        .order('solved_at',{ascending:false}).limit(1);
+      if(lastR.data&&lastR.data.length){
+        var lastDate=new Date(lastR.data[0].solved_at);
+        var today=new Date();
+        var diff=Math.floor((today-lastDate)/(1000*60*60*24));
+        if(diff===0||diff===1){
+          streak=Math.max(streak,1);
+        }else{
+          streak=0;
+        }
+        updateDash();
+        saveProfileCounters().catch(function(){});
+      }
+    }catch(se){}
+  }
   setCloud('ok');
 }
 function showUserUI(){
@@ -1626,51 +1730,143 @@ function showUserUI(){
 }
 async function doLogout(){
   if(!confirm('Log out?'))return;
+  /* Save final counters BEFORE clearing state */
+  if(user){
+    try{await saveProfileCounters();}catch(e){}
+  }
   await sb.auth.signOut().catch(function(){});
-  user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;
+  user=null;solved=[];recent=[];aiCnt=0;xlCnt=0;streak=0;_attempts=0;_correct=0;
+  _mySolutions={};solved_count_override=null;
   document.getElementById('t-user').style.display='none';
   document.getElementById('t-login-btn').style.display='';
-  document.getElementById('r-name').textContent='Your Name';
-  setCloud('err');updateDash();renderTable();toast('Logged out','info');
+  var rn=document.getElementById('r-name');if(rn)rn.textContent='Your Name';
+  var pc=document.getElementById('d-profile-card');if(pc)pc.style.display='none';
+  document.querySelectorAll('.d-bdg').forEach(function(b){b.classList.remove('earned');});
+  try{['dh-solved','dh-recent','dh-aiCnt','dh-xlCnt','dh-streak','dh-solutions'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+  setCloud('err');updateDash();renderTable();updateTabLocks();toast('Logged out','info');
 }
 
-/* ═══ CLOUD ═══ */
+/* ═══ CLOUD — Uses only columns that exist in default Supabase setup ═══ */
+
+/* ── localStorage helpers ── */
+function lsKey(k){return 'dh_'+(user?user.id:'guest')+'_'+k;}
+function lsSave(k,v){try{localStorage.setItem(lsKey(k),JSON.stringify(v));}catch(e){}}
+function lsLoad(k,def){try{var v=localStorage.getItem(lsKey(k));return v!=null?JSON.parse(v):def;}catch(e){return def;}}
+
+/* ── Which columns actually exist (discovered at runtime) ── */
+var _dbCols={up_solution_code:null,lb_excel_count:null,lb_streak_col:null};
+
+/* ── Load all progress on login ── */
 async function loadCloudProgress(){
   if(!user)return;
+
+  /* STEP 0 — Show localStorage data immediately (instant, no network wait) */
+  solved    = lsLoad('solved',[]);
+  _mySolutions = lsLoad('solutions',{});
+  recent    = lsLoad('recent',[]);
+  streak    = lsLoad('streak',0);
+  xlCnt     = lsLoad('xlCnt',0);
+  aiCnt     = lsLoad('aiCnt',0);
+  solved_count_override = null;
+  if(solved.length>0){ updateDash(); renderTable(); checkBadges(); }
+  console.log('[DH] localStorage — solved:'+solved.length+' streak:'+streak);
+
+  /* STEP 1 — user_progress: only safe columns (question_id, status, solved_at) */
   try{
-    var r=await sb.from('user_progress').select('question_id,status,solved_at,solution_code').eq('user_id',user.id).eq('status','solved');
-    if(r.error)throw r.error;
-    solved=(r.data||[]).map(function(x){return x.question_id;});
-    // Restore saved solutions
-    (r.data||[]).forEach(function(x){
-      if(x.solution_code){
-        _mySolutions[String(x.question_id)]={
-          code:x.solution_code,
-          date:new Date(x.solved_at).toLocaleDateString('en-IN'),
-          attempts:1
-        };
+    var r=await sb.from('user_progress')
+      .select('question_id,status,solved_at')
+      .eq('user_id',user.id).eq('status','solved');
+    if(r.error){ console.log('[DH] user_progress ERR:',r.error.message); }
+    else if(r.data && r.data.length>0){
+      var rows=r.data;
+      /* Only update if cloud has MORE solved than localStorage */
+      if(rows.length >= solved.length){
+        solved=rows.map(function(x){return x.question_id;});
+        recent=rows
+          .sort(function(a,b){return new Date(b.solved_at)-new Date(a.solved_at);})
+          .slice(0,10)
+          .map(function(x){
+            var q=QS.find(function(q){return String(q.id)===String(x.question_id);});
+            if(!q)q=(FALLBACK||[]).find(function(f){return String(f.id)===String(x.question_id);});
+            if(q)return{title:q.title,diff:q.difficulty,topic:q.topic,date:new Date(x.solved_at).toLocaleDateString('en-IN')};
+            return{title:'Question #'+x.question_id,diff:'easy',topic:'SQL',date:new Date(x.solved_at).toLocaleDateString('en-IN')};
+          });
+        lsSave('solved',solved);
+        lsSave('recent',recent);
       }
-    });
-    recent=(r.data||[]).sort(function(a,b){return new Date(b.solved_at)-new Date(a.solved_at);}).slice(0,10).map(function(x){
-      var q=QS.find(function(q){return String(q.id)===String(x.question_id);});
-      return q?{title:q.title,diff:q.difficulty,topic:q.topic,date:new Date(x.solved_at).toLocaleDateString('en-IN')}:null;
-    }).filter(Boolean);
-    var prof=await sb.from('profiles').select('streak').eq('id',user.id).single();
-    if(prof.data)streak=prof.data.streak||0;
-    updateDash();renderTable();checkBadges();
-  }catch(e){console.error(e);}
-}
-async function saveProgress(qid,solution_code){
+      console.log('[DH] user_progress OK — '+rows.length+' rows');
+    }
+  }catch(e){console.log('[DH] user_progress exception:',e.message);}
+
+  /* STEP 2 — leaderboard: only safe columns (solved_count, streak) */
   try{
-    var payload={user_id:user.id,question_id:qid,status:'solved',solved_at:new Date().toISOString()};
-    if(solution_code)payload.solution_code=solution_code;
-    await sb.from('user_progress').upsert(payload,{onConflict:'user_id,question_id'});
-    // Also update leaderboard/profiles
-    try{
-      await sb.rpc('update_leaderboard',{p_user_id:user.id,p_solved:solved.length,p_streak:streak}).catch(function(){});
-    }catch(le){}
-    setCloud('ok');
-  }catch(e){setCloud('err');}
+    var lb=await sb.from('leaderboard')
+      .select('solved_count,streak')
+      .eq('user_id',user.id).single();
+    if(!lb.error && lb.data){
+      var lbCount=lb.data.solved_count||0;
+      if(lbCount>solved.length) solved_count_override=lbCount;
+      if((lb.data.streak||0)>streak){ streak=lb.data.streak; lsSave('streak',streak); }
+      console.log('[DH] leaderboard OK — count:'+lbCount+' streak:'+lb.data.streak);
+    }else{
+      console.log('[DH] leaderboard:',lb.error?lb.error.message:'no data');
+    }
+  }catch(e){console.log('[DH] leaderboard exception:',e.message);}
+
+  console.log('[DH] FINAL — solved:'+(solved_count_override||solved.length)+' streak:'+streak);
+  updateDash(); renderTable(); checkBadges();
+}
+
+/* ── Save a solved question ── */
+async function saveProgress(qid, solution_code){
+  if(!user)return;
+
+  /* Always write localStorage first — never loses data */
+  lsSave('solved', solved);
+  lsSave('solutions', _mySolutions);
+  lsSave('recent', recent);
+  lsSave('streak', streak);
+  lsSave('xlCnt', xlCnt);
+  setCloud('ok');
+  updateDash();
+
+  /* Try user_progress — minimal safe columns only */
+  try{
+    var base={user_id:user.id, question_id:String(qid), status:'solved', solved_at:new Date().toISOString()};
+    var r=await sb.from('user_progress').upsert(base,{onConflict:'user_id,question_id'});
+    if(r.error) console.warn('[DH] user_progress ERR:',r.error.message);
+    else        console.log('[DH] ✓ user_progress saved qid='+qid);
+  }catch(e){console.warn('[DH] user_progress exc:',e.message);}
+
+  /* Try leaderboard — minimal safe columns */
+  try{
+    var lbRow={
+      user_id:   user.id,
+      username:  (user.name||'user').toLowerCase().replace(/\s+/g,'_'),
+      full_name: user.name||'',
+      avatar_url:user.avatar||null,
+      solved_count: solved.length,
+      streak:    streak,
+      updated_at:new Date().toISOString()
+    };
+    var lr=await sb.from('leaderboard').upsert(lbRow,{onConflict:'user_id'});
+    if(lr.error) console.warn('[DH] leaderboard ERR:',lr.error.message);
+    else       { console.log('[DH] ✓ leaderboard solved_count='+solved.length); solved_count_override=null; }
+  }catch(e){console.warn('[DH] leaderboard exc:',e.message);}
+}
+
+/* ── Save counters (excel, ai, streak) — localStorage only for now ── */
+async function saveProfileCounters(){
+  if(!user)return;
+  lsSave('streak',streak);
+  lsSave('xlCnt',xlCnt);
+  lsSave('aiCnt',aiCnt);
+  /* Try profiles with only definitely-existing columns */
+  try{
+    var pr=await sb.from('profiles').upsert({id:user.id,streak:streak,updated_at:new Date().toISOString()},{onConflict:'id'});
+    if(pr.error) console.warn('[DH] profiles ERR:',pr.error.message);
+    else         console.log('[DH] ✓ profiles streak='+streak);
+  }catch(e){console.warn('[DH] profiles exc:',e.message);}
 }
 async function loadQuestions(){
   try{
@@ -2231,14 +2427,24 @@ async function loadLeaderboard(){
 ══════════════════════════════════════════════════ */
 function sqlHL(code){
   var KW=['SELECT','FROM','WHERE','GROUP BY','ORDER BY','HAVING','JOIN','INNER','LEFT','RIGHT','FULL','ON','AS','AND','OR','WITH','PARTITION BY','OVER','LIMIT','OFFSET','COUNT','SUM','AVG','MAX','MIN','RANK','DENSE_RANK','ROW_NUMBER','DESC','ASC','NOT','IN','NULL','DISTINCT','BETWEEN','LIKE','CREATE','TABLE','INSERT','VALUES'];
+  /* Step 1: escape HTML */
   var s=code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  /* Step 2: highlight strings (single-quoted) */
+  s=s.replace(/'[^']*'/g,function(m){return '<span class="hl-str">'+m+'</span>';});
+  /* Step 3: highlight comments */
+  s=s.replace(/--[^\n]*/g,function(m){return '<span class="hl-cmt">'+m+'</span>';});
+  /* Step 4: highlight numbers — only standalone digits not inside already-marked spans */
+  s=s.replace(/\b(\d+)\b/g,function(m,p,offset){
+    /* Skip if inside a span tag (check surrounding chars) */
+    var before=s.slice(Math.max(0,offset-20),offset);
+    if(before.indexOf('<span')!==-1&&before.indexOf('</span>')===-1)return m;
+    return '<span class="hl-num">'+m+'</span>';
+  });
+  /* Step 5: highlight keywords */
   KW.forEach(function(kw){
     var re=new RegExp('(?<![a-zA-Z_])'+kw+'(?![a-zA-Z_])','g');
-    s=s.replace(re,'<span style="color:#38bdf8;font-weight:700">'+kw+'</span>');
+    s=s.replace(re,'<span class="hl-kw">'+kw+'</span>');
   });
-  s=s.replace(/--[^\n]*/g,'<span style="color:#64748b;font-style:italic">$&</span>');
-  s=s.replace(/\b(\d+)\b/g,'<span style="color:#a78bfa">$1</span>');
-  s=s.replace(/'[^']*'/g,'<span style="color:#fbbf24">$&</span>');
   return s;
 }
 
@@ -2696,6 +2902,33 @@ function toggleSidebar(){sidebarOpen=!sidebarOpen;document.getElementById('filte
 function toggleResult(){resultOpen=!resultOpen;document.getElementById('res-bw').classList.toggle('closed',!resultOpen);document.getElementById('res-tog').style.transform=resultOpen?'':'rotate(-90deg)';}
 
 /* ── Focus mode question tab switcher ── */
+/* Hint button in editor */
+function onHintClick(){
+  qfTab('hints',document.getElementById('qft-hints'));
+}
+
+/* Update tab locks — now only called for leaderboard protection, tabs are free */
+function updateTabLocks(){
+  var hTab=document.getElementById('qft-hints');
+  var sTab=document.getElementById('qft-solution');
+  if(hTab)hTab.innerHTML='&#128161; Hints';
+  if(sTab)sTab.innerHTML='&#128273; Solution';
+}
+function buildLoginGateHTML(icon, title, reason){
+  return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:280px;padding:32px;text-align:center;gap:14px">'+
+    '<div style="font-size:48px">'+icon+'</div>'+
+    '<div style="font-size:16px;font-weight:700;color:var(--text)">'+title+'</div>'+
+    '<div style="font-size:13px;color:var(--text2);line-height:1.6;max-width:300px">'+reason+'</div>'+
+    '<div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:center">'+
+      '<button onclick="signInGoogle()" style="display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .15s" onmouseover="this.style.background=\'var(--bg4)\'" onmouseout="this.style.background=\'var(--bg3)\'" >'+
+        '<svg viewBox="0 0 24 24" style="width:16px;height:16px;flex-shrink:0"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>'+
+        'Continue with Google</button>'+
+      '<button onclick="openModal(\'login\')" style="padding:10px 20px;border-radius:8px;background:var(--green);color:#fff;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s" onmouseover="this.style.opacity=\'.85\'" onmouseout="this.style.opacity=\'1\'" >Login / Sign Up</button>'+
+    '</div>'+
+    '<div style="font-size:11px;color:var(--text3);margin-top:4px">Free forever · No credit card required</div>'+
+  '</div>';
+}
+
 function qfTab(id,el){
   document.querySelectorAll('.qf-tab').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.qf-body').forEach(function(b){b.classList.remove('on');});
@@ -2712,6 +2945,12 @@ function expandQL(){}
 
 /* ═══ PAGE NAV ═══ */
 function showPage(id,btn){
+  /* Gate: Leaderboard requires login */
+  if(id==='leaderboard'&&!user){
+    openModal('login');
+    toast('🏆 Login to view the Leaderboard and compete with others!','info');
+    return;
+  }
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.t-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('on');
@@ -2736,7 +2975,15 @@ function initXL(){
   });
 }
 function resetXL(){if(hot){hot.destroy();hot=null;}initXL();}
-function markXLDone(){if(!user){openModal('signup');toast('Login to save your progress','warn');return;}xlCnt++;updateDash();checkBadges();toast('Excel challenge complete! ✅','ok');}
+function markXLDone(){
+  if(!user){openModal('signup');toast('Login to save your progress','warn');return;}
+  xlCnt++;
+  updateDash();
+  checkBadges();
+  toast('Excel challenge complete! ✅','ok');
+  /* Save excel count to cloud */
+  saveProfileCounters().catch(function(){});
+}
 
 /* ═══ AI ═══ */
 var AIR={
@@ -2755,6 +3002,8 @@ function addMsg(r,t){
 function sendMsg(){
   var inp=document.getElementById('chat-inp');var txt=inp.value.trim();if(!txt)return;
   addMsg('user',txt);inp.value='';aiCnt++;updateDash();
+  /* Save AI count every 5 messages */
+  if(aiCnt%5===0&&user)saveProfileCounters().catch(function(){});
   setTimeout(function(){
     var lo=txt.toLowerCase();var rep;
     if(lo.includes('join'))rep=AIR.join;
@@ -2844,12 +3093,54 @@ function openRoadmapQ(qid){showPage('sql',document.getElementById('tb-sql'));set
 
 /* ═══ DASHBOARD ═══ */
 function updateDash(){
-  document.getElementById('d-sql').textContent=solved.length;
+  /* Use override count if leaderboard/profiles has higher value than user_progress */
+  var sqlCount=(solved_count_override!=null && solved_count_override>solved.length)
+    ? solved_count_override
+    : solved.length;
+
+  document.getElementById('d-sql').textContent=sqlCount;
   document.getElementById('d-excel').textContent=xlCnt;
-  document.getElementById('d-ai').textContent=aiCnt;
   document.getElementById('d-streak').textContent=streak;
-  document.getElementById('t-pill').textContent=solved.length+' solved';
+  var aiEl=document.getElementById('d-ai');if(aiEl)aiEl.textContent=aiCnt;
+  document.getElementById('t-pill').textContent=sqlCount+' solved';
+
+  /* Accuracy */
+  var accVal='—';
+  if(typeof _attempts!=='undefined'&&_attempts>0)
+    accVal=Math.round(((_correct||0)/_attempts)*100)+'%';
+  var accEl=document.getElementById('d-accuracy');
+  if(accEl)accEl.textContent=accVal;
+
+  /* Profile card */
+  if(user){
+    var pc=document.getElementById('d-profile-card');
+    if(pc)pc.style.display='';
+    var avEl=document.getElementById('d-av');
+    if(avEl){
+      if(user.avatar)avEl.innerHTML='<img src="'+user.avatar+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
+      else avEl.textContent=(user.name||'U').charAt(0).toUpperCase();
+    }
+    var unEl=document.getElementById('d-uname');if(unEl)unEl.textContent=user.name||'';
+    var ueEl=document.getElementById('d-uemail');if(ueEl)ueEl.textContent=user.email||'';
+    var ps=document.getElementById('d-pc-sql');if(ps)ps.textContent=sqlCount;
+    var pst=document.getElementById('d-pc-streak');if(pst)pst.textContent=streak;
+    var pa=document.getElementById('d-pc-acc');if(pa)pa.textContent=accVal;
+  }
+
+  /* Badges */
+  function earnBadge(id,cond){var el=document.getElementById(id);if(el){el.classList.toggle('earned',!!cond);}}
+  earnBadge('db-beginner',sqlCount>=1);
+  earnBadge('db-five',sqlCount>=5);
+  earnBadge('db-master',sqlCount>=8);
+  earnBadge('db-joiner',recent.some(function(q){return q.topic==='JOIN'||q.topic==='Self JOIN';}));
+  earnBadge('db-window',recent.some(function(q){return q.topic==='Window';}));
+  earnBadge('db-excel',xlCnt>=1);
+  earnBadge('db-streak',streak>=3);
+  earnBadge('db-hard',recent.some(function(q){return q.diff==='hard';}));
+
+  /* Recently solved */
   var rb=document.getElementById('recent-box');
+  if(!rb)return;
   if(!recent.length){rb.innerHTML='<div class="empty">No questions solved yet — start practicing! 🚀</div>';return;}
   rb.innerHTML=recent.slice(0,6).map(function(q){
     var dc=q.diff==='easy'?'te':q.diff==='medium'?'tm':'th';
@@ -2904,6 +3195,7 @@ window.addEventListener('load',async function(){
     });
   }catch(e){setCloud('err');}
   updateDash();
+  updateTabLocks();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
   setViewMode('list',document.getElementById('vm-list'));
   handleHash();
