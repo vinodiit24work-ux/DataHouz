@@ -1592,6 +1592,28 @@ function buildCorrectHTML(title, dateStr, rowCount, isRetry, userRes, cmp){
       '<span class="my-sol-date">Solved: '+dateStr+'</span>'+
       '<button class="retry-btn" onclick="retryQuestion()" style="margin-left:auto">🔄 Try Again</button>'+
     '</div></div>':'';
+  var liBtn = !isRetry
+    ? '<button onclick="shareOnLinkedIn(\''+title.replace(/'/g,"\\'")+'\')" title="Share on LinkedIn" style="'+
+        'display:inline-flex;align-items:center;gap:5px;'+
+        'background:#0A66C2;color:#fff;border:none;border-radius:5px;'+
+        'padding:4px 9px;font-size:11px;font-weight:600;cursor:pointer;'+
+        'font-family:var(--font);transition:background .15s;flex-shrink:0;white-space:nowrap'+
+      '" onmouseover="this.style.background=\'#004182\'" onmouseout="this.style.background=\'#0A66C2\'">'+
+        '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">'+
+          '<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>'+
+        '</svg>'+
+        'Share'+
+      '</button>'
+    : '';
+  var nextBtn =
+    '<button onclick="nextQuestion()" title="Next Question" style="'+
+      'display:inline-flex;align-items:center;gap:4px;'+
+      'background:var(--green);color:#fff;border:none;border-radius:5px;'+
+      'padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;'+
+      'font-family:var(--font);transition:opacity .15s;flex-shrink:0;white-space:nowrap'+
+    '" onmouseover="this.style.opacity=\'0.85\'" onmouseout="this.style.opacity=\'1\'">'+
+      'Next →'+
+    '</button>';
   return '<div style="background:rgba(16,185,129,0.06);border:1px solid var(--green-border);border-radius:var(--r2);margin:10px;overflow:hidden">'+
     '<div style="padding:12px 16px;background:rgba(16,185,129,0.1);display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--green-border)">'+
       '<span style="font-size:26px">'+(isRetry?'🔄':'🏆')+'</span>'+
@@ -1600,6 +1622,7 @@ function buildCorrectHTML(title, dateStr, rowCount, isRetry, userRes, cmp){
         '<div style="font-size:11.5px;color:var(--text2);margin-top:2px">'+(isRetry?'Your improved solution has been saved.':'"'+title+'" solved and saved to your profile.')+'</div>'+
         '<div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--mono)">'+dateStr+' · '+rowCount+' rows · ✓ matches expected output</div>'+
       '</div>'+
+      '<div style="display:flex;gap:5px;flex-shrink:0">'+liBtn+nextBtn+'</div>'+
     '</div>'+
     compareTable+
     solHTML+
@@ -2794,6 +2817,90 @@ function checkBadges(){
 /* ═══ PDF / SHARE ═══ */
 function dlPDF(){html2pdf().set({margin:10,filename:'DataHouz_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
 function shareIt(){var txt='🚀 My DataHouz Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(function(q){return '• '+q.title;}).join('\n');navigator.clipboard.writeText(txt).then(function(){toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok');});}
+
+function nextQuestion(){
+  var filtered = getFiltered();
+  if(!filtered.length) return;
+  var idx = filtered.findIndex(function(q){ return String(q.id) === String(curQ.id); });
+  var nextIdx = (idx + 1) % filtered.length;
+  var nextQ = filtered[nextIdx];
+  loadQ(nextQ.id);
+  /* scroll question panel to top */
+  var qp = document.getElementById('question-panel') || document.getElementById('qdetail') || document.querySelector('.qd-header');
+  if(qp) qp.scrollIntoView({behavior:'smooth',block:'start'});
+  /* clear result panel */
+  document.getElementById('res-meta').innerHTML = '';
+  document.getElementById('res-body').innerHTML = '<div class="res-empty">Run your query to see results</div>';
+  /* clear editor */
+  document.getElementById('sql-editor').value = '';
+  toast('Next: "' + nextQ.title + '"', 'info');
+}
+
+function shareOnLinkedIn(questionTitle){
+  /* ── Grab question details ── */
+  var topic   = curQ ? (curQ.topic || 'SQL') : 'SQL';
+  var sol     = _mySolutions[String(curQ ? curQ.id : '')] || null;
+  var solCode = sol ? sol.code.trim() : (curQ ? (curQ.solution || '') : '');
+
+  /* ── Clean description (strip RICHDATA block) ── */
+  var rawDesc = curQ ? (curQ.description || '') : '';
+  var cleanDesc = rawDesc.replace(/\n?<!--RICHDATA:[A-Za-z0-9+/=]+-->/g,'').trim();
+  /* Keep only first 2 lines of description as the question statement */
+  var descLines = cleanDesc.split('\n').filter(function(l){ return l.trim(); });
+  var qStatement = descLines.slice(0,2).join(' ').trim();
+  if(qStatement.length > 180) qStatement = qStatement.substring(0,177) + '...';
+
+  /* ── Topic-based takeaway lines ── */
+  var takeaways = {
+    'JOIN':      'Joins are the backbone of relational queries — knowing when to use LEFT vs INNER vs SELF JOIN changes everything.',
+    'Subquery':  'Subqueries let you break complex logic into readable steps — the key is knowing when to use IN, EXISTS, or a correlated subquery.',
+    'Window':    'Window functions like RANK(), DENSE_RANK(), and SUM OVER() let you analyse data without collapsing rows — a game changer for analytics.',
+    'Aggregate': 'Mastering GROUP BY + HAVING separates basic SQL from real analytical thinking.',
+    'CTE':       'CTEs make complex queries readable by letting you name and reuse subqueries — your future self will thank you.',
+    'HAVING':    'HAVING filters after aggregation, WHERE filters before — a small difference that solves big problems.',
+    'Self JOIN': 'Self JOINs are powerful for hierarchical data — same table, two roles, one query.',
+    'ORDER BY':  'ORDER BY with multiple columns gives you precise control over how your results are sorted — very useful in reporting.',
+    'LIMIT':     'LIMIT with OFFSET is how you build pagination — a pattern used in almost every real-world application.',
+    'WHERE':     'Strong WHERE clause skills — including IN, BETWEEN, and AND/OR logic — are what make queries fast and precise.',
+    'SELECT':    'Knowing how to use SELECT beyond SELECT * — calculated columns, DISTINCT, CASE — is where real SQL fluency begins.'
+  };
+  var takeaway = takeaways[topic] || 'Every SQL problem you solve builds a pattern your brain reuses in the next one.';
+
+  /* ── Build the post ── */
+  var post =
+    'Solved a SQL problem today — sharing it in case it helps someone else.\n\n' +
+
+    '━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '🔍 Problem: ' + questionTitle + '\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+
+    qStatement + '\n\n' +
+
+    '💡 My solution:\n\n' +
+    solCode + '\n\n' +
+
+    '━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '📌 Key takeaway:\n' +
+    takeaway + '\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+
+    'Been solving one SQL problem every day as part of my prep routine — ' + solved.length + ' problems down so far.\n' +
+    'Using datahouz.in to track progress and stay consistent.\n\n' +
+    'Drop your approach in the comments — would love to see how others solved this!\n\n' +
+    '#SQL #DataAnalytics #LearningInPublic #SQLTips #DataEngineering #DataScience';
+
+  /* ── Copy + open LinkedIn ── */
+  navigator.clipboard.writeText(post).then(function(){
+    var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' +
+      encodeURIComponent('https://datahouz.in');
+    window.open(liUrl, '_blank', 'width=620,height=640,noopener');
+    toast('Post copied! Paste it into LinkedIn 📋','ok');
+  }).catch(function(){
+    var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' +
+      encodeURIComponent('https://datahouz.in');
+    window.open(liUrl, '_blank', 'width=620,height=640,noopener');
+  });
+}
 
 /* ═══ MODAL ═══ */
 function openModal(tab){document.getElementById('overlay').classList.add('show');if(tab==='signup')mTab('signup',document.getElementById('mt-signup'));else mTab('login',document.getElementById('mt-login'));}
