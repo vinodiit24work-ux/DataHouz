@@ -21,24 +21,14 @@
   --r:6px;--r2:10px;--r3:14px;--topbar:52px;
 }
 html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px}
-
-/* ══ LOGIN SCREEN ══ */
-#login-screen{
-  position:fixed;inset:0;background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  z-index:9999;
-}
-.login-box{
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:var(--r3);padding:40px;width:100%;max-width:400px;
-  animation:fadeIn .3s ease;
-}
+#login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:40px;width:100%;max-width:400px;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
 .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;justify-content:center}
 .login-mark{width:40px;height:40px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff}
 .login-title{font-size:18px;font-weight:700;letter-spacing:-.3px}
 .login-sub{font-size:12px;color:var(--text3);text-align:center;margin-bottom:24px}
-.login-badge{display:inline-flex;padding:3px 10px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;font-size:10px;color:var(--amber);font-weight:600;margin:0 auto 24px;display:block;text-align:center;width:fit-content;margin:0 auto 20px}
+.login-badge{padding:3px 10px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;font-size:10px;color:var(--amber);font-weight:600;text-align:center;width:fit-content;margin:0 auto 20px;display:block}
 .l-lbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px}
 .l-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;color:var(--text);font-size:14px;font-family:var(--font);outline:none;transition:border-color .15s;margin-bottom:14px}
 .l-inp:focus{border-color:var(--green)}
@@ -46,12 +36,9 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 .l-err{font-size:12px;color:var(--red);margin-bottom:12px;min-height:18px;font-weight:500;text-align:center}
 .l-btn{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.l-btn:hover{opacity:.88}
-.l-btn:disabled{opacity:.6;cursor:not-allowed}
+.l-btn:hover{opacity:.88}.l-btn:disabled{opacity:.6;cursor:not-allowed}
 .l-foot{font-size:11px;color:var(--text3);text-align:center;margin-top:16px}
 .attempts-warn{font-size:11px;color:var(--amber);text-align:center;margin-top:10px;display:none}
-
-/* ══ TOPBAR ══ */
 #topbar{height:var(--topbar);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
 .t-mark{width:28px;height:28px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
 .t-name{font-size:15px;font-weight:700;letter-spacing:-.3px}
@@ -68,8 +55,6 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 .t-admin-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
 .t-logout{padding:4px 10px;border-radius:var(--r);font-size:11px;color:var(--text3);border:1px solid var(--border);cursor:pointer;background:transparent;font-family:var(--font);transition:all .15s}
 .t-logout:hover{color:var(--red);border-color:var(--red-border)}
-
-/* ══ LAYOUT ══ */
 #layout{display:flex;height:calc(100vh - var(--topbar))}
 #sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:14px 10px;gap:3px}
 .s-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:8px 8px 4px;margin-top:6px}
@@ -116,16 +101,18 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
 .btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}.btn-red:hover{background:var(--red);color:#fff}
+.btn-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}.btn-amber:hover{background:var(--amber);color:#111}
 .btn-xs{padding:3px 8px;font-size:10px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;z-index:999;backdrop-filter:blur(3px);overflow-y:auto;padding:30px 16px}
 .overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:0;width:100%;max-width:640px;animation:mIn .18s ease;margin:auto}
+.modal.wide{max-width:720px}
 @keyframes mIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 .modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .modal-title{font-size:16px;font-weight:700}
 .modal-close{width:28px;height:28px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text3);border:none;background:transparent}
 .modal-close:hover{background:var(--bg3);color:var(--text)}
-.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:14px;max-height:62vh;overflow-y:auto}
 .modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-field{display:flex;flex-direction:column;gap:5px}
@@ -135,7 +122,6 @@ html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--t
 .f-inp.mono{font-family:var(--mono);font-size:12px}
 textarea.f-inp{resize:vertical;min-height:80px;line-height:1.6}
 select.f-inp{cursor:pointer}
-.f-hint{font-size:10px;color:var(--text3);margin-top:2px}
 .f-required::after{content:' *';color:var(--red)}
 #toast{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:var(--r2);font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none;max-width:320px}
 #toast.show{opacity:1}
@@ -160,14 +146,34 @@ select.f-inp{cursor:pointer}
 .confirm-title{font-size:15px;font-weight:600;margin-bottom:6px}
 .confirm-sub{font-size:12px;color:var(--text3);margin-bottom:18px;line-height:1.5}
 .confirm-btns{display:flex;gap:9px;justify-content:center}
-::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+/* DUPLICATE UI */
+.dup-summary{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:11px 14px;font-size:12px;color:var(--red);font-weight:500;display:flex;align-items:center;gap:8px}
+.dup-group{background:var(--bg3);border:1px solid var(--amber-border);border-radius:var(--r2);padding:14px 16px}
+.dup-group-title{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;word-break:break-word}
+.dup-cnt{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;padding:1px 8px;font-size:10px;flex-shrink:0}
+.dup-row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:var(--r);margin-top:6px;font-size:12px}
+.dup-row.keep{background:rgba(16,185,129,.08);border:1px solid var(--green-border)}
+.dup-row.del{background:var(--red-bg);border:1px solid var(--red-border)}
+.dup-pill{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;flex-shrink:0}
+.pill-keep{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.pill-del{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.dup-id{font-family:var(--mono);font-size:10px;color:var(--text3);flex-shrink:0}
+.dup-info{flex:1;min-width:0}
+.dup-name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dup-meta{font-size:10px;color:var(--text3);margin-top:2px}
+.dup-clean{text-align:center;padding:32px 20px;color:var(--green);font-weight:500}
+/* IMPORT MODAL */
+.imp-row-ok td{background:rgba(16,185,129,.05)}
+.imp-row-dup td{background:rgba(245,158,11,.07)}
+.imp-row-dup .imp-status{color:var(--amber);font-weight:600;font-size:10px}
+.imp-row-ok .imp-status{color:var(--green);font-weight:600;font-size:10px}
+.imp-row-err td{background:var(--red-bg)}
+.imp-row-err .imp-status{color:var(--red);font-weight:600;font-size:10px}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════
-     ADMIN LOGIN SCREEN
-══════════════════════════ -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">
@@ -176,42 +182,30 @@ select.f-inp{cursor:pointer}
     </div>
     <div class="login-badge">🔐 ADMIN ACCESS ONLY</div>
     <p class="login-sub">Enter your admin credentials to continue</p>
-
     <label class="l-lbl">Username</label>
     <input class="l-inp" id="l-user" placeholder="admin" type="text" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()"/>
-
     <label class="l-lbl">Password</label>
-    <input class="l-inp" id="l-pass" placeholder="••••••••" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAdminLogin()"/>
-
+    <input class="l-inp" id="l-pass" placeholder="••••••••" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
     <div class="l-err" id="l-err"></div>
-
-    <button class="l-btn" id="l-btn" onclick="doAdminLogin()">
-      🔑 Login to Admin Panel
-    </button>
-
+    <button class="l-btn" id="l-btn" onclick="doLogin()">🔑 Login to Admin Panel</button>
     <div class="attempts-warn" id="attempts-warn"></div>
     <div class="l-foot">This page is restricted to administrators only</div>
   </div>
 </div>
 
-<!-- ══ TOPBAR (hidden until logged in) ══ -->
+<!-- ADMIN APP -->
 <div id="admin-app" style="display:none;flex-direction:column;height:100vh">
-
 <div id="topbar">
   <div class="t-mark">P</div>
   <div class="t-name">PracticeHub</div>
   <div class="t-badge">ADMIN PANEL</div>
   <div class="t-right">
     <div class="t-status"><div class="cdot" id="cdot"></div><span id="clbl">Connecting...</span></div>
-    <div class="t-admin-user">
-      <div class="t-admin-av">A</div>
-      <span style="font-size:12px;color:var(--amber);font-weight:500">Admin</span>
-    </div>
-    <button class="t-logout" onclick="doAdminLogout()">↩ Logout</button>
+    <div class="t-admin-user"><div class="t-admin-av">A</div><span style="font-size:12px;color:var(--amber);font-weight:500">Admin</span></div>
+    <button class="t-logout" onclick="doLogout()">↩ Logout</button>
     <a class="t-home" href="practicehub.html">← Back to Site</a>
   </div>
 </div>
-
 <div id="layout">
   <div id="sidebar">
     <div class="s-label">Dashboard</div>
@@ -232,8 +226,9 @@ select.f-inp{cursor:pointer}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Leaderboard
     </button>
   </div>
-
   <div id="main">
+
+    <!-- OVERVIEW -->
     <div class="page on" id="page-overview">
       <div class="pg-head">
         <div><div class="pg-title">Admin Overview</div><div class="pg-sub">Your PracticeHub database at a glance</div></div>
@@ -247,55 +242,68 @@ select.f-inp{cursor:pointer}
         <div class="stat-card"><div class="stat-val sv-purple" id="ov-users">—</div><div class="stat-lbl">Total Users</div></div>
         <div class="stat-card"><div class="stat-val sv-green" id="ov-solved">—</div><div class="stat-lbl">Total Solves</div></div>
       </div>
-      <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r2);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r2);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px">
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:3px">➕ Add a new question</div>
           <div style="font-size:12px;color:var(--text3)">Questions appear on your site immediately</div>
         </div>
         <button class="btn btn-green" onclick="goPage('questions',document.getElementById('sb-questions'));setTimeout(openAddModal,200)">Add Question Now →</button>
       </div>
+      <div id="ov-dup-banner" style="display:none;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r2);padding:16px 20px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--amber);margin-bottom:3px">⚠️ Duplicate Questions Detected</div>
+          <div style="font-size:12px;color:var(--text3)" id="ov-dup-msg"></div>
+        </div>
+        <button class="btn btn-amber" onclick="openDupModal()">Remove Duplicates →</button>
+      </div>
     </div>
 
+    <!-- QUESTIONS -->
     <div class="page" id="page-questions">
       <div class="pg-head">
         <div><div class="pg-title">Questions Manager</div><div class="pg-sub">Add, edit, or delete SQL practice questions</div></div>
-        <button class="btn btn-green" onclick="openAddModal()">➕ Add New Question</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-amber" id="dup-btn" onclick="openDupModal()" style="display:none">🔍 Remove Duplicates <span id="dup-badge"></span></button>
+          <button class="btn btn-red" onclick="openDeleteAllModal()">🗑 Delete All</button>
+          <button class="btn btn-ghost" onclick="exportJSON()">📤 Export JSON</button>
+          <button class="btn btn-ghost" onclick="openImportModal()">📥 Import JSON</button>
+          <button class="btn btn-green" onclick="openAddModal()">➕ Add New Question</button>
+        </div>
       </div>
       <div class="filter-bar">
         <input class="f-input wide" id="q-search" placeholder="🔍 Search questions..." oninput="renderQTable()"/>
         <select class="f-sel" id="qf-diff" onchange="renderQTable()">
           <option value="">All Difficulty</option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
+          <option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option>
         </select>
         <select class="f-sel" id="qf-topic" onchange="renderQTable()">
           <option value="">All Topics</option>
-          <option>Aggregate</option><option>JOIN</option><option>Window</option>
-          <option>Subquery</option><option>CTE</option>
+          <option>Aggregate</option><option>JOIN</option><option>Window</option><option>Subquery</option><option>CTE</option>
+        </select>
+        <select class="f-sel" id="qf-company" onchange="renderQTable()">
+          <option value="">All Companies</option>
+          <option>TechVerse</option><option>Google</option><option>Amazon</option><option>Meta</option>
+          <option>Netflix</option><option>Microsoft</option><option>Flipkart</option><option>Apple</option>
+          <option>Uber</option><option>Swiggy</option><option>Zomato</option><option>Paytm</option>
+          <option>Infosys</option><option>TCS</option><option>Wipro</option><option>Accenture</option>
         </select>
         <select class="f-sel" id="qf-status" onchange="renderQTable()">
           <option value="">All Status</option>
-          <option value="true">Active</option>
-          <option value="false">Inactive</option>
+          <option value="true">Active</option><option value="false">Inactive</option>
         </select>
       </div>
       <div class="q-table-wrap">
         <table class="q-table">
           <thead><tr>
-            <th class="td-num">#</th>
-            <th style="width:100%">TITLE</th>
-            <th>DIFFICULTY</th>
-            <th>TOPIC</th>
-            <th>COMPANY</th>
-            <th style="text-align:center">STATUS</th>
-            <th style="text-align:right">ACTIONS</th>
+            <th class="td-num">#</th><th style="width:100%">TITLE</th><th>DIFFICULTY</th>
+            <th>TOPIC</th><th>COMPANY</th><th style="text-align:center">STATUS</th><th style="text-align:right">ACTIONS</th>
           </tr></thead>
           <tbody id="q-tbody"><tr class="empty-row"><td colspan="7">Loading questions...</td></tr></tbody>
         </table>
       </div>
     </div>
 
+    <!-- USERS -->
     <div class="page" id="page-users">
       <div class="pg-head">
         <div><div class="pg-title">All Users</div><div class="pg-sub">Everyone who signed up</div></div>
@@ -309,6 +317,7 @@ select.f-inp{cursor:pointer}
       </div>
     </div>
 
+    <!-- LEADERBOARD -->
     <div class="page" id="page-leaderboard">
       <div class="pg-head">
         <div><div class="pg-title">Live Leaderboard</div><div class="pg-sub">Top users ranked by questions solved</div></div>
@@ -321,10 +330,10 @@ select.f-inp{cursor:pointer}
         </table>
       </div>
     </div>
+
   </div>
 </div>
-
-</div><!-- /admin-app -->
+</div>
 
 <!-- ADD/EDIT MODAL -->
 <div class="overlay" id="q-overlay">
@@ -334,66 +343,22 @@ select.f-inp{cursor:pointer}
       <button class="modal-close" onclick="closeQModal()">×</button>
     </div>
     <div class="modal-body">
-      <div class="form-field">
-        <label class="f-lbl f-required">Question Title</label>
-        <input class="f-inp" id="f-title" placeholder="e.g. Find second highest salary"/>
+      <div class="form-field"><label class="f-lbl f-required">Question Title</label><input class="f-inp" id="f-title" placeholder="e.g. Find second highest salary"/></div>
+      <div class="form-grid">
+        <div class="form-field"><label class="f-lbl f-required">Difficulty</label><select class="f-inp" id="f-diff"><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+        <div class="form-field"><label class="f-lbl f-required">Topic</label><select class="f-inp" id="f-topic"><option>Aggregate</option><option>JOIN</option><option>Window</option><option>Subquery</option><option>CTE</option></select></div>
       </div>
       <div class="form-grid">
-        <div class="form-field">
-          <label class="f-lbl f-required">Difficulty</label>
-          <select class="f-inp" id="f-diff">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label class="f-lbl f-required">Topic</label>
-          <select class="f-inp" id="f-topic">
-            <option>Aggregate</option><option>JOIN</option><option>Window</option>
-            <option>Subquery</option><option>CTE</option>
-          </select>
-        </div>
+        <div class="form-field"><label class="f-lbl">Company</label><select class="f-inp" id="f-company"><option value="">— None —</option><option>Google</option><option>Amazon</option><option>Meta</option><option>Netflix</option><option>Microsoft</option><option>Flipkart</option><option>Apple</option><option>Uber</option><option>Swiggy</option><option>Zomato</option><option>Paytm</option><option>Infosys</option><option>TCS</option><option>Wipro</option><option>Accenture</option></select></div>
+        <div class="form-field"><label class="f-lbl">Expected Rows</label><input class="f-inp" id="f-exp" type="number" min="0" value="1"/></div>
       </div>
-      <div class="form-grid">
-        <div class="form-field">
-          <label class="f-lbl">Company</label>
-          <select class="f-inp" id="f-company">
-            <option value="">— None —</option>
-            <option>Google</option><option>Amazon</option><option>Meta</option>
-            <option>Netflix</option><option>Microsoft</option><option>Flipkart</option>
-            <option>Apple</option><option>Uber</option><option>Swiggy</option>
-            <option>Zomato</option><option>Paytm</option><option>Infosys</option>
-            <option>TCS</option><option>Wipro</option><option>Accenture</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label class="f-lbl">Expected Rows</label>
-          <input class="f-inp" id="f-exp" type="number" min="0" value="1"/>
-        </div>
-      </div>
-      <div class="form-field">
-        <label class="f-lbl f-required">Description</label>
-        <textarea class="f-inp" id="f-desc" placeholder="Describe the problem..." rows="3"></textarea>
-      </div>
-      <div class="form-field">
-        <label class="f-lbl">Table Schema</label>
-        <textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)" rows="2"></textarea>
-      </div>
-      <div class="form-field">
-        <label class="f-lbl">Hint</label>
-        <input class="f-inp" id="f-hint" placeholder="e.g. Use WHERE salary > 80000"/>
-      </div>
-      <div class="form-field">
-        <label class="f-lbl f-required">Correct SQL Solution</label>
-        <textarea class="f-inp mono" id="f-solution" placeholder="SELECT * FROM employees WHERE salary > 80000;" rows="4"></textarea>
-      </div>
+      <div class="form-field"><label class="f-lbl f-required">Description</label><textarea class="f-inp" id="f-desc" placeholder="Describe the problem..." rows="3"></textarea></div>
+      <div class="form-field"><label class="f-lbl">Table Schema</label><textarea class="f-inp mono" id="f-schema" placeholder="employees(id, name, salary, dept_id)" rows="2"></textarea></div>
+      <div class="form-field"><label class="f-lbl">Hint</label><input class="f-inp" id="f-hint" placeholder="e.g. Use WHERE salary > 80000"/></div>
+      <div class="form-field"><label class="f-lbl f-required">Correct SQL Solution</label><textarea class="f-inp mono" id="f-solution" placeholder="SELECT * FROM employees WHERE salary > 80000;" rows="4"></textarea></div>
       <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)">
         <input type="checkbox" id="f-active" checked style="width:16px;height:16px;accent-color:var(--green)"/>
-        <div>
-          <div style="font-size:12px;font-weight:500">Active (visible to users)</div>
-          <div style="font-size:11px;color:var(--text3)">Uncheck to hide without deleting</div>
-        </div>
+        <div><div style="font-size:12px;font-weight:500">Active (visible to users)</div><div style="font-size:11px;color:var(--text3)">Uncheck to hide without deleting</div></div>
       </div>
     </div>
     <div class="modal-foot">
@@ -416,359 +381,1038 @@ select.f-inp{cursor:pointer}
   </div>
 </div>
 
+<!-- DELETE ALL MODAL -->
+<div class="overlay" id="delall-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" style="color:var(--red)">🗑 Delete All Questions</div>
+      <button class="modal-close" onclick="closeDeleteAllModal()">×</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Scope selector -->
+      <div class="form-field">
+        <label class="f-lbl">What to delete</label>
+        <select class="f-inp" id="da-scope" onchange="updateDeleteAllPreview()">
+          <option value="all">All questions (entire database)</option>
+          <option value="company">All questions by company</option>
+          <option value="difficulty">All questions by difficulty</option>
+          <option value="topic">All questions by topic</option>
+        </select>
+      </div>
+
+      <!-- Filter value (shown when scope != all) -->
+      <div class="form-field" id="da-filter-row" style="display:none">
+        <label class="f-lbl" id="da-filter-lbl">Company</label>
+        <select class="f-inp" id="da-filter-val" onchange="updateDeleteAllPreview()">
+        </select>
+      </div>
+
+      <!-- Preview count -->
+      <div id="da-preview" style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">⚠️</span>
+        <div>
+          <div id="da-preview-title" style="font-size:13px;font-weight:700;color:var(--red)">0 questions will be deleted</div>
+          <div id="da-preview-sub" style="font-size:11px;color:var(--text3);margin-top:2px">This action is permanent and cannot be undone.</div>
+        </div>
+      </div>
+
+      <!-- Safety type-to-confirm -->
+      <div class="form-field">
+        <label class="f-lbl" style="color:var(--red)">Type <strong>DELETE</strong> to confirm</label>
+        <input class="f-inp" id="da-confirm-input" placeholder="Type DELETE here" oninput="checkDeleteAllReady()" autocomplete="off" spellcheck="false"/>
+      </div>
+
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeDeleteAllModal()">Cancel</button>
+      <button class="btn btn-red" id="da-go-btn" disabled onclick="runDeleteAll()" style="opacity:.4;cursor:not-allowed">
+        🗑 Delete Now
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DUPLICATE MANAGER MODAL -->
+<div class="overlay" id="dup-overlay">
+  <div class="modal wide">
+    <div class="modal-head">
+      <div class="modal-title">🔍 Duplicate Question Remover</div>
+      <button class="modal-close" onclick="closeDupModal()">×</button>
+    </div>
+    <div class="modal-body" id="dup-body">
+      <div style="text-align:center;color:var(--text3);padding:20px">Scanning...</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeDupModal()">Cancel</button>
+      <button class="btn btn-red" id="dup-del-btn" style="display:none" onclick="deleteAllDups()">🗑 Delete All Duplicates</button>
+    </div>
+  </div>
+</div>
+
+<!-- JSON IMPORT MODAL -->
+<div class="overlay" id="import-overlay">
+  <div class="modal wide">
+    <div class="modal-head">
+      <div class="modal-title">📥 Import Questions from JSON</div>
+      <button class="modal-close" onclick="closeImportModal()">×</button>
+    </div>
+    <div class="modal-body" id="import-body">
+      <div style="background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--r);padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.6">
+        <strong style="color:var(--blue)">📋 Expected JSON Format</strong><br/>
+        An array of question objects. Each object must include: <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">title</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">difficulty</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">topic</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">description</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">solution</code>.
+        Optional: <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">company</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">hints</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">schema_tables</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">expected_rows</code>,
+        <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">is_active</code>.
+      </div>
+
+      <!-- Step 1: Upload file OR paste -->
+      <div class="form-field">
+        <label class="f-lbl">Step 1 — Upload JSON File or Paste Below</label>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <label style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s" id="file-label">
+            📂 Choose File
+            <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleFileUpload(this)"/>
+          </label>
+          <span style="font-size:11px;color:var(--text3)" id="file-name-lbl">No file selected</span>
+        </div>
+        <textarea class="f-inp mono" id="import-json" rows="10" placeholder='[&#10;  {&#10;    "title": "Find Second Highest Salary",&#10;    "difficulty": "medium",&#10;    "topic": "Subquery",&#10;    "company": "Google",&#10;    "description": "Write a query...",&#10;    "solution": "SELECT ..."&#10;  }&#10;]'></textarea>
+      </div>
+
+      <!-- Step 2: Parse preview OR direct import -->
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="parseImportJSON()">🔍 Preview &amp; Select</button>
+        <button class="btn btn-green" onclick="importAllDirect()">⚡ Import All Directly</button>
+        <span style="font-size:11px;color:var(--text3)" id="import-parse-lbl"></span>
+      </div>
+
+      <!-- Preview table -->
+      <div id="import-preview" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <div style="font-size:13px;font-weight:600" id="import-preview-title">Preview</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);cursor:pointer">
+              <input type="checkbox" id="import-skip-dup" checked style="accent-color:var(--amber)"/> Skip duplicates (by title)
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);cursor:pointer">
+              <input type="checkbox" id="import-active" checked style="accent-color:var(--green)"/> Set all as Active
+            </label>
+          </div>
+        </div>
+        <div class="q-table-wrap" style="max-height:280px;overflow-y:auto">
+          <table class="q-table">
+            <thead><tr>
+              <th style="width:30px"><input type="checkbox" id="import-check-all" checked onchange="toggleAllImport(this)" style="accent-color:var(--green)"/></th>
+              <th>TITLE</th><th>DIFF</th><th>TOPIC</th><th>COMPANY</th><th>STATUS</th>
+            </tr></thead>
+            <tbody id="import-tbody"></tbody>
+          </table>
+        </div>
+        <div id="import-summary" style="font-size:11px;color:var(--text3);margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:var(--r)"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeImportModal()">Cancel</button>
+      <button class="btn btn-green" id="import-go-btn" style="display:none" onclick="runImport()">🚀 Import Selected Questions</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════
-   ⚠️  CHANGE YOUR PASSWORD HERE!
-   Username and password for admin login
-══════════════════════════════════════ */
-var ADMIN_USERNAME = 'vinod';        // ← Change this to your name
-var ADMIN_PASSWORD = 'PracticeHub@2025';  // ← Change this to your password
-
-/* ══ LOGIN LOGIC ══ */
-var loginAttempts = 0;
-var maxAttempts = 5;
-var lockoutTime = 0;
-
-function doAdminLogin(){
-  // Check lockout
-  if(Date.now() < lockoutTime){
-    var secs = Math.ceil((lockoutTime - Date.now())/1000);
-    document.getElementById('l-err').textContent = '⏳ Too many attempts. Wait '+secs+' seconds.';
-    return;
-  }
-
-  var user = document.getElementById('l-user').value.trim();
-  var pass = document.getElementById('l-pass').value;
-  var btn  = document.getElementById('l-btn');
-
-  if(!user || !pass){
-    document.getElementById('l-err').textContent = 'Please enter username and password';
-    return;
-  }
-
-  btn.innerHTML='<span class="spinner"></span> Verifying...';
-  btn.disabled=true;
-
-  // Simulate slight delay for security feel
-  setTimeout(()=>{
-    if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD){
-      // ✅ Correct — show admin panel
-      loginAttempts = 0;
-      sessionStorage.setItem('ph_admin','1');
-      document.getElementById('login-screen').style.display='none';
-      document.getElementById('admin-app').style.display='flex';
-      loadAll();
-      toast('Welcome back, '+ADMIN_USERNAME+'! 🎉','ok');
-    }else{
-      // ❌ Wrong credentials
-      loginAttempts++;
-      var remaining = maxAttempts - loginAttempts;
-
-      // Shake the password field
-      var passEl = document.getElementById('l-pass');
-      passEl.classList.remove('shake');
-      void passEl.offsetWidth;
-      passEl.classList.add('shake');
-      passEl.value = '';
-      passEl.addEventListener('animationend',()=>passEl.classList.remove('shake'),{once:true});
-
-      if(loginAttempts >= maxAttempts){
-        lockoutTime = Date.now() + 60000; // 60 second lockout
-        document.getElementById('l-err').textContent = '🔒 Too many wrong attempts! Locked for 60 seconds.';
-        loginAttempts = 0;
-      }else{
-        document.getElementById('l-err').textContent = '❌ Wrong username or password. '+remaining+' attempt'+(remaining!==1?'s':'')+' remaining.';
-        var warn = document.getElementById('attempts-warn');
-        if(loginAttempts >= 3){
-          warn.style.display='block';
-          warn.textContent='⚠️ '+remaining+' attempts left before lockout';
-        }
-      }
-
-      btn.innerHTML='🔑 Login to Admin Panel';
-      btn.disabled=false;
-      document.getElementById('l-user').focus();
-    }
-  }, 600);
-}
-
-function doAdminLogout(){
-  if(!confirm('Logout from admin panel?'))return;
-  sessionStorage.removeItem('ph_admin');
-  document.getElementById('admin-app').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('l-user').value='';
-  document.getElementById('l-pass').value='';
-  document.getElementById('l-err').textContent='';
-  document.getElementById('attempts-warn').style.display='none';
-  loginAttempts=0;
-  toast('Logged out from admin','info');
-}
-
-/* ══ AUTO LOGIN if session exists ══ */
-window.addEventListener('load',()=>{
-  if(sessionStorage.getItem('ph_admin')==='1'){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('admin-app').style.display='flex';
-    initAdmin();
-  }
-  // Focus username field
-  setTimeout(()=>document.getElementById('l-user').focus(),100);
-});
-
-/* ══════════════════════════════════════
-   SUPABASE REST API
-══════════════════════════════════════ */
+/* ─── CONFIG ─────────────────────────────── */
+var ADMIN_USER = 'vinod';
+var ADMIN_PASS = 'PracticeHub@2025';
 var BASE = 'https://dzamhiyjpzsqwxjslwpa.supabase.co/rest/v1';
 var KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6YW1oaXlqcHpzcXd4anNsd3BhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzkxMDMyMiwiZXhwIjoyMDg5NDg2MzIyfQ._BJ5OmwTCT7d2u-iAZuZ9_0jt6_-xdquIpGR9A6XKX0';
 
-async function api(method, table, params, body){
-  var url = BASE+'/'+table+(params?'?'+params:'');
-  var opts = {
-    method: method,
+/* ─── STATE ──────────────────────────────── */
+var allQ = [], editId = null, delId = null;
+var loginTries = 0, lockUntil = 0;
+
+/* ─── SUPABASE FETCH ─────────────────────── */
+function sbFetch(method, table, qs, body) {
+  var url = BASE + '/' + table + (qs ? '?' + qs : '');
+  var h = {
+    'apikey': KEY,
+    'Authorization': 'Bearer ' + KEY,
+    'Content-Type': 'application/json'
+  };
+  if (method === 'POST') h['Prefer'] = 'return=representation';
+  var opt = { method: method, headers: h };
+  if (body !== undefined) opt.body = JSON.stringify(body);
+  return fetch(url, opt).then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error('HTTP ' + r.status + ' – ' + t); });
+    return r.text().then(function(t) { return t ? JSON.parse(t) : null; });
+  });
+}
+
+/* ─── FAST BULK INSERT (return=minimal skips response body) ── */
+function sbBulkInsert(table, rows) {
+  var url = BASE + '/' + table;
+  return fetch(url, {
+    method: 'POST',
     headers: {
       'apikey': KEY,
-      'Authorization': 'Bearer '+KEY,
+      'Authorization': 'Bearer ' + KEY,
       'Content-Type': 'application/json',
-      'Prefer': method==='POST'?'return=representation':'return=minimal'
-    }
-  };
-  if(body) opts.body = JSON.stringify(body);
-  var r = await fetch(url, opts);
-  if(!r.ok){
-    var err = await r.text();
-    throw new Error('HTTP '+r.status+': '+err);
-  }
-  var text = await r.text();
-  return text ? JSON.parse(text) : [];
-}
-
-var allQuestions=[], editingId=null, deleteId=null;
-
-function setCloud(s){
-  document.getElementById('cdot').className='cdot'+(s==='ok'?' ok':s==='err'?' err':'');
-  document.getElementById('clbl').textContent=s==='ok'?'Connected ✓':s==='err'?'Connection Error':'Connecting...';
-}
-
-async function initAdmin(){
-  setCloud('');
-  try{await loadAll();}
-  catch(e){setCloud('err');toast('Connection failed: '+e.message,'err');}
-}
-
-async function loadAll(){
-  await loadQuestions();
-  await loadOverviewStats();
-}
-
-async function loadQuestions(){
-  try{
-    var data = await api('GET','questions','order=sort_order.asc');
-    allQuestions = data||[];
-    document.getElementById('sc-q').textContent = allQuestions.length;
-    renderQTable();
-    setCloud('ok');
-  }catch(e){
-    setCloud('err');
-    toast('Error: '+e.message,'err');
-  }
-}
-
-function renderQTable(){
-  var search=(document.getElementById('q-search').value||'').toLowerCase();
-  var diff=document.getElementById('qf-diff').value;
-  var topic=document.getElementById('qf-topic').value;
-  var status=document.getElementById('qf-status').value;
-  var qs=allQuestions.filter(q=>{
-    if(search&&q.title.toLowerCase().indexOf(search)===-1&&(q.description||'').toLowerCase().indexOf(search)===-1)return false;
-    if(diff&&q.difficulty!==diff)return false;
-    if(topic&&q.topic!==topic)return false;
-    if(status!==''&&String(q.is_active)!==status)return false;
-    return true;
+      'Prefer': 'return=minimal'          // ← no response body = fastest possible
+    },
+    body: JSON.stringify(rows)
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error('HTTP ' + r.status + ' – ' + t); });
+    return null;
   });
-  var tbody=document.getElementById('q-tbody');
-  if(!qs.length){
-    tbody.innerHTML='<tr class="empty-row"><td colspan="7">No questions — <a href="#" onclick="openAddModal()" style="color:var(--green)">add your first one!</a></td></tr>';
+}
+
+/* ─── CONNECTION INDICATOR ───────────────── */
+function setCloud(s) {
+  var d = document.getElementById('cdot'), l = document.getElementById('clbl');
+  d.className = 'cdot' + (s === 'ok' ? ' ok' : s === 'err' ? ' err' : '');
+  l.textContent = s === 'ok' ? 'Connected ✓' : s === 'err' ? 'Connection Error' : 'Connecting…';
+}
+
+/* ─── LOGIN ──────────────────────────────── */
+function doLogin() {
+  if (Date.now() < lockUntil) {
+    document.getElementById('l-err').textContent = '⏳ Locked. Wait ' + Math.ceil((lockUntil - Date.now()) / 1000) + 's.';
     return;
   }
-  tbody.innerHTML=qs.map((q,i)=>{
-    var dc=q.difficulty==='easy'?'te':q.difficulty==='medium'?'tm':'th';
-    var act=q.is_active?'<span class="tag te">Active</span>':'<span class="tag tc">Hidden</span>';
-    return '<tr>'+
-      '<td class="td-num">'+(i+1)+'</td>'+
-      '<td class="td-title" title="'+q.title+'">'+q.title+'</td>'+
-      '<td><span class="tag '+dc+'">'+q.difficulty+'</span></td>'+
-      '<td><span class="tag tt" style="font-size:10px">'+q.topic+'</span></td>'+
-      '<td><span class="tag tc" style="font-size:10px">'+(q.company||'—')+'</span></td>'+
-      '<td style="text-align:center">'+act+'</td>'+
-      '<td><div class="td-actions">'+
-        '<button class="btn btn-ghost btn-xs" onclick="editQ('+q.id+')">✏️ Edit</button>'+
-        '<button class="btn btn-red btn-xs" onclick="askDelete('+q.id+',\''+q.title.replace(/'/g,"\\'")+'\')" >🗑 Delete</button>'+
+  var u = document.getElementById('l-user').value.trim();
+  var p = document.getElementById('l-pass').value;
+  var btn = document.getElementById('l-btn');
+  if (!u || !p) { document.getElementById('l-err').textContent = 'Enter username and password'; return; }
+  btn.innerHTML = '<span class="spinner"></span> Verifying…'; btn.disabled = true;
+  setTimeout(function() {
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      loginTries = 0;
+      sessionStorage.setItem('ph_admin', '1');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-app').style.display = 'flex';
+      loadAll();
+      toast('Welcome back, ' + ADMIN_USER + '! 🎉', 'ok');
+    } else {
+      loginTries++;
+      var rem = Math.max(0, 5 - loginTries);
+      shake('l-pass');
+      document.getElementById('l-pass').value = '';
+      if (loginTries >= 5) {
+        lockUntil = Date.now() + 60000; loginTries = 0;
+        document.getElementById('l-err').textContent = '🔒 Locked for 60 seconds.';
+      } else {
+        document.getElementById('l-err').textContent = '❌ Wrong credentials. ' + rem + ' attempt' + (rem !== 1 ? 's' : '') + ' left.';
+        if (loginTries >= 3) { var w = document.getElementById('attempts-warn'); w.style.display = 'block'; w.textContent = '⚠️ ' + rem + ' attempts left.'; }
+      }
+      btn.innerHTML = '🔑 Login to Admin Panel'; btn.disabled = false;
+    }
+  }, 600);
+}
+function shake(id) {
+  var el = document.getElementById(id);
+  el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+  el.addEventListener('animationend', function() { el.classList.remove('shake'); }, { once: true });
+}
+function doLogout() {
+  if (!confirm('Logout from admin panel?')) return;
+  sessionStorage.removeItem('ph_admin');
+  document.getElementById('admin-app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('l-user').value = '';
+  document.getElementById('l-pass').value = '';
+  document.getElementById('l-err').textContent = '';
+  document.getElementById('attempts-warn').style.display = 'none';
+  loginTries = 0;
+  toast('Logged out', 'info');
+}
+window.addEventListener('load', function() {
+  if (sessionStorage.getItem('ph_admin') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-app').style.display = 'flex';
+    setCloud(''); loadAll();
+  }
+  setTimeout(function() { document.getElementById('l-user').focus(); }, 100);
+});
+
+/* ─── LOAD DATA ──────────────────────────── */
+function loadAll() {
+  return loadQ().then(loadStats);
+}
+
+function loadQ() {
+  return sbFetch('GET', 'questions', 'order=sort_order.asc').then(function(data) {
+    allQ = data || [];
+    document.getElementById('sc-q').textContent = allQ.length;
+    renderQTable();
+    refreshDupUI();   // <-- check duplicates every time questions reload
+    setCloud('ok');
+  }).catch(function(e) {
+    setCloud('err');
+    toast('Load error: ' + e.message, 'err');
+  });
+}
+
+function loadStats() {
+  document.getElementById('ov-total').textContent   = allQ.length;
+  document.getElementById('ov-easy').textContent    = allQ.filter(function(q){return q.difficulty==='easy';}).length;
+  document.getElementById('ov-medium').textContent  = allQ.filter(function(q){return q.difficulty==='medium';}).length;
+  document.getElementById('ov-hard').textContent    = allQ.filter(function(q){return q.difficulty==='hard';}).length;
+  return sbFetch('GET', 'profiles', 'select=id').then(function(u) {
+    var n = u ? u.length : 0;
+    document.getElementById('ov-users').textContent = n;
+    document.getElementById('sc-u').textContent = n;
+    return sbFetch('GET', 'user_progress', 'select=id&status=eq.solved');
+  }).then(function(s) {
+    document.getElementById('ov-solved').textContent = s ? s.length : 0;
+  }).catch(function(e) { console.warn('Stats:', e); });
+}
+
+/* ─── DUPLICATE DETECTION ────────────────── */
+
+// Returns array of arrays. Each inner array = questions with same title (sorted id ASC).
+// Only groups with 2+ items are returned.
+function getDupGroups() {
+  var map = {};
+  allQ.forEach(function(q) {
+    var key = (q.title || '').trim().toLowerCase();
+    if (!key) return;
+    if (!map[key]) map[key] = [];
+    map[key].push(q);
+  });
+  return Object.values(map)
+    .filter(function(g) { return g.length > 1; })
+    .map(function(g) {
+      return g.slice().sort(function(a, b) { return Number(a.id) - Number(b.id); });
+    });
+}
+
+// Show/hide the duplicate button + overview banner
+function refreshDupUI() {
+  var groups = getDupGroups();
+  var totalDel = groups.reduce(function(s, g) { return s + (g.length - 1); }, 0);
+
+  // Questions page button
+  var btn = document.getElementById('dup-btn');
+  if (totalDel > 0) {
+    btn.style.display = 'inline-flex';
+    document.getElementById('dup-badge').textContent = totalDel;
+  } else {
+    btn.style.display = 'none';
+  }
+
+  // Overview banner
+  var banner = document.getElementById('ov-dup-banner');
+  if (totalDel > 0) {
+    banner.style.display = 'flex';
+    document.getElementById('ov-dup-msg').textContent =
+      'Found ' + totalDel + ' duplicate' + (totalDel !== 1 ? 's' : '') +
+      ' across ' + groups.length + ' title' + (groups.length !== 1 ? 's' : '') + '.';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+// Open the duplicate manager modal
+function openDupModal() {
+  var groups = getDupGroups();
+  var body = document.getElementById('dup-body');
+  var delBtn = document.getElementById('dup-del-btn');
+
+  if (groups.length === 0) {
+    body.innerHTML = '<div class="dup-clean">✅ No duplicates found — database is clean!</div>';
+    delBtn.style.display = 'none';
+    document.getElementById('dup-overlay').classList.add('show');
+    return;
+  }
+
+  var totalDel = groups.reduce(function(s, g) { return s + (g.length - 1); }, 0);
+  var html = '<div class="dup-summary">⚠️ <strong>' + totalDel + '</strong> duplicate' +
+    (totalDel !== 1 ? 's' : '') + ' will be permanently deleted from Supabase — live portal updates instantly.</div>';
+
+  groups.forEach(function(group) {
+    var keeper   = group[0];          // lowest id = oldest = KEEP
+    var toDelete = group.slice(1);    // the rest = DELETE
+
+    html += '<div class="dup-group">';
+    html += '<div class="dup-group-title">📋 ' + esc(keeper.title) +
+            ' <span class="dup-cnt">' + group.length + ' copies</span></div>';
+
+    // KEEP row
+    html += '<div class="dup-row keep">' +
+      '<span class="dup-pill pill-keep">KEEP</span>' +
+      '<span class="dup-id">id ' + keeper.id + '</span>' +
+      '<div class="dup-info">' +
+        '<div class="dup-name">' + esc(keeper.title) + '</div>' +
+        '<div class="dup-meta">' + keeper.difficulty + ' · ' + keeper.topic +
+          (keeper.company ? ' · ' + esc(keeper.company) : '') + '</div>' +
+      '</div></div>';
+
+    // DELETE rows
+    toDelete.forEach(function(q) {
+      html += '<div class="dup-row del">' +
+        '<span class="dup-pill pill-del">DELETE</span>' +
+        '<span class="dup-id">id ' + q.id + '</span>' +
+        '<div class="dup-info">' +
+          '<div class="dup-name">' + esc(q.title) + '</div>' +
+          '<div class="dup-meta">' + q.difficulty + ' · ' + q.topic +
+            (q.company ? ' · ' + esc(q.company) : '') + '</div>' +
+        '</div></div>';
+    });
+    html += '</div>';
+  });
+
+  body.innerHTML = html;
+  delBtn.textContent = '🗑 Delete All Duplicates (' + totalDel + ')';
+  delBtn.style.display = 'inline-flex';
+  document.getElementById('dup-overlay').classList.add('show');
+}
+
+function closeDupModal() {
+  document.getElementById('dup-overlay').classList.remove('show');
+}
+document.getElementById('dup-overlay').addEventListener('click', function(e) {
+  if (e.target.id === 'dup-overlay') closeDupModal();
+});
+
+// Delete all duplicates sequentially
+function deleteAllDups() {
+  var groups = getDupGroups();
+  if (!groups.length) { toast('Nothing to delete', 'info'); closeDupModal(); return; }
+
+  // Collect the IDs we need to remove (everything except the first/oldest in each group)
+  var ids = [];
+  groups.forEach(function(g) {
+    g.slice(1).forEach(function(q) { ids.push(q.id); });
+  });
+
+  var btn = document.getElementById('dup-del-btn');
+  btn.innerHTML = '<span class="spinner"></span> Deleting ' + ids.length + '…';
+  btn.disabled = true;
+
+  var done = 0, fail = 0;
+
+  function next(i) {
+    if (i >= ids.length) {
+      // finished
+      btn.innerHTML = '🗑 Delete All Duplicates'; btn.disabled = false;
+      closeDupModal();
+      loadQ().then(loadStats);
+      if (fail === 0) {
+        toast('✅ Deleted ' + done + ' duplicate' + (done !== 1 ? 's' : '') + '. Portal updated!', 'ok');
+      } else {
+        toast('Deleted ' + done + ', ' + fail + ' failed. Check console.', 'warn');
+      }
+      return;
+    }
+    // DELETE /questions?id=eq.{id}  — no body, no Prefer header needed
+    sbFetch('DELETE', 'questions', 'id=eq.' + ids[i]).then(function() {
+      done++;
+      next(i + 1);
+    }).catch(function(e) {
+      console.error('Delete id=' + ids[i] + ' failed:', e);
+      fail++;
+      next(i + 1);
+    });
+  }
+
+  next(0);
+}
+
+/* ─── QUESTION TABLE ─────────────────────── */
+function renderQTable() {
+  var search  = (document.getElementById('q-search').value || '').toLowerCase();
+  var diff    = document.getElementById('qf-diff').value;
+  var topic   = document.getElementById('qf-topic').value;
+  var company = document.getElementById('qf-company').value;
+  var status  = document.getElementById('qf-status').value;
+
+  var qs = allQ.filter(function(q) {
+    if (search && (q.title || '').toLowerCase().indexOf(search) === -1 &&
+        (q.description || '').toLowerCase().indexOf(search) === -1) return false;
+    if (diff    && q.difficulty !== diff)                    return false;
+    if (topic   && q.topic !== topic)                        return false;
+    if (company && (q.company || '') !== company)            return false;
+    if (status !== '' && String(q.is_active) !== status)     return false;
+    return true;
+  });
+
+  // mark titles that have duplicates
+  var dupSet = new Set();
+  getDupGroups().forEach(function(g) {
+    dupSet.add((g[0].title || '').trim().toLowerCase());
+  });
+
+  var tbody = document.getElementById('q-tbody');
+  if (!qs.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No questions — <a href="#" onclick="openAddModal()" style="color:var(--green)">add one!</a></td></tr>';
+    return;
+  }
+  tbody.innerHTML = qs.map(function(q, i) {
+    var dc  = q.difficulty === 'easy' ? 'te' : q.difficulty === 'medium' ? 'tm' : 'th';
+    var act = q.is_active ? '<span class="tag te">Active</span>' : '<span class="tag tc">Hidden</span>';
+    var dup = dupSet.has((q.title || '').trim().toLowerCase())
+      ? '<span title="Duplicate title" style="margin-left:4px;cursor:pointer" onclick="openDupModal()">⚠️</span>' : '';
+    var co  = q.company || '—';
+    var coColor = co === 'Google' ? '#4285f4' : co === 'Amazon' ? '#ff9900' : co === 'Meta' ? '#0866ff'
+                : co === 'Netflix' ? '#e50914' : co === 'Microsoft' ? '#00a4ef' : co === 'Flipkart' ? '#2874f0'
+                : co === 'TechVerse' ? 'var(--purple)' : 'var(--text2)';
+    return '<tr>' +
+      '<td class="td-num">' + (i + 1) + '</td>' +
+      '<td class="td-title" title="' + esc(q.title) + '">' + esc(q.title) + dup + '</td>' +
+      '<td><span class="tag ' + dc + '">' + q.difficulty + '</span></td>' +
+      '<td><span class="tag tt" style="font-size:10px">' + q.topic + '</span></td>' +
+      '<td><span style="font-size:10px;font-weight:600;color:' + coColor + '">' + co + '</span></td>' +
+      '<td style="text-align:center">' + act + '</td>' +
+      '<td><div class="td-actions">' +
+        '<button class="btn btn-ghost btn-xs" onclick="openEditModal(' + q.id + ')">✏️ Edit</button>' +
+        '<button class="btn btn-red btn-xs" onclick="askDel(' + q.id + ',\'' + esc(q.title).replace(/'/g, "\\'") + '\')">🗑 Del</button>' +
       '</div></td></tr>';
   }).join('');
 }
 
-function openAddModal(){
-  editingId=null;clearForm();
-  document.getElementById('modal-title').textContent='Add New Question';
+/* ─── ADD / EDIT MODAL ───────────────────── */
+function openAddModal() {
+  editId = null; clearForm();
+  document.getElementById('modal-title').textContent = 'Add New Question';
   document.getElementById('q-overlay').classList.add('show');
-  setTimeout(()=>document.getElementById('f-title').focus(),100);
+  setTimeout(function() { document.getElementById('f-title').focus(); }, 100);
 }
-function editQ(id){
-  var q=allQuestions.find(x=>x.id===id);if(!q)return;
-  editingId=id;
-  document.getElementById('modal-title').textContent='Edit Question';
-  document.getElementById('f-title').value=q.title||'';
-  document.getElementById('f-diff').value=q.difficulty||'easy';
-  document.getElementById('f-topic').value=q.topic||'Aggregate';
-  document.getElementById('f-company').value=q.company||'';
-  document.getElementById('f-exp').value=q.expected_rows||1;
-  document.getElementById('f-desc').value=q.description||'';
-  document.getElementById('f-schema').value=q.schema_ref||'';
-  document.getElementById('f-hint').value=q.hint||'';
-  document.getElementById('f-solution').value=q.solution||'';
-  document.getElementById('f-active').checked=q.is_active!==false;
+function openEditModal(id) {
+  var q = allQ.find(function(x) { return x.id === id; });
+  if (!q) return;
+  editId = id;
+  document.getElementById('modal-title').textContent = 'Edit Question';
+  document.getElementById('f-title').value   = q.title || '';
+  document.getElementById('f-diff').value    = q.difficulty || 'easy';
+  document.getElementById('f-topic').value   = q.topic || 'Aggregate';
+  document.getElementById('f-company').value = q.company || '';
+  document.getElementById('f-exp').value     = q.expected_rows || 1;
+  document.getElementById('f-desc').value    = q.description || '';
+  document.getElementById('f-schema').value  = q.schema_ref || '';
+  document.getElementById('f-hint').value    = q.hint || '';
+  document.getElementById('f-solution').value = q.solution || '';
+  document.getElementById('f-active').checked = q.is_active !== false;
   document.getElementById('q-overlay').classList.add('show');
-  setTimeout(()=>document.getElementById('f-title').focus(),100);
+  setTimeout(function() { document.getElementById('f-title').focus(); }, 100);
 }
-function clearForm(){
-  ['f-title','f-desc','f-schema','f-hint','f-solution'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('f-diff').value='easy';
-  document.getElementById('f-topic').value='Aggregate';
-  document.getElementById('f-company').value='';
-  document.getElementById('f-exp').value='1';
-  document.getElementById('f-active').checked=true;
+function clearForm() {
+  ['f-title','f-desc','f-schema','f-hint','f-solution'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f-diff').value    = 'easy';
+  document.getElementById('f-topic').value   = 'Aggregate';
+  document.getElementById('f-company').value = '';
+  document.getElementById('f-exp').value     = '1';
+  document.getElementById('f-active').checked = true;
 }
-function closeQModal(){document.getElementById('q-overlay').classList.remove('show');editingId=null;}
-document.getElementById('q-overlay').addEventListener('click',e=>{if(e.target.id==='q-overlay')closeQModal();});
+function closeQModal() { document.getElementById('q-overlay').classList.remove('show'); editId = null; }
+document.getElementById('q-overlay').addEventListener('click', function(e) { if (e.target.id === 'q-overlay') closeQModal(); });
 
-async function saveQuestion(){
-  var title=document.getElementById('f-title').value.trim();
-  var desc=document.getElementById('f-desc').value.trim();
-  var solution=document.getElementById('f-solution').value.trim();
-  if(!title){toast('Title is required!','warn');document.getElementById('f-title').focus();return;}
-  if(!desc){toast('Description is required!','warn');document.getElementById('f-desc').focus();return;}
-  if(!solution){toast('Solution SQL is required!','warn');document.getElementById('f-solution').focus();return;}
-  var btn=document.getElementById('save-btn');
-  btn.innerHTML='<span class="spinner"></span> Saving...';btn.disabled=true;
-  var payload={
-    title,description:desc,
-    difficulty:document.getElementById('f-diff').value,
-    topic:document.getElementById('f-topic').value,
-    company:document.getElementById('f-company').value||null,
-    expected_rows:parseInt(document.getElementById('f-exp').value)||1,
-    schema_ref:document.getElementById('f-schema').value.trim()||null,
-    hint:document.getElementById('f-hint').value.trim()||null,
-    solution,
-    is_active:document.getElementById('f-active').checked,
+function saveQuestion() {
+  var title    = document.getElementById('f-title').value.trim();
+  var desc     = document.getElementById('f-desc').value.trim();
+  var solution = document.getElementById('f-solution').value.trim();
+  if (!title)    { toast('Title is required!',    'warn'); document.getElementById('f-title').focus(); return; }
+  if (!desc)     { toast('Description required!', 'warn'); document.getElementById('f-desc').focus();  return; }
+  if (!solution) { toast('Solution required!',    'warn'); document.getElementById('f-solution').focus(); return; }
+
+  var btn = document.getElementById('save-btn');
+  btn.innerHTML = '<span class="spinner"></span> Saving…'; btn.disabled = true;
+
+  var payload = {
+    title: title, description: desc,
+    difficulty: document.getElementById('f-diff').value,
+    topic:      document.getElementById('f-topic').value,
+    company:    document.getElementById('f-company').value || null,
+    expected_rows: parseInt(document.getElementById('f-exp').value) || 1,
+    schema_ref: document.getElementById('f-schema').value.trim() || null,
+    hint:       document.getElementById('f-hint').value.trim() || null,
+    solution:   solution,
+    is_active:  document.getElementById('f-active').checked
   };
-  if(!editingId) payload.sort_order=allQuestions.length+1;
-  try{
-    if(editingId){
-      await api('PATCH','questions','id=eq.'+editingId,payload);
-    }else{
-      await api('POST','questions','',payload);
-    }
+  if (!editId) payload.sort_order = allQ.length + 1;
+
+  var p = editId
+    ? sbFetch('PATCH', 'questions', 'id=eq.' + editId, payload)
+    : sbFetch('POST',  'questions', '',               payload);
+
+  p.then(function() {
     closeQModal();
-    await loadQuestions();
-    await loadOverviewStats();
-    toast(editingId?'✅ Question updated!':'✅ Question added! Live on your site now.','ok');
-  }catch(e){
-    toast('Save failed: '+e.message,'err');
-  }finally{btn.innerHTML='💾 Save Question';btn.disabled=false;}
+    return loadQ().then(loadStats);
+  }).then(function() {
+    toast(editId ? '✅ Question updated!' : '✅ Question added! Live now.', 'ok');
+  }).catch(function(e) {
+    toast('Save failed: ' + e.message, 'err');
+  }).finally(function() {
+    btn.innerHTML = '💾 Save Question'; btn.disabled = false;
+  });
 }
 
-function askDelete(id,title){
-  deleteId=id;
-  document.getElementById('confirm-sub').textContent='"'+title+'" will be permanently deleted.';
+/* ─── DELETE SINGLE ──────────────────────── */
+function askDel(id, title) {
+  delId = id;
+  document.getElementById('confirm-sub').textContent = '"' + title + '" will be permanently deleted.';
   document.getElementById('confirm-overlay').classList.add('show');
 }
-function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('show');deleteId=null;}
-document.getElementById('confirm-overlay').addEventListener('click',e=>{if(e.target.id==='confirm-overlay')closeConfirm();});
-async function confirmDelete(){
-  if(!deleteId)return;
-  var btn=document.getElementById('confirm-ok-btn');
-  btn.innerHTML='<span class="spinner"></span>';btn.disabled=true;
-  try{
-    await api('DELETE','questions','id=eq.'+deleteId);
+function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('show'); delId = null; }
+document.getElementById('confirm-overlay').addEventListener('click', function(e) { if (e.target.id === 'confirm-overlay') closeConfirm(); });
+
+function confirmDelete() {
+  if (!delId) return;
+  var btn = document.getElementById('confirm-ok-btn');
+  btn.innerHTML = '<span class="spinner"></span>'; btn.disabled = true;
+  sbFetch('DELETE', 'questions', 'id=eq.' + delId).then(function() {
     closeConfirm();
-    await loadQuestions();
-    await loadOverviewStats();
-    toast('🗑 Question deleted','info');
-  }catch(e){toast('Delete failed: '+e.message,'err');}
-  finally{btn.innerHTML='Yes, Delete';btn.disabled=false;}
+    return loadQ().then(loadStats);
+  }).then(function() {
+    toast('🗑 Question deleted', 'info');
+  }).catch(function(e) {
+    toast('Delete failed: ' + e.message, 'err');
+  }).finally(function() {
+    btn.innerHTML = 'Yes, Delete'; btn.disabled = false;
+  });
 }
 
-async function loadOverviewStats(){
-  try{
-    document.getElementById('ov-total').textContent=allQuestions.length;
-    document.getElementById('ov-easy').textContent=allQuestions.filter(q=>q.difficulty==='easy').length;
-    document.getElementById('ov-medium').textContent=allQuestions.filter(q=>q.difficulty==='medium').length;
-    document.getElementById('ov-hard').textContent=allQuestions.filter(q=>q.difficulty==='hard').length;
-    var users = await api('GET','profiles','select=id');
-    var uc = users?users.length:0;
-    document.getElementById('ov-users').textContent=uc;
-    document.getElementById('sc-u').textContent=uc;
-    var solves = await api('GET','user_progress','select=id&status=eq.solved');
-    document.getElementById('ov-solved').textContent=solves?solves.length:0;
-  }catch(e){console.error('Stats:',e);}
-}
-
-async function loadUsers(){
-  var tbody=document.getElementById('u-tbody');
-  tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading...</td></tr>';
-  try{
-    var users = await api('GET','profiles','order=created_at.desc');
-    document.getElementById('sc-u').textContent=users.length;
-    if(!users.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet!</td></tr>';return;}
-    tbody.innerHTML=users.map(u=>{
-      var plan=u.plan==='pro'?'<span class="tag tm">Pro</span>':'<span class="tag tc">Free</span>';
-      var joined=u.created_at?new Date(u.created_at).toLocaleDateString('en-IN'):'—';
-      return '<tr>'+
-        '<td><div class="u-row-head"><div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
-        '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
-        '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
-        '<td>'+joined+'</td>'+
-        '<td><span style="color:var(--amber);font-weight:600">'+(u.streak||0)+'</span> 🔥</td>'+
-        '<td>'+plan+'</td>'+
+/* ─── USERS ──────────────────────────────── */
+function loadUsers() {
+  var tb = document.getElementById('u-tbody');
+  tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">Loading…</td></tr>';
+  sbFetch('GET', 'profiles', 'order=created_at.desc').then(function(users) {
+    document.getElementById('sc-u').textContent = users.length;
+    if (!users.length) { tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No users yet!</td></tr>'; return; }
+    tb.innerHTML = users.map(function(u) {
+      var plan   = u.plan === 'pro' ? '<span class="tag tm">Pro</span>' : '<span class="tag tc">Free</span>';
+      var joined = u.created_at ? new Date(u.created_at).toLocaleDateString('en-IN') : '—';
+      return '<tr>' +
+        '<td><div class="u-row-head"><div class="u-av">' + (u.username || 'U').charAt(0).toUpperCase() + '</div>' +
+        '<div><div class="u-name">' + (u.full_name || u.username || 'User') + '</div>' +
+        '<div class="u-email">@' + (u.username || '—') + '</div></div></div></td>' +
+        '<td>' + joined + '</td>' +
+        '<td><span style="color:var(--amber);font-weight:600">' + (u.streak || 0) + '</span> 🔥</td>' +
+        '<td>' + plan + '</td>' +
         '<td style="text-align:center"><button class="btn btn-ghost btn-xs" onclick="toast(\'Coming soon!\',\'info\')">Manage</button></td></tr>';
     }).join('');
-  }catch(e){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</td></tr>';}
+  }).catch(function(e) {
+    tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--red)">Error: ' + e.message + '</td></tr>';
+  });
 }
 
-async function loadLeaderboard(){
-  var tbody=document.getElementById('lb-tbody');
-  tbody.innerHTML='<tr class="empty-row"><td colspan="5">Loading...</td></tr>';
-  try{
-    var rows = await api('GET','leaderboard','order=solved_count.desc&limit=50');
-    if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="5">No users yet</td></tr>';return;}
-    tbody.innerHTML=rows.map((u,i)=>{
-      var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
-      var last=u.last_solved?new Date(u.last_solved).toLocaleDateString('en-IN'):'—';
-      return '<tr>'+
-        '<td style="font-size:16px;text-align:center">'+medal+'</td>'+
-        '<td><div class="u-row-head"><div class="u-av">'+(u.username||'U').charAt(0).toUpperCase()+'</div>'+
-        '<div><div class="u-name">'+(u.full_name||u.username||'User')+'</div>'+
-        '<div class="u-email">@'+(u.username||'—')+'</div></div></div></td>'+
-        '<td><span style="color:var(--green);font-weight:700;font-size:15px">'+(u.solved_count||0)+'</span></td>'+
-        '<td><span style="color:var(--amber);font-weight:600">'+(u.streak||0)+'</span> 🔥</td>'+
-        '<td>'+last+'</td></tr>';
+/* ─── LEADERBOARD ────────────────────────── */
+function loadLeaderboard() {
+  var tb = document.getElementById('lb-tbody');
+  tb.innerHTML = '<tr class="empty-row"><td colspan="5">Loading…</td></tr>';
+  sbFetch('GET', 'leaderboard', 'order=solved_count.desc&limit=50').then(function(rows) {
+    if (!rows || !rows.length) { tb.innerHTML = '<tr class="empty-row"><td colspan="5">No data yet</td></tr>'; return; }
+    tb.innerHTML = rows.map(function(u, i) {
+      var medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#' + (i + 1);
+      var last  = u.last_solved ? new Date(u.last_solved).toLocaleDateString('en-IN') : '—';
+      return '<tr>' +
+        '<td style="font-size:16px;text-align:center">' + medal + '</td>' +
+        '<td><div class="u-row-head"><div class="u-av">' + (u.username || 'U').charAt(0).toUpperCase() + '</div>' +
+        '<div><div class="u-name">' + (u.full_name || u.username || 'User') + '</div>' +
+        '<div class="u-email">@' + (u.username || '—') + '</div></div></div></td>' +
+        '<td><span style="color:var(--green);font-weight:700;font-size:15px">' + (u.solved_count || 0) + '</span></td>' +
+        '<td><span style="color:var(--amber);font-weight:600">' + (u.streak || 0) + '</span> 🔥</td>' +
+        '<td>' + last + '</td></tr>';
     }).join('');
-  }catch(e){tbody.innerHTML='<tr class="empty-row"><td colspan="5">Error: '+e.message+'</td></tr>';}
+  }).catch(function(e) {
+    tb.innerHTML = '<tr class="empty-row"><td colspan="5">Error: ' + e.message + '</td></tr>';
+  });
 }
 
-function goPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('on');
-  if(btn)btn.classList.add('active');
-  if(id==='users')loadUsers();
-  if(id==='leaderboard')loadLeaderboard();
+/* ─── PAGE NAV ───────────────────────────── */
+function goPage(id, btn) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
+  document.querySelectorAll('.s-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('on');
+  if (btn) btn.classList.add('active');
+  if (id === 'users')       loadUsers();
+  if (id === 'leaderboard') loadLeaderboard();
 }
 
-function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='show '+(type||'ok');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500);}
+/* ─── HELPERS ────────────────────────────── */
+function esc(s) {
+  return String(s || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+/* ─── EXPORT JSON ────────────────────────── */
+function exportJSON() {
+  if (!allQ || !allQ.length) { toast('No questions to export', 'warn'); return; }
+
+  var exportData = allQ.map(function(q) {
+    return {
+      id:            q.id,
+      title:         q.title         || '',
+      difficulty:    q.difficulty    || '',
+      topic:         q.topic         || '',
+      company:       q.company       || '',
+      description:   q.description   || '',
+      solution:      q.solution      || '',
+      is_active:     q.is_active,
+      expected_rows: q.expected_rows || 0,
+      sort_order:    q.sort_order    || 0
+    };
+  });
+
+  var json   = JSON.stringify(exportData, null, 2);
+  var blob   = new Blob([json], { type: 'application/json' });
+  var url    = URL.createObjectURL(blob);
+  var a      = document.createElement('a');
+  var date   = new Date().toISOString().slice(0, 10);
+  a.href     = url;
+  a.download = 'datahouz_questions_' + date + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('✅ Exported ' + exportData.length + ' questions', 'ok');
+}
+
+/* ─── JSON IMPORT ────────────────────────── */
+var importParsed = [];
+
+function openImportModal() {
+  document.getElementById('import-overlay').classList.add('show');
+  document.getElementById('import-json').value = '';
+  document.getElementById('import-preview').style.display = 'none';
+  document.getElementById('import-go-btn').style.display = 'none';
+  document.getElementById('import-parse-lbl').textContent = '';
+  document.getElementById('file-name-lbl').textContent = 'No file selected';
+  importParsed = [];
+}
+function closeImportModal() {
+  document.getElementById('import-overlay').classList.remove('show');
+}
+document.getElementById('import-overlay').addEventListener('click', function(e) {
+  if (e.target.id === 'import-overlay') closeImportModal();
+});
+
+function handleFileUpload(input) {
+  var file = input.files[0];
+  if (!file) return;
+  document.getElementById('file-name-lbl').textContent = file.name;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('import-json').value = e.target.result;
+  };
+  reader.readAsText(file);
+}
+
+function parseImportJSON() {
+  var raw = document.getElementById('import-json').value.trim();
+  var lbl = document.getElementById('import-parse-lbl');
+  if (!raw) { lbl.textContent = '⚠️ Paste or upload a JSON file first.'; lbl.style.color = 'var(--amber)'; return; }
+
+  var parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch(e) {
+    lbl.textContent = '❌ Invalid JSON: ' + e.message;
+    lbl.style.color = 'var(--red)';
+    return;
+  }
+  if (!Array.isArray(parsed)) { lbl.textContent = '❌ JSON must be an array of question objects.'; lbl.style.color = 'var(--red)'; return; }
+
+  // Validate and enrich each item
+  var existingTitles = new Set(allQ.map(function(q) { return (q.title || '').trim().toLowerCase(); }));
+  var valid = 0, dups = 0, errs = 0;
+  var required = ['title', 'difficulty', 'topic', 'description', 'solution'];
+
+  importParsed = parsed.map(function(item, idx) {
+    var missing = required.filter(function(k) { return !item[k]; });
+    if (missing.length) { errs++; return Object.assign({}, item, {_status: 'error', _msg: 'Missing: ' + missing.join(', ')}); }
+    var isDup = existingTitles.has((item.title || '').trim().toLowerCase());
+    if (isDup) { dups++; } else { valid++; }
+    return Object.assign({}, item, {_status: isDup ? 'dup' : 'ok', _msg: isDup ? 'Duplicate title' : 'Ready'});
+  });
+
+  // Render preview table
+  var tbody = document.getElementById('import-tbody');
+  tbody.innerHTML = importParsed.map(function(item, i) {
+    var rowClass = item._status === 'ok' ? 'imp-row-ok' : item._status === 'dup' ? 'imp-row-dup' : 'imp-row-err';
+    var dc = item.difficulty === 'easy' ? 'te' : item.difficulty === 'medium' ? 'tm' : 'th';
+    var canSelect = item._status !== 'error';
+    return '<tr class="' + rowClass + '">' +
+      '<td><input type="checkbox" class="imp-cb" data-idx="' + i + '" ' + (canSelect && item._status === 'ok' ? 'checked' : '') + (canSelect ? '' : ' disabled') + ' style="accent-color:var(--green)"/></td>' +
+      '<td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(item.title || '—') + '</td>' +
+      '<td><span class="tag ' + dc + '">' + (item.difficulty || '?') + '</span></td>' +
+      '<td><span class="tag tt" style="font-size:10px">' + (item.topic || '?') + '</span></td>' +
+      '<td style="font-size:10px;font-weight:600">' + (item.company || '—') + '</td>' +
+      '<td class="imp-status">' + (item._status === 'ok' ? '✅ Ready' : item._status === 'dup' ? '⚠️ Dup' : '❌ ' + item._msg) + '</td>' +
+    '</tr>';
+  }).join('');
+
+  document.getElementById('import-preview-title').textContent = 'Preview — ' + parsed.length + ' questions found';
+  document.getElementById('import-summary').innerHTML =
+    '<span style="color:var(--green)">✅ ' + valid + ' ready to import</span> &nbsp;·&nbsp; ' +
+    '<span style="color:var(--amber)">⚠️ ' + dups + ' duplicates (unchecked)</span> &nbsp;·&nbsp; ' +
+    '<span style="color:var(--red)">❌ ' + errs + ' errors (skipped)</span>';
+
+  lbl.textContent = '✅ Parsed ' + parsed.length + ' entries';
+  lbl.style.color = 'var(--green)';
+  document.getElementById('import-preview').style.display = '';
+  document.getElementById('import-go-btn').style.display = valid > 0 ? '' : 'none';
+}
+
+function toggleAllImport(masterCb) {
+  document.querySelectorAll('.imp-cb:not(:disabled)').forEach(function(cb) {
+    cb.checked = masterCb.checked;
+  });
+}
+
+/* ── Direct import — no preview, just send everything ── */
+function importAllDirect() {
+  var raw = document.getElementById('import-json').value.trim();
+  var lbl = document.getElementById('import-parse-lbl');
+  if (!raw) { lbl.textContent = '⚠️ Paste or upload JSON first'; lbl.style.color = 'var(--amber)'; return; }
+
+  var parsed;
+  try { parsed = JSON.parse(raw); } catch(e) {
+    lbl.textContent = '❌ Invalid JSON: ' + e.message; lbl.style.color = 'var(--red)'; return;
+  }
+  if (!Array.isArray(parsed) || !parsed.length) {
+    lbl.textContent = '❌ JSON must be a non-empty array'; lbl.style.color = 'var(--red)'; return;
+  }
+
+  var setActive = document.getElementById('import-active').checked;
+
+  function buildPayload(item, rich) {
+    var p = {
+      title:         (item.title       || '').trim(),
+      difficulty:    (item.difficulty  || 'easy').trim(),
+      topic:         (item.topic       || 'Aggregate').trim(),
+      company:       (item.company     || null),
+      description:   (item.description || '').trim(),
+      solution:      (item.solution    || '').trim(),
+      is_active:     setActive,
+      expected_rows: parseInt(item.expected_rows) || 0,
+      sort_order:    parseInt(item.sort_order)    || 0
+    };
+    if (rich) {
+      if (item.schema_tables && item.schema_tables.length) p.schema_tables = item.schema_tables;
+      if (item.hints         && item.hints.length)         p.hints         = item.hints;
+      if (item.approaches    && item.approaches.length)    p.approaches    = item.approaches;
+      if (item.examples      && item.examples.length)      p.examples      = item.examples;
+    }
+    return p;
+  }
+
+  function doPost(payloads) {
+    return fetch(BASE + '/questions', {
+      method: 'POST',
+      headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payloads)
+    });
+  }
+
+  lbl.textContent = '⏳ Uploading ' + parsed.length + ' questions…';
+  lbl.style.color = 'var(--text3)';
+
+  // Try with rich fields first
+  var richPayloads  = parsed.map(function(i) { return buildPayload(i, true);  });
+  var basicPayloads = parsed.map(function(i) { return buildPayload(i, false); });
+
+  doPost(richPayloads)
+  .then(function(r) {
+    if (r.status === 400) {
+      // Rich columns don't exist — silently retry with basic fields only
+      lbl.textContent = '⏳ Retrying (basic mode)…';
+      return doPost(basicPayloads);
+    }
+    return r;
+  })
+  .then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(r.status + ': ' + t); });
+    lbl.textContent = '✅ Done!'; lbl.style.color = 'var(--green)';
+    closeImportModal();
+    return loadQ().then(loadStats).then(function() {
+      toast('✅ ' + parsed.length + ' question' + (parsed.length !== 1 ? 's' : '') + ' imported!', 'ok');
+    });
+  })
+  .catch(function(e) {
+    lbl.textContent = '❌ ' + e.message;
+    lbl.style.color = 'var(--red)';
+    toast('❌ ' + e.message, 'err');
+  });
+}
+
+function runImport() {
+  var skipDup   = document.getElementById('import-skip-dup').checked;
+  var setActive = document.getElementById('import-active').checked;
+  var checkboxes = document.querySelectorAll('.imp-cb:checked');
+  if (!checkboxes.length) { toast('Select at least one question to import', 'warn'); return; }
+
+  var toImport = [];
+  checkboxes.forEach(function(cb) {
+    var idx  = parseInt(cb.getAttribute('data-idx'));
+    var item = importParsed[idx];
+    if (!item || item._status === 'error') return;
+    if (skipDup && item._status === 'dup') return;
+    toImport.push(item);
+  });
+
+  if (!toImport.length) { toast('No valid questions selected', 'warn'); return; }
+
+  var btn = document.getElementById('import-go-btn');
+  btn.innerHTML = '<span class="spinner"></span> Uploading ' + toImport.length + ' questions…';
+  btn.disabled = true;
+
+  var payloads = toImport.map(function(item) {
+    return {
+      title:         (item.title       || '').trim(),
+      difficulty:    (item.difficulty  || 'easy').trim(),
+      topic:         (item.topic       || 'Aggregate').trim(),
+      company:       (item.company     || null),
+      description:   (item.description || '').trim(),
+      solution:      (item.solution    || '').trim(),
+      is_active:     setActive,
+      expected_rows: parseInt(item.expected_rows) || 0,
+      sort_order:    parseInt(item.sort_order)    || 0
+    };
+  });
+
+  fetch(BASE + '/questions', {
+    method: 'POST',
+    headers: {
+      'apikey':        KEY,
+      'Authorization': 'Bearer ' + KEY,
+      'Content-Type':  'application/json',
+      'Prefer':        'return=minimal'
+    },
+    body: JSON.stringify(payloads)
+  })
+  .then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(r.status + ': ' + t); });
+    closeImportModal();
+    return loadQ().then(loadStats).then(function() {
+      toast('✅ ' + payloads.length + ' question' + (payloads.length !== 1 ? 's' : '') + ' imported!', 'ok');
+    });
+  })
+  .catch(function(e) {
+    btn.innerHTML = '🚀 Import Selected Questions';
+    btn.disabled  = false;
+    toast('❌ ' + e.message, 'err');
+  });
+}
+
+/* ─── DELETE ALL ─────────────────────────── */
+function openDeleteAllModal() {
+  document.getElementById('delall-overlay').classList.add('show');
+  document.getElementById('da-confirm-input').value = '';
+  document.getElementById('da-scope').value = 'all';
+  var btn = document.getElementById('da-go-btn');
+  btn.disabled = true; btn.style.opacity = '.4'; btn.style.cursor = 'not-allowed';
+  updateDeleteAllPreview();
+}
+function closeDeleteAllModal() {
+  document.getElementById('delall-overlay').classList.remove('show');
+}
+document.getElementById('delall-overlay').addEventListener('click', function(e) {
+  if (e.target.id === 'delall-overlay') closeDeleteAllModal();
+});
+
+function updateDeleteAllPreview() {
+  var scope     = document.getElementById('da-scope').value;
+  var filterRow = document.getElementById('da-filter-row');
+  var filterLbl = document.getElementById('da-filter-lbl');
+  var filterSel = document.getElementById('da-filter-val');
+
+  if (scope === 'all') {
+    filterRow.style.display = 'none';
+  } else {
+    filterRow.style.display = '';
+    var options = [];
+    if (scope === 'company') {
+      filterLbl.textContent = 'Company';
+      options = [...new Set(allQ.map(function(q) { return q.company || '—'; }))].sort();
+    } else if (scope === 'difficulty') {
+      filterLbl.textContent = 'Difficulty';
+      options = ['easy', 'medium', 'hard'];
+    } else if (scope === 'topic') {
+      filterLbl.textContent = 'Topic';
+      options = [...new Set(allQ.map(function(q) { return q.topic || '—'; }))].sort();
+    }
+    var current = filterSel.value;
+    filterSel.innerHTML = options.map(function(o) {
+      return '<option value="' + o + '"' + (o === current ? ' selected' : '') + '>' + o + '</option>';
+    }).join('');
+  }
+
+  var matching = getDeleteAllTargets();
+  var title = document.getElementById('da-preview-title');
+  var sub   = document.getElementById('da-preview-sub');
+  title.textContent = matching.length + ' question' + (matching.length !== 1 ? 's' : '') + ' will be permanently deleted';
+  if (scope === 'all') {
+    sub.textContent = 'This will wipe your entire question database. Are you absolutely sure?';
+  } else {
+    var val = filterSel.value || '';
+    sub.textContent = 'All "' + val + '" questions will be removed from Supabase immediately.';
+  }
+  document.getElementById('da-confirm-input').value = '';
+  var btn = document.getElementById('da-go-btn');
+  btn.disabled = true; btn.style.opacity = '.4'; btn.style.cursor = 'not-allowed';
+}
+
+function getDeleteAllTargets() {
+  var scope = document.getElementById('da-scope').value;
+  if (scope === 'all') return allQ.map(function(q) { return q.id; });
+  var val = document.getElementById('da-filter-val').value;
+  return allQ.filter(function(q) {
+    if (scope === 'company')    return (q.company    || '—') === val;
+    if (scope === 'difficulty') return (q.difficulty || '')  === val;
+    if (scope === 'topic')      return (q.topic      || '—') === val;
+    return false;
+  }).map(function(q) { return q.id; });
+}
+
+function checkDeleteAllReady() {
+  var val  = document.getElementById('da-confirm-input').value.trim();
+  var btn  = document.getElementById('da-go-btn');
+  var targets = getDeleteAllTargets();
+  var ready = val === 'DELETE' && targets.length > 0;
+  btn.disabled = !ready;
+  btn.style.opacity = ready ? '1' : '.4';
+  btn.style.cursor  = ready ? 'pointer' : 'not-allowed';
+}
+
+function runDeleteAll() {
+  var ids = getDeleteAllTargets();
+  if (!ids.length) { toast('No questions match — nothing to delete', 'warn'); return; }
+
+  var btn = document.getElementById('da-go-btn');
+  btn.innerHTML = '<span class="spinner"></span> Deleting ' + ids.length + '…';
+  btn.disabled = true;
+
+  /* Single DELETE with IN filter — one HTTP request regardless of count */
+  fetch(BASE + '/questions?id=in.(' + ids.join(',') + ')', {
+    method: 'DELETE',
+    headers: {
+      'apikey':        KEY,
+      'Authorization': 'Bearer ' + KEY,
+      'Content-Type':  'application/json',
+      'Prefer':        'return=minimal'
+    }
+  })
+  .then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(r.status + ': ' + t); });
+    closeDeleteAllModal();
+    return loadQ().then(loadStats).then(function() {
+      toast('🗑 ' + ids.length + ' question' + (ids.length !== 1 ? 's' : '') + ' deleted!', 'ok');
+    });
+  })
+  .catch(function(e) {
+    btn.innerHTML = '🗑 Delete Now';
+    btn.disabled = false;
+    toast('❌ Delete failed: ' + e.message, 'err');
+  });
+}
 </script>
 </body>
 </html>
