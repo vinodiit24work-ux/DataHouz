@@ -272,6 +272,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .q-ph{color:var(--text3);font-size:12px;padding:18px;text-align:center}
 .qd-header{padding:14px 16px 10px;border-bottom:1px solid var(--border)}
 .qd-num{font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:4px;font-weight:500}
+.qd-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
+.qd-nav-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text2);border-radius:5px;padding:3px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s;white-space:nowrap}
+.qd-nav-btn:hover{background:var(--bg3);color:var(--text);border-color:var(--border2)}
+.qd-nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.qd-nav-info{font-size:10px;color:var(--text3);font-family:var(--mono);white-space:nowrap}
 .qd-title{font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.35;color:var(--text)}
 .qd-meta{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .qd-accepted{font-size:10px;color:var(--text3);margin-left:auto;font-family:var(--mono)}
@@ -1622,7 +1627,7 @@ function buildCorrectHTML(title, dateStr, rowCount, isRetry, userRes, cmp){
         '<div style="font-size:11.5px;color:var(--text2);margin-top:2px">'+(isRetry?'Your improved solution has been saved.':'"'+title+'" solved and saved to your profile.')+'</div>'+
         '<div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--mono)">'+dateStr+' · '+rowCount+' rows · ✓ matches expected output</div>'+
       '</div>'+
-      '<div style="display:flex;gap:5px;flex-shrink:0">'+liBtn+nextBtn+'</div>'+
+      liBtn+
     '</div>'+
     compareTable+
     solHTML+
@@ -2430,8 +2435,18 @@ function loadQ(id){
   var tagsHTML=(curQ.tags||[]).map(function(t){return '<span class="qd-tag">'+t+'</span>';}).join('');
   var constraintsHTML=(curQ.constraints||[]).map(function(c){return '<li>'+c+'</li>';}).join('');
   var html='';
+  var filtered=getFiltered();
+  var fIdx=filtered.findIndex(function(q){return String(q.id)===String(id);});
+  var hasPrev=fIdx>0;
+  var hasNext=fIdx<filtered.length-1;
   html+='<div class="qd-header">'
+    +'<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">'
     +'<div class="qd-num">Problem #'+(qIdx+1)+' · '+curQ.topic+'</div>'
+    +'<div class="qd-nav">'
+    +'<button class="qd-nav-btn" onclick="prevQuestion()"'+(hasPrev?'':' disabled')+'>← Prev</button>'
+    +'<span class="qd-nav-info">'+(fIdx+1)+' / '+filtered.length+'</span>'
+    +'<button class="qd-nav-btn" onclick="nextQuestion()"'+(hasNext?'':' disabled')+'>Next →</button>'
+    +'</div></div>'
     +'<div class="qd-title">'+curQ.title+(isSolved?' <span style="font-size:12px;color:var(--green)">✓ Solved</span>':'')+'</div>'
     +'<div class="qd-meta">'
     +'<span class="tag '+dc+'">'+curQ.difficulty.toUpperCase()+'</span>'
@@ -2818,22 +2833,29 @@ function checkBadges(){
 function dlPDF(){html2pdf().set({margin:10,filename:'DataHouz_'+(user?user.name:'User')+'.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('resume-card')).save();}
 function shareIt(){var txt='🚀 My DataHouz Progress\n\nSQL Solved: '+solved.length+'\nExcel Tasks: '+xlCnt+'\nStreak: '+streak+' days 🔥\n\n'+recent.slice(0,3).map(function(q){return '• '+q.title;}).join('\n');navigator.clipboard.writeText(txt).then(function(){toast('Copied! Paste on LinkedIn or WhatsApp 🔗','ok');});}
 
+function prevQuestion(){
+  var filtered=getFiltered();
+  if(!filtered.length)return;
+  var idx=filtered.findIndex(function(q){return String(q.id)===String(curQ.id);});
+  if(idx<=0)return;
+  _goToQuestion(filtered[idx-1]);
+}
+
 function nextQuestion(){
-  var filtered = getFiltered();
-  if(!filtered.length) return;
-  var idx = filtered.findIndex(function(q){ return String(q.id) === String(curQ.id); });
-  var nextIdx = (idx + 1) % filtered.length;
-  var nextQ = filtered[nextIdx];
-  loadQ(nextQ.id);
-  /* scroll question panel to top */
-  var qp = document.getElementById('question-panel') || document.getElementById('qdetail') || document.querySelector('.qd-header');
-  if(qp) qp.scrollIntoView({behavior:'smooth',block:'start'});
-  /* clear result panel */
-  document.getElementById('res-meta').innerHTML = '';
-  document.getElementById('res-body').innerHTML = '<div class="res-empty">Run your query to see results</div>';
-  /* clear editor */
-  document.getElementById('sql-editor').value = '';
-  toast('Next: "' + nextQ.title + '"', 'info');
+  var filtered=getFiltered();
+  if(!filtered.length)return;
+  var idx=filtered.findIndex(function(q){return String(q.id)===String(curQ.id);});
+  if(idx>=filtered.length-1)return;
+  _goToQuestion(filtered[idx+1]);
+}
+
+function _goToQuestion(q){
+  loadQ(q.id);
+  document.getElementById('res-meta').innerHTML='';
+  document.getElementById('res-body').innerHTML='<div class="res-empty">Run your query to see results</div>';
+  document.getElementById('sql-editor').value='';
+  var qp=document.querySelector('.qd-header');
+  if(qp)qp.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function shareOnLinkedIn(questionTitle){
@@ -2917,6 +2939,16 @@ window.addEventListener('load',async function(){
   await initSQL();
   await loadQuestions();
   try{
+    /* ── Handle Google OAuth redirect (token in URL hash) ── */
+    if(window.location.hash&&window.location.hash.includes('access_token')){
+      var hashParams=new URLSearchParams(window.location.hash.substring(1));
+      var accessToken=hashParams.get('access_token');
+      var refreshToken=hashParams.get('refresh_token');
+      if(accessToken&&refreshToken){
+        await sb.auth.setSession({access_token:accessToken,refresh_token:refreshToken});
+      }
+      window.history.replaceState(null,'',window.location.pathname);
+    }
     var sess=await sb.auth.getSession();
     if(sess.data&&sess.data.session)await onSession(sess.data.session);
     else setCloud('err');
