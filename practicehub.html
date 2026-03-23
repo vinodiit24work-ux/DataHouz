@@ -2939,16 +2939,6 @@ window.addEventListener('load',async function(){
   await initSQL();
   await loadQuestions();
   try{
-    /* ── Handle Google OAuth redirect (token in URL hash) ── */
-    if(window.location.hash&&window.location.hash.includes('access_token')){
-      var hashParams=new URLSearchParams(window.location.hash.substring(1));
-      var accessToken=hashParams.get('access_token');
-      var refreshToken=hashParams.get('refresh_token');
-      if(accessToken&&refreshToken){
-        await sb.auth.setSession({access_token:accessToken,refresh_token:refreshToken});
-      }
-      window.history.replaceState(null,'',window.location.pathname);
-    }
     var sess=await sb.auth.getSession();
     if(sess.data&&sess.data.session)await onSession(sess.data.session);
     else setCloud('err');
