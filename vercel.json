@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Index.html" },
+    { "source": "/practice", "destination": "/practicehub.html" },
+    { "source": "/admin", "destination": "/Admin.html" }
+  ]
+}
