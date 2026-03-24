@@ -2953,34 +2953,6 @@ window.addEventListener('load',async function(){
         var gb = document.getElementById('guest-banner');
         if(gb) gb.classList.remove('show');
         closeModal();
-
-        /* ── Restore question from localStorage after Google redirect ── */
-        try{
-          var restoreQid  = localStorage.getItem('dh_restore_qid');
-          var restorePage = localStorage.getItem('dh_restore_page');
-          localStorage.removeItem('dh_restore_qid');
-          localStorage.removeItem('dh_restore_page');
-          if(restorePage === 'sql'){
-            showPage('sql', document.getElementById('tb-sql'));
-            if(restoreQid && QS.length){
-              setTimeout(function(){
-                loadQ(restoreQid);
-                toast('Welcome back! Your question is ready 👋','ok');
-              }, 300);
-            } else if(restoreQid){
-              /* QS not loaded yet — wait for questions then load */
-              var waitForQS = setInterval(function(){
-                if(QS.length){
-                  clearInterval(waitForQS);
-                  loadQ(restoreQid);
-                  toast('Welcome back! Your question is ready 👋','ok');
-                }
-              }, 200);
-              setTimeout(function(){ clearInterval(waitForQS); }, 5000);
-            }
-          }
-        }catch(e){}
-
       } else if(event === 'SIGNED_OUT'){
         setCloud('err');
       }
@@ -3011,7 +2983,32 @@ window.addEventListener('load',async function(){
   updateTabLocks();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
   setViewMode('list',document.getElementById('vm-list'));
-  handleHash();
+
+  /* ── Restore question after Google login ── */
+  var _restoreQid = null;
+  try{ _restoreQid = localStorage.getItem('dh_restore_qid'); }catch(e){}
+  if(_restoreQid){
+    try{
+      localStorage.removeItem('dh_restore_qid');
+      localStorage.removeItem('dh_restore_page');
+    }catch(e){}
+    /* Go to SQL page instead of dashboard */
+    showPage('sql', document.getElementById('tb-sql'));
+    /* Wait for questions to load then open the question */
+    var _waitQ = setInterval(function(){
+      if(QS.length){
+        clearInterval(_waitQ);
+        var _q = QS.find(function(q){ return String(q.id) === String(_restoreQid); });
+        if(_q){
+          loadQ(_restoreQid);
+          toast('Welcome back! Continuing where you left off 👋','ok');
+        }
+      }
+    }, 150);
+    setTimeout(function(){ clearInterval(_waitQ); }, 6000);
+  } else {
+    handleHash();
+  }
 });
 </script>
 </body>
