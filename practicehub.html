@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- FAVICON UPDATE -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M32 12 L52 28 L52 52 L12 52 L12 28 Z' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M32 12 L12 28' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linecap='round'/%3E%3Crect x='23' y='36' width='5' height='8' rx='1' fill='%2310b981' opacity='.7'/%3E%3Crect x='30' y='30' width='5' height='14' rx='1' fill='%2310b981'/%3E%3Crect x='37' y='33' width='5' height='11' rx='1' fill='%2306b6d4' opacity='.85'/%3E%3C/svg%3E">
 <title>DataHouz – SQL & Excel Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
@@ -750,7 +752,18 @@ body.theme-light .xl-q-tag.hard{background:#fee2e2;color:#991b1b;border-color:#f
 
 <!-- TOPBAR -->
 <div id="topbar">
-  <a class="t-logo" href="index.html"><div class="t-mark">D</div><div class="t-name">DataHouz</div></a>
+  <a class="t-logo" href="Index.html">
+    <!-- DATAHOUZ LOGO  -->
+<!-- <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-xl">D</div> -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" class="rounded-xl">
+  <rect width="64" height="64" rx="14" fill="#0f172a"/>
+  <path d="M32 12 L52 28 L52 52 L12 52 L12 28 Z" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M32 12 L12 28" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="23" y="36" width="5" height="8" rx="1" fill="#10b981" opacity=".7"/>
+  <rect x="30" y="30" width="5" height="14" rx="1" fill="#10b981"/>
+  <rect x="37" y="33" width="5" height="11" rx="1" fill="#06b6d4" opacity=".85"/>
+</svg>
+    <div class="t-name">DataHouz</div></a>
   <div class="t-sep"></div>
   <nav class="t-nav">
     <button class="t-btn active" id="tb-dash" onclick="showPage('dashboard',this)">
@@ -1734,13 +1747,7 @@ function shakeBtn(id){
 /* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
-    /* Save current question + page to localStorage before redirect */
-    if(curQ && curQ.id){
-      try{ localStorage.setItem('dh_restore_qid', String(curQ.id)); }catch(e){}
-    }
-    try{ localStorage.setItem('dh_restore_page', 'sql'); }catch(e){}
-    var returnUrl = window.location.origin + window.location.pathname;
-    var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:returnUrl}});
+    var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
 }
@@ -2945,20 +2952,20 @@ window.addEventListener('load',async function(){
   await initSQL();
   await loadQuestions();
   try{
-    /* ── 1. Register onAuthStateChange FIRST ── */
+    /* ── Listen for auth changes FIRST before checking session ── */
     sb.auth.onAuthStateChange(async function(event, session){
-      if(event === 'SIGNED_IN' && session){
+      if(session){
         await onSession(session);
         hideSubmitCard();
         var gb = document.getElementById('guest-banner');
         if(gb) gb.classList.remove('show');
         closeModal();
-      } else if(event === 'SIGNED_OUT'){
+      } else {
         setCloud('err');
       }
     });
 
-    /* ── 2. Handle Google OAuth token in URL hash ── */
+    /* ── Handle Google OAuth redirect (token in URL hash) ── */
     var hash = window.location.hash;
     if(hash && hash.includes('access_token')){
       var params = new URLSearchParams(hash.substring(1));
@@ -2966,11 +2973,11 @@ window.addEventListener('load',async function(){
       var rt = params.get('refresh_token');
       if(at && rt){
         await sb.auth.setSession({access_token:at, refresh_token:rt});
-        /* onAuthStateChange SIGNED_IN fires automatically after setSession */
       }
+      /* Clean token from URL */
       window.history.replaceState(null,'',window.location.pathname);
     } else {
-      /* ── 3. Check existing session on normal page load ── */
+      /* ── Check existing session on page load ── */
       var sess = await sb.auth.getSession();
       if(sess.data && sess.data.session){
         await onSession(sess.data.session);
@@ -2983,32 +2990,7 @@ window.addEventListener('load',async function(){
   updateTabLocks();
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('en-IN');
   setViewMode('list',document.getElementById('vm-list'));
-
-  /* ── Restore question after Google login ── */
-  var _restoreQid = null;
-  try{ _restoreQid = localStorage.getItem('dh_restore_qid'); }catch(e){}
-  if(_restoreQid){
-    try{
-      localStorage.removeItem('dh_restore_qid');
-      localStorage.removeItem('dh_restore_page');
-    }catch(e){}
-    /* Go to SQL page instead of dashboard */
-    showPage('sql', document.getElementById('tb-sql'));
-    /* Wait for questions to load then open the question */
-    var _waitQ = setInterval(function(){
-      if(QS.length){
-        clearInterval(_waitQ);
-        var _q = QS.find(function(q){ return String(q.id) === String(_restoreQid); });
-        if(_q){
-          loadQ(_restoreQid);
-          toast('Welcome back! Continuing where you left off 👋','ok');
-        }
-      }
-    }, 150);
-    setTimeout(function(){ clearInterval(_waitQ); }, 6000);
-  } else {
-    handleHash();
-  }
+  handleHash();
 });
 </script>
 </body>
