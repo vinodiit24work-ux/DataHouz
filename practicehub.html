@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- FAVICON UPDATE -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M32 12 L52 28 L52 52 L12 52 L12 28 Z' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M32 12 L12 28' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linecap='round'/%3E%3Crect x='23' y='36' width='5' height='8' rx='1' fill='%2310b981' opacity='.7'/%3E%3Crect x='30' y='30' width='5' height='14' rx='1' fill='%2310b981'/%3E%3Crect x='37' y='33' width='5' height='11' rx='1' fill='%2306b6d4' opacity='.85'/%3E%3C/svg%3E">
 <title>DataHouz – SQL & Excel Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
@@ -752,18 +750,7 @@ body.theme-light .xl-q-tag.hard{background:#fee2e2;color:#991b1b;border-color:#f
 
 <!-- TOPBAR -->
 <div id="topbar">
-  <a class="t-logo" href="Index.html">
-    <!-- DATAHOUZ LOGO  -->
-<!-- <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-xl">D</div> -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" class="rounded-xl">
-  <rect width="64" height="64" rx="14" fill="#0f172a"/>
-  <path d="M32 12 L52 28 L52 52 L12 52 L12 28 Z" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M32 12 L12 28" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-  <rect x="23" y="36" width="5" height="8" rx="1" fill="#10b981" opacity=".7"/>
-  <rect x="30" y="30" width="5" height="14" rx="1" fill="#10b981"/>
-  <rect x="37" y="33" width="5" height="11" rx="1" fill="#06b6d4" opacity=".85"/>
-</svg>
-    <div class="t-name">DataHouz</div></a>
+  <a class="t-logo" href="index.html"><div class="t-mark">D</div><div class="t-name">DataHouz</div></a>
   <div class="t-sep"></div>
   <nav class="t-nav">
     <button class="t-btn active" id="tb-dash" onclick="showPage('dashboard',this)">
@@ -1747,7 +1734,10 @@ function shakeBtn(id){
 /* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
-    var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});
+    /* Save current question ID so we can restore it after Google redirects back */
+    var returnUrl = window.location.origin + window.location.pathname;
+    if(curQ && curQ.id) returnUrl += '?q=' + curQ.id;
+    var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:returnUrl}});
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
 }
@@ -2975,7 +2965,18 @@ window.addEventListener('load',async function(){
         await sb.auth.setSession({access_token:at, refresh_token:rt});
       }
       /* Clean token from URL */
+      /* Restore question from ?q= param after Google redirect */
+      var qParam = new URLSearchParams(window.location.search).get('q');
       window.history.replaceState(null,'',window.location.pathname);
+      if(qParam){
+        setTimeout(function(){
+          loadQ(qParam);
+          /* Restore result panel and editor state */
+          document.getElementById('res-meta').innerHTML='';
+          document.getElementById('res-body').innerHTML='<div class="res-empty">Login successful! Run your query again to submit.</div>';
+          toast('Welcome! Your question is still here 👋','ok');
+        }, 800);
+      }
     } else {
       /* ── Check existing session on page load ── */
       var sess = await sb.auth.getSession();
