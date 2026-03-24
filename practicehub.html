@@ -1734,9 +1734,12 @@ function shakeBtn(id){
 /* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
-    /* Save current question ID so we can restore it after Google redirects back */
+    /* Save current question + page to localStorage before redirect */
+    if(curQ && curQ.id){
+      try{ localStorage.setItem('dh_restore_qid', String(curQ.id)); }catch(e){}
+    }
+    try{ localStorage.setItem('dh_restore_page', 'sql'); }catch(e){}
     var returnUrl = window.location.origin + window.location.pathname;
-    if(curQ && curQ.id) returnUrl += '?q=' + curQ.id;
     var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:returnUrl}});
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
@@ -2942,20 +2945,48 @@ window.addEventListener('load',async function(){
   await initSQL();
   await loadQuestions();
   try{
-    /* ── Listen for auth changes FIRST before checking session ── */
+    /* ── 1. Register onAuthStateChange FIRST ── */
     sb.auth.onAuthStateChange(async function(event, session){
-      if(session){
+      if(event === 'SIGNED_IN' && session){
         await onSession(session);
         hideSubmitCard();
         var gb = document.getElementById('guest-banner');
         if(gb) gb.classList.remove('show');
         closeModal();
-      } else {
+
+        /* ── Restore question from localStorage after Google redirect ── */
+        try{
+          var restoreQid  = localStorage.getItem('dh_restore_qid');
+          var restorePage = localStorage.getItem('dh_restore_page');
+          localStorage.removeItem('dh_restore_qid');
+          localStorage.removeItem('dh_restore_page');
+          if(restorePage === 'sql'){
+            showPage('sql', document.getElementById('tb-sql'));
+            if(restoreQid && QS.length){
+              setTimeout(function(){
+                loadQ(restoreQid);
+                toast('Welcome back! Your question is ready 👋','ok');
+              }, 300);
+            } else if(restoreQid){
+              /* QS not loaded yet — wait for questions then load */
+              var waitForQS = setInterval(function(){
+                if(QS.length){
+                  clearInterval(waitForQS);
+                  loadQ(restoreQid);
+                  toast('Welcome back! Your question is ready 👋','ok');
+                }
+              }, 200);
+              setTimeout(function(){ clearInterval(waitForQS); }, 5000);
+            }
+          }
+        }catch(e){}
+
+      } else if(event === 'SIGNED_OUT'){
         setCloud('err');
       }
     });
 
-    /* ── Handle Google OAuth redirect (token in URL hash) ── */
+    /* ── 2. Handle Google OAuth token in URL hash ── */
     var hash = window.location.hash;
     if(hash && hash.includes('access_token')){
       var params = new URLSearchParams(hash.substring(1));
@@ -2963,22 +2994,11 @@ window.addEventListener('load',async function(){
       var rt = params.get('refresh_token');
       if(at && rt){
         await sb.auth.setSession({access_token:at, refresh_token:rt});
+        /* onAuthStateChange SIGNED_IN fires automatically after setSession */
       }
-      /* Clean token from URL */
-      /* Restore question from ?q= param after Google redirect */
-      var qParam = new URLSearchParams(window.location.search).get('q');
       window.history.replaceState(null,'',window.location.pathname);
-      if(qParam){
-        setTimeout(function(){
-          loadQ(qParam);
-          /* Restore result panel and editor state */
-          document.getElementById('res-meta').innerHTML='';
-          document.getElementById('res-body').innerHTML='<div class="res-empty">Login successful! Run your query again to submit.</div>';
-          toast('Welcome! Your question is still here 👋','ok');
-        }, 800);
-      }
     } else {
-      /* ── Check existing session on page load ── */
+      /* ── 3. Check existing session on normal page load ── */
       var sess = await sb.auth.getSession();
       if(sess.data && sess.data.session){
         await onSession(sess.data.session);
