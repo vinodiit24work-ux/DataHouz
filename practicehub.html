@@ -1747,9 +1747,10 @@ function shakeBtn(id){
 /* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
-    // Save current page/question hash so we can restore it after Google OAuth redirect
-    var currentHash = window.location.hash || '';
-    if(currentHash) sessionStorage.setItem('dh_redirect_hash', currentHash);
+    // Save full state (page + question id) before Google redirect
+    var _st = {hash: window.location.hash || '#sql'};
+    if(curQ) _st.qid = String(curQ.id);
+    sessionStorage.setItem('dh_login_state', JSON.stringify(_st));
     var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
@@ -2963,6 +2964,12 @@ window.addEventListener('load',async function(){
         var gb = document.getElementById('guest-banner');
         if(gb) gb.classList.remove('show');
         closeModal();
+        // Restore question the user was on before Google login
+        if(window._pendingQid){
+          var _qid=window._pendingQid; window._pendingQid=null;
+          showPage('sql',document.getElementById('tb-sql'));
+          setTimeout(function(){loadQ(_qid);},300);
+        }
       } else {
         setCloud('err');
       }
@@ -2977,10 +2984,11 @@ window.addEventListener('load',async function(){
       if(at && rt){
         await sb.auth.setSession({access_token:at, refresh_token:rt});
       }
-      /* Clean token from URL, restore saved hash */
-      var savedHash = sessionStorage.getItem('dh_redirect_hash') || '';
-      sessionStorage.removeItem('dh_redirect_hash');
-      window.history.replaceState(null,'', window.location.pathname + savedHash);
+      /* Clean token from URL, restore saved state */
+      var _ls=null;try{_ls=JSON.parse(sessionStorage.getItem('dh_login_state'));}catch(e){}
+      sessionStorage.removeItem('dh_login_state');
+      window.history.replaceState(null,'', window.location.pathname + ((_ls&&_ls.hash)?_ls.hash:''));
+      if(_ls&&_ls.qid) window._pendingQid=_ls.qid;
     } else {
       /* ── Check existing session on page load ── */
       var sess = await sb.auth.getSession();
