@@ -1747,6 +1747,9 @@ function shakeBtn(id){
 /* ═══ AUTH ═══ */
 async function signInGoogle(){
   try{
+    // Save current page/question hash so we can restore it after Google OAuth redirect
+    var currentHash = window.location.hash || '';
+    if(currentHash) sessionStorage.setItem('dh_redirect_hash', currentHash);
     var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});
     if(r.error)throw r.error;
   }catch(e){toast('Google sign-in: '+e.message,'err');}
@@ -2974,8 +2977,10 @@ window.addEventListener('load',async function(){
       if(at && rt){
         await sb.auth.setSession({access_token:at, refresh_token:rt});
       }
-      /* Clean token from URL */
-      window.history.replaceState(null,'',window.location.pathname);
+      /* Clean token from URL, restore saved hash */
+      var savedHash = sessionStorage.getItem('dh_redirect_hash') || '';
+      sessionStorage.removeItem('dh_redirect_hash');
+      window.history.replaceState(null,'', window.location.pathname + savedHash);
     } else {
       /* ── Check existing session on page load ── */
       var sess = await sb.auth.getSession();
